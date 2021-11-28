@@ -1,5 +1,6 @@
 <script lang="ts">
-import PokemonType from "./PokemonType.svelte";
+    import PokemonType from "./PokemonType.svelte";
+    import POKEMON_TYPES from "../store/pokemon-types";
 
     type ApiType = {
         name: string,
@@ -14,12 +15,17 @@ import PokemonType from "./PokemonType.svelte";
     export let name: string = "Missing";
     export let picture: string = "Missing"
     export let types: PokemonType[] = [];
+
+    const drawCardBackground = (types: PokemonType[]) => {
+        const [fType, sType] = types.map(type => POKEMON_TYPES.filter(ref => ref.name === type.type.name)[0].color);
+        return sType ? `linear-gradient(90deg, ${fType} 0%, ${sType} 100%)` : fType;
+    }
 </script>
 
-<div class="pokemon-card" {id}>
+<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
     <div class="pokemon-name">{ name }</div>
     <div class="pokemon-picture">
-        <img src={ picture } alt={ name }> 
+        <img src={ picture } alt={ name } > 
     </div>
     <div class="pokemon-types">
         {#each types as type}
@@ -39,19 +45,17 @@ import PokemonType from "./PokemonType.svelte";
     align-items: center;
     border: 1px solid black;
     border-radius: 10px;
-    min-height: 40vh;
+    height: 40vh;
+    width: 20vw;
 }
 
 @media (max-width: 812px) {
     .pokemon-card {
-        width: 100%;
     }
 }
 
 @media (min-width: 813px) {
     .pokemon-card {
-        width: 250px;
-        max-width: 350px;
     }
 }
 
@@ -59,12 +63,13 @@ import PokemonType from "./PokemonType.svelte";
     margin: 10px;
     padding: 10px;
     font-size: 18px;
-    font-weight: bolder;
-    border: 1px solid black;
-    border-radius: 25px;
     text-align: center;
+    letter-spacing: 2px;
+    font-weight: bolder;
+    border-radius: 25px;
     width: fit-content;
     text-transform: capitalize;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .pokemon-types {

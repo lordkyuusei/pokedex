@@ -22,22 +22,26 @@
 
 <style scoped>
 .pokemon-type {
-    display: flex;
-    justify-content: flex-start;
-    align-content: space-around;
-    width: 45%;
+    display: grid;
+    grid-template-columns: 25px auto;
+    min-width: 40%;
     margin: 10px;
-    border: 3px solid black;
+    border: 1px solid black;
     border-radius: 50px;
     text-transform: uppercase;
 }
 
 .pokemon-icon {
-    border-radius: 50px;
-    background-color: white;
+    text-align: center;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    width: 100%;
 }
 
 .pokemon-typename {
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: white;
 }
 
 </style>
