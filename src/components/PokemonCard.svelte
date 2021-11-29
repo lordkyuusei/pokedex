@@ -1,34 +1,40 @@
 <script lang="ts">
+    
     import PokemonType from "./PokemonType.svelte";
     import POKEMON_TYPES from "../store/pokemon-types";
-
-    type ApiType = {
-        name: string,
-        url: string,
-    };
-    type PokemonType = {
-        slot: number,
-        type: ApiType,
-    };
+    import { beforeUpdate } from "svelte";
 
     export let id: string = "";
     export let name: string = "Missing";
     export let picture: string = "Missing"
     export let types: PokemonType[] = [];
+    export let order: number = 0;
 
     const drawCardBackground = (types: PokemonType[]) => {
         const [fType, sType] = types.map(type => POKEMON_TYPES.filter(ref => ref.name === type.type.name)[0].color);
         return sType ? `linear-gradient(90deg, ${fType} 0%, ${sType} 100%)` : fType;
     }
+
+    const computePokemonId = (id: number) => {
+        return `${id}`.padStart(3, "0");
+    }
+    
+    beforeUpdate(() => {
+        console.log(id, name, types);
+    })
 </script>
 
 <div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
-    <div class="pokemon-name">{ name }</div>
+    <div class="pokemon-id">
+        <div class="pokemon-number">N°{ computePokemonId(id) }</div>
+        <div class="pokemon-name">{ name }</div>
+        <div class="pokemon-order"> { order }</div>
+    </div>
     <div class="pokemon-picture">
-        <img src={ picture } alt={ name } > 
+        <img src={ picture } alt={ name }> 
     </div>
     <div class="pokemon-types">
-        {#each types as type}
+        {#each types as type (type.type.name)}
             <PokemonType name={ type.type.name } />
         {/each}
     </div>
@@ -47,16 +53,25 @@
     border-radius: 10px;
     height: 40vh;
     width: 20vw;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
-@media (max-width: 812px) {
-    .pokemon-card {
-    }
+.pokemon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
-@media (min-width: 813px) {
-    .pokemon-card {
-    }
+.pokemon-id {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.pokemon-number {
+    text-shadow: 1px -1px aliceblue;
 }
 
 .pokemon-name {
@@ -70,6 +85,23 @@
     width: fit-content;
     text-transform: capitalize;
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.pokemon-picture {
+    position: relative;
+    width: 100%;
+
+}
+
+.pokemon-picture img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 15vh;
+    width: auto;
+    margin: auto;
 }
 
 .pokemon-types {

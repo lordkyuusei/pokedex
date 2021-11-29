@@ -20,7 +20,7 @@ const POKEMON_TYPES: PokemonType[] = [
         name: "water",
         color: "rgb(90, 139, 205, 0.69)",
         icon: "💧",
-    }
+    },
     {
         name: "fighting",
         color: "rgb(205, 92, 59, 0.69)",
@@ -80,7 +80,7 @@ const POKEMON_TYPES: PokemonType[] = [
         name: "ghost",
         color: "rgb(112, 90, 164, 0.69)",
         icon: "💀"
-    }
+    },
     {
         name: "poison",
         color: "rgb(123, 98, 172, 0.69)",

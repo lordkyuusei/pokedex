@@ -1,8 +1,8 @@
 <script lang="ts">
-import { onDestroy, onMount } from "svelte";
-
+    import { onDestroy, onMount } from "svelte";
     import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
     import PokemonCard from "../components/PokemonCard.svelte";
+    import PokemonSearch from "../components/PokemonSearch.svelte";
 
     let allPokemon: any[] = [];
     let nextUrl: number[] = [30, 0];
@@ -32,7 +32,8 @@ import { onDestroy, onMount } from "svelte";
         for (let pokemon of results) {
             const { name } = pokemon;
             const pokemonInfo = await fetchPokemonInfo(name);
-            allPokemon = [...allPokemon, { 
+            allPokemon = [...allPokemon, {
+                id: pokemonInfo.id, 
                 name: pokemonInfo.name,
                 picture: pokemonInfo.sprites.front_default,
                 types: pokemonInfo.types
@@ -56,24 +57,34 @@ import { onDestroy, onMount } from "svelte";
     })
 </script>
 
-<div class="pokemon-list" id="pokemon-list">
-    {#await promise && nextUrl[1] === 0}
-        <h1 id="scrollArea">Récupération d'un pokémon...</h1>
-    {:then}
-        {#each allPokemon as pokemon, index}
-            <PokemonCard id={index === allPokemon.length - 1 ? "last-pokemon" : `pokemon-${index + 1}`}
-                name={pokemon.name}
-                picture={pokemon.picture}
-                types={pokemon.types}
-            />
-        {/each}
-    {/await}
-</div>
+<template>
+    <div class="pokemon-search">
+        <PokemonSearch />
+    </div>
+    <div class="pokemon-list" id="pokemon-list">
+        {#await promise && nextUrl[1] === 0}
+            <h1 id="scrollArea">Récupération d'un pokémon...</h1>
+        {:then}
+            {#each allPokemon as pokemon, index}
+                <PokemonCard
+                    id={index === allPokemon.length - 1 ? "last-pokemon" : `${index + 1}`}
+                    name={pokemon.name}
+                    picture={pokemon.picture}
+                    types={pokemon.types}
+                />
+            {/each}
+        {/await}
+    </div>
+</template>
 
 <style scoped>
-.pokemon-list {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
+    .pokemon-search {
+        display: flex;
+        justify-content: center;
+    }
+    .pokemon-list {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
 </style>
