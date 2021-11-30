@@ -1,34 +1,28 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
     
     import PokemonType from "./PokemonType.svelte";
     import POKEMON_TYPES from "../store/pokemon-types";
-    import { beforeUpdate } from "svelte";
 
     export let id: string = "";
+    export let order: number = 0;
     export let name: string = "Missing";
     export let picture: string = "Missing"
     export let types: PokemonType[] = [];
-    export let order: number = 0;
 
     const drawCardBackground = (types: PokemonType[]) => {
         const [fType, sType] = types.map(type => POKEMON_TYPES.filter(ref => ref.name === type.type.name)[0].color);
         return sType ? `linear-gradient(90deg, ${fType} 0%, ${sType} 100%)` : fType;
     }
 
-    const computePokemonId = (id: number) => {
-        return `${id}`.padStart(3, "0");
-    }
-    
-    beforeUpdate(() => {
-        console.log(id, name, types);
-    })
+    const computePokemonId = (id: string) => `${id}`.padStart(3, "0");
 </script>
 
-<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
+<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`} in:fade>
     <div class="pokemon-id">
         <div class="pokemon-number">N°{ computePokemonId(id) }</div>
         <div class="pokemon-name">{ name }</div>
-        <div class="pokemon-order"> { order }</div>
+        <div class="pokemon-order">{ order }</div>
     </div>
     <div class="pokemon-picture">
         <img src={ picture } alt={ name }> 
@@ -56,6 +50,25 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     transition: 0.3s;
     cursor: pointer;
+}
+
+@media (max-width: 1350px) and (min-width: 601px) {
+    .pokemon-card {
+        width: 40vw;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 480px) {
+    .pokemon-card {
+        width: 45vw;
+    }
+}
+
+@media (max-width: 479px) {
+    .pokemon-card {
+        width: 80vw;
+        min-width: 80vw;
+    }
 }
 
 .pokemon-card:hover {
@@ -90,10 +103,11 @@
 .pokemon-picture {
     position: relative;
     width: 100%;
-
 }
 
 .pokemon-picture img {
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
     position: absolute;
     top: 0;
     bottom: 0;

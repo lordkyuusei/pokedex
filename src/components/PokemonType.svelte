@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+
     import POKEMON_TYPES from "../store/pokemon-types";
     import type { PokemonType } from "../store/types/PokemonType";  
 

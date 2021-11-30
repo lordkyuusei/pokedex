@@ -15,15 +15,17 @@
 
 <div class="pokemon-search">
     <input
-        class="search-input"
-        bind:value={ searchText }
-        on:keypress={ searchPokemon }
-        placeholder="Rechercher un pokémon, une capacité, un objet...">
+    class="search-input"
+    bind:value={ searchText }
+    on:keypress={ searchPokemon }
+    placeholder="Rechercher un pokémon, une capacité, un objet...">
     {#if pokemon?.id && searchText !== ""}
+        <h1>Résultat de la recherche</h1>
         <PokemonCard
             id={pokemon.id.toString()}
             name={pokemon.name}
             picture={pokemon.sprites.front_default}
+            order={pokemon.order}
             types={pokemon.types}
         />
     {/if}
@@ -37,6 +39,7 @@
         align-items: center;
         margin: 10px;
     }
+    
     .search-input {
         border: 1px solid grey;
         border-radius: 50px;
@@ -45,4 +48,24 @@
         padding: 10px;
         font-size: large;
     }
+
+    @media (max-width: 1350px) and (min-width: 601px) {
+        .search-input {
+            width: 50vw;
+        }
+    }
+
+    @media (max-width: 600px) and (min-width: 480px) {
+        .search-input {
+            width: 45vw;
+        }
+    }
+
+    @media (max-width: 479px) {
+        .search-input {
+            width: 80vw;
+            min-width: 80vw;
+        }
+    }
+
 </style>

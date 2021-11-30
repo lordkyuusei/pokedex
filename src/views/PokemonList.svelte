@@ -1,19 +1,21 @@
 <script lang="ts">
+    import { Link } from 'svelte-routing';
     import { onDestroy, onMount } from "svelte";
+    
     import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
 
+    let target: Element;
     let allPokemon: any[] = [];
     let nextUrl: number[] = [30, 0];
-    let target;
 
     const options = {
         root: document.querySelector("#pokemon-list"),
         threshold: 1.0
     };
 
-    const callback = (entries, observer) => {
+    const interStalker = new IntersectionObserver((entries: any[], _: any) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
             interStalker.unobserve(target);
@@ -22,8 +24,7 @@
                 interStalker.observe(target);
             });
         }
-    }
-    const interStalker = new IntersectionObserver(callback, options);
+    }, options);
 
     const fetchPokemon = async () => {
         const pokemonList = await fetchPokemonBulk(nextUrl[0], nextUrl[1]);
@@ -33,7 +34,8 @@
             const { name } = pokemon;
             const pokemonInfo = await fetchPokemonInfo(name);
             allPokemon = [...allPokemon, {
-                id: pokemonInfo.id, 
+                id: pokemonInfo.id,
+                order: pokemonInfo.order,
                 name: pokemonInfo.name,
                 picture: pokemonInfo.sprites.front_default,
                 types: pokemonInfo.types
@@ -48,16 +50,19 @@
             setTimeout(() => {
                 target = document.querySelector('#last-pokemon');
                 interStalker.observe(target);
-            }, 2000);
+            }, 1000);
         })
     });
 
     onDestroy(() => {
-        interStalker.unobserve(target);
+        if (target) {
+            interStalker.unobserve(target);
+        }
     })
 </script>
 
 <template>
+    <h1>Pokédex</h1>
     <div class="pokemon-search">
         <PokemonSearch />
     </div>
@@ -66,12 +71,15 @@
             <h1 id="scrollArea">Récupération d'un pokémon...</h1>
         {:then}
             {#each allPokemon as pokemon, index}
-                <PokemonCard
-                    id={index === allPokemon.length - 1 ? "last-pokemon" : `${index + 1}`}
-                    name={pokemon.name}
-                    picture={pokemon.picture}
-                    types={pokemon.types}
-                />
+                <Link to={`pokemon/${pokemon.order}`} state={{ pokemon }}>
+                    <PokemonCard
+                        id={index === allPokemon.length - 1 ? "last-pokemon" : `${index + 1}`}
+                        order={pokemon.order}
+                        name={pokemon.name}
+                        picture={pokemon.picture}
+                        types={pokemon.types}
+                    />
+                </Link>
             {/each}
         {/await}
     </div>
@@ -82,9 +90,14 @@
         display: flex;
         justify-content: center;
     }
+
     .pokemon-list {
         display: flex;
         justify-content: space-evenly;
         flex-wrap: wrap;
+    }
+
+    * {
+        text-decoration: none;
     }
 </style>

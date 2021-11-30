@@ -1,9 +1,9 @@
 <script lang="ts">
-    import PokemonList from "./views/PokemonList.svelte";
+    import Router from './routes/routes.svelte';
 </script>
 
 <main>
-    <PokemonList />
+    <Router />
 </main>
 
 <style>
