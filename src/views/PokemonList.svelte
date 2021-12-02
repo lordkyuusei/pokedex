@@ -5,6 +5,7 @@
     import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
+import type { PokemonBulk } from '../store/types/Pokemon';
 
     let target: Element;
     let allPokemon: any[] = [];
@@ -27,18 +28,17 @@
     }, options);
 
     const fetchPokemon = async () => {
-        const pokemonList = await fetchPokemonBulk(nextUrl[0], nextUrl[1]);
-        const { results } = pokemonList;
+        const { results } = await fetchPokemonBulk(nextUrl[0], nextUrl[1]);
         nextUrl[1] += 30
-        for (let pokemon of results) {
-            const { name } = pokemon;
-            const pokemonInfo = await fetchPokemonInfo(name);
+        for (let entity of results) {
+            const pokemonInfo = await fetchPokemonInfo(entity.name);
             allPokemon = [...allPokemon, {
                 id: pokemonInfo.id,
                 order: pokemonInfo.order,
                 name: pokemonInfo.name,
                 picture: pokemonInfo.sprites.front_default,
-                types: pokemonInfo.types
+                types: pokemonInfo.types,
+                stats: pokemonInfo.stats
             }];
         }
     }

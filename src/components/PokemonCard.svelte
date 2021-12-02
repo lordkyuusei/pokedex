@@ -1,6 +1,4 @@
-<script lang="ts">
-    import { fade } from 'svelte/transition';
-    
+<script lang="ts">    
     import PokemonType from "./PokemonType.svelte";
     import POKEMON_TYPES from "../store/pokemon-types";
 
@@ -12,13 +10,15 @@
 
     const drawCardBackground = (types: PokemonType[]) => {
         const [fType, sType] = types.map(type => POKEMON_TYPES.filter(ref => ref.name === type.type.name)[0].color);
-        return sType ? `linear-gradient(90deg, ${fType} 0%, ${sType} 100%)` : fType;
+        return sType ?
+            `linear-gradient(90deg, ${fType} 0%, ${sType} 100%)` :
+            `radial-gradient(circle, ${fType} 50%, ${fType.replace("0.69", "1")} 100%)`;
     }
 
     const computePokemonId = (id: string) => `${id}`.padStart(3, "0");
 </script>
 
-<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`} in:fade>
+<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
     <div class="pokemon-id">
         <div class="pokemon-number">N°{ computePokemonId(id) }</div>
         <div class="pokemon-name">{ name }</div>
@@ -39,6 +39,7 @@
 
 .pokemon-card {
     margin: 10px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

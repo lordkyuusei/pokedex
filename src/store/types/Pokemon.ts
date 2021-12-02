@@ -94,6 +94,13 @@ export type TypeRef = {
     type: EntityRef,
 };
 
+export type PokemonBulk = {
+    count: number,
+    prev?: string,
+    next?: string,
+    results: EntityRef[];
+}
+
 export type EntityRef = {
     name: string,
     url: string,
