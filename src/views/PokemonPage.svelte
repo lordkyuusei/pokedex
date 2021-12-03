@@ -1,9 +1,9 @@
 <script lang="ts">
-import { afterUpdate, onMount } from "svelte";
-import { navigate } from "svelte-routing";
-import PokemonCard from "../components/PokemonCard.svelte";
-import PokemonSearch from "../components/PokemonSearch.svelte";
-import PokemonStats from "../components/PokemonStats/PokemonStats.svelte";
+    import { afterUpdate, onMount } from "svelte";
+    import { navigate } from "svelte-routing";
+    import PokemonCard from "../components/PokemonCard.svelte";
+    import PokemonSearch from "../components/PokemonSearch.svelte";
+    import PokemonStats from "../components/PokemonStats/PokemonStats.svelte";
 
     import type { Pokemon } from "../store/types/Pokemon";
 
@@ -13,16 +13,15 @@ import PokemonStats from "../components/PokemonStats/PokemonStats.svelte";
 
     onMount(() => {
         pokemon = location.state.pokemon;
-    })
+    });
 
     afterUpdate(() => {
         pokemon = location.state.pokemon;
-    })
-
+    });
 </script>
 
 <div class="pokemon-page">
-    <button class="pokemon-back" on:click={ () => navigate('/')}>⬅️</button>
+    <button class="pokemon-back" on:click={() => navigate("/")}>⬅️</button>
     <PokemonSearch />
     {#if pokemon}
         <div class="page-details">
@@ -33,7 +32,7 @@ import PokemonStats from "../components/PokemonStats/PokemonStats.svelte";
                 picture={pokemon.picture || pokemon.sprites.front_default}
                 types={pokemon.types}
             />
-            <PokemonStats statistics={pokemon.stats}/>
+            <PokemonStats statistics={pokemon.stats} />
         </div>
     {/if}
 </div>

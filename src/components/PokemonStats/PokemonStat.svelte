@@ -4,38 +4,45 @@
     import { HPFormula, StatFormula } from "../../lib/getStatFromFormula";
 
     export let stat: StatRef;
-    export let evs: number = 0
-    export let ivs: number = 0;
-    export let lvl: number = 0
+    export let evs: number = 252;
+    export let ivs: number = 31;
+    export let lvl: number = 100;
 
+    $: formula = stat.stat.name === "hp" ? HPFormula : StatFormula;
     $: statHeight = getStatHeight(stat.base_stat);
     $: statColor = getStatColor(stat.base_stat);
-    $: maxStatValue = stat.stat.name === "hp" ? HPFormula(stat.base_stat, lvl, evs, ivs) : StatFormula(stat.base_stat, lvl, evs, ivs);
+    $: statShade = "rgba(127, 127, 127, 0.2)";
+    $: maxStatValue = formula(stat.base_stat, lvl, evs, ivs);
 
     const statToIcon = {
-        "hp": "HP",
-        "attack": "ATK",
-        "defense": "DEF",
+        hp: "HP",
+        attack: "ATK",
+        defense: "DEF",
         "special-attack": "SPA",
         "special-defense": "SPD",
-        "speed": "SPE",
-        "average": "AVG",
-    }
-    
+        speed: "SPE",
+        average: "AVG",
+    };
 </script>
 
 <div class="pokemon-stat">
+    <div class="stat-result">
+        {#if stat.stat.name === "average"}
+            &nbsp;
+        {:else}
+            {maxStatValue}
+        {/if}
+    </div>
+    <div class="stat-jauge-container" style={`background-color: ${statShade}`}>
+        <div
+            class="stat-jauge"
+            style={`height: ${statHeight}; background-color: ${statColor};`}
+        />
+    </div>
     <div class="stat-value">
-        { stat.base_stat }
-        { statToIcon[stat.stat.name] }
+        {stat.base_stat}
+        {statToIcon[stat.stat.name]}
     </div>
-    <div class="stat-jauge" style={ `height: ${statHeight}; background-color: ${statColor}`}>
-    </div>
-    {#if stat.stat.name !== "average"}
-        <div class="stat-result">
-            { maxStatValue }
-        </div>
-    {/if}
 </div>
 
 <style scoped>
@@ -45,10 +52,10 @@
         border-radius: 5px;
         position: relative;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         align-items: center;
     }
-    
+
     .stat-value {
         width: 100%;
         height: auto;
@@ -56,6 +63,15 @@
         display: flex;
         flex-direction: column;
         z-index: 1;
+    }
+
+    .stat-jauge-container {
+        height: 100%;
+        width: 100%;
+        margin: 5px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column-reverse;
     }
 
     .stat-jauge {

@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { Link } from 'svelte-routing';
+    import { Link } from "svelte-routing";
     import { onDestroy, onMount } from "svelte";
-    
+
     import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
-import type { PokemonBulk } from '../store/types/Pokemon';
 
     let target: Element;
     let allPokemon: any[] = [];
@@ -13,7 +12,7 @@ import type { PokemonBulk } from '../store/types/Pokemon';
 
     const options = {
         root: document.querySelector("#pokemon-list"),
-        threshold: 1.0
+        threshold: 1.0,
     };
 
     const interStalker = new IntersectionObserver((entries: any[], _: any) => {
@@ -21,7 +20,7 @@ import type { PokemonBulk } from '../store/types/Pokemon';
         if (entry.isIntersecting) {
             interStalker.unobserve(target);
             promise = fetchPokemon().then(() => {
-                target = document.querySelector('#last-pokemon');
+                target = document.querySelector("#last-pokemon");
                 interStalker.observe(target);
             });
         }
@@ -29,40 +28,43 @@ import type { PokemonBulk } from '../store/types/Pokemon';
 
     const fetchPokemon = async () => {
         const { results } = await fetchPokemonBulk(nextUrl[0], nextUrl[1]);
-        nextUrl[1] += 30
+        nextUrl[1] += 30;
         for (let entity of results) {
             const pokemonInfo = await fetchPokemonInfo(entity.name);
-            allPokemon = [...allPokemon, {
-                id: pokemonInfo.id,
-                order: pokemonInfo.order,
-                name: pokemonInfo.name,
-                picture: pokemonInfo.sprites.front_default,
-                types: pokemonInfo.types,
-                stats: pokemonInfo.stats
-            }];
+            allPokemon = [
+                ...allPokemon,
+                {
+                    id: pokemonInfo.id,
+                    order: pokemonInfo.order,
+                    name: pokemonInfo.name,
+                    picture: pokemonInfo.sprites.front_default,
+                    types: pokemonInfo.types,
+                    stats: pokemonInfo.stats,
+                },
+            ];
         }
-    }
+    };
 
     let promise: any;
 
     onMount(() => {
         promise = fetchPokemon().then(() => {
             setTimeout(() => {
-                target = document.querySelector('#last-pokemon');
+                target = document.querySelector("#last-pokemon");
                 interStalker.observe(target);
             }, 1000);
-        })
+        });
     });
 
     onDestroy(() => {
         if (target) {
             interStalker.unobserve(target);
         }
-    })
+    });
 </script>
 
 <template>
-    <h1>Pokédex</h1>
+    <h1>Pokédex (uniquement en anglais)</h1>
     <div class="pokemon-search">
         <PokemonSearch />
     </div>
@@ -73,7 +75,9 @@ import type { PokemonBulk } from '../store/types/Pokemon';
             {#each allPokemon as pokemon, index}
                 <Link to={`pokemon/${pokemon.order}`} state={{ pokemon }}>
                     <PokemonCard
-                        id={index === allPokemon.length - 1 ? "last-pokemon" : `${index + 1}`}
+                        id={index === allPokemon.length - 1
+                            ? "last-pokemon"
+                            : `${index + 1}`}
                         order={pokemon.order}
                         name={pokemon.name}
                         picture={pokemon.picture}
