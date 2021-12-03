@@ -3,6 +3,7 @@
     import { navigate } from "svelte-routing";
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
+    import PokedexThemeToggle from "../components/PokedexThemeToggle.svelte";
     import PokemonStats from "../components/PokemonStats/PokemonStats.svelte";
 
     import type { Pokemon } from "../store/types/Pokemon";
@@ -22,6 +23,7 @@
 
 <div class="pokemon-page">
     <button class="pokemon-back" on:click={() => navigate("/")}>⬅️</button>
+    <PokedexThemeToggle />
     <PokemonSearch />
     {#if pokemon}
         <div class="page-details">

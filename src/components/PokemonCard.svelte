@@ -48,7 +48,7 @@
     border-radius: 10px;
     height: 40vh;
     width: 20vw;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    box-shadow: var(--theme-shadow);
     transition: 0.3s;
     cursor: pointer;
 }
@@ -78,14 +78,12 @@
 }
 
 .pokemon-id {
-    display: flex;
+    display: grid;
+    grid-template-columns: 30% auto 30%;
     width: 100%;
     justify-content: space-evenly;
+    justify-items: center;
     align-items: center;
-}
-
-.pokemon-number {
-    text-shadow: 1px -1px aliceblue;
 }
 
 .pokemon-name {
@@ -98,7 +96,7 @@
     border-radius: 25px;
     width: fit-content;
     text-transform: capitalize;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--theme-cardglass);
 }
 
 .pokemon-picture {
@@ -108,7 +106,7 @@
 
 .pokemon-picture img {
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--theme-cardglass);
     position: absolute;
     top: 0;
     bottom: 0;

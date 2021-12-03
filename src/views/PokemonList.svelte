@@ -2,9 +2,10 @@
     import { Link } from "svelte-routing";
     import { onDestroy, onMount } from "svelte";
 
-    import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
+    import PokedexThemeToggle from '../components/PokedexThemeToggle.svelte';
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
+    import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
 
     let target: Element;
     let allPokemon: any[] = [];
@@ -64,6 +65,7 @@
 </script>
 
 <template>
+    <PokedexThemeToggle />
     <h1>Pokédex (uniquement en anglais)</h1>
     <div class="pokemon-search">
         <PokemonSearch />
