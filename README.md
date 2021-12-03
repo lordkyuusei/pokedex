@@ -12,9 +12,9 @@ cd pokedex
 npm install && npm run dev
 ```
 ## Screenshots
-![Main page](./screeshots/pokedex.jpeg)
-![Main page & Search](./screeshots/pokedex-search.jpeg)
-![Details page](./screeshots/pokedex-info.jpeg)
+![Main page](./screenshots/pokedex.jpeg)
+![Main page & Search](./screenshots/pokedex-search.jpeg)
+![Details page](./screenshots/pokedex-info.jpeg)
 
 ## License
 The Unlicense license.
