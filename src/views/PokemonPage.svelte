@@ -6,7 +6,7 @@
     import type { PokemonSpecie } from "../store/types/PokemonSpecie";
     import type { PokemonEvolutionChain } from "../store/types/PokemonEvolutionChain";
 
-    import { fetchPokemonEvolutionChain, fetchPokemonSpecie } from "../api/pokeapi";
+    import { fetchPokemonEvolutionChain, fetchPokemonInfo, fetchPokemonSpecie } from "../api/pokeapi";
 
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
@@ -16,25 +16,31 @@
 
     export let pokemon: Pokemon = null;
     export let specie: PokemonSpecie = null;
-    export const order: number = 0;
+    export let name: string = "";
     export let location: any;
 
     let evolutionChain: PokemonEvolutionChain = null;
 
     onMount(async () => {
-        pokemon = location.state.pokemon;
-        specie = location.state.specie;
-        if (!specie) {
-            specie = await fetchPokemonSpecie(pokemon.name);
-        }
-    
+        if (location.state) {
+            specie = location.state.specie;
+            pokemon = location.state.pokemon;
+        } else {
+            specie = await fetchPokemonSpecie(name);
+            const defaultForm = specie.varieties.find(v => v.is_default);
+            pokemon = await fetchPokemonInfo(defaultForm.pokemon.name);
+
+        }    
         const evolutionChainId = specie.evolution_chain.url.match(/\d+/g).pop();
         evolutionChain = await fetchPokemonEvolutionChain(evolutionChainId);
     });
 
     afterUpdate(() => {
-        pokemon = location.state.pokemon;
+        if (location.state) {
+            pokemon = location.state.pokemon;
+        }
     });
+
 </script>
 
 <div class="pokemon-page">
