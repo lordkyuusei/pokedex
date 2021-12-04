@@ -7,7 +7,7 @@
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear -single",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "heroku_postbuild": "npm run build",
+    "heroku_postbuild": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
