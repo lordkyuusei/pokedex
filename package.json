@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear -single --host $HOST --port $PORT",
+    "start": "sirv public/ --no-clear -single --host $HOST --port $PORT",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "heroku_postbuild": "npm run build"
   },
