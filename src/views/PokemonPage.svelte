@@ -13,6 +13,7 @@
     import PokedexThemeToggle from "../components/PokedexThemeToggle.svelte";
     import PokemonStats from "../components/PokemonStats/PokemonStats.svelte";
     import PokemonEvolution from "../components/PokemonEvolution.svelte";
+import PokemonLoader from "../components/PokemonLoader.svelte";
 
     export let pokemon: Pokemon = null;
     export let specie: PokemonSpecie = null;
@@ -60,6 +61,8 @@
                 <PokemonEvolution {evolutionChain} />
             {/if}
         </div>
+    {:else}
+        <PokemonLoader />
     {/if}
 </div>
 

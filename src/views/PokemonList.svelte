@@ -2,10 +2,12 @@
     import { Link } from "svelte-routing";
     import { onDestroy, onMount } from "svelte";
 
-    import PokedexThemeToggle from '../components/PokedexThemeToggle.svelte';
+    import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
+
     import PokemonCard from "../components/PokemonCard.svelte";
     import PokemonSearch from "../components/PokemonSearch.svelte";
-    import { fetchPokemonInfo, fetchPokemonBulk } from "../api/pokeapi";
+    import PokemonLoader from "../components/PokemonLoader.svelte";
+    import PokedexThemeToggle from '../components/PokedexThemeToggle.svelte';
 
     let target: Element;
     let allPokemon: any[] = [];
@@ -72,7 +74,7 @@
     </div>
     <div class="pokemon-list" id="pokemon-list">
         {#await promise && nextUrl[1] === 0}
-            <h1 id="scrollArea">Récupération d'un pokémon...</h1>
+            <PokemonLoader />
         {:then}
             {#each allPokemon as pokemon, index}
                 <Link to={`pokemon/${pokemon.name}`} state={{ pokemon }}>
