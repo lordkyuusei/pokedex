@@ -75,7 +75,7 @@
             <h1 id="scrollArea">Récupération d'un pokémon...</h1>
         {:then}
             {#each allPokemon as pokemon, index}
-                <Link to={`pokemon/${pokemon.order}`} state={{ pokemon }}>
+                <Link to={`pokemon/${pokemon.name}`} state={{ pokemon }}>
                     <PokemonCard
                         id={index === allPokemon.length - 1
                             ? "last-pokemon"

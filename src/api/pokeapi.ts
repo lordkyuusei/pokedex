@@ -1,8 +1,12 @@
 import type { Response } from "node-fetch";
 import type { Pokemon, PokemonBulk } from "../store/types/Pokemon";
+import type { PokemonEvolutionChain } from "../store/types/PokemonEvolutionChain";
 import type { PokemonSpecie } from '../store/types/PokemonSpecie';
 
 const baseURL = "https://pokeapi.co/api/v2";
+
+export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvolutionChain> => 
+    await fetchPokeApi(`${baseURL}/evolution-chain/${id}`);
 
 export const fetchPokemonSpecie = async (specieName: string): Promise<PokemonSpecie> =>
     await fetchPokeApi(`${baseURL}/pokemon-species/${specieName}`);

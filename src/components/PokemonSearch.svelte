@@ -39,7 +39,7 @@
             {#each pokemonForms as form}
                 <Link
                     to={`pokemon/${form.id}`}
-                    state={{ pokemon: form }}
+                    state={{ pokemon: form, specie: pokemon }}
                     on:click={() => (pokemonForms = [])}
                 >
                     <PokemonCard
