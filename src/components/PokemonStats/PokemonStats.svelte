@@ -52,6 +52,7 @@
         display: grid;
         border: 1px solid black;
         grid-template-columns: repeat(11, 42px);
+        grid-template-rows: 100%;
         justify-content: center;
         align-items: center;
         justify-items: center;
