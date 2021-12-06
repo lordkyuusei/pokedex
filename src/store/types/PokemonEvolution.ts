@@ -1,6 +1,6 @@
 import type { EntityRef } from "./Pokemon";
 
-export type PokemonEvolutionChain = {
+export type PokemonEvolution = {
     id: number;
     baby_trigger_item: EntityRef;
     chain: EvolutionChain;
@@ -13,7 +13,7 @@ export type EvolutionChain = {
     evolves_to: EvolutionChain[];
 }
 
-type EvolutionDetail = {
+export type EvolutionDetail = {
     gender?: number
     held_item?: EntityRef,
     item?: EntityRef,
