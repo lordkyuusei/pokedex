@@ -5,12 +5,11 @@
 
 <style scoped>    
     .trigger {
-        height: 200px;
-        width: 200px;
+        height: 100%;
+        width: 100%;
         border-radius: 10px 0 0 10px;
         border-width: 10px 0 10px 10px;
         border-style: solid;
-        background-color: black;
     }
 
     .filler {

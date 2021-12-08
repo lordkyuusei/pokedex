@@ -5,6 +5,8 @@
         OneStraightAndBoth = 2,
         OneStraightTop = 3,
         OneStraightBottom = 4,
+        OneStraightFullTop = 5,
+        OneStraightFullBottom = 6,
     };
 
     import OneStraightTrigger from "./TriggerLinks/OneStraightTrigger.svelte";
@@ -12,10 +14,12 @@
     import OneStraightAndBoth from "./TriggerLinks/OneStraightAndBoth.svelte";
     import OneStraightTop from "./TriggerLinks/OneStraightTop.svelte";
     import OneStraightBottom from "./TriggerLinks/OneStraightBottom.svelte";
+    import OneStraightFullTop from "./TriggerLinks/OneStraightFullTop.svelte";
+    import OneStraightFullBottom from "./TriggerLinks/OneStraightFullBottom.svelte";
 
     import type { EvolutionDetail } from "../../store/types/PokemonEvolution";
 
-    export let trigger: EvolutionDetail = null;
+    export let trigger: EvolutionDetail[] = null;
     export let styleType: TriggerStyleType;
 
     const options = [
@@ -38,9 +42,17 @@
         {
             styleType: TriggerStyleType.OneStraightBottom,
             component: OneStraightBottom,
-        }
+        },
+        {
+            styleType: TriggerStyleType.OneStraightFullTop,
+            component: OneStraightFullTop,
+        },
+        {
+            styleType: TriggerStyleType.OneStraightFullBottom,
+            component: OneStraightFullBottom,
+        },
     ];
 
 </script>
 
-<svelte:component this={options[styleType].component} />
+<svelte:component class="trigger" this={options[styleType].component} />

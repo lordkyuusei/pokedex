@@ -38,19 +38,19 @@
 <style scoped>
 
 .pokemon-card {
-    margin: 10px;
-    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    border-radius: 10px;
     height: 40vh;
     width: 20vw;
-    box-shadow: var(--theme-shadow);
     transition: 0.3s;
     cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: var(--theme-shadow);
 }
 
 @media (max-width: 1350px) and (min-width: 601px) {

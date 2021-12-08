@@ -6,8 +6,8 @@
     .trigger {
         display: flex;
         align-items: center;
-        height: 200px;
-        width: 200px;
+        height: 100%;
+        width: 100%;
         border-width: 0 0 0 10px;
         border-style: solid;
 

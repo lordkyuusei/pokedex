@@ -4,17 +4,17 @@
 
 <style scoped>
     .trigger {
-        height: 100%;
-        width: 100%;
+        height: 200px;
+        width: 200px;
         display: flex;
-        align-items: flex-start;
+        align-items: flex-end;
     }
 
     .filler {
-        height: calc(50% - 5px);
+        height: 100%;
         width: 100%;
-        border-width: 0 0 10px 10px;
-        border-bottom-left-radius: 10px;
+        border-width: 10px 0 0 10px;
+        border-top-left-radius: 10px;
         border-style: solid;
     }
 </style>

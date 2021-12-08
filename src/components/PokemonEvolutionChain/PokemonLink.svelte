@@ -11,7 +11,6 @@
 
     onMount((): void => {
         spriteURL = fetchPokemonSpriteURL(pokemon, "versions", "generation-viii", "icons");
-        console.log(stage, maxStage)
     });
 </script>
 
@@ -37,6 +36,7 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        height: 100%;
     }
 
     .link {
