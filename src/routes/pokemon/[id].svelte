@@ -1,24 +1,62 @@
 <script context="module">
-    export const load = async ({ page, fetch, session, stuff }) => {
-        const { id } = page.params || 0;
-        const result = await fetch(`/pokemon/${id}.json`);
+	export const load = async ({ page, fetch }) => {
+		const { id } = page.params || 0;
+		const result = await fetch(`/pokemon/${id}.json`);
 
-        if (result.ok) {
-            const { pokemon } = await result.json();
+		if (result.ok) {
+			const { pokemon, specie } = await result.json();
 
-            return {
-                props: {
-                    pokemon,
-                }
-            };
-        }
-    }
+			return {
+				props: {
+					pokemon,
+					specie
+				}
+			};
+		}
+	};
 </script>
 
 <script lang="ts">
-    export let pokemon = { name: "None" };
+	import { afterUpdate, onMount } from 'svelte';
+
+	import type { Pokemon } from '$lib/types/Pokemon';
+	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
+
+	import PokemonCard from '$lib/components/PokemonCard.svelte';
+	import PokemonLoader from '$lib/components/PokemonLoader.svelte';
+	import PokemonStats from '$lib/components/PokemonStats/PokemonStats.svelte';
+	import PokemonEvolutionChain from '$lib/components/PokemonEvolutionChain.svelte';
+
+	export let pokemon: Pokemon = null;
+	export let specie: PokemonSpecie = null;
+
+	onMount(() => {});
+	afterUpdate(() => {});
 </script>
 
-<div class="pokemon">
-    <h1>{ pokemon.name }</h1>
+<div class="pokemon-page">
+	{#if pokemon}
+		<div class="page-details">
+			<PokemonCard
+				id={`${pokemon?.id}`}
+				name={pokemon?.name}
+				picture={pokemon?.sprites?.front_default || ''}
+				types={pokemon?.types?.map(({ type }) => type.name)}
+			/>
+			<PokemonStats statistics={pokemon.stats} />
+			<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
+		</div>
+	{:else}
+		<PokemonLoader />
+	{/if}
 </div>
+
+<style scoped>
+	.page-details {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: flex-end;
+		height: 100%;
+	}
+</style>

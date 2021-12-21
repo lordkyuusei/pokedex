@@ -1,3 +1,7 @@
+<script context="module">
+	export const prerendering = true;
+</script>
+
 <script lang="ts">
 	import { getContext } from 'svelte';
 	const { setTheme } = getContext('theme');
@@ -17,7 +21,7 @@
 
 <style scoped>
 	.pokedex-theme {
-		margin: 30px;
+		display: block;
 		width: 50px;
 		height: 15px;
 		position: relative;

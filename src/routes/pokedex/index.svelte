@@ -1,9 +1,10 @@
-<script context="module">
+<script context="module" lang="ts">
 	import {
 		DEFAULT_OFFSET_INCREMENT,
 		DEFAULT_POKEMON_OFFSET,
 		MAX_POKEMON_LOADING
 	} from '$lib/constants';
+	import codex from '$lib/store/lightkedex.json';
 
 	export const load = async ({ page, fetch }) => {
 		try {
@@ -14,21 +15,16 @@
 			const result = await fetch(`/pokedex/pokedex.json?_limit=${limit}&_offset=${offset}`);
 
 			if (result.ok) {
-				const { pokemonBulk } = await result.json();
-				const lightkedex = await import('$lib/store/lightkedex.json').then((codex) =>
-					pokemonBulk.results.map((pokemon) => {
-						const lightkemon = codex.default.find(
-							(p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]
-						);
-						return {
-							id: lightkemon.id,
-							name: lightkemon.name,
-							nameId: pokemon.name,
-							image: '',
-							types: lightkemon.types
-						};
-					})
-				);
+				const { pokemonBulk }: { pokemonBulk: PokemonBulk } = await result.json();
+				const lightkedex = pokemonBulk.results.map((pokemon: EntityRef) => {
+					const lightkemon = codex.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
+					return {
+						id: lightkemon.id,
+						name: lightkemon.name,
+						image: '',
+						types: lightkemon.types
+					};
+				});
 
 				return {
 					props: {
@@ -37,61 +33,59 @@
 				};
 			}
 		} catch (error) {
-			console.error('wot');
+			return {
+				props: {
+					pokemonBulk: []
+				}
+			};
 		}
 	};
 </script>
 
 <script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
+	import { browser } from '$app/env';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/env';
+	import { afterUpdate, onMount } from 'svelte';
 
 	import { pokedex } from '$lib/store/pokedex';
-	import type { Lightkemon } from '$lib/types/Pokemon';
-	import PokemonCard from '$lib/components/PokemonCard.svelte';
 	import { fetchPokemonSpriteURL } from '$lib/api';
+	import PokemonCard from '$lib/components/PokemonCard.svelte';
+	import type { EntityRef, Lightkemon, PokemonBulk } from '$lib/types/Pokemon';
 
 	export let pokemonBulk: Lightkemon[] = [];
 
 	let lastPokemon: string;
 	let target: Element = null;
 
-	$: if (target && browser) {
-		stalker.observe(target);
-	}
-
 	$: if (pokemonBulk) {
 		pokedex.update((pokedex) => [...pokedex, ...pokemonBulk]);
-		lastPokemon = `#pokemon-${$pokedex.length - 1}`;
+		lastPokemon = `#pokemon-${$pokedex.at(-10).id}`;
 	}
 
-	const callback = (entries: any[], observer: { unobserve: (arg0: any) => void }) => {
-		const currentTarget = entries[0];
-		if (currentTarget.isIntersecting) {
-			observer.unobserve(currentTarget.target);
+	const handleIntersection = (entries: any[], observer: { unobserve: (arg0: any) => void }) => {
+		if (entries[0].isIntersecting) {
+			observer.unobserve(entries[0].target);
 			const query = new URLSearchParams($page.query.toString());
-			const _offset = `${
-				(parseInt(query.get('_offset')) || DEFAULT_POKEMON_OFFSET) + DEFAULT_OFFSET_INCREMENT
-			}`;
-			query.set('_offset', _offset);
+			query.set(
+				'_offset',
+				`${(parseInt(query.get('_offset')) || DEFAULT_POKEMON_OFFSET) + DEFAULT_OFFSET_INCREMENT}`
+			);
 			goto(`?${query.toString()}`, { noscroll: true });
 		}
 	};
 
+	const intersectionOptions = {
+		root: document.querySelector('#pokedex'),
+		threshold: 1.0
+	};
+
 	let stalker: IntersectionObserver = browser
-		? new IntersectionObserver(callback, {
-				root: document.querySelector('#pokedex'),
-				threshold: 1.0
-		  })
+		? new IntersectionObserver(handleIntersection, intersectionOptions)
 		: null;
 
 	onMount(() => {
-		setTimeout(() => {
-			const target = document.querySelector(lastPokemon);
-			stalker.observe(target);
-		}, 1000);
+		target = document?.querySelector(lastPokemon);
 
 		return () => {
 			stalker.disconnect();
@@ -101,6 +95,9 @@
 
 	afterUpdate(() => {
 		target = document.querySelector(lastPokemon);
+		if (target && browser) {
+			stalker.observe(target);
+		}
 	});
 </script>
 
@@ -108,7 +105,6 @@
 	<title>Kyuudex</title>
 </svelte:head>
 
-<a href="/">Home</a>
 <div class="pokedex" id="pokedex">
 	{#each $pokedex as pokemon}
 		<a href={`/pokemon/${pokemon?.id}`} id={`pokemon-${pokemon?.id}`}>
@@ -131,5 +127,6 @@
 
 	a {
 		text-decoration: none;
+		color: inherit;
 	}
 </style>
