@@ -44,9 +44,9 @@
 				picture={pokemon?.sprites?.front_default || ''}
 				types={pokemon?.types?.map(({ type }) => type.name)}
 			/>
-			<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
 			<PokemonStats statistics={pokemon.stats} />
 			<PokemonAbilities abilities={pokemon.abilities} />
+			<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
 		</div>
 	{:else}
 		<PokemonLoader />
