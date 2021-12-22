@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import PokedexThemeToggle from '$lib/components/PokedexThemeToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 </script>

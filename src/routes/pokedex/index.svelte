@@ -57,6 +57,7 @@
 
 	let lastPokemon: string;
 	let target: Element = null;
+	const intersectionOptions: IntersectionObserverInit = {};
 
 	$: if (pokemonBulk) {
 		pokedex.update((pokedex) => [...pokedex, ...pokemonBulk]);
@@ -75,16 +76,13 @@
 		}
 	};
 
-	const intersectionOptions = {
-		root: document.querySelector('#pokedex'),
-		threshold: 1.0
-	};
-
 	let stalker: IntersectionObserver = browser
 		? new IntersectionObserver(handleIntersection, intersectionOptions)
 		: null;
 
 	onMount(() => {
+		intersectionOptions.root = document.querySelector('#pokedex');
+		intersectionOptions.threshold = 1.0;
 		target = document?.querySelector(lastPokemon);
 
 		return () => {
@@ -94,9 +92,11 @@
 	});
 
 	afterUpdate(() => {
-		target = document.querySelector(lastPokemon);
-		if (target && browser) {
-			stalker.observe(target);
+		if (browser) {
+			target = document.querySelector(lastPokemon);
+			if (target) {
+				stalker.observe(target);
+			}
 		}
 	});
 </script>

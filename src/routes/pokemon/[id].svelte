@@ -26,6 +26,7 @@
 	import PokemonLoader from '$lib/components/PokemonLoader.svelte';
 	import PokemonStats from '$lib/components/PokemonStats/PokemonStats.svelte';
 	import PokemonEvolutionChain from '$lib/components/PokemonEvolutionChain.svelte';
+	import PokemonAbilities from '$lib/components/PokemonAbilities.svelte';
 
 	export let pokemon: Pokemon = null;
 	export let specie: PokemonSpecie = null;
@@ -43,8 +44,9 @@
 				picture={pokemon?.sprites?.front_default || ''}
 				types={pokemon?.types?.map(({ type }) => type.name)}
 			/>
-			<PokemonStats statistics={pokemon.stats} />
 			<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
+			<PokemonStats statistics={pokemon.stats} />
+			<PokemonAbilities abilities={pokemon.abilities} />
 		</div>
 	{:else}
 		<PokemonLoader />
