@@ -61,14 +61,10 @@
 		align-self: center;
 		cursor: pointer;
 		border-radius: 25px;
-		background-color: var(--theme-cardglass);
 		display: flex;
 		flex-wrap: nowrap;
 		align-content: center;
 		justify-content: center;
-		margin: 0 1em;
-		height: 100%;
-		object-position: 10%;
 	}
 
 	.link-picture img {
