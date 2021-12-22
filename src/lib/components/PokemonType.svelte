@@ -5,7 +5,7 @@
 	import type { PokemonType } from '$lib/types/PokemonType';
 
 	export let name = '???';
-	let pokemonType: PokemonType;
+	let pokemonType: PokemonType = { name, icon: '❓' };
 
 	onMount(() => {
 		const type = POKEMON_TYPES.filter((type) => type.name === name.toLowerCase())[0];

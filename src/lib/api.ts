@@ -1,4 +1,5 @@
 import type { Pokemon, PokemonBulk } from './types/Pokemon';
+import type { PokemonAbility } from './types/PokemonAbility';
 import type { PokemonEvolution } from './types/PokemonEvolutionChain';
 import type { PokemonSpecie } from './types/PokemonSpecie';
 
@@ -22,6 +23,9 @@ export const fetchPokemonSpriteURL = (
 	const specific = version && generation ? `${version}/${generation}/` : '';
 	return `${spriteURL}${specific}${orientation || ''}/${id}.png`;
 };
+
+export const fetchPokemonAbility = async (id: string): Promise<PokemonAbility> =>
+	await fetchPokeApi(`${baseURL}/ability/${id}`);
 
 export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvolution> =>
 	await fetchPokeApi(`${baseURL}/evolution-chain/${id}`);
