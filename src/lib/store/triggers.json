@@ -1,22 +1,22 @@
 [
-    {
-        "key": "min_level",
-        "fr": "Niveau",
-        "en": "Level"
-    },
-    {
-        "key": "location",
-        "fr": "Lieu",
-        "en": "Location"
-    },
-    {
-        "key": "min_happiness",
-        "fr": "Bonheur",
-        "en": "Happiness"
-    },
-    {
-        "key": "min_affection",
-        "fr": "Affection",
-        "en": "Affection"
-    }
+	{
+		"key": "min_level",
+		"fr": "Niveau",
+		"en": "Level"
+	},
+	{
+		"key": "location",
+		"fr": "Lieu",
+		"en": "Location"
+	},
+	{
+		"key": "min_happiness",
+		"fr": "Bonheur",
+		"en": "Happiness"
+	},
+	{
+		"key": "min_affection",
+		"fr": "Affection",
+		"en": "Affection"
+	}
 ]
