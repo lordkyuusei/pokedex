@@ -18,5 +18,25 @@
 		"key": "min_affection",
 		"fr": "Affection",
 		"en": "Affection"
+	},
+	{
+		"key": "known_move_type",
+		"fr": "Type de capacité",
+		"en": "Move type"
+	},
+	{
+		"key": "genre",
+		"fr": "Genre",
+		"en": "Gender"
+	},
+	{
+		"key": "item",
+		"fr": "Objet",
+		"en": "Item"
+	},
+	{
+		"key": "time_of_day",
+		"fr": "Moment",
+		"en": "Time of day"
 	}
 ]
