@@ -1,4 +1,6 @@
 <script lang="ts">
+	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
+
 	import PokedexThemeToggle from '$lib/components/PokedexThemeToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 </script>
@@ -11,6 +13,9 @@
 	<header class="kyuudex-layout">
 		<div class="kyuudex-theming">
 			<PokedexThemeToggle />
+		</div>
+		<div class="kyuudex-search">
+			<PokedexSearch />
 		</div>
 		<nav class="kyuudex-navigation">
 			<ul class="navigation-links">
@@ -34,8 +39,13 @@
 		align-items: center;
 	}
 
-	.kyuudex-navigation {
+	.kyuudex-theming,
+	.kyuudex-navigation,
+	.kyuudex-search {
 		width: 100%;
+	}
+
+	.kyuudex-navigation {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
@@ -46,6 +56,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
+		flex: 3;
 	}
 
 	.navigation-links li {
@@ -77,5 +88,16 @@
 		text-decoration: none;
 		font-size: 1rem;
 		font-weight: bold;
+	}
+
+	@media screen and (max-width: 375px) {
+		.navigation-links {
+			flex-direction: column;
+		}
+
+		.navigation-links li {
+			margin-left: 0;
+			margin-top: 1rem;
+		}
 	}
 </style>

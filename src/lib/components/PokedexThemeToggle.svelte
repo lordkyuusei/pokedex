@@ -33,6 +33,7 @@
 		opacity: 0;
 		top: 0;
 		left: 0;
+		width: 100%;
 	}
 	.theme-icon {
 		position: absolute;

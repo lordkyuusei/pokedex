@@ -2,10 +2,12 @@
 	import PokemonType from './PokemonType.svelte';
 	import POKEMON_TYPES from '$lib/store/types';
 	import Card from './PokemonLayouts/Card.svelte';
+	import { fetchPokemonSpriteURL } from '$lib/api';
+	import { beforeUpdate } from 'svelte';
 
 	export let id: string = '';
-	export let name: string = 'Missing';
-	export let picture: string = 'Missing';
+	export let name: string = '';
+	export let picture: string = '';
 	export let types: string[] = [];
 
 	const drawCardBackground = (types: string[]) => {
@@ -22,6 +24,10 @@
 	};
 
 	const computePokemonId = (id: string) => `${id}`.padStart(3, '0');
+
+	beforeUpdate(() => {
+		picture = fetchPokemonSpriteURL(id);
+	});
 </script>
 
 <Card cover={true}>
