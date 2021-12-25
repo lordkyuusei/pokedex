@@ -1,20 +1,25 @@
 <script lang="ts">
-	import type { StatRef } from '$lib/store/types/Pokemon';
+	import type { StatRef } from '$lib/types/Pokemon';
 	import Card from '$lib/components/PokemonLayouts/Card.svelte';
 	import PokemonStat from './PokemonStat.svelte';
+	import { beforeUpdate } from 'svelte';
 
 	export let statistics: StatRef[] = [];
 	let evs: number = 252;
 	let ivs: number = 31;
 	let lvl: number = 100;
-	$: averageStat = {
-		base_stat: Math.floor(
-			statistics.map((stat) => stat.base_stat).reduce((prev, next) => prev + next) /
-				statistics.length
-		),
-		effort: 0,
-		stat: { name: 'average', url: '' }
-	};
+	let averageStat: StatRef = { base_stat: 1, effort: 0, stat: { name: 'average', url: '' } };
+
+	beforeUpdate(() => {
+		averageStat = {
+			base_stat: Math.floor(
+				statistics?.map((stat) => stat.base_stat).reduce((prev, next) => prev + next) /
+					statistics?.length
+			),
+			effort: 0,
+			stat: { name: 'average', url: '' }
+		};
+	});
 </script>
 
 <Card scp={true}>

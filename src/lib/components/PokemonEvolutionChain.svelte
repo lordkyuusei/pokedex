@@ -71,7 +71,6 @@
 	huge={isHuge}
 	quarter={pokemonStages.size === 1 && !isHuge}
 	half={pokemonStages.size === 2 && !isHuge}
-	slim={true}
 	cover={true}
 >
 	<div class="pokemon-evolution-chain">
