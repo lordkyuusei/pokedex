@@ -73,6 +73,10 @@
 		font-style: italic;
 	}
 
+	.hidden::before {
+		content: '* ';
+	}
+
 	.chosen {
 		background-color: orange;
 	}
