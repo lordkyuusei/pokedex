@@ -61,7 +61,12 @@
 
 	$: if (pokemonBulk) {
 		pokedex.update((pokedex) => [...pokedex, ...pokemonBulk]);
-		lastPokemon = `#pokemon-${$pokedex.at(-10).id}`;
+		try {
+			lastPokemon = `#pokemon-${$pokedex.at(-10).id}`;
+		} catch (err) {
+			console.error(`is this safari again??? ${err}`);
+			lastPokemon = `#pokemon-${$pokedex[$pokedex.length - 10].id}`;
+		}
 	}
 
 	const handleIntersection = (entries: any[], observer: { unobserve: (arg0: any) => void }) => {
