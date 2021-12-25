@@ -19,6 +19,8 @@
 		<li>The Eevee evolution chain graph is a bit f*cked up for obvious reasons</li>
 		<li>Sometimes, the app just don't work. I still have issues understanding how Svelte works</li>
 	</ul>
+	<h2>Why</h2>
+	<p>Go <a href="/about">here</a> to know more about this app!</p>
 	<h2>You can run the app too!</h2>
 	<code>
 		git clone https://github.com/lordkyuusei/pokedex<br />npm install && npm run dev
