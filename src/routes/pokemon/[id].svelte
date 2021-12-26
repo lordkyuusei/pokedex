@@ -27,6 +27,7 @@
 	import PokemonStats from '$lib/components/PokemonStats/PokemonStats.svelte';
 	import PokemonEvolutionChain from '$lib/components/PokemonEvolutionChain.svelte';
 	import PokemonAbilities from '$lib/components/PokemonAbilities.svelte';
+	import PokemonVarieties from '$lib/components/PokemonVarieties.svelte';
 
 	export let pokemon: Pokemon = null;
 	export let specie: PokemonSpecie = null;
@@ -46,7 +47,12 @@
 			/>
 			<PokemonStats statistics={pokemon.stats} />
 			<PokemonAbilities abilities={pokemon.abilities} />
-			<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
+			{#if specie.evolution_chain}
+				<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
+			{/if}
+			{#if pokemon.forms.length || specie.varieties.length}
+				<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
+			{/if}
 		</div>
 	{:else}
 		<PokemonLoader />

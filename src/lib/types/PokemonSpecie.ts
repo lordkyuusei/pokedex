@@ -56,7 +56,7 @@ type PokedexNumbersRef = {
 	pokedex: EntityRef;
 };
 
-type VarietyRef = {
+export type VarietyRef = {
 	is_default: boolean;
 	pokemon: EntityRef;
 };
