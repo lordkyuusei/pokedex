@@ -40,7 +40,6 @@
 
 	onMount(() => {
 		const { triggers }: { triggers: EvolutionDetail[] } = props;
-		console.log(triggers);
 		const evolutionDetails = triggers.map((triggersList) => {
 			const { trigger, ...conditions }: any = filterObject(triggersList, (elem) => elem);
 			return {
