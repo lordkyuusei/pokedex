@@ -3,6 +3,25 @@
 
 	import PokedexThemeToggle from '$lib/components/PokedexThemeToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
+
+	let isVisible: boolean = false;
+	const navigation: any[] = [
+		{
+			name: 'Home',
+			path: '/',
+			icon: 'home'
+		},
+		{
+			name: 'Pokedex',
+			path: '/pokedex',
+			icon: 'codex'
+		},
+		{
+			name: 'About',
+			path: '/about',
+			icon: 'info'
+		}
+	];
 </script>
 
 <svelte:head>
@@ -17,11 +36,16 @@
 		<div class="kyuudex-search">
 			<PokedexSearch />
 		</div>
-		<nav class="kyuudex-navigation">
+		<button class="kyuudex-navigation-toggle" on:click={() => (isVisible = !isVisible)}>🍔</button>
+		<nav class="kyuudex-navigation" class:isVisible>
 			<ul class="navigation-links">
-				<li><a href="/">Home</a></li>
-				<li><a href="/pokedex">Pokedex</a></li>
-				<li><a href="/about">About</a></li>
+				{#each navigation as navigation_link}
+					<li>
+						<a href={navigation_link.path} on:click={() => (isVisible = false)}
+							>{navigation_link.name}</a
+						>
+					</li>
+				{/each}
 			</ul>
 		</nav>
 	</header>
@@ -90,7 +114,27 @@
 		font-weight: bold;
 	}
 
-	@media screen and (max-width: 375px) {
+	.kyuudex-navigation-toggle {
+		display: none;
+	}
+
+	@media screen and (max-width: 675px) {
+		.kyuudex-navigation-toggle {
+			display: block;
+		}
+
+		.kyuudex-navigation {
+			display: none;
+		}
+
+		.kyuudex-navigation.isVisible {
+			position: absolute;
+			display: block;
+			top: 1rem;
+			left: 0;
+			background-color: rgba(255, 255, 255, 0.9);
+		}
+
 		.navigation-links {
 			flex-direction: column;
 		}
