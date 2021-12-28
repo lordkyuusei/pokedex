@@ -9,7 +9,7 @@
 	<div class="straight_line" />
 </div>
 
-<style scoped>
+<style>
 	.evolution_chain {
 		display: grid;
 		height: 100%;

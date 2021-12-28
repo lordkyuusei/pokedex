@@ -8,7 +8,7 @@
 	<div class="straight-line" />
 </div>
 
-<style scoped>
+<style>
 	.evolution_chain {
 		display: grid;
 		grid-template-rows: 1fr 0fr 1fr;

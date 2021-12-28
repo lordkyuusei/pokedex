@@ -42,7 +42,7 @@
 	</div>
 </div>
 
-<style scoped>
+<style>
 	.pokemon-stat {
 		width: 30px;
 		height: 100%;

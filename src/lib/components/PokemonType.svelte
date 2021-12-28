@@ -21,7 +21,7 @@
 	<div class="pokemon-typename">{pokemonType?.name}</div>
 </div>
 
-<style scoped>
+<style>
 	.pokemon-type {
 		display: grid;
 		grid-template-columns: 25px auto;

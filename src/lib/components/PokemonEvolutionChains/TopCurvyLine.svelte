@@ -8,7 +8,7 @@
 	<div class="filler" />
 </div>
 
-<style scoped>
+<style>
 	.evolution-chain {
 		position: relative;
 		display: grid;

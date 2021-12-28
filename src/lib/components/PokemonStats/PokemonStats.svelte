@@ -22,7 +22,7 @@
 	});
 </script>
 
-<Card scp={true}>
+<Card scp>
 	<div class="pokemon-stats">
 		{#each statistics as stat}
 			<PokemonStat {stat} {evs} {ivs} {lvl} />
@@ -75,7 +75,7 @@
 	</div>
 </Card>
 
-<style scoped>
+<style>
 	.pokemon-stats {
 		display: grid;
 		grid-template-columns: repeat(10, 2.5em);

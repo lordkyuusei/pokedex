@@ -50,7 +50,7 @@
 			{#if specie.evolution_chain}
 				<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
 			{/if}
-			{#if pokemon.forms.length || specie.varieties.length}
+			{#if pokemon?.forms?.length > 1 || specie?.varieties?.length > 1}
 				<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
 			{/if}
 		</div>
@@ -59,7 +59,7 @@
 	{/if}
 </div>
 
-<style scoped>
+<style>
 	.page-details {
 		display: flex;
 		flex-wrap: wrap;

@@ -55,7 +55,7 @@
 	<footer />
 </ThemeContext>
 
-<style scoped>
+<style>
 	.kyuudex-layout {
 		display: flex;
 		flex-direction: row;

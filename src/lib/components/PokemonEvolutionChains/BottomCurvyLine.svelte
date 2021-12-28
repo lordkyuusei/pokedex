@@ -8,7 +8,7 @@
 	<TriggerDetails {props} />
 </div>
 
-<style scoped>
+<style>
 	.evolution-chain {
 		position: relative;
 		display: grid;

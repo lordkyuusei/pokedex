@@ -6,7 +6,7 @@
 	</div>
 </div>
 
-<style scoped>
+<style>
 	.pokemon-loader-container {
 		height: 75px;
 		width: 75px;

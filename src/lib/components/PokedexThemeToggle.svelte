@@ -19,7 +19,7 @@
 	<span class="theme-icon" class:checked={isChecked} class:unchecked={!isChecked} />
 </label>
 
-<style scoped>
+<style>
 	.pokedex-theme {
 		display: block;
 		width: 50px;

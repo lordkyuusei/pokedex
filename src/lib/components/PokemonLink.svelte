@@ -32,7 +32,7 @@
 	{/if}
 </div>
 
-<style scoped>
+<style>
 	.pokemon-link {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);

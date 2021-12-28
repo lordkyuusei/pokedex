@@ -9,7 +9,7 @@
 	<div class="filler" />
 </div>
 
-<style scoped>
+<style>
 	.evolution_chain {
 		display: flex;
 		justify-content: center;
