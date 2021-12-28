@@ -1,6 +1,7 @@
 import type { Pokemon, PokemonBulk } from './types/Pokemon';
 import type { PokemonAbility } from './types/PokemonAbility';
 import type { PokemonEvolution } from './types/PokemonEvolutionChain';
+import type { PokemonForm } from './types/PokemonForm';
 import type { PokemonSpecie } from './types/PokemonSpecie';
 
 const baseURL = 'https://pokeapi.co/api/v2';
@@ -23,6 +24,9 @@ export const fetchPokemonSpriteURL = (
 	const specific = version && generation ? `${version}/${generation}/` : '';
 	return `${spriteURL}${specific}${orientation || ''}/${id}.png`;
 };
+
+export const fetchPokemonForm = async (id: string): Promise<PokemonForm> =>
+	await fetchPokeApi(`${baseURL}/pokemon-form/${id}`);
 
 export const fetchPokemonAbility = async (id: string): Promise<PokemonAbility> =>
 	await fetchPokeApi(`${baseURL}/ability/${id}`);

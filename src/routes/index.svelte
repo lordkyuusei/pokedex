@@ -30,7 +30,7 @@
 	<small>The Unlicense license.</small>
 </div>
 
-<style scoped>
+<style>
 	code {
 		display: block;
 		white-space: pre-wrap;
