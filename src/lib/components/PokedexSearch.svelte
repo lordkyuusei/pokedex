@@ -8,12 +8,14 @@
 
 	let searchText: string = '';
 	let searchResults: light[] = [];
+	let searchCodex: light[] = [];
+
+	const fetchLightkedex = async () =>
+		(searchCodex = await (await fetch('/lightkedex.json')).json());
 
 	const search = async (event: KeyboardEvent): Promise<void> => {
 		if (event.key === 'Enter') {
-			const response = await fetch('/lightkedex.json');
-			const data = await response.json();
-			searchResults = data.filter((item: light) =>
+			searchResults = searchCodex.filter((item: light) =>
 				item.name.toLowerCase().includes(searchText.toLowerCase())
 			);
 		}
@@ -25,6 +27,7 @@
 	name="search"
 	placeholder="Search Pokemon"
 	bind:value={searchText}
+	on:focus|once={fetchLightkedex}
 	on:keyup={(event) => search(event)}
 />
 <div class="pokemon-list">
@@ -35,7 +38,7 @@
 	{/each}
 </div>
 
-<style scoped>
+<style>
 	input {
 		border-width: 0 0 2px 0;
 		border-style: solid;
