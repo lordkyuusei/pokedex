@@ -19,28 +19,21 @@
 		'level-up': () => fetchItemSpriteURL('rare-candy'),
 		trade: () => fetchItemSpriteURL('premier-ball'),
 		'use-item': () => '/pointing_hand.png',
-		'hold-item': () => '/holding_hand.png'
+		'hold-item': () => '/holding_hand.png',
+		other: () => fetchItemSpriteURL('sweet-heart')
 	};
 
-	const isEntityRef = (obj: any): obj is EntityRef => {
-		return obj.hasOwnProperty('name');
-	};
+	const isEntityRef = (obj: any): obj is EntityRef => obj.hasOwnProperty('name');
 
-	const isMove = (obj: any): obj is EntityRef => {
-		return (obj.hasOwnProperty('url') && obj.url.includes('move')) || obj.url.includes('type');
-	};
+	const isMove = (obj: any): obj is EntityRef =>
+		(obj.hasOwnProperty('url') && obj.url.includes('move')) || obj.url.includes('type');
 
-	const isLocation = (obj: any): obj is EntityRef => {
-		return obj.hasOwnProperty('url') && obj.url.includes('location');
-	};
+	const isLocation = (obj: any): obj is EntityRef =>
+		obj.hasOwnProperty('url') && obj.url.includes('location');
 
-	const isTyrogueChain = (condition: string) => {
-		return condition === 'relative_physical_stats';
-	};
+	const isTyrogueChain = (condition: string) => condition === 'relative_physical_stats';
 
-	const getCondition = (key: string) => {
-		return triggerI18n.find((trigger) => trigger.key === key).en;
-	};
+	const getCondition = (key: string) => triggerI18n.find((trigger) => trigger.key === key).en;
 
 	const getHigherStat = (condition: number) => {
 		const conditions = {
@@ -67,7 +60,7 @@
 	{#each evolutionChain as { name, conditions }}
 		<div class="trigger-details">
 			[
-			<img src={`${mapTriggernameToPicture[name]()}`} class="evolution_trigger_name" alt={name} />
+			<img src={mapTriggernameToPicture[name]()} class="evolution_trigger_name" alt={name} />
 			<div class="evolution_trigger_details">
 				{#each Object.keys(conditions) as condition, index}
 					{#if isTyrogueChain(condition)}
@@ -76,7 +69,7 @@
 						{`[${getCondition(condition)}]: ${conditions[condition]}`}
 					{:else if isMove(conditions[condition])}
 						<img
-							src={fetchItemSpriteURL('tm-normal')}
+							src={fetchItemSpriteURL(`tm-${conditions[condition].name}`)}
 							alt={condition}
 							title={`[${getCondition(condition)}]: ${conditions[condition].name}`}
 						/>
@@ -89,8 +82,8 @@
 					{:else if isEntityRef(conditions[condition])}
 						<img
 							src={fetchItemSpriteURL(conditions[condition].name)}
-							class="evolution_trigger_details_item"
 							alt={conditions[condition].name}
+							title={conditions[condition].name}
 						/>
 					{/if}
 				{/each}

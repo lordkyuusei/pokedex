@@ -31,6 +31,11 @@
 			});
 			pokemonForms = await Promise.all(pokemonPromises);
 		}
+
+		return () => {
+			pokemonVarieties = [];
+			pokemonForms = [];
+		};
 	});
 </script>
 

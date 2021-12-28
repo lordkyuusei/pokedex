@@ -118,7 +118,13 @@
 		display: none;
 	}
 
-	@media screen and (max-width: 675px) {
+	@media screen and (max-width: 720px) {
+		.kyuudex-layout {
+			display: grid;
+			grid-template-columns: 5% 60% 5%;
+			margin-bottom: 1rem;
+		}
+
 		.kyuudex-navigation-toggle {
 			display: block;
 		}
@@ -130,9 +136,11 @@
 		.kyuudex-navigation.isVisible {
 			position: absolute;
 			display: block;
-			top: 1rem;
+			top: 2.5rem;
 			left: 0;
-			background-color: rgba(255, 255, 255, 0.9);
+			background-color: var(--theme-background);
+			border: 1px solid var(--theme-text);
+			z-index: 1;
 		}
 
 		.navigation-links {

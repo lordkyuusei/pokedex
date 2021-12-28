@@ -67,4 +67,16 @@
 		align-items: flex-end;
 		height: 100%;
 	}
+
+	@media screen and (max-width: 720px) {
+		.page-details {
+			display: grid;
+			grid-template-columns: 100%;
+			justify-content: center;
+			width: 100%;
+			align-items: center;
+			justify-items: center;
+			align-content: center;
+		}
+	}
 </style>

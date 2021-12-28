@@ -48,6 +48,14 @@
 		width: 100%;
 	}
 
+	.half {
+		width: calc(50% - 0.2rem);
+	}
+
+	.quarter {
+		width: 25%;
+	}
+
 	.huge {
 		height: 80vh;
 	}
@@ -58,14 +66,6 @@
 
 	.slim {
 		height: 20vh;
-	}
-
-	.half {
-		width: calc(50% - 0.2rem);
-	}
-
-	.quarter {
-		width: 25%;
 	}
 
 	.cover {
@@ -94,5 +94,17 @@
 		left: 10px;
 		background-color: var(--theme-background);
 		border: 1px solid var(--theme-border);
+	}
+
+	@media screen and (max-width: 720px) {
+		.full,
+		.half,
+		.quarter {
+			width: calc(100% - 0.2rem);
+		}
+
+		.scp {
+			max-width: calc(100% - 0.2rem);
+		}
 	}
 </style>
