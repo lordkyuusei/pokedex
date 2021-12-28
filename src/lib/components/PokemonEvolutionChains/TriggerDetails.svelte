@@ -34,8 +34,20 @@
 		return obj.hasOwnProperty('url') && obj.url.includes('location');
 	};
 
+	const isTyrogueChain = (condition: string) => {
+		return condition === 'relative_physical_stats';
+	};
+
 	const getCondition = (key: string) => {
 		return triggerI18n.find((trigger) => trigger.key === key).en;
+	};
+
+	const getHigherStat = (condition: number) => {
+		const conditions = {
+			'-1': 'lower',
+			'1': 'higher'
+		};
+		return conditions[condition.toString()];
 	};
 
 	onMount(() => {
@@ -54,10 +66,13 @@
 <div class="evolution-chain-trigger-details">
 	{#each evolutionChain as { name, conditions }}
 		<div class="trigger-details">
+			[
 			<img src={`${mapTriggernameToPicture[name]()}`} class="evolution_trigger_name" alt={name} />
 			<div class="evolution_trigger_details">
 				{#each Object.keys(conditions) as condition, index}
-					{#if ['string', 'number'].includes(typeof conditions[condition])}
+					{#if isTyrogueChain(condition)}
+						{`[${getCondition(condition)}]: ${getHigherStat(conditions[condition])}`}
+					{:else if ['string', 'number'].includes(typeof conditions[condition])}
 						{`[${getCondition(condition)}]: ${conditions[condition]}`}
 					{:else if isMove(conditions[condition])}
 						<img
@@ -80,11 +95,12 @@
 					{/if}
 				{/each}
 			</div>
+			]
 		</div>
 	{/each}
 </div>
 
-<style scoped>
+<style>
 	.evolution-chain-trigger-details {
 		display: flex;
 		justify-content: center;
@@ -104,5 +120,11 @@
 		border-radius: 25px;
 		height: 3em;
 		image-rendering: pixelated;
+	}
+
+	.evolution_trigger_details {
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
 	}
 </style>

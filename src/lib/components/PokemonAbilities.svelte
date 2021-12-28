@@ -18,12 +18,17 @@
 		});
 	};
 
+	const getAbilityDetails = (abilityDetails: PokemonAbility, lang: string) => {
+		return abilityDetails.flavor_text_entries.find((entry) => entry.language.name === lang)
+			.flavor_text;
+	};
+
 	onMount(async () => {
 		await fetchAbilityDetails(abilities[0]);
 	});
 </script>
 
-<Card slim={true} cover={true}>
+<Card slim cover half={abilities.length > 2} full={abilities.length > 3}>
 	<div class="pokemon-abilities-list">
 		{#each abilities as ability}
 			<button
@@ -38,14 +43,14 @@
 	</div>
 	<pre class="pokemon-ability-details">
         {#if abilityDetails}
-			{abilityDetails.flavor_text_entries[0].flavor_text}
+			{getAbilityDetails(abilityDetails, 'en')}
 		{:else}
 			Click on any ability to get its description.
 		{/if}
         </pre>
 </Card>
 
-<style scoped>
+<style>
 	.pokemon-abilities-list {
 		display: flex;
 		flex-wrap: nowrap;
@@ -62,6 +67,7 @@
 		width: 100%;
 		transition: 0.2s;
 		white-space: nowrap;
+		text-transform: capitalize;
 	}
 
 	.ability-button:hover {

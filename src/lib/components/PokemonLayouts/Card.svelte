@@ -6,13 +6,31 @@
 	export let slim = false;
 	export let scp = false;
 	export let quarter = false;
+	export let reactive = false;
+	export let big = false;
+
+	export let title: string = undefined;
 </script>
 
-<div class="card" class:full class:huge class:half class:quarter class:cover class:slim class:scp>
+<div
+	class="card"
+	class:full
+	class:huge
+	class:half
+	class:quarter
+	class:cover
+	class:slim
+	class:scp
+	class:reactive
+	class:big
+>
+	{#if title}
+		<div class="header">{title}</div>
+	{/if}
 	<slot />
 </div>
 
-<style scoped>
+<style>
 	.card {
 		height: 40vh;
 		width: 18rem;
@@ -23,6 +41,7 @@
 		border: 1px solid var(--theme-border);
 		transition: 0.2s ease-in-out;
 		box-sizing: border-box;
+		position: relative;
 	}
 
 	.full {
@@ -31,6 +50,10 @@
 
 	.huge {
 		height: 80vh;
+	}
+
+	.big {
+		height: 60vh;
 	}
 
 	.slim {
@@ -53,8 +76,23 @@
 		width: auto;
 	}
 
-	.card:hover {
+	.card.reactive:hover {
 		transform: translateY(-2px);
 		box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	}
+
+	.header {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: fit-content;
+		height: 0.8rem;
+		padding: 0.2rem;
+		border-radius: 10px;
+		position: absolute;
+		top: -10px;
+		left: 10px;
+		background-color: var(--theme-background);
+		border: 1px solid var(--theme-border);
 	}
 </style>

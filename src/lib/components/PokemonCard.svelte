@@ -26,14 +26,15 @@
 	const computePokemonId = (id: string) => `${id}`.padStart(3, '0');
 
 	beforeUpdate(() => {
-		picture = fetchPokemonSpriteURL(id);
+		if (picture === '') {
+			picture = fetchPokemonSpriteURL(id);
+		}
 	});
 </script>
 
-<Card cover={true}>
+<Card cover reactive title="N°{computePokemonId(id)}">
 	<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<div class="pokemon-id">
-			<div class="pokemon-number">N°{computePokemonId(id)}</div>
 			<div class="pokemon-name">{name}</div>
 		</div>
 		<div class="pokemon-picture">
@@ -47,7 +48,7 @@
 	</div>
 </Card>
 
-<style scoped>
+<style>
 	.pokemon-card {
 		display: flex;
 		flex-direction: column;
@@ -60,7 +61,7 @@
 
 	.pokemon-id {
 		display: grid;
-		grid-template-columns: 15% auto 15%;
+		grid-template-columns: 100%;
 		width: 100%;
 		justify-content: space-evenly;
 		justify-items: center;

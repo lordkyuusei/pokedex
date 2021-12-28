@@ -90,6 +90,11 @@ const POKEMON_TYPES: PokemonType[] = [
 		name: 'flying',
 		color: 'rgb(176, 199, 241, 0.69)',
 		icon: '🕊️'
+	},
+	{
+		name: 'unknown',
+		color: 'rgb(255, 255, 255, 0.69)',
+		icon: '❓'
 	}
 ];
 

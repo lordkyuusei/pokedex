@@ -62,10 +62,10 @@
 	$: if (pokemonBulk) {
 		pokedex.update((pokedex) => [...pokedex, ...pokemonBulk]);
 		try {
-			lastPokemon = `#pokemon-${$pokedex.at(-10).id}`;
+			lastPokemon = `#pokemon-${$pokedex.at(-1)?.id}`;
 		} catch (err) {
 			console.error(`is this safari again??? ${err}`);
-			lastPokemon = `#pokemon-${$pokedex[$pokedex.length - 10].id}`;
+			lastPokemon = `#pokemon-${$pokedex[$pokedex.length - 1].id}`;
 		}
 	}
 
@@ -123,15 +123,10 @@
 	{/each}
 </div>
 
-<style scoped>
+<style>
 	.pokedex {
 		display: flex;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
-	}
-
-	a {
-		text-decoration: none;
-		color: inherit;
 	}
 </style>

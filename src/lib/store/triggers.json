@@ -38,5 +38,10 @@
 		"key": "time_of_day",
 		"fr": "Moment",
 		"en": "Time of day"
+	},
+	{
+		"key": "relative_physical_stats",
+		"fr": "Atq. V.S. Déf.",
+		"en": "ATK V.S. DEF"
 	}
 ]

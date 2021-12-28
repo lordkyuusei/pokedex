@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { beforeUpdate, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fetchPokemonEvolutionChain } from '$lib/api';
 	import type {
 		EvolutionChain,
@@ -32,8 +32,7 @@
 	export let evolutionChain: { url: string };
 
 	let pokemonStages = new Map<number, EvolutionUnit[]>();
-
-	$: isHuge = pokemonStages.get(2)?.length > 3;
+	$: isHuge = pokemonStages.get(2)?.length >= 3;
 
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		const { species, evolves_to, evolution_details } = chain;
@@ -63,15 +62,20 @@
 				extractEvolutionChain(evolution.chain);
 			});
 		}
+
+		return () => {
+			pokemonStages.clear();
+		};
 	});
 </script>
 
 <Card
-	full={pokemonStages.size >= 3 || isHuge}
 	huge={isHuge}
+	full={pokemonStages.size >= 3 || isHuge}
 	quarter={pokemonStages.size === 1 && !isHuge}
 	half={pokemonStages.size === 2 && !isHuge}
-	cover={true}
+	cover
+	title="Evolution Chain"
 >
 	<div class="pokemon-evolution-chain">
 		{#each [...pokemonStages] as [stage, evolutionChain]}
@@ -96,7 +100,7 @@
 	</div>
 </Card>
 
-<style scoped>
+<style>
 	.pokemon-evolution-chain {
 		display: flex;
 		flex-direction: row;
@@ -105,6 +109,7 @@
 		align-items: center;
 		height: 100%;
 		width: 100%;
+		overflow-y: scroll;
 	}
 
 	.evolution-chain-stage {
