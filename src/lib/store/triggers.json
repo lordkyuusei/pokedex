@@ -1,0 +1,47 @@
+[
+	{
+		"key": "min_level",
+		"fr": "Niveau",
+		"en": "Level"
+	},
+	{
+		"key": "location",
+		"fr": "Lieu",
+		"en": "Location"
+	},
+	{
+		"key": "min_happiness",
+		"fr": "Bonheur",
+		"en": "Happiness"
+	},
+	{
+		"key": "min_affection",
+		"fr": "Affection",
+		"en": "Affection"
+	},
+	{
+		"key": "known_move_type",
+		"fr": "Type de capacité",
+		"en": "Move type"
+	},
+	{
+		"key": "genre",
+		"fr": "Genre",
+		"en": "Gender"
+	},
+	{
+		"key": "item",
+		"fr": "Objet",
+		"en": "Item"
+	},
+	{
+		"key": "time_of_day",
+		"fr": "Moment",
+		"en": "Time of day"
+	},
+	{
+		"key": "relative_physical_stats",
+		"fr": "Atq. V.S. Déf.",
+		"en": "ATK V.S. DEF"
+	}
+]
