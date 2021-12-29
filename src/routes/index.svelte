@@ -9,15 +9,17 @@
 		<ul>
 			<li>Any Pokemon default picture, typing, stats and evolution family.</li>
 			<li>High final stat product using EV - IV - Level sliders</li>
+			<li>Moveset sort by game & method!</li>
+			<li>Abilities (hidden ones are marked with a *)</li>
+			<li>Alternate forms & varieties with clickable links!</li>
 		</ul>
 		<li>A (Moon/Sun stone)-inspired dark & light theme!</li>
 	</ul>
 	<h2>Known bugs</h2>
 	<small>Honestly, a sh*t ton</small>
 	<ul>
-		<li>A bug is causing the main pokedex feed to not load on some circumstances.</li>
-		<li>The Eevee evolution chain graph is a bit f*cked up for obvious reasons</li>
-		<li>Sometimes, the app just don't work. I still have issues understanding how Svelte works</li>
+		<li>Some graphical issues on mobile & Safari</li>
+		<li>Some alternate forms (hi alolan vulpix) evolution chains are wrong</li>
 	</ul>
 	<h2>Why</h2>
 	<p>Go <a href="/about">here</a> to know more about this app!</p>

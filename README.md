@@ -1,38 +1,52 @@
-# create-svelte
+Kyuukedex
+=========
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+The (soon) ultimate SPA Pokedex.
 
-## Creating a project
+Features
+--------
 
-If you're seeing this, you've probably already done this step. Congrats!
+*   An infinite-scroll, lazy-loading complete Pokedex.
+*   A detail page where you can (currently) check:
+    *   Any Pokemon default picture and typing.
+    *   High final stat product using EV - IV - Level sliders
+    *   Moveset sort by game & method!
+    *   Abilities (hidden ones are marked with a \*)
+    *   Alternate forms & varieties with clickable links!
+*   A (Moon/Sun stone)-inspired dark & light theme!
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+Known bugs
+----------
 
-# create a new project in my-app
-npm init svelte@next my-app
+Honestly, a sh\*t ton
+
+*   Some graphical issues on mobile & Safari
+*   Some alternate forms (hi alolan vulpix) evolution chains are wrong
+
+Why
+---
+
+Go [here](https://kyuudex.herokuapp.com/about) to know more about this app! (and to use it)
+
+You can run the app too!
+------------------------
+
+```sh
+git clone https://github.com/lordkyuusei/pokedex  
+npm install && npm run dev
 ```
 
-> Note: the `@next` is temporary
+Screenshots
+-----------
 
-## Developing
+![card](/screenshots/kyuudex-card.png)
+![stats](/screenshots/kyuudex-stats.png)
+![abilities](/screenshots/kyuudex-abilities.png)
+![moveset](/screenshots/kyuudex-moveset.png)
+![evolution](/screenshots/kyuudex-evolution.png)
+![varieties](/screenshots/kyuudex-varieties.png)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+License
+-------
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+The Unlicense license.
