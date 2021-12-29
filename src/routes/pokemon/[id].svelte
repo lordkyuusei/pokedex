@@ -28,6 +28,7 @@
 	import PokemonEvolutionChain from '$lib/components/PokemonEvolutionChain.svelte';
 	import PokemonAbilities from '$lib/components/PokemonAbilities.svelte';
 	import PokemonVarieties from '$lib/components/PokemonVarieties.svelte';
+	import PokemonMoves from '$lib/components/PokemonMoves.svelte';
 
 	export let pokemon: Pokemon = null;
 	export let specie: PokemonSpecie = null;
@@ -47,6 +48,7 @@
 			/>
 			<PokemonStats statistics={pokemon.stats} />
 			<PokemonAbilities abilities={pokemon.abilities} />
+			<PokemonMoves moves={pokemon.moves} />
 			{#if specie.evolution_chain}
 				<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
 			{/if}
