@@ -1,5 +1,9 @@
 <script lang="ts">
-	import PokemonCard from './PokemonCard.svelte';
+	import { goto } from '$app/navigation';
+
+	import { fetchPokemonSpriteURL } from '$lib/api';
+	import PokemonType from './PokemonType.svelte';
+
 	type light = {
 		id: number;
 		name: string;
@@ -15,36 +19,62 @@
 
 	const search = async (event: KeyboardEvent): Promise<void> => {
 		if (event.key === 'Enter') {
-			searchResults = searchCodex.filter((item: light) =>
-				item.name.toLowerCase().includes(searchText.toLowerCase())
-			);
+			if (searchText.match(/^\d+$/)) {
+				goto(`/pokemon/${searchText}`);
+			} else {
+				const results = searchCodex.filter((item: light) =>
+					item.name.toLowerCase().includes(searchText.toLowerCase())
+				);
+				if (results.length === 1) {
+					goto(`/pokemon/${results[0].id}`);
+				} else {
+					searchResults = results;
+				}
+			}
+		}
+		if (!searchText.length) {
+			searchResults = [];
 		}
 	};
 </script>
 
 <input
 	type="text"
+	title="Search for Pokémon by name or ID"
+	placeholder="Search for Pokémon by name or ID"
 	name="search"
-	placeholder="Search Pokemon"
 	bind:value={searchText}
 	on:focus|once={fetchLightkedex}
 	on:keyup={(event) => search(event)}
 />
-<div class="pokemon-list">
-	{#each searchResults as pokemon}
-		<a href="/pokemon/{pokemon.id}" on:click={() => (searchResults = [])}>
-			<PokemonCard id={`${pokemon.id}`} name={pokemon.name} types={pokemon.types} />
-		</a>
-	{/each}
-</div>
+{#if searchResults.length}
+	<div class="pokemon-list" on:click|self={() => (searchResults = [])}>
+		{#each searchResults as pokemon}
+			<a href="/pokemon/{pokemon.id}" on:click={() => (searchResults = [])}>
+				<div class="pokemon-result-row">
+					<img
+						src={fetchPokemonSpriteURL(`${pokemon.id}`, 'versions', 'generation-viii', 'icons')}
+						alt={pokemon.name}
+					/>
+					<span>{pokemon.name}</span>
+					{#each pokemon.types as type}
+						<PokemonType name={type} />
+					{/each}
+				</div>
+			</a>
+		{/each}
+	</div>
+{/if}
 
 <style>
 	input {
 		border-width: 0 0 2px 0;
 		border-style: solid;
 		border-color: var(--theme-text);
-		background-color: transparent;
-		width: 100%;
+		background-color: var(--theme-background);
+		color: var(--theme-secondary);
+		width: 60vw;
+		max-width: 500px;
 		height: 100%;
 		font: inherit;
 	}
@@ -53,19 +83,46 @@
 		outline: none;
 	}
 
+	a {
+		width: 100%;
+	}
+
+	img {
+		padding-bottom: 1rem;
+	}
+
 	.pokemon-list {
-		position: absolute;
-		left: 1rem;
-		width: auto;
+		z-index: 2;
 		display: flex;
 		flex-wrap: wrap;
-		flex-direction: row;
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		width: 60vw;
+		max-width: 500px;
+		max-height: 50%;
+		overflow-y: scroll;
+		border-style: solid;
+		border-width: 0 2px 2px;
+		color: var(--theme-text);
+		border-radius: 0 0 10px 10px;
+		background-color: var(--theme-background);
+	}
+
+	.pokemon-result-row {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 12% 20% 34% 34%;
 		align-content: center;
 		justify-content: center;
 		align-items: center;
-		margin: 0 -1rem;
-		background-color: var(--theme-background);
-		border-radius: 10px;
-		z-index: 2;
+		justify-items: stretch;
+		transition: 0.2s;
+	}
+
+	.pokemon-result-row:hover {
+		background-color: var(--theme-text);
+		color: var(--theme-background);
+		border-color: var(--theme-text);
 	}
 </style>
