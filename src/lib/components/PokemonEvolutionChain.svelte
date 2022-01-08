@@ -30,9 +30,21 @@
 	];
 
 	export let evolutionChain: { url: string };
-
 	let pokemonStages = new Map<number, EvolutionUnit[]>();
+
 	$: isHuge = pokemonStages.get(2)?.length >= 3;
+
+	$: if (evolutionChain) {
+		fetchEvolutionChain();
+	}
+
+	const fetchEvolutionChain = () => {
+		pokemonStages.clear();
+		const pokemonId = evolutionChain.url.match(/\d+/g).at(-1);
+		fetchPokemonEvolutionChain(pokemonId).then((evolution: PokemonEvolution) => {
+			extractEvolutionChain(evolution.chain);
+		});
+	};
 
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		const { species, evolves_to, evolution_details } = chain;
@@ -55,14 +67,6 @@
 	};
 
 	onMount(() => {
-		pokemonStages.clear();
-		if (evolutionChain) {
-			const pokemonId = evolutionChain.url.match(/\d+/g).pop();
-			fetchPokemonEvolutionChain(pokemonId).then((evolution: PokemonEvolution) => {
-				extractEvolutionChain(evolution.chain);
-			});
-		}
-
 		return () => {
 			pokemonStages.clear();
 		};
