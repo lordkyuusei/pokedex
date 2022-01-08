@@ -9,6 +9,26 @@ body {
 	box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+	margin-left: 22px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: var(--theme-background);
+	overflow-y: scroll;
+	margin-bottom: 25px;
+	width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--theme-text);
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
 a {
 	text-decoration: none;
 	color: inherit;
