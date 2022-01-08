@@ -1,18 +1,28 @@
 <script lang="ts">
-	import type { StatRef } from '$lib/store/types/Pokemon';
+	import type { StatRef } from '$lib/types/Pokemon';
 	import { getStatColor, getStatHeight } from '$lib/getStylesFromStat';
 	import { HPFormula, StatFormula } from '$lib/getStatFromFormula';
+	import type { PokemonNatureLight } from '$lib/store/natures';
 
 	export let stat: StatRef;
 	export let evs: number = 252;
 	export let ivs: number = 31;
 	export let lvl: number = 100;
+	export let nature: PokemonNatureLight = {
+		name: 'Hardy',
+		increase: '',
+		decrease: ''
+	};
 
 	$: formula = stat.stat.name === 'hp' ? HPFormula : StatFormula;
 	$: statHeight = getStatHeight(stat.base_stat);
 	$: statColor = getStatColor(stat.base_stat);
 	$: statShade = 'rgba(127, 127, 127, 0.2)';
-	$: maxStatValue = formula(stat.base_stat, lvl, evs, ivs);
+	$: modifyer = getModifyer(nature);
+	$: maxStatValue = formula(stat.base_stat, lvl, evs, ivs, modifyer);
+
+	const getModifyer = (nature: PokemonNatureLight) =>
+		nature.increase === stat.stat.name ? 1.1 : nature.decrease === stat.stat.name ? 0.9 : 1;
 
 	const statToIcon = {
 		hp: 'HP',
@@ -26,7 +36,7 @@
 </script>
 
 <div class="pokemon-stat">
-	<div class="stat-result">
+	<div class="stat-result" class:isLowered={modifyer === 0.9} class:isUpped={modifyer === 1.1}>
 		{#if stat.stat.name === 'average'}
 			&nbsp;
 		{:else}
@@ -52,6 +62,7 @@
 		flex-direction: column;
 		align-items: center;
 	}
+
 	.stat-value {
 		width: 100%;
 		height: auto;
@@ -60,6 +71,7 @@
 		flex-direction: column;
 		z-index: 1;
 	}
+
 	.stat-jauge-container {
 		height: 100%;
 		width: 100%;
@@ -68,12 +80,24 @@
 		display: flex;
 		flex-direction: column-reverse;
 	}
+
 	.stat-jauge {
 		transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 		width: 100%;
 		border-radius: 5px;
 	}
+
 	.stat-result {
 		flex: 1;
+	}
+
+	.isLowered {
+		color: var(--theme-secondary);
+		font-weight: bold;
+	}
+
+	.isUpped {
+		color: var(--theme-primary);
+		font-weight: bold;
 	}
 </style>
