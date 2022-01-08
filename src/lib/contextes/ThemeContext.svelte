@@ -2,8 +2,10 @@
 	import { setContext, onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import themes from '$lib/store/themes/themes';
+	import { browser } from '$app/env';
 
 	export let presets = [...themes];
+
 	let currentTheme = presets[0].name;
 
 	const getCurrentTheme = (name: string) => presets.find((theme) => theme.name === name);
@@ -15,11 +17,17 @@
 			let index = presets.findIndex((theme) => theme.name === currentTheme);
 			currentTheme = presets[index === presets.length - 1 ? 0 : (index += 1)].name;
 			theme.update((t) => ({ ...t, ...getCurrentTheme(currentTheme) }));
+			if (browser) {
+				localStorage.setItem('currentTheme', currentTheme);
+			}
 			setRootColors(getCurrentTheme(currentTheme));
 		}
 	});
 
-	onMount(() => setRootColors(getCurrentTheme(currentTheme)));
+	onMount(() => {
+		currentTheme = localStorage.getItem('currentTheme') || presets[0].name;
+		setRootColors(getCurrentTheme(currentTheme));
+	});
 
 	const setRootColors = (theme: { name: string; style: { [key: string]: string } }) => {
 		for (let [prop, color] of Object.entries(theme.style)) {
