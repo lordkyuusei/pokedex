@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { fly } from 'svelte/transition';
 	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
 
 	import PokedexThemeToggle from '$lib/components/PokedexThemeToggle.svelte';
@@ -40,16 +42,16 @@
 		<nav class="kyuudex-navigation" class:isVisible>
 			<ul class="navigation-links">
 				{#each navigation as navigation_link}
-					<li>
-						<a href={navigation_link.path} on:click={() => (isVisible = false)}
-							>{navigation_link.name}</a
-						>
+					<li class:isActive={$page.path === navigation_link.path}>
+						<a href={navigation_link.path} on:click={() => (isVisible = false)}>
+							{navigation_link.name}
+						</a>
 					</li>
 				{/each}
 			</ul>
 		</nav>
 	</header>
-	<main>
+	<main in:fly={{ y: -50, duration: 250, delay: 300 }} out:fly={{ y: -40, duration: 250 }}>
 		<slot />
 	</main>
 	<footer />
@@ -79,13 +81,12 @@
 		width: 100%;
 		display: flex;
 		flex-direction: row;
-		justify-content: flex-end;
+		justify-content: space-evenly;
 		flex: 3;
 	}
 
 	.navigation-links li {
 		list-style: none;
-		margin-left: 2rem;
 		letter-spacing: 8px;
 		text-indent: 8px;
 		text-transform: uppercase;
@@ -105,6 +106,10 @@
 
 	li:hover:after {
 		transform: scaleX(1);
+	}
+
+	li.isActive {
+		border-bottom: 2px solid var(--theme-text);
 	}
 
 	li a {
@@ -137,7 +142,7 @@
 			position: absolute;
 			display: block;
 			top: 2.5rem;
-			left: 0;
+			width: calc(100% - 1rem);
 			background-color: var(--theme-background);
 			border: 1px solid var(--theme-text);
 			z-index: 1;

@@ -16,9 +16,9 @@
 	};
 
 	$: pokemonVersions = extractVersions(moves);
+
 	$: pokemonMoves = extractMoves(moves, versionChosen);
 
-	$: console.log(pokemonMoves.filter((move) => !methods.includes(move.method.name)));
 	$: pokemonMovesPerLevel = pokemonMoves
 		.filter((move) => move.method.name === 'level-up')
 		.sort((a, b) => a.level - b.level);
@@ -148,7 +148,7 @@
 	}
 
 	.chosen {
-		background-color: orange;
+		background-color: var(--theme-secondary);
 	}
 
 	.version-button:first-child {

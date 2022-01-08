@@ -101,10 +101,12 @@
 		.half,
 		.quarter {
 			width: calc(100% - 0.2rem);
+			height: 55vh;
 		}
 
 		.scp {
 			max-width: calc(100% - 0.2rem);
+			height: 55vh;
 		}
 	}
 </style>

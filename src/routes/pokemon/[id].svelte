@@ -48,7 +48,9 @@
 			/>
 			<PokemonStats statistics={pokemon.stats} />
 			<PokemonAbilities abilities={pokemon.abilities} />
-			<PokemonMoves moves={pokemon.moves} />
+			{#if pokemon.moves.length > 0}
+				<PokemonMoves moves={pokemon.moves} />
+			{/if}
 			{#if specie.evolution_chain}
 				<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
 			{/if}

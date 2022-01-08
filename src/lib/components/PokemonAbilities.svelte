@@ -63,6 +63,7 @@
 		border-width: 0 0 1px 0;
 		background-color: var(--theme-background);
 		color: var(--theme-text);
+		border-color: var(--theme-text);
 		cursor: pointer;
 		width: 100%;
 		transition: 0.2s;
@@ -84,7 +85,7 @@
 	}
 
 	.chosen {
-		background-color: orange;
+		background-color: var(--theme-secondary);
 	}
 
 	.ability-button:first-child {
