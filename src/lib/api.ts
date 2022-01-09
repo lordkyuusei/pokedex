@@ -1,3 +1,4 @@
+import { browser } from '$app/env';
 import type { Pokemon, PokemonBulk } from './types/Pokemon';
 import type { PokemonAbility } from './types/PokemonAbility';
 import type { PokemonEvolution } from './types/PokemonEvolutionChain';
@@ -13,6 +14,20 @@ const fetchPokeApi = async (url: string): Promise<any> =>
 		.then((response) => response.json())
 		.catch((reason) => new Error(`Error: ${reason}`));
 
+const fetchCacheOrApi = async (url: string): Promise<any> => {
+	if (browser) {
+		const cache = localStorage.getItem(url);
+		if (cache) {
+			return JSON.parse(cache);
+		} else {
+			const data = await fetchPokeApi(url);
+			localStorage.setItem(url, JSON.stringify(data));
+			return data;
+		}
+	} else {
+		return fetchPokeApi(url);
+	}
+}
 export const fetchItemSpriteURL = (id: string): string => `${itemsURL}${id}.png`;
 
 export const fetchPokemonSpriteURL = (
@@ -26,21 +41,21 @@ export const fetchPokemonSpriteURL = (
 };
 
 export const fetchPokemonForm = async (id: string): Promise<PokemonForm> =>
-	await fetchPokeApi(`${baseURL}/pokemon-form/${id}`);
+	await fetchCacheOrApi(`${baseURL}/pokemon-form/${id}`);
 
 export const fetchPokemonAbility = async (id: string): Promise<PokemonAbility> =>
-	await fetchPokeApi(`${baseURL}/ability/${id}`);
+	await fetchCacheOrApi(`${baseURL}/ability/${id}`);
 
 export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvolution> =>
-	await fetchPokeApi(`${baseURL}/evolution-chain/${id}`);
+	await fetchCacheOrApi(`${baseURL}/evolution-chain/${id}`);
 
 export const fetchPokemonSpecie = async (specieName: string): Promise<PokemonSpecie> =>
-	await fetchPokeApi(`${baseURL}/pokemon-species/${specieName}`);
+	await fetchCacheOrApi(`${baseURL}/pokemon-species/${specieName}`);
 
 export const fetchPokemonBulk = async (
 	limit: number = 30,
 	offset: number = 0
-): Promise<PokemonBulk> => await fetchPokeApi(`${baseURL}/pokemon?limit=${limit}&offset=${offset}`);
+): Promise<PokemonBulk> => await fetchCacheOrApi(`${baseURL}/pokemon?limit=${limit}&offset=${offset}`);
 
 export const fetchPokemonInfo = async (pokemonInfo: number | string): Promise<Pokemon> =>
-	await fetchPokeApi(`${baseURL}/pokemon/${pokemonInfo}`);
+	await fetchCacheOrApi(`${baseURL}/pokemon/${pokemonInfo}`);
