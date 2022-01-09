@@ -4,6 +4,7 @@ import type { PokemonAbility } from './types/PokemonAbility';
 import type { PokemonEvolution } from './types/PokemonEvolutionChain';
 import type { PokemonForm } from './types/PokemonForm';
 import type { PokemonSpecie } from './types/PokemonSpecie';
+import type { PokemonMove } from './types/PokemonMove';
 
 const baseURL = 'https://pokeapi.co/api/v2';
 const spriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
@@ -39,6 +40,9 @@ export const fetchPokemonSpriteURL = (
 	const specific = version && generation ? `${version}/${generation}/` : '';
 	return `${spriteURL}${specific}${orientation || ''}/${id}.png`;
 };
+
+export const fetchPokemonMove = async (id: string): Promise<PokemonMove> =>
+	await fetchCacheOrApi(`${baseURL}/move/${id}`);
 
 export const fetchPokemonForm = async (id: string): Promise<PokemonForm> =>
 	await fetchCacheOrApi(`${baseURL}/pokemon-form/${id}`);

@@ -2,6 +2,8 @@
 	import type { EntityRef, MoveRef } from '$lib/types/Pokemon';
 	import { onMount } from 'svelte';
 	import Card from './PokemonLayouts/Card.svelte';
+	import { fetchPokemonMove } from '$lib/api';
+	import PokemonType from './PokemonType.svelte';
 
 	const methods = ['level-up', 'tutor', 'machine'];
 
@@ -13,23 +15,32 @@
 		move: MoveRef;
 		level: number;
 		method: EntityRef;
+		type?: EntityRef;
+		power?: number;
+		accuracy?: number;
+		pp?: number;
+		description?: string;
 	};
 
 	$: pokemonVersions = extractVersions(moves);
 
 	$: pokemonMoves = extractMoves(moves, versionChosen);
 
-	$: pokemonMovesPerLevel = pokemonMoves
-		.filter((move) => move.method.name === 'level-up')
-		.sort((a, b) => a.level - b.level);
+	$: pokemonMovesPerLevel = pokemonMoves.then((moves) =>
+		moves.filter((move) => move.method.name === 'level-up').sort((a, b) => a.level - b.level)
+	);
 
-	$: pokemonMovesViaTutor = pokemonMoves
-		.filter((move) => move.method.name === 'tutor')
-		.sort((a, b) => a.move.move.name.localeCompare(b.move.move.name));
+	$: pokemonMovesViaTutor = pokemonMoves.then((moves) =>
+		moves
+			.filter((move) => move.method.name === 'tutor')
+			.sort((a, b) => a.move.move.name.localeCompare(b.move.move.name))
+	);
 
-	$: pokemonMovesViaTM = pokemonMoves
-		.filter((move) => move.method.name === 'machine')
-		.sort((a, b) => a.move.move.name.localeCompare(b.move.move.name));
+	$: pokemonMovesViaTM = pokemonMoves.then((moves) =>
+		moves
+			.filter((move) => move.method.name === 'machine')
+			.sort((a, b) => a.move.move.name.localeCompare(b.move.move.name))
+	);
 
 	$: displayMoves =
 		methodChosen === 'level-up'
@@ -38,19 +49,31 @@
 			? pokemonMovesViaTutor
 			: pokemonMovesViaTM;
 
-	const extractMoves = (moves: MoveRef[], version: string): MoveLight[] => {
-		const moveset = moves.map((move) => {
-			const version_details = move.version_group_details.find(
-				(group) => group.version_group.name === version
-			);
-			return version_details
-				? {
-						move: move,
+	const extractMoves = async (moves: MoveRef[], version: string): Promise<MoveLight[]> => {
+		const moveset: MoveLight[] = await Promise.all(
+			moves.map(async (move) => {
+				const version_details = move.version_group_details.find(
+					(group) => group.version_group.name === version
+				);
+				if (version_details) {
+					const moveDetails = await fetchPokemonMove(move.move.name);
+					return {
+						move,
 						level: version_details.level_learned_at,
-						method: version_details.move_learn_method
-				  }
-				: null;
-		});
+						method: version_details.move_learn_method,
+						type: moveDetails.type,
+						power: moveDetails.power || 0,
+						accuracy: moveDetails.accuracy,
+						pp: moveDetails.pp,
+						description: moveDetails.flavor_text_entries.find(
+							(entry) => entry.language.name === 'en'
+						)?.flavor_text
+					};
+				} else {
+					return null;
+				}
+			})
+		);
 		return moveset.filter((move) => move !== null);
 	};
 
@@ -104,15 +127,43 @@
 				<tr>
 					<th>Move Name</th>
 					<th>Learning at level</th>
+					<th>Type</th>
+					<th>Power</th>
+					<th>Accuracy</th>
+					<th>P.P.</th>
 				</tr>
 			</thead>
 			<tbody class="table-body">
-				{#each displayMoves as move}
+				{#await displayMoves}
 					<tr>
-						<td class="move-name">{displayMove(move.move.move.name)}</td>
-						<td class="move-level">{move.level}</td>
+						<td class="move-name">...</td>
+						<td class="move-level">...</td>
+						<td class="move-type">...</td>
+						<td class="move-power">...</td>
+						<td class="move-accuracy">...</td>
+						<td class="move-pp">...</td>
 					</tr>
-				{/each}
+				{:then moves}
+					{#each moves as move}
+						<tr>
+							<td class="move-name" title={move.description}>{displayMove(move.move.move.name)}</td>
+							<td class="move-level">{move.level}</td>
+							<td class="move-type"><PokemonType name={move.type.name} /></td>
+							<td class="move-power">{move.power}</td>
+							<td class="move-accuracy">{move.accuracy || '♾️'}%</td>
+							<td class="move-pp">{move.pp}</td>
+						</tr>
+					{/each}
+				{:catch error}
+					<tr>
+						<td class="move-name">...</td>
+						<td class="move-level">...</td>
+						<td class="move-type">...</td>
+						<td class="move-power">...</td>
+						<td class="move-accuracy">...</td>
+						<td class="move-pp">...</td>
+					</tr>
+				{/await}
 			</tbody>
 		</table>
 	</div>
@@ -189,9 +240,9 @@
 	.table-head th {
 		border-bottom: 1px solid var(--theme-background);
 		background-color: var(--theme-background);
-		color: var(--theme-text);
+		color: var(--theme-secondary);
 		padding: 0.5rem;
-		font-weight: bold;
+		font-weight: bolder;
 	}
 
 	.table-body {
@@ -199,7 +250,10 @@
 		top: 2rem;
 	}
 
-	.move-level {
+	.move-level,
+	.move-pp,
+	.move-power,
+	.move-accuracy {
 		text-align: center;
 	}
 </style>
