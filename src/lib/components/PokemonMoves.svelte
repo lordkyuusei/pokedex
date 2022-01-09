@@ -20,6 +20,8 @@
 		accuracy?: number;
 		pp?: number;
 		description?: string;
+		category?: string;
+		damageClass?: string;
 	};
 
 	$: pokemonVersions = extractVersions(moves);
@@ -62,9 +64,11 @@
 						level: version_details.level_learned_at,
 						method: version_details.move_learn_method,
 						type: moveDetails.type,
-						power: moveDetails.power || 0,
+						power: moveDetails.power,
 						accuracy: moveDetails.accuracy,
 						pp: moveDetails.pp,
+						category: moveDetails.meta.category.name,
+						damageClass: moveDetails.damage_class.name,
 						description: moveDetails.flavor_text_entries.find(
 							(entry) => entry.language.name === 'en'
 						)?.flavor_text
@@ -97,6 +101,22 @@
 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 			.join(' ');
 
+	const displayCategory = (category: string) =>
+		[
+			{ name: 'damage', icon: '⚔️' },
+			{ name: 'heal', icon: '💊' },
+			{ name: 'ailment', icon: '💫' },
+			{ name: 'net-good-stats', icon: '💪' },
+			{ name: 'unique', icon: '❓' }
+		].find((item) => item.name === category)?.icon;
+
+	const displayDamageClass = (damageClass: string) =>
+		[
+			{ name: 'physical', icon: '🔪' },
+			{ name: 'special', icon: '🔮' },
+			{ name: 'status', icon: '💉' }
+		].find((item) => item.name === damageClass)?.icon;
+
 	onMount(() => {
 		return () => {};
 	});
@@ -126,6 +146,8 @@
 			<thead class="table-head">
 				<tr>
 					<th>Move Name</th>
+					<th>Category</th>
+					<th>Damage Type</th>
 					<th>Learning at level</th>
 					<th>Type</th>
 					<th>Power</th>
@@ -137,6 +159,8 @@
 				{#await displayMoves}
 					<tr>
 						<td class="move-name">...</td>
+						<td class="move-category">...</td>
+						<td class="move-damage-type">...</td>
 						<td class="move-level">...</td>
 						<td class="move-type">...</td>
 						<td class="move-power">...</td>
@@ -147,9 +171,13 @@
 					{#each moves as move}
 						<tr>
 							<td class="move-name" title={move.description}>{displayMove(move.move.move.name)}</td>
+							<td class="move-category" title={move.category}> {displayCategory(move.category)}</td>
+							<td class="move-damage-type" title={move.damageClass}
+								>{displayDamageClass(move.damageClass)}</td
+							>
 							<td class="move-level">{move.level}</td>
 							<td class="move-type"><PokemonType name={move.type.name} /></td>
-							<td class="move-power">{move.power}</td>
+							<td class="move-power">{move.power || '➖'}</td>
 							<td class="move-accuracy">{move.accuracy || '♾️'}%</td>
 							<td class="move-pp">{move.pp}</td>
 						</tr>
@@ -157,6 +185,8 @@
 				{:catch error}
 					<tr>
 						<td class="move-name">...</td>
+						<td class="move-category">...</td>
+						<td class="move-damage-type">...</td>
 						<td class="move-level">...</td>
 						<td class="move-type">...</td>
 						<td class="move-power">...</td>
@@ -199,6 +229,7 @@
 	}
 
 	.chosen {
+		color: white;
 		background-color: var(--theme-secondary);
 	}
 
@@ -227,29 +258,30 @@
 	}
 
 	.moveset-table {
-		width: 90%;
+		width: 100%;
 		border-collapse: collapse;
 		table-layout: auto;
 	}
 
-	.table-head {
-		position: sticky;
-		height: 2rem;
-	}
-
 	.table-head th {
 		border-bottom: 1px solid var(--theme-background);
-		background-color: var(--theme-background);
+		background-color: var(--theme-alt-background);
 		color: var(--theme-secondary);
 		padding: 0.5rem;
 		font-weight: bolder;
 	}
 
-	.table-body {
-		position: sticky;
-		top: 2rem;
+	tr:nth-child(2n) {
+		background-color: var(--theme-alt-background);
 	}
 
+	tr:nth-child(2n + 1) {
+		background-color: var(--theme-background);
+	}
+
+	.move-name,
+	.move-category,
+	.move-damage-type,
 	.move-level,
 	.move-pp,
 	.move-power,

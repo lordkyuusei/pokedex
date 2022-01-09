@@ -39,6 +39,7 @@
 		border-radius: 10px;
 		box-shadow: var(--theme-shadow);
 		border: 1px solid var(--theme-border);
+		background-color: var(--theme-alt-background);
 		transition: 0.2s ease-in-out;
 		box-sizing: border-box;
 		position: relative;

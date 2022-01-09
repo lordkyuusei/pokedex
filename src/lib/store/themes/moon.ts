@@ -4,6 +4,7 @@ const moon = {
 		text: '#F1F1F1',
 		border: '#F1F1F1',
 		background: '#1A1423',
+		"alt-background": '#2B2536',
 		primary: '#A31621',
 		secondary: '#3C91E6',
 		cardglass: 'rgba(20, 20, 20, 0.5)',
