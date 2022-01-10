@@ -33,6 +33,8 @@
 
 	const isTyrogueChain = (condition: string) => condition === 'relative_physical_stats';
 
+	const isGenderRelated = (condition: string) => condition === 'gender';
+
 	const getCondition = (key: string) => triggerI18n.find((trigger) => trigger.key === key).en;
 
 	const getHigherStat = (condition: number) => {
@@ -41,6 +43,15 @@
 			'1': 'higher'
 		};
 		return conditions[condition.toString()];
+	};
+
+	const getGenderIcon = (gender: number) => {
+		const genders = {
+			0: '🙋',
+			1: '🙋‍♀️',
+			2: '🙋‍♂️'
+		};
+		return genders[gender];
 	};
 
 	onMount(() => {
@@ -53,6 +64,7 @@
 			};
 		});
 		evolutionChain = evolutionDetails;
+		console.log(evolutionChain);
 	});
 </script>
 
@@ -62,9 +74,11 @@
 			[
 			<img src={mapTriggernameToPicture[name]()} class="evolution_trigger_name" alt={name} />
 			<div class="evolution_trigger_details">
-				{#each Object.keys(conditions) as condition, index}
+				{#each Object.keys(conditions) as condition}
 					{#if isTyrogueChain(condition)}
 						{`[${getCondition(condition)}]: ${getHigherStat(conditions[condition])}`}
+					{:else if isGenderRelated(condition)}
+						{getGenderIcon(conditions[condition])}
 					{:else if ['string', 'number'].includes(typeof conditions[condition])}
 						{`[${getCondition(condition)}]: ${conditions[condition]}`}
 					{:else if isMove(conditions[condition])}
