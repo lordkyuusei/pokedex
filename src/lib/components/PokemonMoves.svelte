@@ -4,6 +4,7 @@
 	import Card from './PokemonLayouts/Card.svelte';
 	import { fetchPokemonMove } from '$lib/api';
 	import PokemonType from './PokemonType.svelte';
+	import BottomCurvyLine from './PokemonEvolutionChains/BottomCurvyLine.svelte';
 
 	const methods = ['level-up', 'tutor', 'machine'];
 
@@ -108,7 +109,15 @@
 			{ name: 'ailment', icon: '💫' },
 			{ name: 'net-good-stats', icon: '💪' },
 			{ name: 'unique', icon: '❓' }
-		].find((item) => item.name === category)?.icon;
+		]
+			.filter((cat) =>
+				category
+					.split('+')
+					.map((cat) => cat.trim())
+					.includes(cat.name)
+			)
+			.map((cat) => cat.icon)
+			.join('');
 
 	const displayDamageClass = (damageClass: string) =>
 		[
@@ -158,14 +167,9 @@
 			<tbody class="table-body">
 				{#await displayMoves}
 					<tr>
-						<td class="move-name">...</td>
-						<td class="move-category">...</td>
-						<td class="move-damage-type">...</td>
-						<td class="move-level">...</td>
-						<td class="move-type">...</td>
-						<td class="move-power">...</td>
-						<td class="move-accuracy">...</td>
-						<td class="move-pp">...</td>
+						{#each [...Array(8)] as _}
+							<td>...</td>
+						{/each}
 					</tr>
 				{:then moves}
 					{#each moves as move}
@@ -184,14 +188,9 @@
 					{/each}
 				{:catch error}
 					<tr>
-						<td class="move-name">...</td>
-						<td class="move-category">...</td>
-						<td class="move-damage-type">...</td>
-						<td class="move-level">...</td>
-						<td class="move-type">...</td>
-						<td class="move-power">...</td>
-						<td class="move-accuracy">...</td>
-						<td class="move-pp">...</td>
+						{#each [...Array(8)] as _}
+							<td>...</td>
+						{/each}
 					</tr>
 				{/await}
 			</tbody>
@@ -249,9 +248,6 @@
 	}
 
 	.pokemon-moveset {
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
 		width: 100%;
 		height: calc(100% - 4em);
 		overflow-y: scroll;
@@ -269,6 +265,10 @@
 		color: var(--theme-secondary);
 		padding: 0.5rem;
 		font-weight: bolder;
+	}
+
+	.table-body {
+		overflow-x: scroll;
 	}
 
 	tr:nth-child(2n) {
