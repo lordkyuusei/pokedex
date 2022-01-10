@@ -9,8 +9,8 @@ Features
 *   An infinite-scroll, lazy-loading complete Pokedex.
 *   A detail page where you can (currently) check:
     *   Any Pokemon default picture and typing.
-    *   High final stat product using EV - IV - Level sliders
-    *   Moveset sort by game & method!
+    *   High final stat product using Nature + EV - IV - Level sliders
+    *   Complete moveset (name, power, type...) sort by game & method!
     *   Abilities (hidden ones are marked with a \*)
     *   Alternate forms & varieties with clickable links!
 *   A (Moon/Sun stone)-inspired dark & light theme!
@@ -20,8 +20,9 @@ Known bugs
 
 Honestly, a sh\*t ton
 
-*   Some graphical issues on mobile & Safari
-*   Some alternate forms (hi alolan vulpix) evolution chains are wrong
+*   Horizontal scroll makes the scrollbar huge.
+*   Forms & Varieties are badly displayed.
+*   Some alternate forms (hi alolan vulpix) evolution chains are wrong.
 
 Why
 ---

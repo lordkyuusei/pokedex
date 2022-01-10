@@ -9,7 +9,7 @@
 		<ul>
 			<li>Any Pokemon default picture, typing, stats and evolution family.</li>
 			<li>High final stat product using EV - IV - Level sliders</li>
-			<li>Moveset sort by game & method!</li>
+			<li>Complete Moveset (name, power, type...) sort by game & method!</li>
 			<li>Abilities (hidden ones are marked with a *)</li>
 			<li>Alternate forms & varieties with clickable links!</li>
 		</ul>
@@ -18,7 +18,8 @@
 	<h2>Known bugs</h2>
 	<small>Honestly, a sh*t ton</small>
 	<ul>
-		<li>Some graphical issues on mobile & Safari</li>
+		<li>Horizontal scroll makes the scrollbar huge</li>
+		<li>Forms & Varieties are badly displayed</li>
 		<li>Some alternate forms (hi alolan vulpix) evolution chains are wrong</li>
 	</ul>
 	<h2>Why</h2>
