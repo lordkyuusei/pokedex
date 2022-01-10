@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { fly } from 'svelte/transition';
 	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
 
 	import PokedexThemeToggle from '$lib/components/PokedexThemeToggle.svelte';
@@ -51,7 +50,7 @@
 			</ul>
 		</nav>
 	</header>
-	<main in:fly={{ y: -50, duration: 250, delay: 300 }} out:fly={{ y: -40, duration: 250 }}>
+	<main class:isVisible>
 		<slot />
 	</main>
 	<footer />
@@ -126,12 +125,14 @@
 	@media screen and (max-width: 720px) {
 		.kyuudex-layout {
 			display: grid;
-			grid-template-columns: 5% 60% 5%;
+			grid-template-columns: 10% 65% 10%;
 			margin-bottom: 1rem;
 		}
 
 		.kyuudex-navigation-toggle {
 			display: block;
+			background-color: var(--theme-alt-background);
+			border: none;
 		}
 
 		.kyuudex-navigation {
@@ -143,18 +144,23 @@
 			display: block;
 			top: 2.5rem;
 			width: calc(100% - 1rem);
-			background-color: var(--theme-background);
-			border: 1px solid var(--theme-text);
+			background-color: var(--theme-alt-background);
 			z-index: 1;
 		}
 
 		.navigation-links {
 			flex-direction: column;
+			width: calc(100% - 3rem);
+			align-items: flex-end;
 		}
 
 		.navigation-links li {
 			margin-left: 0;
 			margin-top: 1rem;
+		}
+
+		main.isVisible {
+			opacity: 0.3;
 		}
 	}
 </style>
