@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { browser } from '$app/env';
+
 	import { goto } from '$app/navigation';
 
 	import { fetchPokemonSpriteURL } from '$lib/api';
@@ -36,16 +38,44 @@
 			searchResults = [];
 		}
 	};
+
+	const onDismiss = () => {
+		searchText = '';
+		searchResults = [];
+	};
+
+	const useDismiss = (node) => {
+		const handleDismiss = (event) => {
+			if (node && !node.contains(event.target) && !event.defaultPrevented) {
+				node.dispatchEvent(new CustomEvent('dismiss', node));
+			}
+		};
+
+		if (browser) {
+			document.addEventListener('click', handleDismiss, true);
+		}
+
+		return {
+			destroy() {
+				if (browser) {
+					document.removeEventListener('click', handleDismiss, true);
+				}
+			}
+		};
+	};
 </script>
 
 <input
 	type="text"
 	title="Search for Pokémon by name or ID"
 	placeholder="Search for Pokémon by name or ID"
+	autocomplete="off"
 	name="search"
 	bind:value={searchText}
 	on:focus|once={fetchLightkedex}
 	on:keyup={(event) => search(event)}
+	use:useDismiss
+	on:dismiss={onDismiss}
 />
 {#if searchResults.length}
 	<div class="pokemon-list" on:click|self={() => (searchResults = [])}>
@@ -124,5 +154,12 @@
 		background-color: var(--theme-text);
 		color: var(--theme-background);
 		border-color: var(--theme-text);
+	}
+
+	@media screen and (max-width: 720px) {
+		.pokemon-list {
+			width: calc(100% - 2rem);
+			left: 1rem;
+		}
 	}
 </style>
