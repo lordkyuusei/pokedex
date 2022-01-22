@@ -8,7 +8,7 @@
 	let isChecked: boolean;
 
 	onMount(() => {
-		isChecked = localStorage.getItem('currentTheme') === 'solar';
+		isChecked = localStorage.getItem('currentTheme') !== 'moon';
 	});
 </script>
 
