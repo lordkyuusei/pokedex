@@ -28,7 +28,7 @@
 	});
 </script>
 
-<Card slim cover half={abilities.length > 2} full={abilities.length > 3}>
+<Card span={abilities.length >= 3 ? 'lg' : 'md'} size="xs">
 	<div class="pokemon-abilities-list">
 		{#each abilities as ability}
 			<button
@@ -56,6 +56,8 @@
 		flex-wrap: nowrap;
 		justify-content: center;
 		width: 100%;
+		overflow-x: auto;
+		border-radius: 10px 10px 0 0;
 	}
 
 	.ability-button {

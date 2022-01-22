@@ -122,7 +122,7 @@
 		display: none;
 	}
 
-	@media screen and (max-width: 720px) {
+	@media screen and (max-width: 800px) {
 		.kyuudex-layout {
 			display: grid;
 			grid-template-columns: 10% 65% 10%;

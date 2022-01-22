@@ -25,7 +25,7 @@
 	});
 </script>
 
-<Card scp>
+<Card close_up span="lg" size="lg">
 	<div class="pokemon-stats">
 		{#each statistics as stat}
 			<PokemonStat {stat} {evs} {ivs} {lvl} {nature} />
@@ -35,15 +35,11 @@
 		<div class="stats-cursors">
 			<select class="stats-nature" bind:value={nature} title="nature">
 				{#each POKEMON_NATURES as nature}
-					<option value={nature}>{nature.name}</option>
+					<option value={nature}>{nature.name} (➕{nature.increase}, ➖{nature.decrease})</option>
 				{/each}
 			</select>
 			<div class="stats-ranges">
 				<div class="stats-iel">
-					<div class="iel-value">
-						{evs}
-						{'EVs'}
-					</div>
 					<input
 						class="iel-slider"
 						title="EVs"
@@ -54,12 +50,12 @@
 						value={evs}
 						on:input={(event) => (evs = event.target.valueAsNumber)}
 					/>
+					<div class="iel-value">
+						{evs}
+						{'EVs'}
+					</div>
 				</div>
 				<div class="stats-iel">
-					<div class="iel-value">
-						{ivs}
-						{'IVs'}
-					</div>
 					<input
 						class="iel-slider"
 						title="IVs"
@@ -69,12 +65,12 @@
 						value={ivs}
 						on:input={(event) => (ivs = event.target.valueAsNumber)}
 					/>
+					<div class="iel-value">
+						{ivs}
+						{'IVs'}
+					</div>
 				</div>
 				<div class="stats-iel">
-					<div class="iel-value">
-						{lvl}
-						{'LVL'}
-					</div>
 					<input
 						class="iel-slider"
 						title="LVL"
@@ -84,6 +80,10 @@
 						value={lvl}
 						on:input={(event) => (lvl = event.target.valueAsNumber)}
 					/>
+					<div class="iel-value">
+						{lvl}
+						{'LVL'}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -93,7 +93,7 @@
 <style>
 	.pokemon-stats {
 		display: grid;
-		grid-template-columns: repeat(10, 2.5em);
+		grid-template-columns: repeat(10, 10%);
 		grid-template-rows: 100%;
 		justify-content: center;
 		align-items: center;
@@ -126,13 +126,11 @@
 	}
 
 	.stats-iel {
-		width: 30px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		height: 100%;
 		border-radius: 5px;
-		position: relative;
-		display: flex;
-		flex-direction: column-reverse;
-		align-items: center;
 	}
 
 	.iel-value {
@@ -149,5 +147,38 @@
 		border-radius: 5px;
 		writing-mode: vertical-rl;
 		-webkit-appearance: slider-vertical;
+	}
+
+	@media screen and (max-width: 425px) {
+		.pokemon-stats {
+			grid-template-columns: repeat(7, 15%);
+			grid-template-rows: 70% 30%;
+			row-gap: 1%;
+		}
+
+		.stats-cursors {
+			grid-column: 1 / 8;
+			grid-row: 2;
+			width: 100%;
+		}
+
+		.stats-ranges {
+			flex-direction: column;
+			width: calc(100% - 1rem);
+		}
+
+		.stats-iel {
+			flex-direction: row;
+		}
+
+		.iel-slider {
+			width: 75%;
+			writing-mode: horizontal-tb;
+			-webkit-appearance: slider-horizontal;
+		}
+
+		.iel-value {
+			width: 25%;
+		}
 	}
 </style>

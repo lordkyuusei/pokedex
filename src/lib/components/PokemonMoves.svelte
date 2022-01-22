@@ -4,7 +4,6 @@
 	import Card from './PokemonLayouts/Card.svelte';
 	import { fetchPokemonMove } from '$lib/api';
 	import PokemonType from './PokemonType.svelte';
-	import BottomCurvyLine from './PokemonEvolutionChains/BottomCurvyLine.svelte';
 
 	const methods = ['level-up', 'tutor', 'machine'];
 
@@ -102,23 +101,6 @@
 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 			.join(' ');
 
-	const displayCategory = (category: string) =>
-		[
-			{ name: 'damage', icon: '⚔️' },
-			{ name: 'heal', icon: '💊' },
-			{ name: 'ailment', icon: '💫' },
-			{ name: 'net-good-stats', icon: '💪' },
-			{ name: 'unique', icon: '❓' }
-		]
-			.filter((cat) =>
-				category
-					.split('+')
-					.map((cat) => cat.trim())
-					.includes(cat.name)
-			)
-			.map((cat) => cat.icon)
-			.join('');
-
 	const displayDamageClass = (damageClass: string) =>
 		[
 			{ name: 'physical', icon: '🔪' },
@@ -131,7 +113,7 @@
 	});
 </script>
 
-<Card cover huge full title="Moveset">
+<Card span="lg" size="lg">
 	<div class="pokemon-versions">
 		{#each pokemonVersions as version}
 			<button
@@ -154,41 +136,39 @@
 		<table class="moveset-table">
 			<thead class="table-head">
 				<tr>
-					<th>Move Name</th>
-					<th>Category</th>
-					<th>Damage Type</th>
-					<th>Learning at level</th>
+					<th>Level</th>
+					<th>Name</th>
 					<th>Type</th>
 					<th>Power</th>
 					<th>Accuracy</th>
 					<th>P.P.</th>
+					<th>Damage Type</th>
 				</tr>
 			</thead>
 			<tbody class="table-body">
 				{#await displayMoves}
 					<tr>
-						{#each [...Array(8)] as _}
+						{#each [...Array(7)] as _}
 							<td>...</td>
 						{/each}
 					</tr>
 				{:then moves}
 					{#each moves as move}
 						<tr>
-							<td class="move-name" title={move.description}>{displayMove(move.move.move.name)}</td>
-							<td class="move-category" title={move.category}> {displayCategory(move.category)}</td>
-							<td class="move-damage-type" title={move.damageClass}
-								>{displayDamageClass(move.damageClass)}</td
-							>
 							<td class="move-level">{move.level}</td>
+							<td class="move-name" title={move.description}>{displayMove(move.move.move.name)}</td>
 							<td class="move-type"><PokemonType name={move.type.name} /></td>
 							<td class="move-power">{move.power || '➖'}</td>
 							<td class="move-accuracy">{move.accuracy || '♾️'}%</td>
 							<td class="move-pp">{move.pp}</td>
+							<td class="move-damage-type" title={move.damageClass}
+								>{displayDamageClass(move.damageClass)}</td
+							>
 						</tr>
 					{/each}
 				{:catch error}
 					<tr>
-						{#each [...Array(8)] as _}
+						{#each [...Array(7)] as _}
 							<td>...</td>
 						{/each}
 					</tr>
@@ -199,12 +179,17 @@
 </Card>
 
 <style>
+	.pokemon-versions {
+		border-radius: 10px 10px 0 0;
+	}
+
 	.pokemon-versions,
 	.pokemon-methods {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		width: 100%;
+		overflow-x: scroll;
 	}
 
 	.version-button,
@@ -232,24 +217,9 @@
 		background-color: var(--theme-secondary);
 	}
 
-	.version-button:first-child {
-		border-radius: 10px 0 0 0;
-		border-width: 0 1px 1px 0;
-	}
-
-	.version-button:last-child {
-		border-radius: 0 10px 0 0;
-		border-width: 0 0 1px 1px;
-	}
-
-	.version-button:only-child {
-		border-radius: 10px 10px 0 0;
-		border-width: 0 0 1px 0;
-	}
-
 	.pokemon-moveset {
 		width: 100%;
-		height: calc(100% - 4em);
+		height: calc(100% - 4.2rem);
 		overflow-y: scroll;
 	}
 
@@ -280,12 +250,25 @@
 	}
 
 	.move-name,
-	.move-category,
 	.move-damage-type,
 	.move-level,
 	.move-pp,
 	.move-power,
 	.move-accuracy {
 		text-align: center;
+	}
+
+	@media screen and (max-width: 425px) {
+		th:nth-child(n + 4),
+		td:nth-child(n + 4) {
+			display: none;
+		}
+	}
+
+	@media screen and (min-width: 425px) and (max-width: 768px) {
+		th:nth-child(n + 6),
+		td:nth-child(n + 6) {
+			display: none;
+		}
 	}
 </style>

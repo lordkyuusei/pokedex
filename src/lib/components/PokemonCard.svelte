@@ -32,7 +32,7 @@
 	});
 </script>
 
-<Card cover reactive title="N°{computePokemonId(id)}">
+<Card title="N°{computePokemonId(id)}" reactive span="md" size="md">
 	<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<div class="pokemon-id">
 			<div class="pokemon-name">{name}</div>

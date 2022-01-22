@@ -156,7 +156,7 @@
 		border-color: var(--theme-text);
 	}
 
-	@media screen and (max-width: 720px) {
+	@media screen and (max-width: 800px) {
 		.pokemon-list {
 			width: calc(100% - 2rem);
 			left: 1rem;

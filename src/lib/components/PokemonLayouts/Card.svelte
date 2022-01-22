@@ -1,29 +1,13 @@
 <script lang="ts">
-	export let full = false;
-	export let huge = false;
-	export let half = false;
-	export let cover = false;
-	export let slim = false;
-	export let scp = false;
-	export let quarter = false;
-	export let reactive = false;
-	export let big = false;
-
 	export let title: string = undefined;
+
+	export let reactive: boolean = false;
+	export let close_up: boolean = false;
+	export let size: string = 'sm';
+	export let span: string = 'sm';
 </script>
 
-<div
-	class="card"
-	class:full
-	class:huge
-	class:half
-	class:quarter
-	class:cover
-	class:slim
-	class:scp
-	class:reactive
-	class:big
->
+<div class="card card-w-{span} card-h-{size}" class:reactive class:close_up>
 	{#if title}
 		<div class="header">{title}</div>
 	{/if}
@@ -32,10 +16,7 @@
 
 <style>
 	.card {
-		height: 40vh;
-		width: 18rem;
 		margin: 0.5rem;
-		padding: 0.5rem;
 		border-radius: 10px;
 		box-shadow: var(--theme-shadow);
 		border: 1px solid var(--theme-border);
@@ -45,41 +26,13 @@
 		position: relative;
 	}
 
-	.full {
-		width: 100%;
-	}
-
-	.half {
-		width: calc(50% - 0.2rem);
-	}
-
-	.quarter {
-		width: 25%;
-	}
-
-	.huge {
-		height: 80vh;
-	}
-
-	.big {
-		height: 60vh;
-	}
-
-	.slim {
-		height: 20vh;
-	}
-
-	.cover {
-		padding: 0;
-	}
-
-	.scp {
-		width: auto;
-	}
-
 	.card.reactive:hover {
 		transform: translateY(-2px);
 		box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	}
+
+	.close_up {
+		padding: 0.5em;
 	}
 
 	.header {
@@ -97,17 +50,143 @@
 		border: 1px solid var(--theme-border);
 	}
 
-	@media screen and (max-width: 720px) {
-		.full,
-		.half,
-		.quarter {
-			width: calc(100% - 0.2rem);
+	/* mobile small */
+	@media screen and (max-width: 320px) {
+		.card-w-xs,
+		.card-w-sm,
+		.card-w-md,
+		.card-w-lg,
+		.card-w-xl {
+			width: 100%;
+		}
+
+		.card-h-sm {
+			height: 20vh;
+		}
+
+		.card-h-md {
+			height: 30vh;
+		}
+
+		.card-h-lg,
+		.card-h-xl {
+			height: 45vh;
+		}
+	}
+	@media screen and (min-width: 320px) and (max-width: 375px) {
+		.card-w-xs {
+			width: 80%;
+		}
+
+		.card-w-sm,
+		.card-w-md,
+		.card-w-lg,
+		.card-w-xl {
+			width: 100%;
+		}
+
+		.card-h-sm {
+			height: 20vh;
+		}
+
+		.card-h-md {
+			height: 35vh;
+		}
+
+		.card-h-lg,
+		.card-h-xl {
+			height: 45vh;
+		}
+	}
+
+	@media screen and (min-width: 375px) and (max-width: 425px) {
+		.card-w-xs {
+			width: 60%;
+		}
+
+		.card-w-sm {
+			width: 80%;
+		}
+
+		.card-w-md,
+		.card-w-lg,
+		.card-w-xl {
+			width: 90%;
+		}
+
+		.card-h-sm {
+			height: 20vh;
+		}
+
+		.card-h-md {
+			height: 30vh;
+		}
+
+		.card-h-lg,
+		.card-h-xl {
+			height: 45vh;
+		}
+	}
+	@media screen and (min-width: 425px) and (max-width: 768px) {
+		.card-w-xs {
+			width: 40%;
+		}
+
+		.card-w-sm {
+			width: 60%;
+		}
+
+		.card-w-md,
+		.card-w-lg,
+		.card-w-xl {
+			width: 90%;
+		}
+
+		.card-h-sm {
+			height: 25vh;
+		}
+
+		.card-h-md {
+			height: 40vh;
+		}
+
+		.card-h-lg {
 			height: 55vh;
 		}
 
-		.scp {
-			max-width: calc(100% - 0.2rem);
-			height: 55vh;
+		.card-h-xl {
+			height: 70vh;
+		}
+	}
+	@media screen and (min-width: 768px) and (max-width: 1024px) {
+		.card-w-xs {
+			width: 20%;
+		}
+
+		.card-w-sm {
+			width: 40%;
+		}
+
+		.card-w-md {
+			min-width: calc(30% - 1rem);
+			width: fit-content;
+			max-width: calc(45% - 1rem);
+		}
+
+		.card-h-md {
+			min-height: 20vh;
+			height: 25vh;
+			max-height: 30vh;
+		}
+
+		.card-w-lg {
+			min-width: calc(55% - 1rem);
+			width: fit-content;
+			max-width: calc(70% - 1rem);
+		}
+
+		.card-w-xl {
+			width: 100%;
 		}
 	}
 </style>
