@@ -12,12 +12,11 @@ body {
 ::-webkit-scrollbar {
 	margin-left: 22px;
 	float: left;
-	height: 300px;
-	width: 65px;
+	height: 0.5rem;
+	width: 0.5rem;
 	background: var(--theme-background);
 	overflow-y: scroll;
 	margin-bottom: 25px;
-	width: 0.5rem;
 }
 
 ::-webkit-scrollbar-thumb {
