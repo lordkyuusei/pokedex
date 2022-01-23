@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { fetchPokemonMove } from '$lib/api';
 	import PokemonType from './PokemonType.svelte';
-	import Card from './PokemonLayouts/Card.svelte';
+	import Card from '../PokemonLayouts/Card.svelte';
 	import {
 		sortMethod,
 		getVersion,
@@ -68,9 +68,9 @@
 						power: moveDetails.power,
 						accuracy: moveDetails.accuracy,
 						pp: moveDetails.pp,
-						category: moveDetails.meta.category.name,
-						damageClass: moveDetails.damage_class.name,
-						description: moveDetails.flavor_text_entries.find(
+						category: moveDetails.meta?.category.name,
+						damageClass: moveDetails.damage_class?.name,
+						description: moveDetails.flavor_text_entries?.find(
 							(entry) => entry.language.name === 'en'
 						)?.flavor_text
 					};
@@ -218,7 +218,7 @@
 	.moveset-table {
 		width: 100%;
 		border-collapse: collapse;
-		table-layout: auto;
+		table-layout: fixed;
 		transition: all 0.2s ease-in-out;
 	}
 
@@ -231,6 +231,11 @@
 		cursor: pointer;
 		transition: all 0.2s ease-in-out;
 		text-transform: capitalize;
+		width: 100%;
+	}
+
+	.table-head th:nth-child(1) {
+		width: 75%;
 	}
 
 	.table-head th:hover {

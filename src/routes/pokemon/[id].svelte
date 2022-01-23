@@ -23,12 +23,12 @@
 	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
 
 	import PokemonCard from '$lib/components/PokemonCard.svelte';
-	import PokemonLoader from '$lib/components/PokemonLoader.svelte';
+	import PokemonLoader from '$lib/components/PokemonLayouts/PokemonLoader.svelte';
 	import PokemonStats from '$lib/components/PokemonStats/PokemonStats.svelte';
 	import PokemonEvolutionChain from '$lib/components/PokemonEvolutionChain.svelte';
-	import PokemonAbilities from '$lib/components/PokemonAbilities.svelte';
-	import PokemonVarieties from '$lib/components/PokemonVarieties.svelte';
-	import PokemonMoves from '$lib/components/PokemonMoves.svelte';
+	import PokemonAbilities from '$lib/components/PokemonUIData/PokemonAbilities.svelte';
+	import PokemonVarieties from '$lib/components/PokemonUIData/PokemonVarieties.svelte';
+	import PokemonMoves from '$lib/components/PokemonUIData/PokemonMoves.svelte';
 
 	export let pokemon: Pokemon = null;
 	export let specie: PokemonSpecie = null;

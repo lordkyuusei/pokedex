@@ -4,7 +4,7 @@
 	import type { AbilityRef, EntityRef } from '$lib/types/Pokemon';
 	import type { PokemonAbility } from '$lib/types/PokemonAbility';
 	import { onMount } from 'svelte';
-	import Card from './PokemonLayouts/Card.svelte';
+	import Card from '../PokemonLayouts/Card.svelte';
 
 	export let abilities: AbilityRef[] = [];
 	let abilityChosen: number = 1;

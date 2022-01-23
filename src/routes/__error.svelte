@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import PokemonLoader from '$lib/components/PokemonLoader.svelte';
+	import PokemonLoader from '$lib/components/PokemonLayouts/PokemonLoader.svelte';
 	import { dev } from '$app/env';
 
 	export let error: Error;

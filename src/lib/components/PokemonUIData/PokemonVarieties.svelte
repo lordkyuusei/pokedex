@@ -5,15 +5,27 @@
 	import type { PokemonForm } from '$lib/types/PokemonForm';
 	import type { VarietyRef } from '$lib/types/PokemonSpecie';
 	import { onMount } from 'svelte';
-	import PokemonCard from './PokemonCard.svelte';
+	import PokemonCard from '../PokemonCard.svelte';
 
-	import Card from './PokemonLayouts/Card.svelte';
+	import Card from '../PokemonLayouts/Card.svelte';
 
 	export let forms: EntityRef[] = [];
 	export let varieties: VarietyRef[] = [];
 
 	let pokemonVarieties: Pokemon[] = [];
 	let pokemonForms: PokemonForm[] = [];
+
+	const spanCalculation = () => {
+		if (pokemonForms.length === 1 || pokemonVarieties.length === 1) {
+			return 'sm';
+		} else if (pokemonForms.length === 2 || pokemonVarieties.length === 2) {
+			return 'md';
+		} else if (pokemonForms.length === 3 || pokemonVarieties.length === 3) {
+			return 'lg';
+		} else {
+			return 'xl';
+		}
+	};
 
 	onMount(async () => {
 		if (varieties.length > 1) {
@@ -39,7 +51,7 @@
 	});
 </script>
 
-<Card cover full big title="Forms & Varieties">
+<Card title="Forms & Varieties" span={spanCalculation()} size="lg" close_up>
 	{#if pokemonVarieties.length}
 		<div class="pokemon-varieties">
 			{#each pokemonVarieties as variety}
@@ -48,6 +60,7 @@
 						id={`${variety.id}`}
 						name={variety.name}
 						types={variety.types.map((type) => type.type.name)}
+						isLink
 					/>
 				</a>
 			{/each}
@@ -74,7 +87,12 @@
 	.pokemon-forms {
 		display: flex;
 		align-items: center;
-		overflow-x: scroll;
+		overflow-x: auto;
 		height: 100%;
+	}
+
+	a {
+		height: calc(100% - 1rem);
+		width: 50%;
 	}
 </style>

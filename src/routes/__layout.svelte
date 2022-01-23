@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
 
-	import PokedexThemeToggle from '$lib/components/PokedexThemeToggle.svelte';
+	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 
 	let isVisible: boolean = false;

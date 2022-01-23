@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 
 	import { fetchPokemonSpriteURL } from '$lib/api';
-	import PokemonType from './PokemonType.svelte';
+	import PokemonType from './PokemonUIData/PokemonType.svelte';
 
 	type light = {
 		id: number;

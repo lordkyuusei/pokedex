@@ -9,7 +9,7 @@
 	import Card from './PokemonLayouts/Card.svelte';
 	import StraightLine from './PokemonEvolutionChains/StraightLine.svelte';
 	import DoubleStraightLine from './PokemonEvolutionChains/DoubleStraightLine.svelte';
-	import PokemonLink from './PokemonLink.svelte';
+	import PokemonLink from './PokemonEvolutionChains/PokemonLink.svelte';
 	import TopStraightBottomLine from './PokemonEvolutionChains/TopStraightBottomLine.svelte';
 	import TopCurvyLine from './PokemonEvolutionChains/TopCurvyLine.svelte';
 	import BottomCurvyLine from './PokemonEvolutionChains/BottomCurvyLine.svelte';

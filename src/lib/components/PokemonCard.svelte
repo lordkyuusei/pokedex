@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PokemonType from './PokemonType.svelte';
+	import PokemonType from './PokemonUIData/PokemonType.svelte';
 	import POKEMON_TYPES from '$lib/store/types';
 	import Card from './PokemonLayouts/Card.svelte';
 	import { fetchPokemonSpriteURL } from '$lib/api';
