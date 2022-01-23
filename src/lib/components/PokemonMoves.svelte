@@ -181,7 +181,7 @@
 		flex-direction: row;
 		justify-content: flex-start;
 		width: 100%;
-		overflow-x: scroll;
+		overflow-x: auto;
 	}
 
 	.version-button,
