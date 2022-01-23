@@ -36,7 +36,7 @@ export const displaySortMethod = (sortOrder: string) =>
 export const getVersion = (version: string) =>
     version
         .split('-')
-        .map((group) => group.charAt(0).toUpperCase())
+        .map((group, _, versions) => `${group.charAt(0).toUpperCase()}${versions.length === 1 ? group.charAt(1) : ''}`)
         .join('');
 
 export const displayMove = (move: string) =>
