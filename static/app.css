@@ -12,8 +12,8 @@ body {
 ::-webkit-scrollbar {
 	margin-left: 22px;
 	float: left;
-	height: 0.5rem;
-	width: 0.5rem;
+	height: 0.25rem;
+	width: 0.25rem;
 	background: var(--theme-background);
 	overflow-y: scroll;
 	margin-bottom: 25px;
