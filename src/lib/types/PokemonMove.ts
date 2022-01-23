@@ -1,4 +1,4 @@
-import type { EntityRef } from "./Pokemon";
+import type { EntityRef, MoveRef } from "./Pokemon";
 
 export type PokemonMove = {
     id: string;
@@ -25,6 +25,19 @@ export type PokemonMove = {
     learned_by_pokemon: EntityRef[];
     flavor_text_entries: FlavorTextEntry[];
 }
+
+export type MoveLight = {
+    move: MoveRef;
+    level: number;
+    method: EntityRef;
+    type?: EntityRef;
+    power?: number;
+    accuracy?: number;
+    pp?: number;
+    description?: string;
+    category?: string;
+    damageClass?: string;
+};
 
 type ContestEffect = {
     url: string;

@@ -43,5 +43,6 @@
 		letter-spacing: 2px;
 		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 		color: white;
+		font-weight: bolder;
 	}
 </style>

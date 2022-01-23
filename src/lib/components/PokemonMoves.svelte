@@ -1,47 +1,48 @@
 <script lang="ts">
-	import type { EntityRef, MoveRef } from '$lib/types/Pokemon';
+	import type { MoveRef } from '$lib/types/Pokemon';
+	import type { MoveLight } from '$lib/types/PokemonMove';
+	import type { SortBy } from '$lib/movesLibrary';
+
 	import { onMount } from 'svelte';
-	import Card from './PokemonLayouts/Card.svelte';
 	import { fetchPokemonMove } from '$lib/api';
 	import PokemonType from './PokemonType.svelte';
+	import Card from './PokemonLayouts/Card.svelte';
+	import {
+		sortMethod,
+		getVersion,
+		displayMove,
+		displayDamageClass,
+		displaySortMethod
+	} from '$lib/movesLibrary';
 
 	const methods = ['level-up', 'tutor', 'machine'];
+	const moveCategories = ['level', 'name', 'type', 'power', 'accuracy', 'pp', 'damage type'];
 
 	export let moves: MoveRef[] = [];
 	let versionChosen: string = 'ultra-sun-ultra-moon';
 	let methodChosen: string = 'level-up';
-
-	type MoveLight = {
-		move: MoveRef;
-		level: number;
-		method: EntityRef;
-		type?: EntityRef;
-		power?: number;
-		accuracy?: number;
-		pp?: number;
-		description?: string;
-		category?: string;
-		damageClass?: string;
-	};
+	let sortChosen: SortBy = { key: 'level', order: 'asc' };
 
 	$: pokemonVersions = extractVersions(moves);
 
 	$: pokemonMoves = extractMoves(moves, versionChosen);
 
 	$: pokemonMovesPerLevel = pokemonMoves.then((moves) =>
-		moves.filter((move) => move.method.name === 'level-up').sort((a, b) => a.level - b.level)
+		moves
+			.filter((move) => move.method.name === 'level-up')
+			.sort((a, b) => sortMethod(a, b, sortChosen))
 	);
 
 	$: pokemonMovesViaTutor = pokemonMoves.then((moves) =>
 		moves
 			.filter((move) => move.method.name === 'tutor')
-			.sort((a, b) => a.move.move.name.localeCompare(b.move.move.name))
+			.sort((a, b) => sortMethod(a, b, sortChosen))
 	);
 
 	$: pokemonMovesViaTM = pokemonMoves.then((moves) =>
 		moves
 			.filter((move) => move.method.name === 'machine')
-			.sort((a, b) => a.move.move.name.localeCompare(b.move.move.name))
+			.sort((a, b) => sortMethod(a, b, sortChosen))
 	);
 
 	$: displayMoves =
@@ -89,24 +90,14 @@
 		return [...new Set(versions)];
 	};
 
-	const getVersion = (version: string) =>
-		version
-			.split('-')
-			.map((group) => group.charAt(0).toUpperCase())
-			.join('');
-
-	const displayMove = (move: string) =>
-		move
-			.split('-')
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join(' ');
-
-	const displayDamageClass = (damageClass: string) =>
-		[
-			{ name: 'physical', icon: '🔪' },
-			{ name: 'special', icon: '🔮' },
-			{ name: 'status', icon: '💉' }
-		].find((item) => item.name === damageClass)?.icon;
+	const setSortMethod = (category: string) => {
+		if (sortChosen.key === category) {
+			sortChosen.order = sortChosen.order === 'asc' ? 'desc' : 'asc';
+		} else {
+			sortChosen.key = category;
+			sortChosen.order = 'asc';
+		}
+	};
 
 	onMount(() => {
 		return () => {};
@@ -136,20 +127,19 @@
 		<table class="moveset-table">
 			<thead class="table-head">
 				<tr>
-					<th>Level</th>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Power</th>
-					<th>Accuracy</th>
-					<th>P.P.</th>
-					<th>Damage Type</th>
+					{#each moveCategories as category}
+						<th class="head-category" title="Sort" on:click={() => setSortMethod(category)}>
+							{category}
+							{sortChosen.key === category ? displaySortMethod(sortChosen.order) : ''}</th
+						>
+					{/each}
 				</tr>
 			</thead>
 			<tbody class="table-body">
 				{#await displayMoves}
 					<tr>
 						{#each [...Array(7)] as _}
-							<td>...</td>
+							<td class="move">...</td>
 						{/each}
 					</tr>
 				{:then moves}
@@ -157,13 +147,15 @@
 						<tr>
 							<td class="move-level">{move.level}</td>
 							<td class="move-name" title={move.description}>{displayMove(move.move.move.name)}</td>
-							<td class="move-type"><PokemonType name={move.type.name} /></td>
+							<td class="move-type">
+								<PokemonType name={move.type.name} />
+							</td>
 							<td class="move-power">{move.power || '➖'}</td>
 							<td class="move-accuracy">{move.accuracy || '♾️'}%</td>
 							<td class="move-pp">{move.pp}</td>
-							<td class="move-damage-type" title={move.damageClass}
-								>{displayDamageClass(move.damageClass)}</td
-							>
+							<td class="move-damage-type" title={move.damageClass}>
+								{displayDamageClass(move.damageClass)}
+							</td>
 						</tr>
 					{/each}
 				{:catch error}
@@ -227,6 +219,7 @@
 		width: 100%;
 		border-collapse: collapse;
 		table-layout: auto;
+		transition: all 0.2s ease-in-out;
 	}
 
 	.table-head th {
@@ -235,6 +228,13 @@
 		color: var(--theme-secondary);
 		padding: 0.5rem;
 		font-weight: bolder;
+		cursor: pointer;
+		transition: all 0.2s ease-in-out;
+		text-transform: capitalize;
+	}
+
+	.table-head th:hover {
+		border-color: var(--theme-secondary);
 	}
 
 	.table-body {
@@ -249,6 +249,7 @@
 		background-color: var(--theme-background);
 	}
 
+	.move,
 	.move-name,
 	.move-damage-type,
 	.move-level,
