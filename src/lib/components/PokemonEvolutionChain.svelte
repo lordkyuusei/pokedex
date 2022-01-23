@@ -74,12 +74,9 @@
 </script>
 
 <Card
-	huge={isHuge}
-	full={pokemonStages.size >= 3 || isHuge}
-	quarter={pokemonStages.size === 1 && !isHuge}
-	half={pokemonStages.size === 2 && !isHuge}
-	cover
 	title="Evolution Chain"
+	size={isHuge ? 'xl' : 'md'}
+	span={{ 1: 'sm', 2: 'md', 3: 'lg', 4: 'xl' }[pokemonStages.size]}
 >
 	<div class="pokemon-evolution-chain">
 		{#each [...pokemonStages] as [stage, evolutionChain]}
