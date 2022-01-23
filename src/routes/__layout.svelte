@@ -41,7 +41,7 @@
 		<nav class="kyuudex-navigation" class:isVisible>
 			<ul class="navigation-links">
 				{#each navigation as navigation_link}
-					<li class:isActive={$page.path === navigation_link.path}>
+					<li class:isActive={$page.url.pathname === navigation_link.path}>
 						<a href={navigation_link.path} on:click={() => (isVisible = false)}>
 							{navigation_link.name}
 						</a>

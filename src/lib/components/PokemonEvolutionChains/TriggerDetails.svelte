@@ -64,7 +64,6 @@
 			};
 		});
 		evolutionChain = evolutionDetails;
-		console.log(evolutionChain);
 	});
 </script>
 

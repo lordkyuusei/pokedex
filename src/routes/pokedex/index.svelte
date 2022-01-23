@@ -6,11 +6,11 @@
 	} from '$lib/constants';
 	import codex from '$lib/store/lightkedex.json';
 
-	export const load = async ({ page, fetch }) => {
+	export const load = async ({ url, fetch }) => {
 		try {
 			const [limit, offset] = [
-				page.query.get('_limit') || MAX_POKEMON_LOADING,
-				page.query.get('_offset') || DEFAULT_POKEMON_OFFSET
+				url.searchParams.get('_limit') || MAX_POKEMON_LOADING,
+				url.searchParams.get('_offset') || DEFAULT_POKEMON_OFFSET
 			];
 			const result = await fetch(`/pokedex/pokedex.json?_limit=${limit}&_offset=${offset}`);
 
@@ -72,7 +72,7 @@
 	const handleIntersection = (entries: any[], observer: { unobserve: (arg0: any) => void }) => {
 		if (entries[0].isIntersecting) {
 			observer.unobserve(entries[0].target);
-			const query = new URLSearchParams($page.query.toString());
+			const query = new URLSearchParams($page.url.searchParams.toString());
 			query.set(
 				'_offset',
 				`${(parseInt(query.get('_offset')) || DEFAULT_POKEMON_OFFSET) + DEFAULT_OFFSET_INCREMENT}`

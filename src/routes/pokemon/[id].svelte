@@ -1,6 +1,6 @@
 <script context="module">
-	export const load = async ({ page, fetch }) => {
-		const { id } = page.params || 0;
+	export const load = async ({ params, fetch }) => {
+		const { id } = params || 0;
 		const result = await fetch(`/pokemon/${id}.json`);
 
 		if (result.ok) {
