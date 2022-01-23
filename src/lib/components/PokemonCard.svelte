@@ -9,6 +9,7 @@
 	export let name: string = '';
 	export let picture: string = '';
 	export let types: string[] = [];
+	export let isLink: boolean = false;
 
 	const drawCardBackground = (types: string[]) => {
 		if (types.length > 0) {
@@ -32,7 +33,12 @@
 	});
 </script>
 
-<Card title="N°{computePokemonId(id)}" reactive span="md" size="md">
+<Card
+	title="N°{computePokemonId(id)}"
+	reactive
+	span={isLink ? 'xl' : 'md'}
+	size={isLink ? 'md' : 'lg'}
+>
 	<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<div class="pokemon-id">
 			<div class="pokemon-name">{name}</div>

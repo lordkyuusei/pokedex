@@ -118,6 +118,7 @@
 				name={pokemon?.name}
 				picture={fetchPokemonSpriteURL(`${pokemon?.id}`)}
 				types={pokemon?.types}
+				isLink
 			/>
 		</a>
 	{/each}
@@ -128,5 +129,29 @@
 		display: flex;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
+	}
+
+	@media screen and (min-width: 320px) and (max-width: 425px) {
+		a {
+			width: 100%;
+		}
+	}
+
+	@media screen and (min-width: 425px) and (max-width: 768px) {
+		a {
+			width: calc(50% - 0.5rem);
+		}
+	}
+
+	@media screen and (min-width: 768px) and (max-width: 1024px) {
+		a {
+			width: calc(33% - 0.5rem);
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		a {
+			width: calc(25% - 0.5rem);
+		}
 	}
 </style>

@@ -73,6 +73,7 @@
 			height: 45vh;
 		}
 	}
+
 	@media screen and (min-width: 320px) and (max-width: 375px) {
 		.card-w-xs {
 			width: 80%;
@@ -139,7 +140,7 @@
 		.card-w-md,
 		.card-w-lg,
 		.card-w-xl {
-			width: 90%;
+			width: calc(100% - 1rem);
 		}
 
 		.card-h-sm {
