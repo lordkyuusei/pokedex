@@ -127,13 +127,18 @@
 <style>
 	.pokedex {
 		display: flex;
+		flex-direction: row;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
 	}
 
 	@media screen and (min-width: 320px) and (max-width: 425px) {
+		.pokedex {
+			flex-direction: column;
+		}
+
 		a {
-			width: 100%;
+			width: 95%;
 		}
 	}
 

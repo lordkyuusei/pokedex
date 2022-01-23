@@ -32,7 +32,7 @@
 	}
 
 	.close_up {
-		padding: 0.5em;
+		padding: 1rem;
 	}
 
 	.header {
@@ -48,6 +48,7 @@
 		left: 10px;
 		background-color: var(--theme-background);
 		border: 1px solid var(--theme-border);
+		z-index: 1;
 	}
 
 	/* mobile small */
@@ -112,7 +113,7 @@
 		.card-w-md,
 		.card-w-lg,
 		.card-w-xl {
-			width: 90%;
+			width: 100%;
 		}
 
 		.card-h-sm {
@@ -125,7 +126,7 @@
 
 		.card-h-lg,
 		.card-h-xl {
-			height: 45vh;
+			height: 40vh;
 		}
 	}
 	@media screen and (min-width: 425px) and (max-width: 768px) {
