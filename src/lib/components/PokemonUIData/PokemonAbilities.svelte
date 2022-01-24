@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fetchPokemonAbility } from '$lib/api';
+	import { locale } from '$lib/store/i18n/i18n';
 
 	import type { AbilityRef, EntityRef } from '$lib/types/Pokemon';
 	import type { PokemonAbility } from '$lib/types/PokemonAbility';
@@ -18,10 +19,12 @@
 		});
 	};
 
-	const getAbilityDetails = (abilityDetails: PokemonAbility, lang: string) => {
-		return abilityDetails.flavor_text_entries.find((entry) => entry.language.name === lang)
+	const getAbilityName = (abilityDetails: PokemonAbility) =>
+		abilityDetails.names.find((name) => name.language.name === $locale.slice(0, 2)).name;
+
+	const getAbilityDetails = (abilityDetails: PokemonAbility) =>
+		abilityDetails.flavor_text_entries.find((entry) => entry.language.name === $locale.slice(0, 2))
 			.flavor_text;
-	};
 
 	onMount(async () => {
 		await fetchAbilityDetails(abilities[0]);
@@ -43,7 +46,7 @@
 	</div>
 	<pre class="pokemon-ability-details">
         {#if abilityDetails}
-			{getAbilityDetails(abilityDetails, 'en')}
+			{getAbilityDetails(abilityDetails)}
 		{:else}
 			Click on any ability to get its description.
 		{/if}

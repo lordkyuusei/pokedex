@@ -1,0 +1,29 @@
+<script lang="ts">
+	import { locale, locales } from '$lib/store/i18n/i18n';
+</script>
+
+<div class="lang-toggle">
+	<select bind:value={$locale}>
+		{#each locales as locale}
+			<option value={locale}>{locale}</option>
+		{/each}
+	</select>
+</div>
+
+<style>
+	.lang-toggle {
+		text-align: end;
+	}
+
+	select,
+	option {
+		font-size: 1rem;
+		padding: 0.5rem 1rem;
+		margin: 0.5rem;
+		border-radius: 50px;
+		text-transform: uppercase;
+		letter-spacing: 0.25rem;
+		background-color: var(--theme-background);
+		color: var(--theme-text);
+	}
+</style>

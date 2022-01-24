@@ -3,6 +3,7 @@
 
 	import POKEMON_TYPES from '$lib/store/types';
 	import type { PokemonType } from '$lib/types/PokemonType';
+	import { t } from '$lib/store/i18n/i18n';
 
 	export let name = '???';
 	let pokemonType: PokemonType = { name, icon: '❓' };
@@ -18,7 +19,7 @@
 
 <div class="pokemon-type" style={`background-color: ${pokemonType?.color};`}>
 	<div class="pokemon-icon">{pokemonType?.icon}</div>
-	<div class="pokemon-typename">{pokemonType?.name}</div>
+	<div class="pokemon-typename">{$t(`type.${pokemonType?.name}`)}</div>
 </div>
 
 <style>

@@ -2,23 +2,26 @@
 	import { page } from '$app/stores';
 	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
 
+	import { t } from '$lib/store/i18n/i18n';
+
 	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
+	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 
 	let isVisible: boolean = false;
 	const navigation: any[] = [
 		{
-			name: 'Home',
+			name: 'menu.home',
 			path: '/',
 			icon: 'home'
 		},
 		{
-			name: 'Pokedex',
+			name: 'menu.pokedex',
 			path: '/pokedex',
 			icon: 'codex'
 		},
 		{
-			name: 'About',
+			name: 'menu.about',
 			path: '/about',
 			icon: 'info'
 		}
@@ -43,11 +46,12 @@
 				{#each navigation as navigation_link}
 					<li class:isActive={$page.url.pathname === navigation_link.path}>
 						<a href={navigation_link.path} on:click={() => (isVisible = false)}>
-							{navigation_link.name}
+							{$t(navigation_link.name)}
 						</a>
 					</li>
 				{/each}
 			</ul>
+			<LangToggle />
 		</nav>
 	</header>
 	<main class:isVisible>

@@ -27,7 +27,7 @@ export type PokemonMove = {
 }
 
 export type MoveLight = {
-    move: MoveRef;
+    name: string;
     level: number;
     method: EntityRef;
     type?: EntityRef;

@@ -5,6 +5,7 @@
 
 	import { onMount } from 'svelte';
 	import { fetchPokemonMove } from '$lib/api';
+	import { locale, t } from '$lib/store/i18n/i18n';
 	import PokemonType from './PokemonType.svelte';
 	import Card from '../PokemonLayouts/Card.svelte';
 	import {
@@ -25,7 +26,7 @@
 
 	$: pokemonVersions = extractVersions(moves);
 
-	$: pokemonMoves = extractMoves(moves, versionChosen);
+	$: pokemonMoves = extractMoves(moves, versionChosen, $locale.slice(0, 2));
 
 	$: pokemonMovesPerLevel = pokemonMoves.then((moves) =>
 		moves
@@ -52,7 +53,11 @@
 			? pokemonMovesViaTutor
 			: pokemonMovesViaTM;
 
-	const extractMoves = async (moves: MoveRef[], version: string): Promise<MoveLight[]> => {
+	const extractMoves = async (
+		moves: MoveRef[],
+		version: string,
+		locale: string
+	): Promise<MoveLight[]> => {
 		const moveset: MoveLight[] = await Promise.all(
 			moves.map(async (move) => {
 				const version_details = move.version_group_details.find(
@@ -61,7 +66,7 @@
 				if (version_details) {
 					const moveDetails = await fetchPokemonMove(move.move.name);
 					return {
-						move,
+						name: moveDetails.names?.find((name) => name.language.name === locale).name,
 						level: version_details.level_learned_at,
 						method: version_details.move_learn_method,
 						type: moveDetails.type,
@@ -71,7 +76,7 @@
 						category: moveDetails.meta?.category.name,
 						damageClass: moveDetails.damage_class?.name,
 						description: moveDetails.flavor_text_entries?.find(
-							(entry) => entry.language.name === 'en'
+							(entry) => entry.language.name === locale
 						)?.flavor_text
 					};
 				} else {
@@ -83,9 +88,11 @@
 	};
 
 	const extractVersions = (moves: MoveRef[]) => {
+		console.log(moves[0]);
 		const reference: MoveRef = moves.reduce((prev, next) =>
 			prev.version_group_details.length > next.version_group_details.length ? prev : next
 		);
+		console.log(reference);
 		const versions = reference.version_group_details.map((version) => version.version_group.name);
 		return [...new Set(versions)];
 	};
@@ -109,8 +116,9 @@
 		{#each pokemonVersions as version}
 			<button
 				class="version-button"
+				title={$t(`version.${version}`)}
 				class:chosen={versionChosen === version}
-				on:click={() => (versionChosen = version)}>{getVersion(version)}</button
+				on:click={() => (versionChosen = version)}>{getVersion($t(`version.${version}`))}</button
 			>
 		{/each}
 	</div>
@@ -119,7 +127,7 @@
 			<button
 				class="method-button"
 				class:chosen={methodChosen === method}
-				on:click={() => (methodChosen = method)}>{method}</button
+				on:click={() => (methodChosen = method)}>{$t(`move.${method}`)}</button
 			>
 		{/each}
 	</div>
@@ -129,7 +137,7 @@
 				<tr>
 					{#each moveCategories as category}
 						<th class="head-category" title="Sort" on:click={() => setSortMethod(category)}>
-							{category}
+							{$t(`move.${category}`)}
 							{sortChosen.key === category ? displaySortMethod(sortChosen.order) : ''}</th
 						>
 					{/each}
@@ -146,7 +154,7 @@
 					{#each moves as move}
 						<tr>
 							<td class="move-level">{move.level}</td>
-							<td class="move-name" title={move.description}>{displayMove(move.move.move.name)}</td>
+							<td class="move-name" title={move.description}>{displayMove(move.name)}</td>
 							<td class="move-type">
 								<PokemonType name={move.type.name} />
 							</td>

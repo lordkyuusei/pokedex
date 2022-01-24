@@ -15,10 +15,7 @@ const sortOrderStr = (a: string, b: string, order: string): number =>
 export const sortMethod = (a: MoveLight, b: MoveLight, sortBy: SortBy) =>
     [
         { name: 'level', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.level, b.level, sortBy.order) },
-        {
-            name: 'name',
-            sort: (a: MoveLight, b: MoveLight) => sortOrderStr(a.move.move.name, b.move.move.name, sortBy.order)
-        },
+        { name: 'name', sort: (a: MoveLight, b: MoveLight) => sortOrderStr(a.name, b.name, sortBy.order) },
         { name: 'power', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.power, b.power, sortBy.order) },
         { name: 'accuracy', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.accuracy, b.accuracy, sortBy.order) },
         { name: 'pp', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.pp, b.pp, sortBy.order) },
@@ -33,9 +30,10 @@ export const displaySortMethod = (sortOrder: string) =>
     ].find((item) => item.name === sortOrder)?.icon;
 
 /* Getters */
+const test = (str: string) => str.split(/[\s\/]/);
 export const getVersion = (version: string) =>
     version
-        .split('-')
+        .split(/[\s\/]/)
         .map((group, _, versions) => `${group.charAt(0).toUpperCase()}${versions.length === 1 ? group.charAt(1) : ''}`)
         .join('');
 
