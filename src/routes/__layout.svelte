@@ -9,6 +9,8 @@
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 
 	let isVisible: boolean = false;
+	$: icon = isVisible ? '▼' : '△';
+
 	const navigation: any[] = [
 		{
 			name: 'menu.home',
@@ -40,7 +42,9 @@
 		<div class="kyuudex-search">
 			<PokedexSearch />
 		</div>
-		<button class="kyuudex-navigation-toggle" on:click={() => (isVisible = !isVisible)}>🍔</button>
+		<button class="kyuudex-navigation-toggle" on:click={() => (isVisible = !isVisible)}
+			>{icon}</button
+		>
 		<nav class="kyuudex-navigation" class:isVisible>
 			<ul class="navigation-links">
 				{#each navigation as navigation_link}
@@ -61,23 +65,36 @@
 </ThemeContext>
 
 <style>
+	main {
+		padding: 0.5rem;
+	}
+
 	.kyuudex-layout {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: 10% 25% auto;
+		grid-template-rows: 100%;
 		align-items: center;
 	}
 
 	.kyuudex-theming,
-	.kyuudex-navigation,
-	.kyuudex-search {
-		width: 100%;
+	.kyuudex-search,
+	.kyuudex-navigation {
+		width: calc(100% - 1rem);
+	}
+
+	.kyuudex-theming {
+		display: flex;
+		justify-content: center;
 	}
 
 	.kyuudex-navigation {
 		display: flex;
 		flex-direction: row;
-		justify-content: flex-end;
+		justify-content: space-between;
+	}
+
+	.kyuudex-search {
+		position: relative;
 	}
 
 	.navigation-links {
@@ -93,10 +110,6 @@
 		letter-spacing: 8px;
 		text-indent: 8px;
 		text-transform: uppercase;
-	}
-
-	li {
-		border-bottom: 2px solid var(--theme-background);
 	}
 
 	li::after {
@@ -126,17 +139,25 @@
 		display: none;
 	}
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 1024px) {
 		.kyuudex-layout {
-			display: grid;
-			grid-template-columns: 10% 65% 10%;
-			margin-bottom: 1rem;
+			grid-template-columns: 20% 60% 20%;
+			align-items: flex-end;
+			justify-items: flex-end;
+			position: relative;
 		}
 
 		.kyuudex-navigation-toggle {
+			height: 100%;
+			border-top: 0;
 			display: block;
+			border-right: 0;
+			font-size: 1.5rem;
+			border-style: solid;
+			width: auto;
+			color: var(--theme-text);
+			border-color: var(--theme-text);
 			background-color: var(--theme-alt-background);
-			border: none;
 		}
 
 		.kyuudex-navigation {
@@ -144,17 +165,19 @@
 		}
 
 		.kyuudex-navigation.isVisible {
-			position: absolute;
-			display: block;
-			top: 2.5rem;
-			width: calc(100% - 1rem);
-			background-color: var(--theme-alt-background);
+			top: 3rem;
 			z-index: 1;
+			width: 100%;
+			opacity: 0.9;
+			display: block;
+			position: absolute;
+			border: 1px solid var(--theme-text);
+			background-color: var(--theme-alt-background);
 		}
 
 		.navigation-links {
 			flex-direction: column;
-			width: calc(100% - 3rem);
+			width: calc(100% - 4rem);
 			align-items: flex-end;
 		}
 

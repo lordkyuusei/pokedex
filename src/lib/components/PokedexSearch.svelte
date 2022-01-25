@@ -103,8 +103,7 @@
 		border-color: var(--theme-text);
 		background-color: var(--theme-background);
 		color: var(--theme-secondary);
-		width: 60vw;
-		max-width: 500px;
+		width: 100%;
 		height: 100%;
 		font: inherit;
 	}
@@ -123,14 +122,10 @@
 
 	.pokemon-list {
 		z-index: 2;
-		display: flex;
-		flex-wrap: wrap;
+		left: 0;
+		right: 0;
 		position: absolute;
-		align-items: center;
-		justify-content: center;
-		width: 60vw;
-		max-width: 500px;
-		max-height: 50%;
+		max-height: 50vh;
 		overflow-y: scroll;
 		border-style: solid;
 		border-width: 0 2px 2px;
@@ -154,12 +149,5 @@
 		background-color: var(--theme-text);
 		color: var(--theme-background);
 		border-color: var(--theme-text);
-	}
-
-	@media screen and (max-width: 800px) {
-		.pokemon-list {
-			width: calc(100% - 2rem);
-			left: 1rem;
-		}
 	}
 </style>
