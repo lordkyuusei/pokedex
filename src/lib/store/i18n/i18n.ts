@@ -4,12 +4,12 @@ import translations from "$lib/store/i18n/translations";
 export const locale = writable("english");
 export const locales = Object.keys(translations);
 
-const translate = (locale: string, key: string | number, vars: { [x: string]: any; }) => {
+const translate = (locale: string, key: string, vars: { [x: string]: any; }) => {
     if (!key || !locale) {
         throw new Error("Missing translation key or variables");
     }
 
-    let translation = translations[locale][key];
+    let translation = translations[locale][key.toLocaleLowerCase()];
 
     if (!translation) {
         throw new Error(`Missing translation for key "${key}"`);
@@ -23,4 +23,4 @@ const translate = (locale: string, key: string | number, vars: { [x: string]: an
     return translation;
 }
 
-export const t = derived(locale, ($locale) => (key: string | number, vars = {}) => translate($locale, key, vars));
+export const t = derived(locale, ($locale) => (key: string, vars = {}) => translate($locale, key, vars));
