@@ -160,6 +160,7 @@
 			height: 70vh;
 		}
 	}
+
 	@media screen and (min-width: 768px) and (max-width: 1024px) {
 		.card-w-xs {
 			width: 20%;
@@ -179,6 +180,50 @@
 			min-height: 20vh;
 			height: 25vh;
 			max-height: 30vh;
+		}
+
+		.card-h-lg {
+			min-height: 30vh;
+			height: 40vh;
+			max-height: 50vh;
+		}
+
+		.card-w-lg {
+			min-width: calc(55% - 1rem);
+			width: fit-content;
+			max-width: calc(70% - 1rem);
+		}
+
+		.card-w-xl {
+			width: 100%;
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		.card-w-xs {
+			width: 15%;
+		}
+
+		.card-w-sm {
+			width: 25%;
+		}
+
+		.card-w-md {
+			min-width: calc(30% - 1rem);
+			width: fit-content;
+			max-width: calc(45% - 1rem);
+		}
+
+		.card-h-md {
+			min-height: 20vh;
+			height: 25vh;
+			max-height: 30vh;
+		}
+
+		.card-h-lg {
+			min-height: 30vh;
+			height: 40vh;
+			max-height: 50vh;
 		}
 
 		.card-w-lg {
