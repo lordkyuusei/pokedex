@@ -34,13 +34,11 @@
 
 	$: isHuge = pokemonStages.get(2)?.length >= 3;
 
-	$: if (evolutionChain) {
-		fetchEvolutionChain();
-	}
+	$: fetchEvolutionChain(evolutionChain);
 
-	const fetchEvolutionChain = () => {
+	const fetchEvolutionChain = (chain: { url: string }) => {
 		pokemonStages.clear();
-		const pokemonId = evolutionChain.url.match(/\d+/g).at(-1);
+		const pokemonId = chain.url.match(/\d+/g).at(-1);
 		fetchPokemonEvolutionChain(pokemonId).then((evolution: PokemonEvolution) => {
 			extractEvolutionChain(evolution.chain);
 		});
