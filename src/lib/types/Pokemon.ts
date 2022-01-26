@@ -16,6 +16,7 @@ export type Pokemon = {
 	sprites: SpritesRef;
 	stats: StatRef[];
 	types: TypeRef[];
+	weight: number;
 };
 
 export type AbilityRef = {

@@ -29,6 +29,7 @@
 	import PokemonAbilities from '$lib/components/PokemonUIData/PokemonAbilities.svelte';
 	import PokemonVarieties from '$lib/components/PokemonUIData/PokemonVarieties.svelte';
 	import PokemonMoves from '$lib/components/PokemonUIData/PokemonMoves.svelte';
+	import PokemonScores from '$lib/components/PokemonScores/PokemonScores.svelte';
 
 	export let pokemon: Pokemon = null;
 	export let specie: PokemonSpecie = null;
@@ -45,6 +46,14 @@
 				name={pokemon?.name}
 				picture={pokemon?.sprites?.front_default || ''}
 				types={pokemon?.types?.map(({ type }) => type.name)}
+			/>
+			<PokemonScores
+				height={pokemon.height}
+				weight={pokemon.weight}
+				rate={specie.capture_rate}
+				steps={specie.hatch_counter}
+				egg={specie.egg_groups?.map((egg) => egg.name)}
+				gender={specie.gender_rate}
 			/>
 			<PokemonStats statistics={pokemon.stats} />
 			<PokemonAbilities abilities={pokemon.abilities} />
@@ -72,11 +81,21 @@
 		height: 100%;
 	}
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 720px) {
 		.page-details {
 			display: grid;
 			grid-template-columns: 100%;
 			justify-content: center;
+			width: 100%;
+			align-items: center;
+			justify-items: center;
+			align-content: center;
+		}
+	}
+
+	@media screen and (min-width: 720px) {
+		.page-details {
+			display: flex;
 			width: 100%;
 			align-items: center;
 			justify-items: center;
