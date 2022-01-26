@@ -44,7 +44,11 @@
 		{/if}
 	</div>
 	<div class="stat-jauge-container" style={`background-color: ${statShade}`}>
-		<div class="stat-jauge" style={`height: ${statHeight}; background-color: ${statColor};`} />
+		<div class="stat-jauge" style={`height: ${statHeight}; background-color: ${statColor};`}>
+			{#if stat.effort}
+				+{stat.effort} EV
+			{/if}
+		</div>
 	</div>
 	<div class="stat-value">
 		{stat.base_stat}
@@ -82,9 +86,11 @@
 	}
 
 	.stat-jauge {
-		transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 		width: 100%;
+		text-align: center;
+		font-size: 0.5rem;
 		border-radius: 5px;
+		transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 	}
 
 	.stat-result {
