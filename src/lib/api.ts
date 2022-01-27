@@ -5,6 +5,7 @@ import type { PokemonEvolution } from './types/PokemonEvolutionChain';
 import type { PokemonForm } from './types/PokemonForm';
 import type { PokemonSpecie } from './types/PokemonSpecie';
 import type { PokemonMove } from './types/PokemonMove';
+import { freeStorage, isStorageFull } from './storageLibrary';
 
 const baseURL = 'https://pokeapi.co/api/v2';
 const spriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
@@ -19,13 +20,21 @@ const fetchCacheOrApi = async (url: string): Promise<any> => {
 	if (browser) {
 		const cache = localStorage.getItem(url);
 		if (cache) {
+			console.log(`Fetching ${url} from cache`);
 			return JSON.parse(cache);
 		} else {
+			console.log(`Fetching ${url} from API`);
 			const data = await fetchPokeApi(url);
+			if (isStorageFull()) {
+				console.log('Storage is full, clearing it');
+				const length = JSON.stringify(data).length;
+				freeStorage(length)
+			}
 			localStorage.setItem(url, JSON.stringify(data));
 			return data;
 		}
 	} else {
+		console.log(`SSR: Fetching ${url} from API`);
 		return fetchPokeApi(url);
 	}
 }
