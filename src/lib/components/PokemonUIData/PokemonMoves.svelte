@@ -88,11 +88,9 @@
 	};
 
 	const extractVersions = (moves: MoveRef[]) => {
-		console.log(moves[0]);
 		const reference: MoveRef = moves.reduce((prev, next) =>
 			prev.version_group_details.length > next.version_group_details.length ? prev : next
 		);
-		console.log(reference);
 		const versions = reference.version_group_details.map((version) => version.version_group.name);
 		return [...new Set(versions)];
 	};

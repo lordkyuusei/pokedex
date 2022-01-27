@@ -27,6 +27,9 @@
 	const computePokemonId = (id: string) => `${id}`.padStart(3, '0');
 
 	beforeUpdate(() => {
+		if (picture.includes('undefined')) {
+			picture = 'http://placekitten.com/200/200';
+		}
 		if (picture === '') {
 			picture = fetchPokemonSpriteURL(id);
 		}

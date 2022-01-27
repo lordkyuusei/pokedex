@@ -4,7 +4,7 @@
 	import { HPFormula, StatFormula } from '$lib/getStatFromFormula';
 	import type { PokemonNatureLight } from '$lib/store/natures';
 
-	export let stat: StatRef;
+	export let stat: StatRef = { base_stat: 0, effort: 0, stat: { name: '', url: '' } };
 	export let evs: number = 252;
 	export let ivs: number = 31;
 	export let lvl: number = 100;

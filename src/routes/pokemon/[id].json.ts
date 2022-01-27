@@ -3,7 +3,8 @@ import * as pokeapi from '$lib/api';
 export const get = async ({ params }) => {
 	const { id } = params;
 	const pokemon = await pokeapi.fetchPokemonInfo(id);
-	const specie = await pokeapi.fetchPokemonSpecie(pokemon.species.name);
+	const { name } = pokemon?.species || { name: 'uknown' };
+	const specie = await pokeapi.fetchPokemonSpecie(name);
 
 	return {
 		body: {

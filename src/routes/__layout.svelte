@@ -7,6 +7,7 @@
 	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
 	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
+	import { browser } from '$app/env';
 
 	let isVisible: boolean = false;
 	$: icon = isVisible ? '▼' : '△';
@@ -56,6 +57,7 @@
 				{/each}
 			</ul>
 			<LangToggle />
+			<button on:click={() => (browser ? localStorage.clear() : () => true)}>Clear Storage</button>
 		</nav>
 	</header>
 	<main class:isVisible>
