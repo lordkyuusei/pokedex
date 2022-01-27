@@ -7,9 +7,7 @@ import type { PokemonSpecie } from './types/PokemonSpecie';
 import type { PokemonMove } from './types/PokemonMove';
 import { freeStorage, isStorageFull } from './storageLibrary';
 
-const baseURL = 'https://pokeapi.co/api/v2';
-const spriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
-const itemsURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/';
+import { BASE_URL, SPRITE_URL, ITEMS_URL } from './constants';
 
 const fetchPokeApi = async (url: string): Promise<any> =>
 	await fetch(url, { method: 'GET', headers: {}, body: null })
@@ -20,10 +18,10 @@ const fetchCacheOrApi = async (url: string): Promise<any> => {
 	if (browser) {
 		const cache = localStorage.getItem(url);
 		if (cache) {
-			console.log(`Fetching ${url} from cache`);
+			console.log(`Fetching ${url.split('/').pop()} from cache`);
 			return JSON.parse(cache);
 		} else {
-			console.log(`Fetching ${url} from API`);
+			console.log(`Fetching ${url.split('/').pop()} from API`);
 			const data = await fetchPokeApi(url);
 			if (isStorageFull()) {
 				console.log('Storage is full, clearing it');
@@ -34,11 +32,11 @@ const fetchCacheOrApi = async (url: string): Promise<any> => {
 			return data;
 		}
 	} else {
-		console.log(`SSR: Fetching ${url} from API`);
+		console.log(`SSR: Fetching ${url.split('/').pop()} from API`);
 		return fetchPokeApi(url);
 	}
 }
-export const fetchItemSpriteURL = (id: string): string => `${itemsURL}${id}.png`;
+export const fetchItemSpriteURL = (id: string): string => `${ITEMS_URL}${id}.png`;
 
 export const fetchPokemonSpriteURL = (
 	id: string,
@@ -47,28 +45,28 @@ export const fetchPokemonSpriteURL = (
 	orientation?: string
 ): string => {
 	const specific = version && generation ? `${version}/${generation}/` : '';
-	return `${spriteURL}${specific}${orientation || ''}/${id}.png`;
+	return `${SPRITE_URL}${specific}${orientation || ''}/${id}.png`;
 };
 
 export const fetchPokemonMove = async (id: string): Promise<PokemonMove> =>
-	await fetchCacheOrApi(`${baseURL}/move/${id}`);
+	await fetchCacheOrApi(`${BASE_URL}/move/${id}`);
 
 export const fetchPokemonForm = async (id: string): Promise<PokemonForm> =>
-	await fetchCacheOrApi(`${baseURL}/pokemon-form/${id}`);
+	await fetchCacheOrApi(`${BASE_URL}/pokemon-form/${id}`);
 
 export const fetchPokemonAbility = async (id: string): Promise<PokemonAbility> =>
-	await fetchCacheOrApi(`${baseURL}/ability/${id}`);
+	await fetchCacheOrApi(`${BASE_URL}/ability/${id}`);
 
 export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvolution> =>
-	await fetchCacheOrApi(`${baseURL}/evolution-chain/${id}`);
+	await fetchCacheOrApi(`${BASE_URL}/evolution-chain/${id}`);
 
 export const fetchPokemonSpecie = async (specieName: string): Promise<PokemonSpecie> =>
-	await fetchCacheOrApi(`${baseURL}/pokemon-species/${specieName}`);
+	await fetchCacheOrApi(`${BASE_URL}/pokemon-species/${specieName}`);
 
 export const fetchPokemonBulk = async (
 	limit: number = 30,
 	offset: number = 0
-): Promise<PokemonBulk> => await fetchCacheOrApi(`${baseURL}/pokemon?limit=${limit}&offset=${offset}`);
+): Promise<PokemonBulk> => await fetchCacheOrApi(`${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
 
 export const fetchPokemonInfo = async (pokemonInfo: number | string): Promise<Pokemon> =>
-	await fetchCacheOrApi(`${baseURL}/pokemon/${pokemonInfo}`);
+	await fetchCacheOrApi(`${BASE_URL}/pokemon/${pokemonInfo}`);
