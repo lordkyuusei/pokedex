@@ -2,7 +2,7 @@
 	import { fetchItemSpriteURL } from '$lib/api';
 	import { onMount } from 'svelte';
 
-	import triggerI18n from '$lib/store/triggers.json';
+	import { t } from '$lib/store/i18n/i18n';
 	import filterObject from '$lib/filterObject';
 	import type { EntityRef } from '$lib/types/Pokemon';
 	import type { EvolutionDetail } from '$lib/types/PokemonEvolutionChain';
@@ -28,14 +28,15 @@
 	const isMove = (obj: any): obj is EntityRef =>
 		(obj.hasOwnProperty('url') && obj.url.includes('move')) || obj.url.includes('type');
 
+	const isMoveType = (obj: any): obj is EntityRef =>
+		obj.hasOwnProperty('url') && obj.url.includes('move') && obj.url.includes('type');
+
 	const isLocation = (obj: any): obj is EntityRef =>
 		obj.hasOwnProperty('url') && obj.url.includes('location');
 
 	const isTyrogueChain = (condition: string) => condition === 'relative_physical_stats';
 
 	const isGenderRelated = (condition: string) => condition === 'gender';
-
-	const getCondition = (key: string) => triggerI18n.find((trigger) => trigger.key === key).en;
 
 	const getHigherStat = (condition: number) => {
 		const conditions = {
@@ -75,22 +76,32 @@
 			<div class="evolution_trigger_details">
 				{#each Object.keys(conditions) as condition}
 					{#if isTyrogueChain(condition)}
-						{`[${getCondition(condition)}]: ${getHigherStat(conditions[condition])}`}
+						{`[${$t(`trigger.${condition}`)}]: ${getHigherStat(conditions[condition])}`}
 					{:else if isGenderRelated(condition)}
 						{getGenderIcon(conditions[condition])}
 					{:else if ['string', 'number'].includes(typeof conditions[condition])}
-						{`[${getCondition(condition)}]: ${conditions[condition]}`}
+						{`[${$t(`trigger.${condition}`)}]: ${conditions[condition]}`}
 					{:else if isMove(conditions[condition])}
-						<img
-							src={fetchItemSpriteURL(`tm-${conditions[condition].name}`)}
-							alt={condition}
-							title={`[${getCondition(condition)}]: ${conditions[condition].name}`}
-						/>
+						{#if isMoveType(conditions[condition])}
+							<img
+								src={fetchItemSpriteURL(`tm-${conditions[condition].name || 'normal'}`)}
+								alt={condition}
+								title={`[${$t(`trigger.${condition}`)}]: ${conditions[condition].name}`}
+							/>
+							{`[${$t(`trigger.${condition}`)}]: ${conditions[condition].name}`}
+						{:else}
+							<img
+								src={fetchItemSpriteURL(`tm-case`)}
+								alt={condition}
+								title={`[${$t(`trigger.${condition}`)}]: ${conditions[condition].name}`}
+							/>
+							{`[${$t(`trigger.${condition}`)}]: ${conditions[condition].name}`}
+						{/if}
 					{:else if isLocation(conditions[condition])}
 						<img
 							src={fetchItemSpriteURL('town-map')}
 							alt={condition}
-							title={`[${getCondition(condition)}]: ${conditions[condition].name}`}
+							title={`[${$t(`trigger.${condition}`)}]: ${conditions[condition].name}`}
 						/>
 					{:else if isEntityRef(conditions[condition])}
 						<img

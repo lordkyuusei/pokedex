@@ -21,7 +21,7 @@ export type PokemonSpecie = {
 	is_legendary: boolean;
 	is_mythical: boolean;
 	name: string;
-	names: LanguageRef;
+	names: LanguageRef[];
 	order: number;
 	pal_park_encounters: PalParkEncountersRef[];
 	pokedex_number: PokedexNumbersRef[];

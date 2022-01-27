@@ -13,6 +13,7 @@
 	import TopStraightBottomLine from './PokemonEvolutionChains/TopStraightBottomLine.svelte';
 	import TopCurvyLine from './PokemonEvolutionChains/TopCurvyLine.svelte';
 	import BottomCurvyLine from './PokemonEvolutionChains/BottomCurvyLine.svelte';
+	import { t } from '$lib/store/i18n/i18n';
 
 	const evolutionPattern = {
 		'1': ['straight'],
@@ -72,7 +73,7 @@
 </script>
 
 <Card
-	title="Evolution Chain"
+	title={$t('title.evolution-chain')}
 	size={isHuge ? 'xl' : 'md'}
 	span={{ 1: 'sm', 2: 'md', 3: 'lg', 4: 'xl' }[pokemonStages.size]}
 >

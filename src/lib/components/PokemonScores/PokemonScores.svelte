@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { t } from '$lib/store/i18n/i18n';
+
 	import Card from '../PokemonLayouts/Card.svelte';
 	import PokemonScore from './PokemonScore.svelte';
 
@@ -31,17 +33,21 @@
 	const egg_group = (): string =>
 		egg.map((group) => egg_groups.find((g) => g.group === group)?.icon).join('');
 
+	$: units = ['height', 'weight', 'steps', 'gender', 'rate', 'egg'].map((unit) =>
+		$t(`unit.${unit}`)
+	);
+
 	$: scores = [
-		{ score: (height / 10).toPrecision(2), unit: 'Meters', icon: '📏' },
-		{ score: weight / 10, unit: 'Kilograms', icon: '⚖️' },
-		{ score: steps * 255 + 1, unit: 'Steps', icon: '🦶' },
-		{ score: `${(gender === -1 ? 0 : gender / 8) * 100}%`, unit: 'Female Rate', icon: '♀️' },
-		{ score: `${rate}`, unit: 'Catch Rate', icon: '🔴' },
-		{ score: egg_group(), unit: 'Egg Groups', icon: '🥚' }
+		{ score: (height / 10).toPrecision(2), unit: units[0], icon: '📏' },
+		{ score: weight / 10, unit: units[1], icon: '⚖️' },
+		{ score: steps * 255 + 1, unit: units[2], icon: '🦶' },
+		{ score: `${(gender === -1 ? 0 : gender / 8) * 100}%`, unit: units[3], icon: '♀️' },
+		{ score: `${rate}`, unit: units[4], icon: '🔴' },
+		{ score: egg_group(), unit: units[5], icon: '🥚' }
 	];
 </script>
 
-<Card title="Data & Factors" size="md" span="md" close_up>
+<Card title={$t('title.data-factors')} size="md" span="md" close_up>
 	<div class="scores">
 		{#each scores as { score, unit, icon }}
 			<PokemonScore {score} {unit} {icon} />

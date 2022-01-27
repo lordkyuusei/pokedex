@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { fetchPokemonForm, fetchPokemonInfo } from '$lib/api';
-
-	import type { EntityRef, Pokemon } from '$lib/types/Pokemon';
+	import { onMount } from 'svelte';
 	import type { PokemonForm } from '$lib/types/PokemonForm';
 	import type { VarietyRef } from '$lib/types/PokemonSpecie';
-	import { onMount } from 'svelte';
-	import PokemonCard from '../PokemonCard.svelte';
+	import type { EntityRef, Pokemon } from '$lib/types/Pokemon';
 
+	import PokemonCard from '../PokemonCard.svelte';
 	import Card from '../PokemonLayouts/Card.svelte';
+
+	import { t } from '$lib/store/i18n/i18n';
+	import { fetchPokemonForm, fetchPokemonInfo } from '$lib/api';
 
 	export let forms: EntityRef[] = [];
 	export let varieties: VarietyRef[] = [];
@@ -51,7 +52,7 @@
 	});
 </script>
 
-<Card title="Forms & Varieties" span={spanCalculation()} size="lg" close_up>
+<Card title={$t('title.forms-varieties')} span={spanCalculation()} size="lg" close_up>
 	{#if pokemonVarieties.length}
 		<div class="pokemon-varieties">
 			{#each pokemonVarieties as variety}

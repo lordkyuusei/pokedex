@@ -17,8 +17,6 @@
 </script>
 
 <script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
-
 	import type { Pokemon } from '$lib/types/Pokemon';
 	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
 
@@ -30,22 +28,22 @@
 	import PokemonVarieties from '$lib/components/PokemonUIData/PokemonVarieties.svelte';
 	import PokemonMoves from '$lib/components/PokemonUIData/PokemonMoves.svelte';
 	import PokemonScores from '$lib/components/PokemonScores/PokemonScores.svelte';
+	import { locale } from '$lib/store/i18n/i18n';
+
+	$: pokemonName = specie.names?.find((name) => name.language.name === $locale.slice(0, 2)).name;
 
 	export let pokemon: Pokemon = null;
 	export let specie: PokemonSpecie = null;
-
-	onMount(() => {});
-	afterUpdate(() => {});
 </script>
 
 <div class="pokemon-page">
 	{#if pokemon}
 		<div class="page-details">
 			<PokemonCard
-				id={`${pokemon?.id}`}
-				name={pokemon?.name}
-				picture={pokemon?.sprites?.front_default || ''}
-				types={pokemon?.types?.map(({ type }) => type.name)}
+				id={`${pokemon.id}`}
+				name={pokemonName}
+				picture={pokemon.sprites?.front_default || ''}
+				types={pokemon.types?.map(({ type }) => type.name)}
 			/>
 			<PokemonScores
 				height={pokemon.height}
@@ -57,7 +55,7 @@
 			/>
 			<PokemonStats statistics={pokemon.stats} />
 			<PokemonAbilities abilities={pokemon.abilities} />
-			{#if pokemon.moves.length > 0}
+			{#if pokemon.moves?.length > 0}
 				<PokemonMoves moves={pokemon.moves} />
 			{/if}
 			{#if specie.evolution_chain}
@@ -97,9 +95,6 @@
 		.page-details {
 			display: flex;
 			width: 100%;
-			align-items: center;
-			justify-items: center;
-			align-content: center;
 		}
 	}
 </style>

@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { fetchPokemonAbility } from '$lib/api';
-	import { locale } from '$lib/store/i18n/i18n';
+	import { onMount } from 'svelte';
 
 	import type { AbilityRef, EntityRef } from '$lib/types/Pokemon';
 	import type { PokemonAbility } from '$lib/types/PokemonAbility';
-	import { onMount } from 'svelte';
+
 	import Card from '../PokemonLayouts/Card.svelte';
+
+	import { fetchPokemonAbility } from '$lib/api';
+	import { locale, t } from '$lib/store/i18n/i18n';
 
 	export let abilities: AbilityRef[] = [];
 	let abilityChosen: number = 1;
@@ -27,11 +29,13 @@
 			.flavor_text;
 
 	onMount(async () => {
-		await fetchAbilityDetails(abilities[0]);
+		if (abilities[0]) {
+			await fetchAbilityDetails(abilities[0]);
+		}
 	});
 </script>
 
-<Card span={abilities.length >= 3 ? 'lg' : 'md'} size="xs">
+<Card title={$t('title.abilities')} span={abilities.length >= 3 ? 'lg' : 'md'} size="xs">
 	<div class="pokemon-abilities-list">
 		{#each abilities as ability}
 			<button

@@ -4,6 +4,7 @@
 	import PokemonStat from './PokemonStat.svelte';
 	import { beforeUpdate } from 'svelte';
 	import POKEMON_NATURES, { PokemonNatureLight } from '$lib/store/natures';
+	import { t } from '$lib/store/i18n/i18n';
 
 	export let statistics: StatRef[] = [];
 
@@ -15,17 +16,18 @@
 
 	beforeUpdate(() => {
 		averageStat = {
-			base_stat: Math.floor(
-				statistics?.map((stat) => stat.base_stat).reduce((prev, next) => prev + next) /
-					statistics?.length
-			),
+			base_stat:
+				Math.floor(
+					statistics?.map((stat) => stat.base_stat).reduce((prev, next) => prev + next, 0) /
+						statistics?.length
+				) || 1,
 			effort: 0,
 			stat: { name: 'average', url: '' }
 		};
 	});
 </script>
 
-<Card close_up span="lg" size="lg">
+<Card title={$t('title.stats')} close_up span="lg" size="lg">
 	<div class="pokemon-stats">
 		{#each statistics as stat}
 			<PokemonStat {stat} {evs} {ivs} {lvl} {nature} />
