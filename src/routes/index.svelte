@@ -5,22 +5,24 @@
 	<h2>Features</h2>
 	<ul>
 		<li>An infinite-scroll, lazy-loading complete Pokedex.</li>
-		<li>A detail page where you can (currently) check:</li>
+		<li>A per-Pokemon detail page where you can (currently) check their:</li>
 		<ul>
-			<li>Any Pokemon default picture, typing, stats and evolution family.</li>
-			<li>High final stat product using EV - IV - Level sliders</li>
+			<li>Default picture, body data, typing, stats and evolution family.</li>
+			<li>High final stat product using EV - IV - Level - Natures sliders</li>
 			<li>Complete Moveset (name, power, type...) sort by game & method!</li>
+			<li>Evolution chain with triggers, conditions with a tree-like visual</li>
 			<li>Abilities (hidden ones are marked with a *)</li>
 			<li>Alternate forms & varieties with clickable links!</li>
 		</ul>
 		<li>A (Moon/Sun stone)-inspired dark & light theme!</li>
+		<li>French & English localization (~80% of content)</li>
 	</ul>
 	<h2>Known bugs</h2>
 	<small>Honestly, a sh*t ton</small>
 	<ul>
-		<li>Horizontal scroll makes the scrollbar huge</li>
-		<li>Forms & Varieties are badly displayed</li>
-		<li>Some alternate forms (hi alolan vulpix) evolution chains are wrong</li>
+		<li>Big screen layout is still work-in-progress. Works best using mobile for now.</li>
+		<li>All evolution triggers are yet to be all implemented.</li>
+		<li>???</li>
 	</ul>
 	<h2>Why</h2>
 	<p>Go <a href="/about">here</a> to know more about this app!</p>
