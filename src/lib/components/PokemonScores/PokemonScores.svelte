@@ -3,6 +3,7 @@
 
 	import Card from '../PokemonLayouts/Card.svelte';
 	import PokemonScore from './PokemonScore.svelte';
+	import { EGG_GROUPS } from '$lib/constants';
 
 	export let height: number = 0;
 	export let weight: number = 0;
@@ -11,27 +12,8 @@
 	export let rate: number = 0;
 	export let egg: string[] = [];
 
-	const egg_groups = [
-		{ group: 'bug', icon: '🐛' },
-		{ group: 'ditto', icon: '💡' },
-		{ group: 'field', icon: '🐕' },
-		{ group: 'fairy', icon: '🧚‍♀️' },
-		{ group: 'plant', icon: '🌿' },
-		{ group: 'dragon', icon: '🐲' },
-		{ group: 'flying', icon: '🐦' },
-		{ group: 'mineral', icon: '🪨' },
-		{ group: 'monster', icon: '👾' },
-		{ group: 'no-eggs', icon: '❌' },
-		{ group: 'water-1', icon: '💧' },
-		{ group: 'water-2', icon: '💧💧' },
-		{ group: 'water-3', icon: '💦' },
-		{ group: 'amorphous', icon: '🗯️' },
-		{ group: 'human-like', icon: '👥' },
-		{ group: 'undiscovered', icon: '❔' }
-	];
-
 	const egg_group = (): string =>
-		egg.map((group) => egg_groups.find((g) => g.group === group)?.icon).join('');
+		egg.map((group) => EGG_GROUPS.find((g) => g.group === group)?.icon).join('');
 
 	$: units = ['height', 'weight', 'steps', 'gender', 'rate', 'egg'].map((unit) =>
 		$t(`unit.${unit}`)

@@ -1,6 +1,5 @@
 import type StatThreshold from '$lib/types/PokemonStatThreshold';
-
-const MAX_STAT_VALUE = 255;
+import { MAX_STAT_VALUE } from '$lib/constants';
 
 const thresholds: StatThreshold[] = [
 	{ p: 0.0, color: { r: 0xff, g: 0, b: 0 } },
