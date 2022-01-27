@@ -1,9 +1,19 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
+	import { browser } from '$app/env';
 	import { locale, locales } from '$lib/store/i18n/i18n';
+
+	const updateLocale = () => localStorage.setItem('locale', $locale);
+	onMount(() => {
+		if (browser) {
+			$locale = localStorage.getItem('locale') || 'english';
+		}
+	});
 </script>
 
 <div class="lang-toggle">
-	<select bind:value={$locale}>
+	<select bind:value={$locale} on:change={() => updateLocale()}>
 		{#each locales as locale}
 			<option value={locale}>{locale}</option>
 		{/each}
