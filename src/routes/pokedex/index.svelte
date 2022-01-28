@@ -64,7 +64,6 @@
 		try {
 			lastPokemon = `#pokemon-${$pokedex.at(-1)?.id}`;
 		} catch (err) {
-			console.error(`is this safari again??? ${err}`);
 			lastPokemon = `#pokemon-${$pokedex[$pokedex.length - 1].id}`;
 		}
 	}
