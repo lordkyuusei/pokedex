@@ -4,7 +4,7 @@
 		DEFAULT_POKEMON_OFFSET,
 		MAX_POKEMON_LOADING
 	} from '$lib/constants';
-	import codex from '$lib/store/lightkedex.json';
+	import codex from '../../../static/lightkedex.json';
 
 	export const load = async ({ url, fetch }) => {
 		try {
