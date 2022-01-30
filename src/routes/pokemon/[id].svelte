@@ -45,16 +45,18 @@
 				picture={pokemon.sprites?.front_default || ''}
 				types={pokemon.types?.map(({ type }) => type.name)}
 			/>
-			<PokemonScores
-				height={pokemon.height}
-				weight={pokemon.weight}
-				rate={specie.capture_rate}
-				steps={specie.hatch_counter}
-				egg={specie.egg_groups?.map((egg) => egg.name)}
-				gender={specie.gender_rate}
-			/>
+			<div>
+				<PokemonScores
+					height={pokemon.height}
+					weight={pokemon.weight}
+					rate={specie.capture_rate}
+					steps={specie.hatch_counter}
+					egg={specie.egg_groups?.map((egg) => egg.name)}
+					gender={specie.gender_rate}
+				/>
+				<PokemonAbilities abilities={pokemon.abilities} />
+			</div>
 			<PokemonStats statistics={pokemon.stats} />
-			<PokemonAbilities abilities={pokemon.abilities} />
 			{#if pokemon.moves?.length > 0}
 				<PokemonMoves moves={pokemon.moves} />
 			{/if}
@@ -79,7 +81,12 @@
 		height: 100%;
 	}
 
-	@media screen and (max-width: 720px) {
+	.page-details div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@media screen and (max-width: 768px) {
 		.page-details {
 			display: grid;
 			grid-template-columns: 100%;
@@ -89,11 +96,17 @@
 			justify-items: center;
 			align-content: center;
 		}
+
+		.page-details div {
+			width: 100%;
+		}
 	}
 
-	@media screen and (min-width: 720px) {
+	@media screen and (min-width: 768px) {
 		.page-details {
 			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
 			width: 100%;
 		}
 	}

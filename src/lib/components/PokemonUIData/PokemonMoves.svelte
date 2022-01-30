@@ -109,7 +109,7 @@
 	});
 </script>
 
-<Card span="lg" size="lg">
+<Card span="xl" size="lg">
 	<div class="pokemon-versions">
 		{#each pokemonVersions as version}
 			<button

@@ -8,9 +8,11 @@
 	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 	import { browser } from '$app/env';
+	import Button from '$lib/components/PokemonLayouts/Button.svelte';
 
 	let isVisible: boolean = false;
 	$: icon = isVisible ? '▼' : '△';
+	$: title = $t('layout.storage');
 
 	const navigation: any[] = [
 		{
@@ -57,7 +59,9 @@
 				{/each}
 			</ul>
 			<LangToggle />
-			<button on:click={() => (browser ? localStorage.clear() : () => true)}>Clear Storage</button>
+			<Button {title} on:click={() => (browser ? localStorage.clear() : () => true)}
+				>Clear Storage</Button
+			>
 		</nav>
 	</header>
 	<main class:isVisible>
@@ -76,6 +80,7 @@
 		grid-template-columns: 10% 25% auto;
 		grid-template-rows: 100%;
 		align-items: center;
+		background: var(--theme-alt-background);
 	}
 
 	.kyuudex-theming,
@@ -92,7 +97,8 @@
 	.kyuudex-navigation {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		align-items: center;
+		align-content: flex-end;
 	}
 
 	.kyuudex-search {
@@ -100,17 +106,21 @@
 	}
 
 	.navigation-links {
+		flex: 3;
 		width: 100%;
 		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-		flex: 3;
+		justify-content: flex-end;
 	}
 
 	.navigation-links li {
 		list-style: none;
-		letter-spacing: 8px;
-		text-indent: 8px;
+		margin: 0.5rem;
+	}
+
+	.navigation-links li {
+		list-style: none;
+		letter-spacing: 6px;
+		text-indent: 6px;
 		text-transform: uppercase;
 	}
 

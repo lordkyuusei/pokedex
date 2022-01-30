@@ -64,18 +64,12 @@
 			return;
 		}
 	};
-
-	onMount(() => {
-		return () => {
-			pokemonStages.clear();
-		};
-	});
 </script>
 
 <Card
 	title={$t('title.evolution-chain')}
 	size={isHuge ? 'xl' : 'md'}
-	span={{ 1: 'sm', 2: 'md', 3: 'lg', 4: 'xl' }[pokemonStages.size]}
+	span={{ 1: 'md', 2: 'lg', 3: 'xl' }[pokemonStages.size] || 'xl'}
 >
 	<div class="pokemon-evolution-chain">
 		{#each [...pokemonStages] as [stage, evolutionChain]}

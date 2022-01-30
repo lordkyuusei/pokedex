@@ -24,6 +24,7 @@
 		transition: 0.2s ease-in-out;
 		box-sizing: border-box;
 		position: relative;
+		z-index: 1;
 	}
 
 	.card.reactive:hover {
@@ -48,7 +49,7 @@
 		left: 10px;
 		background-color: var(--theme-background);
 		border: 1px solid var(--theme-border);
-		z-index: 1;
+		z-index: 0;
 	}
 
 	/* mobile small */
@@ -170,70 +171,60 @@
 			width: 40%;
 		}
 
+		.card-h-xs {
+			height: calc(15vh - 1rem);
+		}
+
 		.card-w-md {
-			min-width: calc(30% - 1rem);
-			width: fit-content;
-			max-width: calc(45% - 1rem);
+			width: calc(40vw - 1rem);
 		}
 
 		.card-h-md {
-			min-height: 20vh;
-			height: 25vh;
-			max-height: 30vh;
+			height: calc(30vh - 1rem);
 		}
 
 		.card-h-lg {
-			min-height: 30vh;
-			height: 40vh;
-			max-height: 50vh;
+			height: calc(45vh - 1rem);
 		}
 
 		.card-w-lg {
-			min-width: calc(55% - 1rem);
-			width: fit-content;
-			max-width: calc(70% - 1rem);
+			width: calc(80vw - 1rem);
 		}
 
 		.card-w-xl {
-			width: 100%;
+			width: calc(100vw - 1rem);
 		}
 	}
 
 	@media screen and (min-width: 1024px) {
 		.card-w-xs {
-			width: 15%;
+		}
+
+		.card-h-xs {
+			height: calc(12vh - 1rem);
 		}
 
 		.card-w-sm {
-			width: 25%;
 		}
 
 		.card-w-md {
-			min-width: calc(30% - 1rem);
-			width: fit-content;
-			max-width: calc(45% - 1rem);
+			width: calc(25vw - 1rem);
 		}
 
 		.card-h-md {
-			min-height: 20vh;
-			height: 25vh;
-			max-height: 30vh;
+			height: calc(30vh - 1rem);
 		}
 
 		.card-h-lg {
-			min-height: 30vh;
-			height: 40vh;
-			max-height: 50vh;
+			height: calc(42vh - 1rem);
 		}
 
 		.card-w-lg {
-			min-width: calc(55% - 1rem);
-			width: fit-content;
-			max-width: calc(70% - 1rem);
+			width: calc(40vw - 1rem);
 		}
 
 		.card-w-xl {
-			width: 100%;
+			width: calc(90vw - 1rem);
 		}
 	}
 </style>

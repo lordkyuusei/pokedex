@@ -35,7 +35,7 @@
 	});
 </script>
 
-<Card title={$t('title.abilities')} span={abilities.length >= 3 ? 'lg' : 'md'} size="xs">
+<Card title={$t('title.abilities')} span="md" size="xs">
 	<div class="pokemon-abilities-list">
 		{#each abilities as ability}
 			<button
