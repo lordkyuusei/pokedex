@@ -1,5 +1,6 @@
 export default {
     english: {
+        "layout.storage": "This app uses local storage to save settings & manage API cache data. If you want to remove them, please click this button.",
         "menu.home": "Home",
         "menu.about": "About",
         "menu.pokedex": "Pokédex",
@@ -75,6 +76,7 @@ export default {
         "version.sword-shield": "Sword/Shield",
     },
     french: {
+        "layout.storage": "Cette application utilise le stockage local pour enregistrer les paramètres et gérer les données de cache de l'API. Si vous souhaitez les supprimer, cliquez sur ce bouton.",
         "menu.home": "Accueil",
         "menu.about": "À propos",
         "menu.pokedex": "Pokédex",

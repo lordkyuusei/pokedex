@@ -1,6 +1,7 @@
-export const isStorageFull = (): boolean => {
+export const isStorageFull = (size: number): boolean => {
+    const testString = 'a'.repeat(size);
     try {
-        localStorage.setItem('__storage_test__', '__storage_test__');
+        localStorage.setItem('__storage_test__', testString);
         localStorage.removeItem('__storage_test__');
         return false;
     }

@@ -23,9 +23,9 @@ const fetchCacheOrApi = async (url: string): Promise<any> => {
 		} else {
 			console.log(`Fetching ${url.split('/').pop()} from API`);
 			const data = await fetchPokeApi(url);
-			if (isStorageFull()) {
+			const length = JSON.stringify(data).length;
+			if (isStorageFull(length)) {
 				console.log('Storage is full, clearing it');
-				const length = JSON.stringify(data).length;
 				freeStorage(length)
 			}
 			localStorage.setItem(url, JSON.stringify(data));
