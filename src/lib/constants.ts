@@ -10,6 +10,17 @@ export const DEFAULT_POKEMON_OFFSET = 0;
 export const DEFAULT_OFFSET_INCREMENT = 30;
 
 // OBJECTS
+export const GENERATION_BOUNDARIES = [
+    { start: 0, end: 151 },
+    { start: 152, end: 251 },
+    { start: 252, end: 386 },
+    { start: 387, end: 493 },
+    { start: 494, end: 649 },
+    { start: 650, end: 721 },
+    { start: 722, end: 809 },
+    { start: 810, end: 898 },
+];
+
 export const EGG_GROUPS = [
     { group: 'monster', icon: '👾' },
     { group: 'water1', icon: '💧' },

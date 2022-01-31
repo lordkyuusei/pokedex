@@ -36,12 +36,7 @@
 	});
 </script>
 
-<Card
-	title="N°{computePokemonId(id)}"
-	reactive
-	span={isLink ? 'xl' : 'md'}
-	size={isLink ? 'md' : 'lg'}
->
+<Card title="N°{computePokemonId(id)}" reactive span={'md'} size={isLink ? 'md' : 'lg'}>
 	<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<div class="pokemon-id">
 			<div class="pokemon-name">{name}</div>

@@ -52,6 +52,8 @@
 	import { fetchPokemonSpriteURL } from '$lib/api';
 	import PokemonCard from '$lib/components/PokemonCard.svelte';
 	import type { EntityRef, Lightkemon, PokemonBulk } from '$lib/types/Pokemon';
+	import { GENERATION_BOUNDARIES } from '$lib/constants';
+	import Button from '$lib/components/PokemonLayouts/Button.svelte';
 
 	export let pokemonBulk: Lightkemon[] = [];
 
@@ -59,14 +61,21 @@
 	let target: Element = null;
 	const intersectionOptions: IntersectionObserverInit = {};
 
-	$: if (pokemonBulk) {
+	$: handleUpdate(pokemonBulk);
+
+	const handleUpdate = (pokemonBulk: Lightkemon[]) => {
 		pokedex.update((pokedex) => [...pokedex, ...pokemonBulk]);
 		try {
 			lastPokemon = `#pokemon-${$pokedex.at(-1)?.id}`;
 		} catch (err) {
 			lastPokemon = `#pokemon-${$pokedex[$pokedex.length - 1].id}`;
 		}
-	}
+	};
+
+	const handleNewBoundaries = (start: number, end: number) => {
+		pokedex.update(() => []);
+		goto(`?_offset=${start}&_limit=${end - start}`);
+	};
 
 	const handleIntersection = (entries: any[], observer: { unobserve: (arg0: any) => void }) => {
 		if (entries[0].isIntersecting) {
@@ -109,6 +118,13 @@
 	<title>Kyuudex</title>
 </svelte:head>
 
+<div class="pokedex-shortcuts">
+	{#each GENERATION_BOUNDARIES as { start, end }, index}
+		<Button size="lg" on:click={() => handleNewBoundaries(start, end)}>
+			Gen.&nbsp;{index + 1} <br />({start}&nbsp;-&nbsp;{end})
+		</Button>
+	{/each}
+</div>
 <div class="pokedex" id="pokedex">
 	{#each $pokedex as pokemon}
 		<a href={`/pokemon/${pokemon?.id}`} id={`pokemon-${pokemon?.id}`}>
@@ -131,9 +147,21 @@
 		flex-wrap: wrap;
 	}
 
+	.pokedex-shortcuts {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		width: 100%;
+	}
+
 	@media screen and (min-width: 320px) and (max-width: 425px) {
 		.pokedex {
 			flex-direction: column;
+		}
+
+		.pokedex-shortcuts {
+			flex-wrap: nowrap;
+			overflow-x: auto;
 		}
 
 		a {

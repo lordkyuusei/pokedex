@@ -59,7 +59,7 @@
 				{/each}
 			</ul>
 			<LangToggle />
-			<Button {title} on:click={() => (browser ? localStorage.clear() : () => true)}
+			<Button diamond {title} on:click={() => (browser ? localStorage.clear() : () => true)}
 				>Clear Storage</Button
 			>
 		</nav>
