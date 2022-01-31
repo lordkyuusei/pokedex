@@ -21,10 +21,6 @@
 </div>
 
 <style>
-	.lang-toggle {
-		text-align: end;
-	}
-
 	select,
 	option {
 		font-size: 1rem;

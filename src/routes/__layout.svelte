@@ -181,7 +181,9 @@
 			z-index: 1;
 			width: 100%;
 			opacity: 0.9;
-			display: block;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
 			position: absolute;
 			border: 1px solid var(--theme-text);
 			background-color: var(--theme-alt-background);
