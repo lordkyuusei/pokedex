@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 
 	import { fetchPokemonSpriteURL } from '$lib/api';
+	import { t } from '$lib/store/i18n/i18n';
 	import PokemonType from './PokemonUIData/PokemonType.svelte';
 
 	type light = {
@@ -15,6 +16,8 @@
 	let searchText: string = '';
 	let searchResults: light[] = [];
 	let searchCodex: light[] = [];
+
+	$: title = $t('search.placeholder');
 
 	const fetchLightkedex = async () =>
 		(searchCodex = await (await fetch('/lightkedex.json')).json());
@@ -67,8 +70,8 @@
 
 <input
 	type="text"
-	title="Search for Pokémon by name or ID"
-	placeholder="Search for Pokémon by name or ID"
+	{title}
+	placeholder={title}
 	autocomplete="off"
 	name="search"
 	bind:value={searchText}
@@ -104,7 +107,7 @@
 		background-color: var(--theme-background);
 		color: var(--theme-secondary);
 		width: 100%;
-		height: 100%;
+		height: 1rem;
 		font: inherit;
 	}
 
