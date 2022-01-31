@@ -7,13 +7,21 @@
 	import type { EntityRef } from '$lib/types/Pokemon';
 	import type { EvolutionDetail } from '$lib/types/PokemonEvolutionChain';
 
-	type evolutionChain = {
-		name: string;
-		conditions: EvolutionDetail;
-	};
-
 	export let props: any;
-	let evolutionChain: evolutionChain[] = [];
+
+	$: evolutionChain = updateChainFromProps(props);
+
+	const updateChainFromProps = (props) => {
+		const { triggers }: { triggers: EvolutionDetail[] } = props;
+		const evolutionDetails = triggers.map((triggersList) => {
+			const { trigger, ...conditions }: any = filterObject(triggersList, (elem) => elem);
+			return {
+				name: trigger.name,
+				conditions
+			};
+		});
+		return evolutionDetails;
+	};
 
 	let mapTriggernameToPicture = {
 		'level-up': () => fetchItemSpriteURL('rare-candy'),
@@ -54,18 +62,6 @@
 		};
 		return genders[gender];
 	};
-
-	onMount(() => {
-		const { triggers }: { triggers: EvolutionDetail[] } = props;
-		const evolutionDetails = triggers.map((triggersList) => {
-			const { trigger, ...conditions }: any = filterObject(triggersList, (elem) => elem);
-			return {
-				name: trigger.name,
-				conditions
-			};
-		});
-		evolutionChain = evolutionDetails;
-	});
 </script>
 
 <div class="evolution-chain-trigger-details">
