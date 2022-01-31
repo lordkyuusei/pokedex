@@ -7,11 +7,7 @@
 	export let maxStage: number;
 	export let pokemon: string = '';
 
-	let spriteURL: string = '';
-
-	onMount((): void => {
-		spriteURL = fetchPokemonSpriteURL(pokemon, 'versions', 'generation-viii', 'icons');
-	});
+	$: spriteURL = fetchPokemonSpriteURL(pokemon, 'versions', 'generation-viii', 'icons');
 </script>
 
 <div class="pokemon-link">
