@@ -20,7 +20,10 @@
 	<h2>Known bugs</h2>
 	<small>Honestly, a sh*t ton</small>
 	<ul>
-		<li>Big screen layout is still work-in-progress. Works best using mobile for now.</li>
+		<li>Abilities translations updates are not immediate.</li>
+		<ul>
+			<li>Workaround: switch to another talent & go back (or refresh the page)</li>
+		</ul>
 		<li>All evolution triggers are yet to be all implemented.</li>
 		<li>???</li>
 	</ul>

@@ -22,9 +22,11 @@ Known bugs
 
 Honestly, a sh\*t ton
 
-*   Big screen layout is still work-in-progress. Works best using mobile for now.
+*   Abilities translations are not immediate.
+    * Workaround: click on another ability & go back (or refresh the page).
 *   All evolution triggers are yet to be all implemented.
 *   ???
+
 
 Why
 ---
