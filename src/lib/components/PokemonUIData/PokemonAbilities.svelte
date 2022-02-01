@@ -11,14 +11,13 @@
 
 	export let abilities: AbilityRef[] = [];
 	let abilityChosen: number = 1;
-	let abilityDetails: PokemonAbility;
+
+	$: abilityDetails = fetchAbilityDetails(abilities[abilityChosen - 1]);
 
 	const fetchAbilityDetails = async ({ slot, ability }: { slot: number; ability: EntityRef }) => {
 		abilityChosen = slot;
 		const id = ability.url.match(/\d+/g).pop();
-		fetchPokemonAbility(id).then((ability) => {
-			abilityDetails = ability;
-		});
+		return fetchPokemonAbility(id);
 	};
 
 	const getAbilityName = (abilityDetails: PokemonAbility) =>
@@ -27,12 +26,6 @@
 	const getAbilityDetails = (abilityDetails: PokemonAbility) =>
 		abilityDetails.flavor_text_entries.find((entry) => entry.language.name === $locale.slice(0, 2))
 			.flavor_text;
-
-	onMount(async () => {
-		if (abilities[0]) {
-			await fetchAbilityDetails(abilities[0]);
-		}
-	});
 </script>
 
 <Card title={$t('title.abilities')} span="md" size="xs">
@@ -49,11 +42,11 @@
 		{/each}
 	</div>
 	<pre class="pokemon-ability-details">
-        {#if abilityDetails}
-			{getAbilityDetails(abilityDetails)}
-		{:else}
-			Click on any ability to get its description.
-		{/if}
+        {#await abilityDetails}
+			...
+		{:then details}
+			{getAbilityDetails(details)}
+		{/await}
         </pre>
 </Card>
 
