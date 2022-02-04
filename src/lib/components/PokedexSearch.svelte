@@ -101,14 +101,14 @@
 
 <style>
 	input {
-		border-width: 0 0 2px 0;
-		border-style: solid;
-		border-color: var(--theme-text);
-		background-color: var(--theme-background);
-		color: var(--theme-secondary);
 		width: 100%;
-		height: 1rem;
+		height: 2rem;
+		padding: 0 10px;
 		font: inherit;
+		border-radius: 1rem;
+		color: var(--theme-secondary);
+		border: 1px solid var(--theme-text);
+		background-color: var(--theme-background);
 	}
 
 	input:focus {
@@ -127,8 +127,9 @@
 		z-index: 2;
 		left: 0;
 		right: 0;
-		position: absolute;
 		max-height: 50vh;
+		position: absolute;
+		margin-right: -1rem;
 		overflow-y: scroll;
 		border-style: solid;
 		border-width: 0 2px 2px;

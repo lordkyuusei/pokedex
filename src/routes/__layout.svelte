@@ -76,10 +76,11 @@
 	}
 
 	.kyuudex-layout {
+		height: 3rem;
 		display: grid;
-		grid-template-columns: 10% 25% auto;
-		grid-template-rows: 100%;
 		align-items: center;
+		grid-template-rows: 100%;
+		grid-template-columns: 10% 25% auto;
 		background: var(--theme-alt-background);
 	}
 
@@ -153,8 +154,7 @@
 
 	@media screen and (max-width: 1024px) {
 		.kyuudex-layout {
-			grid-template-columns: 20% 60% 20%;
-			align-items: flex-end;
+			grid-template-columns: 15% 70% 15%;
 			justify-items: flex-end;
 			position: relative;
 		}
@@ -166,7 +166,7 @@
 			border-right: 0;
 			font-size: 1.5rem;
 			border-style: solid;
-			width: auto;
+			width: 3rem;
 			color: var(--theme-text);
 			border-color: var(--theme-text);
 			background-color: var(--theme-alt-background);
