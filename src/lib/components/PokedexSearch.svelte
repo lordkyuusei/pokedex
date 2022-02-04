@@ -69,7 +69,7 @@
 </script>
 
 <input
-	type="text"
+	type="search"
 	{title}
 	placeholder={title}
 	autocomplete="off"

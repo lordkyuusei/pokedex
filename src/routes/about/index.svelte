@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Kyuudex - About page</title>
+</svelte:head>
+
 <h1>Yet another Pokedex on the Internet</h1>
 <small>I know. I know!</small>
 

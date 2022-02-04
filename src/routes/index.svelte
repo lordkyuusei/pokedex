@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Kyuudex - Home page</title>
+</svelte:head>
+
 <div class="index" style="display: block">
 	<h1>Kyuukedex</h1>
 	<small>The (soon) ultimate SPA Pokedex.</small>

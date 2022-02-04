@@ -36,6 +36,10 @@
 	export let specie: PokemonSpecie = null;
 </script>
 
+<svelte:head>
+	<title>Kyuudex - {pokemonName} (N°{pokemon.id})</title>
+</svelte:head>
+
 <div class="pokemon-page">
 	{#if pokemon}
 		<div class="page-details">
