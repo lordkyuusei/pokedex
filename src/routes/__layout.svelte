@@ -11,7 +11,7 @@
 	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
 
 	let isVisible: boolean = false;
-	$: icon = isVisible ? '▼' : '△';
+	$: icon = isVisible ? '🍘' : '🍙';
 	$: title = $t('layout.storage');
 
 	const navigation: any[] = [
