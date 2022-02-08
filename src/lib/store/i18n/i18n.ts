@@ -4,7 +4,7 @@ import translations from "$lib/store/i18n/translations";
 export const locale = writable("english");
 export const locales = Object.keys(translations);
 
-const translate = (locale: string, key: string, vars: { [x: string]: any; }) => {
+const translate = (locale: string, key: string, vars: { [x: string]: any; }): string => {
     if (!key || !locale) {
         throw new Error("Missing translation key or variables");
     }

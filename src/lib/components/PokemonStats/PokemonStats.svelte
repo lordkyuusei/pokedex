@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { beforeUpdate } from 'svelte';
-
 	import { t } from '$lib/store/i18n/i18n';
 	import PokemonStat from './PokemonStat.svelte';
 	import type { StatRef } from '$lib/types/Pokemon';
@@ -19,17 +17,15 @@
 	const assignIVs = (event: Event) => (ivs = (event.target as HTMLInputElement).valueAsNumber);
 	const assignLVL = (event: Event) => (lvl = (event.target as HTMLInputElement).valueAsNumber);
 
-	beforeUpdate(() => {
-		averageStat = {
-			base_stat:
-				Math.floor(
-					statistics?.map((stat) => stat.base_stat).reduce((prev, next) => prev + next, 0) /
-						statistics?.length
-				) || 1,
-			effort: 0,
-			stat: { name: 'average', url: '' }
-		};
-	});
+	$: averageStat = {
+		base_stat:
+			Math.floor(
+				statistics?.map((stat) => stat.base_stat).reduce((prev, next) => prev + next, 0) /
+					statistics?.length
+			) || 1,
+		effort: 0,
+		stat: { name: 'average', url: '' }
+	};
 </script>
 
 <Card title={$t('title.stats')} close_up span="lg" size="lg">
@@ -41,8 +37,10 @@
 		<PokemonStat stat={averageStat} />
 		<div class="stats-cursors">
 			<select class="stats-nature" bind:value={nature} title="nature">
-				{#each POKEMON_NATURES as nature}
-					<option value={nature}>{nature.name} (➕{nature.inc_short} ➖{nature.dec_short})</option>
+				{#each POKEMON_NATURES as _nature}
+					<option value={_nature}
+						>{$t(`nature.${_nature.name}`).padEnd(7, '\xa0')} (➕{_nature.inc_short} ➖{_nature.dec_short})</option
+					>
 				{/each}
 			</select>
 			<div class="stats-ranges">
@@ -117,6 +115,7 @@
 	}
 
 	.stats-nature {
+		font: inherit;
 		margin-bottom: 0.5rem;
 		background-color: var(--theme-background);
 		color: var(--theme-text);
