@@ -1,14 +1,14 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { browser, dev } from '$app/env';
+
 	import { page } from '$app/stores';
-	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
-
 	import { t } from '$lib/store/i18n/i18n';
-
-	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
-	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
-	import { browser } from '$app/env';
+	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
 	import Button from '$lib/components/PokemonLayouts/Button.svelte';
+	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
+	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
 
 	let isVisible: boolean = false;
 	$: icon = isVisible ? '▼' : '△';
@@ -31,6 +31,16 @@
 			icon: 'info'
 		}
 	];
+
+	onMount(() => {
+		if (dev) {
+			navigation.push({
+				name: 'menu.experiments',
+				path: '/experiments',
+				icon: 'bug'
+			});
+		}
+	});
 </script>
 
 <svelte:head>

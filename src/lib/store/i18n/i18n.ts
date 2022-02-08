@@ -11,8 +11,14 @@ const translate = (locale: string, key: string, vars: { [x: string]: any; }) => 
 
     let translation = translations[locale][key.toLocaleLowerCase()];
 
-    if (!translation) {
-        throw new Error(`Missing translation for key "${key}"`);
+    try {
+        if (!translation) {
+            throw new Error(`Missing translation for key "${key}"`);
+        }
+    }
+    catch (err) {
+        console.error(err);
+        return `[${key}.${locale}]`;
     }
 
     Object.keys(vars).map((key) => {
