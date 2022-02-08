@@ -51,14 +51,14 @@
 		</div>
 	</div>
 	<div class="stat-value">
-		{stat.base_stat}
+		{stat.base_stat}<br />
 		{statToIcon[stat.stat.name]}
 	</div>
 </div>
 
 <style>
 	.pokemon-stat {
-		width: 30px;
+		width: calc(100% - 1rem);
 		height: 100%;
 		border-radius: 5px;
 		position: relative;

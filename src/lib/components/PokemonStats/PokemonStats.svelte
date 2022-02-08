@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { beforeUpdate } from 'svelte';
+
+	import { t } from '$lib/store/i18n/i18n';
+	import PokemonStat from './PokemonStat.svelte';
 	import type { StatRef } from '$lib/types/Pokemon';
 	import Card from '$lib/components/PokemonLayouts/Card.svelte';
-	import PokemonStat from './PokemonStat.svelte';
-	import { beforeUpdate } from 'svelte';
 	import POKEMON_NATURES, { PokemonNatureLight } from '$lib/store/natures';
-	import { t } from '$lib/store/i18n/i18n';
 
 	export let statistics: StatRef[] = [];
 
@@ -13,6 +14,10 @@
 	let lvl: number = 100;
 	let nature: PokemonNatureLight;
 	let averageStat: StatRef = { base_stat: 1, effort: 0, stat: { name: 'average', url: '' } };
+
+	const assignEVs = (event: Event) => (evs = (event.target as HTMLInputElement).valueAsNumber);
+	const assignIVs = (event: Event) => (ivs = (event.target as HTMLInputElement).valueAsNumber);
+	const assignLVL = (event: Event) => (lvl = (event.target as HTMLInputElement).valueAsNumber);
 
 	beforeUpdate(() => {
 		averageStat = {
@@ -37,7 +42,7 @@
 		<div class="stats-cursors">
 			<select class="stats-nature" bind:value={nature} title="nature">
 				{#each POKEMON_NATURES as nature}
-					<option value={nature}>{nature.name} (➕{nature.increase}, ➖{nature.decrease})</option>
+					<option value={nature}>{nature.name} (➕{nature.inc_short} ➖{nature.dec_short})</option>
 				{/each}
 			</select>
 			<div class="stats-ranges">
@@ -50,11 +55,10 @@
 						min="0"
 						max="252"
 						value={evs}
-						on:input={(event) => (evs = event.target.valueAsNumber)}
+						on:input={assignEVs}
 					/>
 					<div class="iel-value">
-						{evs}
-						{'EVs'}
+						{evs}<br />EVs
 					</div>
 				</div>
 				<div class="stats-iel">
@@ -65,11 +69,10 @@
 						min="0"
 						max="31"
 						value={ivs}
-						on:input={(event) => (ivs = event.target.valueAsNumber)}
+						on:input={assignIVs}
 					/>
 					<div class="iel-value">
-						{ivs}
-						{'IVs'}
+						{ivs}<br />IVs
 					</div>
 				</div>
 				<div class="stats-iel">
@@ -80,11 +83,10 @@
 						min="1"
 						max="100"
 						value={lvl}
-						on:input={(event) => (lvl = event.target.valueAsNumber)}
+						on:input={assignLVL}
 					/>
 					<div class="iel-value">
-						{lvl}
-						{'LVL'}
+						{lvl}<br />LVL
 					</div>
 				</div>
 			</div>
