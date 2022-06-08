@@ -41,7 +41,7 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         
       - name: Check if everything is ok
-        run: 'cat ~/.ssh/*'
+        run: 'ls -l ~/.ssh/ && ls -l ./'
 
       - name: Deploy build to destination
-        run: rsync -avz ./build/* package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test/ 
+        run: rsync -avz package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test/ 
