@@ -37,7 +37,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/kyuudex_lkyuusei
-          sudo chmid 600 ~/.ssh/kyuudex_lkyuusei
+          sudo chmod 600 ~/.ssh/kyuudex_lkyuusei
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
         shell: bash
         env:
