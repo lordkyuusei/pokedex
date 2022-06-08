@@ -38,7 +38,10 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: WSL2SurfaceBook3
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          known_hosts: unnecessary
+      
+      - name: Copying known_hosts manually
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy build to destination
         run: rsync -avzr --delete package.json nish6382@109.234.164.227:/home/nish6382/test
