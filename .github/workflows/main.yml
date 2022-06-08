@@ -25,11 +25,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Builds project
-      - uses: actions/setup-node@v1
+      - name: Setup NodeJS
+        uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: 'npm install && npm run build'
+      
+      - name: Install dependencies and builds app
+        run: 'npm install && npm run build'
 
       - name: Install lkyuussei.fr SSH key
         uses: shimataro/ssh-key-action@v2
@@ -41,4 +43,4 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
         
       - name: Deploy build to destination
-        run: rsync -avz ./build/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER}}/test/ 
+        run: rsync -avz ./build/* package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER}}/test/ 
