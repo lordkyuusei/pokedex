@@ -41,4 +41,4 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
       - name: Deploy build to destination
-        run: rsync -avzr --delete package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test/ 
+        run: rsync -avzr --delete package.json nish6382@109.234.164.227:/home/nish6382/test
