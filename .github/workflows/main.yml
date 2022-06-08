@@ -40,5 +40,8 @@ jobs:
           name: kyuudex.lkyuusei
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         
+      - name: Check if everything is ok
+        run: 'cat ~/.ssh/kyuudex.lkyuusei.pub && cat ~/.ssh/known_hosts'
+
       - name: Deploy build to destination
-        run: rsync -avz ./build/* package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER}}/test/ 
+        run: rsync -avz ./build/* package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test/ 
