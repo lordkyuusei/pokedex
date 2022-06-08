@@ -38,10 +38,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: kyuudex.lkyuusei
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-        
-      - name: Check if everything is ok
-        run: 'cat ~/.ssh/kyuudex.lkyuusei'
+          known_hosts: unnecessary
 
       - name: Deploy build to destination
         run: rsync -avz package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test/ 
