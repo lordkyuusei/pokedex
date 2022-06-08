@@ -34,15 +34,20 @@ jobs:
         run: 'npm install && npm run build'
 
       - name: Install lkyuussei.fr SSH Private Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: kyuudex_lkyuusei
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-          if_key_exists: replace
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/kyuudex_lkyuusei
+          sudo chmid 600 ~/.ssh/kyuudex_lkyuusei
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
           
       - name: for fucks sake
-        run: ls ~/.ssh/ -l
+        run: | 
+          ls ~/.ssh/ -l
+          
 
       - name: Deploy build to destination
         run: rsync -avzr --delete package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test
