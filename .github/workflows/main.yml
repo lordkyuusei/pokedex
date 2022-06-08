@@ -37,10 +37,8 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: 'placeholder'
-      
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          name: kyuudex.lkyuusei
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         
       - name: Deploy build to destination
         run: rsync -avz ./build/* package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER}}/test/ 
