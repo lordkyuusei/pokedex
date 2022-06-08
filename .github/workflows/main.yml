@@ -41,7 +41,7 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           
       - name: for fucks sake
-        run: ls ./ssh/ -l
+        run: ls ~/.ssh/ -l
 
       - name: Deploy build to destination
         run: rsync -avzr --delete package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/test
