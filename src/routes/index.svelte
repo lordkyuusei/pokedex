@@ -4,7 +4,7 @@
 
 <div class="index" style="display: block">
 	<h1>Kyuukedex</h1>
-	<small>The (soon) ultimate SPA Pokedex.</small>
+	<small>The (very soon) ultimate SPA Pokedex.</small>
 
 	<h2>Features</h2>
 	<ul>
