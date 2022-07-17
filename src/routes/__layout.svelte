@@ -90,7 +90,7 @@
 		display: grid;
 		align-items: center;
 		grid-template-rows: 100%;
-		grid-template-columns: 10% 25% auto;
+		grid-template-columns: 10% 33% auto;
 		background: var(--theme-alt-background);
 	}
 
