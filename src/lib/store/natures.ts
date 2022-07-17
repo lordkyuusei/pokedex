@@ -1,10 +1,4 @@
-export type PokemonNatureLight = {
-    name: string;
-    increase: string;
-    decrease: string;
-    inc_short: string;
-    dec_short: string;
-};
+import type { PokemonNatureLight } from '$lib/types/PokemonNature';
 
 const POKEMON_NATURES: PokemonNatureLight[] = [
     // get all natures with increasing and decreasing stats
