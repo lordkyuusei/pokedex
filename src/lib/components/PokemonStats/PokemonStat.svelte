@@ -2,17 +2,19 @@
 	import type { StatRef } from '$lib/types/Pokemon';
 	import { getStatColor, getStatHeight } from '$lib/getStylesFromStat';
 	import { HPFormula, StatFormula } from '$lib/getStatFromFormula';
-	import type { PokemonNatureLight } from '$lib/store/natures';
+	import type { PokemonNatureLight } from '$lib/types/PokemonNature';
 
-	export let stat: StatRef = { base_stat: 0, effort: 0, stat: { name: '', url: '' } };
 	export let evs: number = 252;
 	export let ivs: number = 31;
 	export let lvl: number = 100;
 	export let nature: PokemonNatureLight = {
-		name: 'Hardy',
+		name: 'hardy',
 		increase: '',
-		decrease: ''
+		decrease: '',
+		dec_short: '',
+		inc_short: ''
 	};
+	export let stat: StatRef = { base_stat: 0, effort: 0, stat: { name: '', url: '' } };
 
 	$: formula = stat.stat.name === 'hp' ? HPFormula : StatFormula;
 	$: statHeight = getStatHeight(stat.base_stat);
@@ -52,7 +54,7 @@
 	</div>
 	<div class="stat-value">
 		{stat.base_stat}<br />
-		{statToIcon[stat.stat.name]}
+		<abbr title={stat.stat.name}>{statToIcon[stat.stat.name]}</abbr>
 	</div>
 </div>
 
@@ -91,6 +93,7 @@
 		font-size: 0.5rem;
 		border-radius: 5px;
 		transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+		color: #000000;
 	}
 
 	.stat-result {

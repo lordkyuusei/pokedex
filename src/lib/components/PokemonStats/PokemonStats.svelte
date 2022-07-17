@@ -3,7 +3,8 @@
 	import PokemonStat from './PokemonStat.svelte';
 	import type { StatRef } from '$lib/types/Pokemon';
 	import Card from '$lib/components/PokemonLayouts/Card.svelte';
-	import POKEMON_NATURES, { PokemonNatureLight } from '$lib/store/natures';
+	import type { PokemonNatureLight } from '$lib/types/PokemonNature';
+	import POKEMON_NATURES from '$lib/store/natures';
 
 	export let statistics: StatRef[] = [];
 
@@ -56,7 +57,7 @@
 						on:input={assignEVs}
 					/>
 					<div class="iel-value">
-						{evs}<br />EVs
+						{evs}<br /><abbr title="Effort Values">EVs</abbr>
 					</div>
 				</div>
 				<div class="stats-iel">
@@ -70,7 +71,7 @@
 						on:input={assignIVs}
 					/>
 					<div class="iel-value">
-						{ivs}<br />IVs
+						{ivs}<br /><abbr title="Individual Values">IVs</abbr>
 					</div>
 				</div>
 				<div class="stats-iel">
@@ -84,7 +85,7 @@
 						on:input={assignLVL}
 					/>
 					<div class="iel-value">
-						{lvl}<br />LVL
+						{lvl}<br /><abbr title="Level">LVL</abbr>
 					</div>
 				</div>
 			</div>
