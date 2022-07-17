@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
 	import type { AbilityRef, EntityRef } from '$lib/types/Pokemon';
 	import type { PokemonAbility } from '$lib/types/PokemonAbility';
 
@@ -10,12 +8,12 @@
 	import { locale, t } from '$lib/store/i18n/i18n';
 
 	export let abilities: AbilityRef[] = [];
+
 	let abilityChosen: number = 1;
+	$: abilityDetails = fetchAbilityDetails(abilities.find(ability => ability.slot === abilityChosen));
 
-	$: abilityDetails = fetchAbilityDetails(abilities[abilityChosen - 1]);
-
-	const fetchAbilityDetails = async ({ slot, ability }: { slot: number; ability: EntityRef }) => {
-		abilityChosen = slot;
+	const fetchAbilityDetails = async ({ ability }: { slot: number; ability: EntityRef }) => {
+		console.log(`slot changed! fetching ${ability.name}`)
 		const id = ability.url.match(/\d+/g).pop();
 		return fetchPokemonAbility(id);
 	};
@@ -35,7 +33,7 @@
 				class="ability-button"
 				class:hidden={ability.is_hidden}
 				class:chosen={abilityChosen === ability.slot}
-				on:click={() => fetchAbilityDetails(ability)}
+				on:click={() => abilityChosen = ability.slot}
 			>
 				{ability.ability.name}
 			</button>
