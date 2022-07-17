@@ -4,7 +4,7 @@ const POKEMON_TYPES: PokemonType[] = [
 	{
 		name: 'normal',
 		color: 'rgb(255, 165, 159, 0.69)',
-		icon: '🤘'
+		icon: '🐾'
 	},
 	{
 		name: 'grass',
@@ -24,12 +24,12 @@ const POKEMON_TYPES: PokemonType[] = [
 	{
 		name: 'fighting',
 		color: 'rgb(205, 92, 59, 0.69)',
-		icon: '👊🏼'
+		icon: '💪'
 	},
 	{
 		name: 'dark',
 		color: 'rgb(73, 73, 92, 0.69)',
-		icon: '🧿'
+		icon: '😈'
 	},
 	{
 		name: 'psychic',
@@ -44,7 +44,7 @@ const POKEMON_TYPES: PokemonType[] = [
 	{
 		name: 'ground',
 		color: 'rgb(201, 182, 141, 0.69)',
-		icon: '🪵'
+		icon: '🕳️'
 	},
 	{
 		name: 'bug',

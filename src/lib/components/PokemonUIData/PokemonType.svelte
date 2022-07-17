@@ -28,6 +28,7 @@
 		grid-template-columns: 25px auto;
 		width: 100%;
 		margin: 10px;
+		padding: 0.25em;
 		border: 1px solid black;
 		border-radius: 50px;
 		text-transform: uppercase;
@@ -37,6 +38,7 @@
 		text-align: center;
 		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 		width: 100%;
+		font-size: 1.25em;
 	}
 
 	.pokemon-typename {
