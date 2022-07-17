@@ -31,7 +31,7 @@ Honestly, a sh\*t ton
 Why
 ---
 
-Go [here](https://kyuudex.herokuapp.com/about) to know more about this app! (and to use it)
+Go [here](https://kyuudex.lkyuusei.fr/about) to know more about this app! (and to use it)
 
 You can run the app too!
 ------------------------

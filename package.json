@@ -2,7 +2,7 @@
 	"name": "pokedex",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "svelte-kit dev --host",
+		"dev": "vite dev",
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "^1.0.0-next.56",
-		"@sveltejs/kit": "next",
+		"@sveltejs/kit": "^1.0.0-next.377",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
 		"eslint": "^7.32.0",
@@ -27,7 +27,8 @@
 		"svelte-check": "^2.2.6",
 		"svelte-preprocess": "^4.9.4",
 		"tslib": "^2.3.1",
-		"typescript": "^4.4.3"
+		"typescript": "^4.4.3",
+		"vite": "^3.0.0"
 	},
 	"type": "module"
 }
