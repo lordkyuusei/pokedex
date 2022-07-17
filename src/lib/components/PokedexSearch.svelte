@@ -23,18 +23,19 @@
 		(searchCodex = await (await fetch('/lightkedex.json')).json());
 
 	const search = async (event: KeyboardEvent): Promise<void> => {
+		const results = searchCodex
+			.filter((item: light) => item.name.toLowerCase().includes(searchText.toLowerCase()))
+			.slice(0, 20)
+			.map((res) => ({ ...res, name: res.name.replace(searchText, `[${searchText}]`) }));
+
+		searchResults = results;
+
 		if (event.key === 'Enter') {
 			if (searchText.match(/^\d+$/)) {
 				goto(`/pokemon/${searchText}`);
-			} else {
-				const results = searchCodex.filter((item: light) =>
-					item.name.toLowerCase().includes(searchText.toLowerCase())
-				);
-				if (results.length === 1) {
-					goto(`/pokemon/${results[0].id}`);
-				} else {
-					searchResults = results;
-				}
+			}
+			if (results.length === 1) {
+				goto(`/pokemon/${results[0].id}`);
 			}
 		}
 		if (!searchText.length) {
@@ -82,7 +83,7 @@
 />
 {#if searchResults.length}
 	<div class="pokemon-list" on:click|self={() => (searchResults = [])}>
-		{#each searchResults as pokemon}
+		{#each searchResults as pokemon (pokemon.id)}
 			<a href="/pokemon/{pokemon.id}" on:click={() => (searchResults = [])}>
 				<div class="pokemon-result-row">
 					<img
@@ -129,7 +130,6 @@
 		right: 0;
 		max-height: 50vh;
 		position: absolute;
-		margin-right: -1rem;
 		overflow-y: scroll;
 		border-style: solid;
 		border-width: 0 2px 2px;
@@ -141,12 +141,12 @@
 	.pokemon-result-row {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 12% 20% 34% 34%;
-		align-content: center;
-		justify-content: center;
+		grid-template-columns: 10% 15% 30% 30%;
+		place-content: center;
 		align-items: center;
 		justify-items: stretch;
-		transition: 0.2s;
+		gap: 1em;
+		transition: all 0.2s;
 	}
 
 	.pokemon-result-row:hover {
