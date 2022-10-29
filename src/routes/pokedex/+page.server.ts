@@ -15,6 +15,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         ];
         const result: Response = await fetch(`/api/pokedex?_limit=${limit}&_offset=${offset}`);
 
+        console.log(result)
         if (result.ok) {
             const pokemonBulk: PokemonBulk = await result.json();
             const lightkedex = pokemonBulk.results.map((pokemon: EntityRef) => {

@@ -20,7 +20,6 @@
 	let specie: PokemonSpecie = null;
 
 	$: {
-		console.log(data);
 		pokemon = data.pokemon;
 		specie = data.specie;
 	}

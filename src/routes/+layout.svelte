@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
+	import { dev } from '$app/environment';
 
 	import { t } from '$lib/store/i18n/i18n';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
 	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
 	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
 	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
-
+	import logo from '$lib/assets/favicon.png';
 	import { routesList, pokemonList } from './routes';
 
 	let routes: any[] = [];
@@ -25,7 +25,7 @@
 	<div id="kyuudex">
 		<header id="kyuudex-header">
 			<header class="header-logo">
-				<img src="/favicon.png" alt="Beast ball logo" />
+				<img src={logo} alt="Beast ball logo" />
 				<a href="/">KYUUDEX</a>
 			</header>
 			<section class="header-search">

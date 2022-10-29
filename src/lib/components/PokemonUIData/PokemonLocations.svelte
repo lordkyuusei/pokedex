@@ -151,4 +151,11 @@
 		display: flex;
 		justify-content: space-evenly;
 	}
+
+	@media (max-width: 768px) {
+		.location-map {
+			flex-direction: column;
+			justify-content: flex-start;
+		}
+	}
 </style>

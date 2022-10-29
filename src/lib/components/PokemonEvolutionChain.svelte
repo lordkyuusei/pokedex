@@ -132,4 +132,10 @@
 		justify-content: center;
 		width: 100%;
 	}
+
+	@media (max-width: 768px) {
+		.pokemon-evolution-chain {
+			justify-content: flex-start;
+		}
+	}
 </style>

@@ -7,9 +7,13 @@
 	import { pokedex } from '$lib/store/pokedex';
 	import { fetchPokemonSpriteURL } from '$lib/api';
 	import PokemonCard from '$lib/components/PokemonCard.svelte';
-	import type { EntityRef, Lightkemon, PokemonBulk } from '$lib/types/Pokemon';
+	import type { Lightkemon } from '$lib/types/Pokemon';
 	import type { PageData } from './$types';
-	import { GENERATION_BOUNDARIES } from '$lib/constants';
+	import {
+		DEFAULT_OFFSET_INCREMENT,
+		DEFAULT_POKEMON_OFFSET,
+		GENERATION_BOUNDARIES
+	} from '$lib/constants';
 	import Button from '$lib/components/PokemonLayouts/Button.svelte';
 
 	export let data: PageData;
@@ -119,6 +123,7 @@
 		.pokedex-shortcuts {
 			flex-wrap: nowrap;
 			overflow-x: auto;
+			justify-content: flex-start;
 		}
 
 		a {
@@ -126,21 +131,17 @@
 		}
 	}
 
-	@media screen and (min-width: 425px) and (max-width: 768px) {
+	@media screen and (min-width: 425px) and (max-width: 1024px) {
 		a {
+			display: flex;
+			justify-content: center;
 			width: calc(50% - 0.5rem);
 		}
 	}
 
-	@media screen and (min-width: 768px) and (max-width: 1024px) {
+	@media screen and (min-width: 1024) {
 		a {
 			width: calc(33% - 0.5rem);
-		}
-	}
-
-	@media screen and (min-width: 1024px) {
-		a {
-			width: calc(25% - 0.5rem);
 		}
 	}
 </style>
