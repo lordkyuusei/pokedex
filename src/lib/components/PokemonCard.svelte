@@ -2,7 +2,7 @@
 	import PokemonType from './PokemonUIData/PokemonType.svelte';
 	import POKEMON_TYPES from '$lib/store/types';
 	import Card from './PokemonLayouts/Card.svelte';
-	import { fetchPokemonSpriteURL } from '$lib/api';
+	import { fetchPokemonSpriteURL, fetchPokemonShinySpriteURL } from '$lib/api';
 	import { beforeUpdate } from 'svelte';
 
 	export let id: string = '';
@@ -10,6 +10,9 @@
 	export let picture: string = '';
 	export let types: string[] = [];
 	export let isLink: boolean = false;
+
+	const showShiny = () => (picture = fetchPokemonShinySpriteURL(id));
+	const showRegular = () => (picture = fetchPokemonSpriteURL(id));
 
 	const drawCardBackground = (types: string[]) => {
 		if (types.length > 0) {
@@ -40,6 +43,8 @@
 	<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<div class="pokemon-id">
 			<div class="pokemon-name">{name}</div>
+			<button class="pokemon-shiny" on:mouseenter={showShiny} on:mouseleave={showRegular}>✨</button
+			>
 		</div>
 		<div class="pokemon-picture">
 			<img src={picture} alt={name} />
@@ -65,7 +70,7 @@
 
 	.pokemon-id {
 		display: grid;
-		grid-template-columns: 100%;
+		grid-template-columns: 1fr 5fr 1fr;
 		width: 100%;
 		justify-content: space-evenly;
 		justify-items: center;
@@ -73,6 +78,7 @@
 	}
 
 	.pokemon-name {
+		grid-column: 2;
 		margin: 0.5rem;
 		padding: 1rem;
 		font-size: 1rem;
@@ -82,6 +88,19 @@
 		border-radius: 25px;
 		width: fit-content;
 		text-transform: capitalize;
+		background-color: var(--theme-cardglass);
+	}
+
+	.pokemon-shiny {
+		grid-column: 3;
+		margin: 0.5rem;
+		padding: 0.5rem;
+		font-size: 1rem;
+		text-align: center;
+		border-radius: 25px;
+		width: fit-content;
+		border: none;
+		cursor: pointer;
 		background-color: var(--theme-cardglass);
 	}
 

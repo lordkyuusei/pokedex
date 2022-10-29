@@ -157,7 +157,7 @@
 		.pokemon-stats {
 			grid-template-columns: repeat(7, 15%);
 			grid-template-rows: 70% 30%;
-			row-gap: 1%;
+			row-gap: 1em;
 		}
 
 		.stats-cursors {
@@ -183,6 +183,8 @@
 
 		.iel-value {
 			width: 25%;
+			flex-direction: row;
+			justify-content: space-evenly;
 		}
 	}
 </style>

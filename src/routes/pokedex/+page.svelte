@@ -1,49 +1,5 @@
-<script context="module" lang="ts">
-	import {
-		DEFAULT_OFFSET_INCREMENT,
-		DEFAULT_POKEMON_OFFSET,
-		MAX_POKEMON_LOADING
-	} from '$lib/constants';
-	import codex from '../../../static/lightkedex.json';
-
-	export const load = async ({ url, fetch }) => {
-		try {
-			const [limit, offset] = [
-				url.searchParams.get('_limit') || MAX_POKEMON_LOADING,
-				url.searchParams.get('_offset') || DEFAULT_POKEMON_OFFSET
-			];
-			const result = await fetch(`/pokedex/pokedex.json?_limit=${limit}&_offset=${offset}`);
-
-			if (result.ok) {
-				const { pokemonBulk }: { pokemonBulk: PokemonBulk } = await result.json();
-				const lightkedex = pokemonBulk.results.map((pokemon: EntityRef) => {
-					const lightkemon = codex.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
-					return {
-						id: lightkemon.id,
-						name: lightkemon.name,
-						image: '',
-						types: lightkemon.types
-					};
-				});
-
-				return {
-					props: {
-						pokemonBulk: lightkedex
-					}
-				};
-			}
-		} catch (error) {
-			return {
-				props: {
-					pokemonBulk: []
-				}
-			};
-		}
-	};
-</script>
-
 <script lang="ts">
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { afterUpdate, onMount } from 'svelte';
@@ -52,16 +8,17 @@
 	import { fetchPokemonSpriteURL } from '$lib/api';
 	import PokemonCard from '$lib/components/PokemonCard.svelte';
 	import type { EntityRef, Lightkemon, PokemonBulk } from '$lib/types/Pokemon';
+	import type { PageData } from './$types';
 	import { GENERATION_BOUNDARIES } from '$lib/constants';
 	import Button from '$lib/components/PokemonLayouts/Button.svelte';
 
-	export let pokemonBulk: Lightkemon[] = [];
+	export let data: PageData;
 
 	let lastPokemon: string;
 	let target: Element = null;
 	const intersectionOptions: IntersectionObserverInit = {};
 
-	$: handleUpdate(pokemonBulk);
+	$: handleUpdate(data.pokemonBulk);
 
 	const handleUpdate = (pokemonBulk: Lightkemon[]) => {
 		pokedex.update((pokedex) => [...pokedex, ...pokemonBulk]);

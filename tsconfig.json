@@ -9,5 +9,6 @@
 		"forceConsistentCasingInFileNames": true,
 		"allowJs": false,
 		"checkJs": false,
+		"allowSyntheticDefaultImports": true
 	},
 }

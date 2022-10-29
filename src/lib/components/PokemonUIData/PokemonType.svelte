@@ -25,9 +25,9 @@
 <style>
 	.pokemon-type {
 		display: grid;
-		grid-template-columns: 25px auto;
+		grid-template-columns: 1em auto;
 		width: 100%;
-		margin: 10px;
+		margin: 0.75em;
 		padding: 0.25em;
 		border: 1px solid black;
 		border-radius: 50px;

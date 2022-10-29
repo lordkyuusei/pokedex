@@ -176,7 +176,7 @@
 		}
 
 		.card-w-md {
-			width: calc(40vw - 1rem);
+			width: calc(38vw - 1rem);
 		}
 
 		.card-h-md {
@@ -220,7 +220,7 @@
 		}
 
 		.card-w-lg {
-			width: calc(40vw - 1rem);
+			width: calc(36vw - 1rem);
 		}
 
 		.card-w-xl {

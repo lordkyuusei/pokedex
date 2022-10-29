@@ -41,11 +41,14 @@
 		pokemonStages.clear();
 		const pokemonId = chain.url.match(/\d+/g).at(-1);
 		fetchPokemonEvolutionChain(pokemonId).then((evolution: PokemonEvolution) => {
+			console.log(evolution);
 			extractEvolutionChain(evolution.chain);
 		});
 	};
 
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
+		if (!chain) return;
+
 		const { species, evolves_to, evolution_details } = chain;
 		if (species && evolves_to.length) {
 			const { url } = species;

@@ -4,7 +4,7 @@
 
 <script lang="ts">
 	import PokemonLoader from '$lib/components/PokemonLayouts/PokemonLoader.svelte';
-	import { dev } from '$app/env';
+	import { dev } from '$app/environment';
 
 	export let error: Error;
 	export let status: number;

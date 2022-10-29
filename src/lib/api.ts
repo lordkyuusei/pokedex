@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import type { Pokemon, PokemonBulk } from './types/Pokemon';
 import type { PokemonAbility } from './types/PokemonAbility';
 import type { PokemonEvolution } from './types/PokemonEvolutionChain';
@@ -8,6 +8,8 @@ import type { PokemonMove } from './types/PokemonMove';
 import { freeStorage, isStorageFull } from './storageLibrary';
 
 import { BASE_URL, SPRITE_URL, ITEMS_URL } from './constants';
+import type { PokemonLocation } from './types/PokemonLocation';
+import type { PokemonLocationArea } from './types/LocationArea';
 
 const fetchPokeApi = async (url: string): Promise<any> =>
 	await fetch(url, { method: 'GET', headers: {}, body: null })
@@ -48,6 +50,16 @@ export const fetchPokemonSpriteURL = (
 	return `${SPRITE_URL}${specific}${orientation || ''}/${id}.png`;
 };
 
+export const fetchPokemonShinySpriteURL = (
+	id: string,
+	version?: string,
+	generation?: string,
+	orientation?: string
+): string => {
+	const specific = version && generation ? `${version}/${generation}/` : '';
+	return `${SPRITE_URL}${specific}${orientation || ''}/shiny/${id}.png`;
+};
+
 export const fetchPokemonMove = async (id: string): Promise<PokemonMove> =>
 	await fetchCacheOrApi(`${BASE_URL}/move/${id}`);
 
@@ -62,6 +74,12 @@ export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvo
 
 export const fetchPokemonSpecie = async (specieName: string): Promise<PokemonSpecie> =>
 	await fetchCacheOrApi(`${BASE_URL}/pokemon-species/${specieName}`);
+
+export const fetchPokemonLocation = async (id: string): Promise<PokemonLocation> =>
+	await fetchCacheOrApi(`${BASE_URL}/location/${id}`);
+
+export const fetchPokemonLocationArea = async (id: string | number): Promise<PokemonLocationArea[]> =>
+	await fetchCacheOrApi(`${BASE_URL}/pokemon/${id}/encounters`);
 
 export const fetchPokemonBulk = async (
 	limit: number = 30,

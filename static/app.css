@@ -1,8 +1,18 @@
+:root {
+	--s-smallest: 320px;
+	--s-smaller: 375px;
+	--s-small: 425px;
+	--s-medium: 768px;
+	--s-large: 1024px;
+	--s-larger: 1440px;
+	--s-largest: 2560px;
+}
+
 body {
 	background: var(--theme-background);
 	color: var(--theme-text);
 	font-family: 'Cascadia Code', Helvetica, Arial, sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 20px;
 	margin: 0;
 	padding: 0;
@@ -10,7 +20,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-	margin-left: 22px;
+	margin-left: 1.5rem;
 	float: left;
 	height: 0.25rem;
 	width: 0.25rem;

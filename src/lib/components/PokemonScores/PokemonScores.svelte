@@ -22,10 +22,14 @@
 	$: scores = [
 		{ score: (height / 10).toPrecision(2), unit: units[0], icon: '📏' },
 		{ score: weight / 10, unit: units[1], icon: '⚖️' },
-		{ score: steps * 255 + 1, unit: units[2], icon: '🦶' },
-		{ score: `${(gender === -1 ? 0 : gender / 8) * 100}%`, unit: units[3], icon: '♀️' },
+		{ score: steps * 255 + 1, unit: units[2], icon: '🥚🦶' },
+		{
+			score: `${gender === -1 ? '0%' : `${(gender / 8) * 100} / ${100 - (gender / 8) * 100}`}`,
+			unit: units[3],
+			icon: '♀️/♂%'
+		},
 		{ score: `${rate}`, unit: units[4], icon: '🔴' },
-		{ score: egg_group(), unit: units[5], icon: '🥚' }
+		{ score: egg_group(), unit: units[5], icon: '🥚🗂️' }
 	];
 </script>
 
@@ -42,7 +46,7 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: repeat(2, 1fr);
-		gap: 1rem;
+		gap: 0.75em;
 		width: 100%;
 		height: 100%;
 		flex-wrap: wrap;

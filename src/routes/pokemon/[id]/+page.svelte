@@ -1,21 +1,3 @@
-<script context="module">
-	export const load = async ({ params, fetch }) => {
-		const { id } = params || 0;
-		const result = await fetch(`/pokemon/${id}.json`);
-
-		if (result.ok) {
-			const { pokemon, specie } = await result.json();
-
-			return {
-				props: {
-					pokemon,
-					specie
-				}
-			};
-		}
-	};
-</script>
-
 <script lang="ts">
 	import type { Pokemon } from '$lib/types/Pokemon';
 	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
@@ -28,12 +10,22 @@
 	import PokemonVarieties from '$lib/components/PokemonUIData/PokemonVarieties.svelte';
 	import PokemonMoves from '$lib/components/PokemonUIData/PokemonMoves.svelte';
 	import PokemonScores from '$lib/components/PokemonScores/PokemonScores.svelte';
+	import PokemonLocations from '$lib/components/PokemonUIData/PokemonLocations.svelte';
+
 	import { locale } from '$lib/store/i18n/i18n';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+	let pokemon: Pokemon = null;
+	let specie: PokemonSpecie = null;
+
+	$: {
+		console.log(data);
+		pokemon = data.pokemon;
+		specie = data.specie;
+	}
 
 	$: pokemonName = specie.names?.find((name) => name.language.name === $locale.slice(0, 2)).name;
-
-	export let pokemon: Pokemon = null;
-	export let specie: PokemonSpecie = null;
 </script>
 
 <svelte:head>
@@ -64,6 +56,7 @@
 			{#if pokemon.moves?.length > 0}
 				<PokemonMoves moves={pokemon.moves} />
 			{/if}
+			<PokemonLocations pokemon={pokemon.id} />
 			{#if specie.evolution_chain}
 				<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
 			{/if}

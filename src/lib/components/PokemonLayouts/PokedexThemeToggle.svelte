@@ -12,28 +12,32 @@
 	});
 </script>
 
-<label class="pokedex-theme">
+<label for="pokedex-theme-toggle" class="pokedex-theme">
 	<input
+		id="pokedex-theme-toggle"
 		title="Toggle dark / light mode"
-		placeholder="Toggle dark / light mode"
+		aria-label="Toggle dark / light mode"
 		type="checkbox"
 		class="theme-switch"
 		bind:checked={isChecked}
-		name="theme"
 		on:click={setTheme}
 	/>
-	<span class="theme-icon" class:checked={isChecked} class:unchecked={!isChecked} />
+	<section class="theme-visual">
+		<span class="theme-toggle" class:toggle-check={isChecked} />
+		<span class="theme-image" class:image-check={isChecked} />
+	</section>
 </label>
 
 <style>
 	.pokedex-theme {
-		display: block;
-		width: 50px;
-		height: 15px;
 		position: relative;
-		border-radius: 25px;
-		background-color: var(--theme-text);
+		display: block;
+		height: 2em;
+		width: 4em;
+		border-radius: 1.5em;
+		background-color: #1a1423;
 	}
+
 	.theme-switch {
 		position: absolute;
 		opacity: 0;
@@ -41,26 +45,50 @@
 		left: 0;
 		width: 100%;
 	}
-	.theme-icon {
+
+	.theme-visual {
 		position: absolute;
-		top: -10px;
-		transition: all 0.2s ease-in-out;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.theme-visual > .theme-toggle {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		height: calc(2em - 4px);
+		width: calc(2em - 4px);
+		background-color: #2b2536;
+		border-radius: 1em;
+		transition: all 0.2s ease-out;
+		z-index: 2;
 		cursor: pointer;
 	}
 
-	.unchecked {
-		transform: translateX(-10px);
-		height: 32px;
-		width: 36px;
-		background: url('/moon.png') no-repeat center center;
-		background-size: cover;
+	.theme-visual > .theme-toggle:hover {
+		transform: scale(0.9);
 	}
 
-	.checked {
-		transform: translateX(30px);
-		height: 35px;
-		width: 35px;
-		background: url('/sun.png') no-repeat center center;
-		background-size: cover;
+	.theme-visual > .theme-toggle.toggle-check {
+		transform: translateX(2em);
+		transition: all 0.2s ease-out;
+	}
+
+	.theme-visual > .theme-image {
+		position: absolute;
+		top: 1px;
+		right: 2px;
+		height: calc(2em - 4px);
+		width: calc(2em - 4px);
+		background: url('/sun.png') no-repeat center/90%;
+		transition: all 0.2s ease-out;
+	}
+
+	.theme-visual > .theme-image.image-check {
+		background: url('/moon.png') no-repeat center/90%;
+		transform: translateX(-2em);
+		transition: all 0.2s ease-out;
 	}
 </style>

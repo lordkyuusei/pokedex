@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 
 	import { goto } from '$app/navigation';
 
@@ -33,9 +33,11 @@
 		if (event.key === 'Enter') {
 			if (searchText.match(/^\d+$/)) {
 				goto(`/pokemon/${searchText}`);
+				onDismiss();
 			}
 			if (results.length === 1) {
 				goto(`/pokemon/${results[0].id}`);
+				onDismiss();
 			}
 		}
 		if (!searchText.length) {
@@ -126,8 +128,6 @@
 
 	.pokemon-list {
 		z-index: 2;
-		left: 0;
-		right: 0;
 		max-height: 50vh;
 		position: absolute;
 		overflow-y: scroll;
@@ -141,7 +141,7 @@
 	.pokemon-result-row {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 10% 15% 30% 30%;
+		grid-template-columns: 1fr 2fr 2.2fr 2.2fr;
 		place-content: center;
 		align-items: center;
 		justify-items: stretch;

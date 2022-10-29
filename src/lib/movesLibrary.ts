@@ -30,7 +30,6 @@ export const displaySortMethod = (sortOrder: string) =>
     ].find((item) => item.name === sortOrder)?.icon;
 
 /* Getters */
-const test = (str: string) => str.split(/[\s\/]/);
 export const getVersion = (version: string) =>
     version
         .split(/[\s\/]/)

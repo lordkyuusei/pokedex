@@ -45,6 +45,7 @@ export default {
         "title.forms-varieties": "Forms & varieties",
         "title.evolution-chain": "Evolution Chain",
         "title.stats": "Statistics",
+        "title.locations": "Location",
         "trigger.min_level": "Min level",
         "trigger.location": "Location",
         "trigger.min_happiness": "Min happiness",
@@ -79,7 +80,7 @@ export default {
         "unit.height": "Meters",
         "unit.weight": "Kilograms",
         "unit.steps": "Steps",
-        "unit.gender": "Female Rate",
+        "unit.gender": "Gender Rate",
         "unit.rate": "Catch Rate",
         "unit.egg": "Egg Group",
         "version.red-blue": "Red/Blue",
@@ -100,6 +101,7 @@ export default {
         "version.omega-ruby-alpha-sapphire": "Omega Ruby/Alpha Sapphire",
         "version.sun-moon": "Sun/Moon",
         "version.ultra-sun-ultra-moon": "Ultra Sun/Ultra Moon",
+        "version.lets-go-pikachu-lets-go-eevee": "Let's Go Pikachu/Eevee",
         "version.sword-shield": "Sword/Shield",
     },
     french: {
@@ -149,6 +151,7 @@ export default {
         "title.data-factors": "Données & facteurs",
         "title.forms-varieties": "Formes & variétés",
         "title.stats": "Statistiques",
+        "title.locations": "Localisation",
         "trigger.location": "Lieu",
         "trigger.min_happiness": "Humeur minimum",
         "trigger.min_affection": "Affection minimum",
@@ -203,6 +206,7 @@ export default {
         "version.omega-ruby-alpha-sapphire": "Rubis Oméga/Saphir Alpha",
         "version.sun-moon": "Soleil/Lune",
         "version.ultra-sun-ultra-moon": "Ultra Soleil/Ultra Lune",
+        "version.lets-go-pikachu-lets-go-eevee": "Let's Go Pikachu/Eevee",
         "version.sword-shield": "Épée/Bouclier",
     }
 };

@@ -14,8 +14,9 @@
 	.score-card {
 		height: 100%;
 		display: flex;
+		gap: 0.25em;
 		border-radius: 10px;
-		padding-left: 0.5rem;
+		padding-left: 0.5em;
 		align-content: center;
 		flex-direction: column;
 		align-items: flex-start;
@@ -25,18 +26,15 @@
 	}
 
 	.score-icon {
-		font-size: 1rem;
 		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	}
 
 	.score-value {
-		font-size: 1.5em;
+		font-size: 1.25em;
 		font-weight: bold;
-		margin-top: 0.5em;
 	}
 
 	.score-unit {
 		font-size: 0.8em;
-		margin-top: 0.5em;
 	}
 </style>

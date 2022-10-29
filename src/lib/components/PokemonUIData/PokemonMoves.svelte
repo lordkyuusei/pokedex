@@ -92,6 +92,7 @@
 			prev.version_group_details.length > next.version_group_details.length ? prev : next
 		);
 		const versions = reference.version_group_details.map((version) => version.version_group.name);
+		versionChosen = versions[versions.length - 1];
 		return [...new Set(versions)];
 	};
 

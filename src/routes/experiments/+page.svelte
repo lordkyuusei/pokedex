@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dev } from '$app/env';
+	import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
 
 	onMount(() => {

@@ -10,10 +10,11 @@
 	export let abilities: AbilityRef[] = [];
 
 	let abilityChosen: number = 1;
-	$: abilityDetails = fetchAbilityDetails(abilities.find(ability => ability.slot === abilityChosen));
+	$: abilityDetails = fetchAbilityDetails(
+		abilities.find((ability) => ability.slot === abilityChosen)
+	);
 
 	const fetchAbilityDetails = async ({ ability }: { slot: number; ability: EntityRef }) => {
-		console.log(`slot changed! fetching ${ability.name}`)
 		const id = ability.url.match(/\d+/g).pop();
 		return fetchPokemonAbility(id);
 	};
@@ -33,7 +34,7 @@
 				class="ability-button"
 				class:hidden={ability.is_hidden}
 				class:chosen={abilityChosen === ability.slot}
-				on:click={() => abilityChosen = ability.slot}
+				on:click={() => (abilityChosen = ability.slot)}
 			>
 				{ability.ability.name}
 			</button>
@@ -45,7 +46,7 @@
 		{:then details}
 			{getAbilityDetails(details)}
 		{/await}
-        </pre>
+    </pre>
 </Card>
 
 <style>
@@ -105,6 +106,7 @@
 
 	.pokemon-ability-details {
 		white-space: normal;
-		padding: 0 1rem;
+		margin: 0.5em 0;
+		padding: 0 1em;
 	}
 </style>

@@ -2,7 +2,7 @@
 	import { setContext, onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import themes from '$lib/store/themes/themes';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 
 	export let presets = [...themes];
 
