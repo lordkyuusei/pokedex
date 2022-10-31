@@ -87,6 +87,7 @@
 
 	.chosen {
 		background-color: var(--theme-secondary);
+		color: var(--theme-background);
 	}
 
 	.ability-button:first-child {
