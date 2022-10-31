@@ -18,27 +18,27 @@
 	});
 </script>
 
-<span id="pokedex-lang-toggle" on:click={() => (showLangs = !showLangs)}>
-	㊙️
-	<section class="languages" class:shown={showLangs}>
+<button id="pokedex-lang-toggle" on:click={() => (showLangs = !showLangs)}>㊙️</button>
+
+<section id="pokedex-lang-list" style="width: 0" class:shown={showLangs}>
+	<section class="languages">
 		{#each locales as availableLocale}
 			{#if availableLocale !== $locale}
 				<button on:click={() => updateLocale(availableLocale)}>{availableLocale}</button>
 			{/if}
 		{/each}
 	</section>
-</span>
+</section>
 
 <style>
 	#pokedex-lang-toggle {
-		height: calc(2em - 4px);
-		width: calc(2em - 4px);
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		background-color: var(--theme-alt-background);
 		border: 2px solid var(--theme-background);
 		border-radius: 2em;
+		padding: 0.35em;
 		position: relative;
 	}
 
@@ -47,32 +47,35 @@
 		background-color: var(--theme-background);
 	}
 
-	#pokedex-lang-toggle > .languages {
+	#pokedex-lang-list {
+		position: relative;
+	}
+
+	#pokedex-lang-list > .languages {
 		display: none;
 		position: absolute;
-		top: -4em;
-		left: -2em;
-		width: calc(6em);
-		height: 100%;
+		top: -3.5rem;
+		left: -4.5rem;
+		min-width: 5.5rem;
 		background-color: var(--theme-background);
 		border: 2px solid var(--theme-alt-background);
 		border-radius: 1em;
 	}
 
-	#pokedex-lang-toggle > .languages > button {
+	#pokedex-lang-list > .languages > button {
 		color: var(--theme-text);
 		background-color: transparent;
 		border: none;
 		cursor: pointer;
 	}
 
-	#pokedex-lang-toggle > .languages.shown {
+	#pokedex-lang-list.shown > .languages {
 		display: flex;
 		justify-content: center;
 	}
 
 	@media (min-width: 320px) and (max-width: 1024px) {
-		#pokedex-lang-toggle > .languages {
+		#pokedex-lang-list > .languages {
 			top: 3em;
 		}
 	}
