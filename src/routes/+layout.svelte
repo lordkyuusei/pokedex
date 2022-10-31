@@ -44,7 +44,9 @@
 				</ul>
 			</footer>
 		</header>
-		<aside id="kyuudex-sidebar" />
+		<aside id="kyuudex-sidebar">
+			<h1>Générations ▶️</h1>
+		</aside>
 		<main id="kyuudex-main">
 			<slot />
 		</main>
