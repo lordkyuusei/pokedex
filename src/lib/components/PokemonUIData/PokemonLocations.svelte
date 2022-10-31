@@ -43,7 +43,6 @@
 					const { max_chance, encounter_details } = location.version_details.find(
 						(v) => v.version.name === version
 					);
-					console.log(location.version_details.find((v) => v.version.name === version));
 					return {
 						location: location.location_area.name,
 						chances: max_chance,

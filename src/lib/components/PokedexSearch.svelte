@@ -20,7 +20,7 @@
 	$: title = $t('search.placeholder');
 
 	const fetchLightkedex = async () =>
-		(searchCodex = await (await fetch('/lightkedex.json')).json());
+		(searchCodex = (await import('../../lightkedex.json')).default);
 
 	const search = async (event: KeyboardEvent): Promise<void> => {
 		const results = searchCodex

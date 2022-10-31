@@ -2,8 +2,6 @@
 	import TriggerDetails from './TriggerDetails.svelte';
 
 	export let props;
-
-	$: console.log(props);
 </script>
 
 <div class="evolution_chain">

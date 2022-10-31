@@ -41,7 +41,6 @@
 		pokemonStages.clear();
 		const pokemonId = chain.url.match(/\d+/g).at(-1);
 		fetchPokemonEvolutionChain(pokemonId).then((evolution: PokemonEvolution) => {
-			console.log(evolution);
 			extractEvolutionChain(evolution.chain);
 		});
 	};

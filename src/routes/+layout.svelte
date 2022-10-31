@@ -76,7 +76,7 @@
 		width: 100%;
 		align-items: center;
 		border-bottom-right-radius: 1.5rem;
-		background: var(--theme-alt-background);
+		background: hsl(261, 19%, 22%);
 	}
 
 	#kyuudex-header > .header-logo {
@@ -117,7 +117,7 @@
 	#kyuudex-sidebar {
 		grid-area: sidebar;
 		position: relative;
-		background: var(--theme-alt-background);
+		background: hsl(261, 19%, 22%);
 		z-index: 2;
 	}
 
@@ -139,20 +139,12 @@
 	}
 
 	#kyuudex-sidebar::before {
-		background: radial-gradient(
-			circle at 100% 100%,
-			transparent 72%,
-			var(--theme-alt-background) 72%
-		);
+		background: radial-gradient(circle at 100% 100%, transparent 72%, hsl(261, 19%, 22%) 72%);
 		top: 0;
 	}
 
 	#kyuudex-sidebar::after {
-		background: radial-gradient(
-			circle at 100% 0%,
-			transparent 72%,
-			var(--theme-alt-background) 72%
-		);
+		background: radial-gradient(circle at 100% 0%, transparent 72%, hsl(261, 19%, 22%) 72%);
 		bottom: 0;
 	}
 
@@ -165,7 +157,7 @@
 		width: calc(100% + 9rem);
 		padding-right: 1em;
 		border-top-right-radius: 1.5rem;
-		background: var(--theme-alt-background);
+		background: hsl(261, 19%, 22%);
 		z-index: 2;
 	}
 
