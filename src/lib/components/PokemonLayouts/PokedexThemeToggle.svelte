@@ -35,7 +35,7 @@
 		height: 2em;
 		width: 4em;
 		border-radius: 1.5em;
-		background-color: #1a1423;
+		background-color: var(--theme-background);
 	}
 
 	.theme-switch {
@@ -60,7 +60,7 @@
 		left: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		background-color: #2b2536;
+		background-color: var(--theme-alt-background);
 		border-radius: 1em;
 		transition: all 0.2s ease-out;
 		z-index: 2;

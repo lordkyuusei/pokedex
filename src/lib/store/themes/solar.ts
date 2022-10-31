@@ -1,14 +1,15 @@
 const solar = {
 	name: 'solar',
 	style: {
-		text: '#282230',
-		border: '#282230',
-		primary: '#CF5C36',
-		secondary: '#538DDF',
-		background: '#EFF9F0',
-		"alt-background": '#FFFFFF',
-		cardglass: 'rgba(255, 255, 255, 0.5)',
-		shadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
+		"text": 'hsl(0, 0%, 15%)',
+		"border": 'hsl(0, 0%, 15%)',
+		"background": 'hsl(264, 27%, 89%)',
+		"alt-background": 'hsl(264, 27%, 81%)',
+		"light-background": 'hsl(264, 27%, 76%)',
+		"primary": 'hsl(267, 95%, 16%)',
+		"secondary": 'hsl(267, 95%, 24%)',
+		"cardglass": 'rgba(220, 220, 220, 0.5)',
+		"shadow": '0px 0px 10px 2px hsl(264, 27%, 65%)',
 	}
 };
 
