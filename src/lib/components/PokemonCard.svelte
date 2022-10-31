@@ -120,12 +120,17 @@
 		height: 15vh;
 		width: auto;
 		margin: auto;
-		image-rendering: pixelated;
 	}
 
 	.pokemon-types {
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
+	}
+
+	@media screen and (aspect-ratio: 16/9) {
+		.pokemon-picture img {
+			image-rendering: pixelated;
+		}
 	}
 </style>
