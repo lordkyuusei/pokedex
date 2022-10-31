@@ -9,6 +9,7 @@
 	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
 	import logo from '$lib/assets/favicon.png';
 	import { routesList, pokemonList } from './routes';
+	import SettingsToggle from '$lib/components/PokemonLayouts/SettingsToggle.svelte';
 
 	let routes: any[] = [];
 
@@ -43,12 +44,12 @@
 				</ul>
 			</footer>
 		</header>
-		<section id="kyuudex-sidebar" />
+		<aside id="kyuudex-sidebar" />
 		<main id="kyuudex-main">
 			<slot />
 		</main>
 		<footer id="kyuudex-footer">
-			<div>⚙️</div>
+			<SettingsToggle />
 			<LangToggle />
 			<PokedexThemeToggle />
 		</footer>
@@ -76,7 +77,7 @@
 		width: 100%;
 		align-items: center;
 		border-bottom-right-radius: 1.5rem;
-		background: hsl(261, 19%, 22%);
+		background: var(--theme-light-background);
 	}
 
 	#kyuudex-header > .header-logo {
@@ -110,14 +111,19 @@
 		text-transform: uppercase;
 	}
 
-	#kyuudex-header > .header-footer > .navigation > li:hover {
-		border-bottom: 1px solid var(--theme-text);
+	#kyuudex-header > .header-footer > .navigation > .navigation-item {
+		border-bottom: 2px solid transparent;
+	}
+
+	#kyuudex-header > .header-footer > .navigation > .navigation-item:hover {
+		border-bottom-color: var(--theme-text);
+		transition: border 0.2s ease-in-out;
 	}
 
 	#kyuudex-sidebar {
 		grid-area: sidebar;
 		position: relative;
-		background: hsl(261, 19%, 22%);
+		background: var(--theme-light-background);
 		z-index: 2;
 	}
 
@@ -139,12 +145,20 @@
 	}
 
 	#kyuudex-sidebar::before {
-		background: radial-gradient(circle at 100% 100%, transparent 72%, hsl(261, 19%, 22%) 72%);
+		background: radial-gradient(
+			circle at 100% 100%,
+			transparent 72%,
+			var(--theme-light-background) 72%
+		);
 		top: 0;
 	}
 
 	#kyuudex-sidebar::after {
-		background: radial-gradient(circle at 100% 0%, transparent 72%, hsl(261, 19%, 22%) 72%);
+		background: radial-gradient(
+			circle at 100% 0%,
+			transparent 72%,
+			var(--theme-light-background) 72%
+		);
 		bottom: 0;
 	}
 
@@ -153,11 +167,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: end;
-		gap: 1em;
-		width: calc(100% + 9rem);
+		gap: 0.5em;
+		width: 200%;
 		padding-right: 1em;
 		border-top-right-radius: 1.5rem;
-		background: hsl(261, 19%, 22%);
+		background: var(--theme-light-background);
 		z-index: 2;
 	}
 

@@ -19,7 +19,6 @@
 		margin: 0.5rem;
 		border-radius: 10px;
 		box-shadow: var(--theme-shadow);
-		border: 1px solid var(--theme-border);
 		background-color: var(--theme-alt-background);
 		transition: 0.2s ease-in-out;
 		box-sizing: border-box;
@@ -220,7 +219,7 @@
 		}
 
 		.card-w-lg {
-			width: calc(36vw - 1rem);
+			width: calc(38vw - 1rem);
 		}
 
 		.card-w-xl {
