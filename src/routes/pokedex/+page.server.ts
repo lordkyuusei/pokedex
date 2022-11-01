@@ -16,9 +16,10 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
         if (result.ok) {
             const pokemonBulk: PokemonBulk = await result.json();
-            const lightkedex = pokemonBulk.results.map(async (pokemon: EntityRef) => {
-                const lightcodex = await import(`$lib/assets/lightkedex.json`);
-                const lightkemon = lightcodex.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
+            const lightcodex = await import(`$lib/assets/lightkedex.json`);
+            const lightkedex = pokemonBulk.results.map((pokemon: EntityRef) => {
+                const lightkemon = lightcodex.default.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
+
                 return {
                     id: lightkemon.id,
                     name: lightkemon.name,
@@ -27,6 +28,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
                 };
             });
 
+            console.log(lightkedex);
             return {
                 pokemonBulk: lightkedex
             };
