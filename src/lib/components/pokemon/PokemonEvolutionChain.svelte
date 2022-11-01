@@ -6,7 +6,7 @@
 		PokemonEvolution,
 		EvolutionUnit
 	} from '$lib/types/PokemonEvolutionChain';
-	import Card from './PokemonLayouts/Card.svelte';
+	import Card from '../barebone/Card.svelte';
 	import StraightLine from './PokemonEvolutionChains/StraightLine.svelte';
 	import DoubleStraightLine from './PokemonEvolutionChains/DoubleStraightLine.svelte';
 	import PokemonLink from './PokemonEvolutionChains/PokemonLink.svelte';

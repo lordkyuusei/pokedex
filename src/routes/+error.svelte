@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
-	import PokemonLoader from '$lib/components/PokemonLayouts/PokemonLoader.svelte';
+	import PokemonLoader from '$lib/components/shared/Loader.svelte';
 </script>
 
 <div class="error-page">
@@ -14,7 +14,7 @@
 	{:else}
 		<h2>No details because we're in prod.</h2>
 		<small>and i'm supposed to look very p r o f e s s i o n a l.</small>
-		<label>Some stuff you can try:</label>
+		<p>Some stuff you can try:</p>
 		<ul>
 			<li>
 				<b>If you tried to load a pokemon: </b>make sure its number is correct in the URL bar above

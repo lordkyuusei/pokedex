@@ -6,7 +6,7 @@
 
 	import { pokedex } from '$lib/store/pokedex';
 	import { fetchPokemonSpriteURL } from '$lib/api';
-	import PokemonCard from '$lib/components/PokemonCard.svelte';
+	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
 	import type { Lightkemon } from '$lib/types/Pokemon';
 	import type { PageData } from './$types';
 	import {
@@ -14,7 +14,7 @@
 		DEFAULT_POKEMON_OFFSET,
 		GENERATION_BOUNDARIES
 	} from '$lib/constants';
-	import Button from '$lib/components/PokemonLayouts/Button.svelte';
+	import Button from '$lib/components/barebone/Button.svelte';
 
 	export let data: PageData;
 

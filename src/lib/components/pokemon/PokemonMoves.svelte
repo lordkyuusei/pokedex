@@ -6,8 +6,8 @@
 	import { onMount } from 'svelte';
 	import { fetchPokemonMove } from '$lib/api';
 	import { locale, t } from '$lib/store/i18n/i18n';
-	import PokemonType from './PokemonType.svelte';
-	import Card from '../PokemonLayouts/Card.svelte';
+	import PokemonType from '../shared/PokemonType.svelte';
+	import Card from '../barebone/Card.svelte';
 	import {
 		sortMethod,
 		getVersion,

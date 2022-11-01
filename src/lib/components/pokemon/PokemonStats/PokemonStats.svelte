@@ -2,7 +2,7 @@
 	import { t } from '$lib/store/i18n/i18n';
 	import PokemonStat from './PokemonStat.svelte';
 	import type { StatRef } from '$lib/types/Pokemon';
-	import Card from '$lib/components/PokemonLayouts/Card.svelte';
+	import Card from '$lib/components/barebone/Card.svelte';
 	import type { PokemonNatureLight } from '$lib/types/PokemonNature';
 	import POKEMON_NATURES from '$lib/store/natures';
 

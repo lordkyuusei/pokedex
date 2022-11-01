@@ -5,7 +5,7 @@
 
 	import { fetchPokemonSpriteURL } from '$lib/api';
 	import { t } from '$lib/store/i18n/i18n';
-	import PokemonType from './PokemonUIData/PokemonType.svelte';
+	import PokemonType from './PokemonType.svelte';
 
 	type light = {
 		id: number;
@@ -20,7 +20,7 @@
 	$: title = $t('search.placeholder');
 
 	const fetchLightkedex = async () =>
-		(searchCodex = (await import('../../lightkedex.json')).default);
+		(searchCodex = (await import('../../assets/lightkedex.json')).default);
 
 	const search = async (event: KeyboardEvent): Promise<void> => {
 		const results = searchCodex

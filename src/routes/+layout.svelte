@@ -4,12 +4,12 @@
 
 	import { t } from '$lib/store/i18n/i18n';
 	import ThemeContext from '$lib/contextes/ThemeContext.svelte';
-	import PokedexSearch from '$lib/components/PokedexSearch.svelte';
-	import LangToggle from '$lib/components/PokemonLayouts/LangToggle.svelte';
-	import PokedexThemeToggle from '$lib/components/PokemonLayouts/PokedexThemeToggle.svelte';
+	import PokedexSearch from '$lib/components/shared/Search.svelte';
+	import LangToggle from '$lib/components/shared/Lang.svelte';
+	import PokedexThemeToggle from '$lib/components/shared/Theme.svelte';
 	import logo from '$lib/assets/favicon.png';
 	import { routesList, pokemonList } from './routes';
-	import SettingsToggle from '$lib/components/PokemonLayouts/SettingsToggle.svelte';
+	import SettingsToggle from '$lib/components/shared/Settings.svelte';
 
 	let routes: any[] = [];
 
@@ -44,9 +44,7 @@
 				</ul>
 			</footer>
 		</header>
-		<aside id="kyuudex-sidebar">
-			<h1>Générations ▶️</h1>
-		</aside>
+		<aside id="kyuudex-sidebar" />
 		<main id="kyuudex-main">
 			<slot />
 		</main>

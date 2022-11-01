@@ -5,7 +5,6 @@ import {
 } from '$lib/constants';
 import type { PageServerLoad } from "./$types";
 import type { EntityRef, PokemonBulk } from '$lib/types/Pokemon';
-import codex from '../../lightkedex.json';
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
     try {
@@ -17,8 +16,9 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
         if (result.ok) {
             const pokemonBulk: PokemonBulk = await result.json();
-            const lightkedex = pokemonBulk.results.map((pokemon: EntityRef) => {
-                const lightkemon = codex.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
+            const lightkedex = pokemonBulk.results.map(async (pokemon: EntityRef) => {
+                const lightcodex = await import(`$lib/assets/lightkedex.json`);
+                const lightkemon = lightcodex.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
                 return {
                     id: lightkemon.id,
                     name: lightkemon.name,

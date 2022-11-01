@@ -8,24 +8,23 @@ Features
 
 *   An infinite-scroll, lazy-loading complete Pokedex.
 *   A per-Pokemon detail page where you can (currently) check their:
-    *   Default picture, body data, typing, stats and evolution family;
+    *   Default / shiny picture, body data, typing, stats and evolution family;
     *   High final stat product using EV - IV - Level - Natures sliders;
     *   Complete moveset (name, power, type...) sort by game & method!
-    *   Evolution chain with triggers, conditions with a tree-like visual;
+    *   Evolution chain with triggers, conditions in a tree-like visual;
     *   Abilities (hidden ones are marked with a \*);
-    *   Alternate forms & varieties with clickable links!;
+    *   Alternate forms & varieties with clickable links!
 *   A (Moon/Sun stone)-inspired dark & light theme!
 *   French & English localization (~80% of content)
 
 Known bugs
 ----------
 
-Honestly, a sh\*t ton
-
 *   Abilities translations are not immediate.
     * Workaround: click on another ability & go back (or refresh the page).
-*   All evolution triggers are yet to be all implemented.
-*   ???
+*   Forms & Varieties require a page refresh to show correct results.
+*   Some quirky evolutions tree are incomplete / falsy.
+    * notable examples: poliwag, rockruff... due to alternate forms/mecanics
 
 
 Why
@@ -44,12 +43,8 @@ npm install && npm run dev
 Screenshots
 -----------
 
-![card](/screenshots/kyuudex-card.png)
-![stats](/screenshots/kyuudex-stats.png)
-![abilities](/screenshots/kyuudex-abilities.png)
-![moveset](/screenshots/kyuudex-moveset.png)
-![evolution](/screenshots/kyuudex-evolution.png)
-![varieties](/screenshots/kyuudex-varieties.png)
+![light](/static/screenshots/kyuudex-light-espeon.png)
+![dark](/static/screenshots/kyuudex-dark-incineroar.png)
 
 License
 -------

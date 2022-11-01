@@ -2,15 +2,15 @@
 	import type { Pokemon } from '$lib/types/Pokemon';
 	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
 
-	import PokemonCard from '$lib/components/PokemonCard.svelte';
-	import PokemonLoader from '$lib/components/PokemonLayouts/PokemonLoader.svelte';
-	import PokemonStats from '$lib/components/PokemonStats/PokemonStats.svelte';
-	import PokemonEvolutionChain from '$lib/components/PokemonEvolutionChain.svelte';
-	import PokemonAbilities from '$lib/components/PokemonUIData/PokemonAbilities.svelte';
-	import PokemonVarieties from '$lib/components/PokemonUIData/PokemonVarieties.svelte';
-	import PokemonMoves from '$lib/components/PokemonUIData/PokemonMoves.svelte';
-	import PokemonScores from '$lib/components/PokemonScores/PokemonScores.svelte';
-	import PokemonLocations from '$lib/components/PokemonUIData/PokemonLocations.svelte';
+	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
+	import PokemonLoader from '$lib/components/shared/Loader.svelte';
+	import PokemonStats from '$lib/components/pokemon/PokemonStats/PokemonStats.svelte';
+	import PokemonEvolutionChain from '$lib/components/pokemon/PokemonEvolutionChain.svelte';
+	import PokemonAbilities from '$lib/components/pokemon/PokemonAbilities.svelte';
+	import PokemonVarieties from '$lib/components/pokemon/PokemonVarieties.svelte';
+	import PokemonMoves from '$lib/components/pokemon/PokemonMoves.svelte';
+	import PokemonScores from '$lib/components/pokemon/PokemonScores/PokemonScores.svelte';
+	import PokemonLocations from '$lib/components/pokemon/PokemonLocations/PokemonLocations.svelte';
 
 	import { locale } from '$lib/store/i18n/i18n';
 	import type { PageData } from './$types';

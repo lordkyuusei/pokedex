@@ -4,8 +4,8 @@
 	import type { VarietyRef } from '$lib/types/PokemonSpecie';
 	import type { EntityRef, Pokemon } from '$lib/types/Pokemon';
 
-	import PokemonCard from '../PokemonCard.svelte';
-	import Card from '../PokemonLayouts/Card.svelte';
+	import PokemonCard from './PokemonCard.svelte';
+	import Card from '../barebone/Card.svelte';
 
 	import { t } from '$lib/store/i18n/i18n';
 	import { fetchPokemonForm, fetchPokemonInfo } from '$lib/api';
@@ -17,15 +17,14 @@
 	let pokemonForms: PokemonForm[] = [];
 
 	const spanCalculation = () => {
-		if (pokemonForms.length === 1 || pokemonVarieties.length === 1) {
-			return 'sm';
-		} else if (pokemonForms.length === 2 || pokemonVarieties.length === 2) {
-			return 'md';
-		} else if (pokemonForms.length === 3 || pokemonVarieties.length === 3) {
-			return 'lg';
-		} else {
-			return 'xl';
-		}
+		const mapLenghtToSize = [
+			{ cond: pokemonForms.length === 1 || pokemonVarieties.length === 1, size: 'sm' },
+			{ cond: pokemonForms.length === 2 || pokemonVarieties.length === 2, size: 'md' },
+			{ cond: pokemonForms.length === 3 || pokemonVarieties.length === 3, size: 'lg' },
+			{ cond: true, size: 'xl' }
+		];
+
+		return mapLenghtToSize.find(({ cond }) => cond === true)?.size || 'sm';
 	};
 
 	onMount(async () => {
@@ -90,10 +89,6 @@
 		align-items: center;
 		overflow-x: auto;
 		height: 100%;
-	}
-
-	a {
-		height: calc(100% - 1rem);
-		width: 50%;
+		gap: 1em;
 	}
 </style>

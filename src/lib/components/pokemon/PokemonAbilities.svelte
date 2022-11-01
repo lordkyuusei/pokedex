@@ -2,7 +2,7 @@
 	import type { AbilityRef, EntityRef } from '$lib/types/Pokemon';
 	import type { PokemonAbility } from '$lib/types/PokemonAbility';
 
-	import Card from '../PokemonLayouts/Card.svelte';
+	import Card from '../barebone/Card.svelte';
 
 	import { fetchPokemonAbility } from '$lib/api';
 	import { locale, t } from '$lib/store/i18n/i18n';

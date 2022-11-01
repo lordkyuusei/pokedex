@@ -1,7 +1,7 @@
 <script lang="ts">
-	import PokemonType from './PokemonUIData/PokemonType.svelte';
+	import PokemonType from '../shared/PokemonType.svelte';
 	import POKEMON_TYPES from '$lib/store/types';
-	import Card from './PokemonLayouts/Card.svelte';
+	import Card from '../barebone/Card.svelte';
 	import { fetchPokemonSpriteURL, fetchPokemonShinySpriteURL } from '$lib/api';
 	import { beforeUpdate } from 'svelte';
 

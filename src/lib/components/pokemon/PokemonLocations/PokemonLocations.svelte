@@ -4,8 +4,8 @@
 	import { t } from '$lib/store/i18n/i18n';
 
 	import type { PokemonLocationArea } from '$lib/types/PokemonLocationArea';
-	import Card from '../PokemonLayouts/Card.svelte';
-	import Map from '../PokemonLayouts/Map.svelte';
+	import Card from '../../barebone/Card.svelte';
+	import Map from './Map.svelte';
 
 	export let pokemon: number;
 

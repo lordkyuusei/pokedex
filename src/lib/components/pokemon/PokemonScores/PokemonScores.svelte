@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/store/i18n/i18n';
 
-	import Card from '../PokemonLayouts/Card.svelte';
+	import Card from '../../barebone/Card.svelte';
 	import PokemonScore from './PokemonScore.svelte';
 	import { EGG_GROUPS } from '$lib/constants';
 

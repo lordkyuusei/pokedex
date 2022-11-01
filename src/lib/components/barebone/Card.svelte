@@ -37,18 +37,25 @@
 
 	.header {
 		display: flex;
+		font-size: 0.75em;
 		justify-content: center;
 		align-items: center;
 		width: fit-content;
-		height: 0.8rem;
-		padding: 0.2rem;
-		border-radius: 10px;
+		padding: 0 0.5em;
+		border-radius: 0.5em;
 		position: absolute;
 		top: -10px;
 		left: 10px;
 		background-color: var(--theme-background);
 		border: 1px solid var(--theme-border);
 		z-index: 0;
+		opacity: 0;
+		transition: opacity 0.2s ease-out;
+	}
+
+	.card:hover > .header {
+		opacity: 1;
+		transition: opacity 0.2s ease-in;
 	}
 
 	/* mobile small */
