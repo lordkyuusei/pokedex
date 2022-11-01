@@ -29,6 +29,7 @@
 
 <svelte:head>
 	<title>Kyuudex - {pokemonName} (N°{pokemon.id})</title>
+	<meta name="description" content="Kyuudex - {pokemonName} (N°{pokemon.id})" />
 </svelte:head>
 
 <div class="pokemon-page">

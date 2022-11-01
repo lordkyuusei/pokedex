@@ -77,6 +77,7 @@
 
 <svelte:head>
 	<title>Kyuudex</title>
+	<meta name="description" content="Kyuudex list" />
 </svelte:head>
 
 <div class="pokedex-shortcuts">
