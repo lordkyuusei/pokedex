@@ -1,11 +1,11 @@
 export async function GET() {
-    const lightkedex = await import('$lib/assets/lightkedex.json');
-    const urls = lightkedex.default.map(pokemon =>
-        `<url><loc>https://lightkedex.com/pokemon/${pokemon.id}</loc></url><url><loc>https://lightkedex.com/pokemon/${pokemon.name.toLowerCase()}</loc></url>`
-    ).join('\n');
+  const lightkedex = await import('$lib/assets/lightkedex.json');
+  const urls = lightkedex.default.map(pokemon =>
+    `<url><loc>https://kyuudex.lkyuusei.fr/pokemon/${pokemon.id}</loc></url><url><loc>https://kyuudex.lkyuusei.fr/pokemon/${pokemon.name.toLowerCase()}</loc></url>`
+  ).join('\n');
 
-    return new Response(
-        `
+  return new Response(
+    `
       <?xml version="1.0" encoding="UTF-8" ?>
       <urlset
         xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
@@ -17,10 +17,10 @@ export async function GET() {
       >
         ${urls}
       </urlset>`.trim(),
-        {
-            headers: {
-                'Content-Type': 'application/xml'
-            }
-        }
-    );
+    {
+      headers: {
+        'Content-Type': 'application/xml'
+      }
+    }
+  );
 }
