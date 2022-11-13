@@ -19,6 +19,10 @@ body {
 	box-sizing: border-box;
 }
 
+input {
+	font: inherit;
+}
+
 ::-webkit-scrollbar {
 	margin-left: 1.5rem;
 	float: left;

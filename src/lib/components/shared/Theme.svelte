@@ -43,7 +43,7 @@
 		opacity: 0;
 		top: 0;
 		left: 0;
-		width: 100%;
+		width: calc(100% - 0.5em);
 	}
 
 	.theme-visual {
