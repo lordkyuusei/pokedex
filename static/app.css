@@ -23,6 +23,11 @@ input {
 	font: inherit;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
 ::-webkit-scrollbar {
 	margin-left: 1.5rem;
 	float: left;
@@ -40,9 +45,4 @@ input {
 
 ::-webkit-scrollbar-track {
 	border-radius: 10px;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
 }
