@@ -80,34 +80,38 @@
 	bind:value={searchText}
 	on:focus|once={fetchLightkedex}
 	on:keyup={(event) => search(event)}
+	on:click|self={() => (searchResults = [])}
 	use:useDismiss
 	on:dismiss={onDismiss}
 />
 {#if searchResults.length}
-	<div class="pokemon-list" on:click|self={() => (searchResults = [])}>
+	<section class="pokemon-list">
 		{#each searchResults as pokemon (pokemon.id)}
-			<a href="/pokemon/{pokemon.id}" on:click={() => (searchResults = [])}>
-				<div class="pokemon-result-row">
-					<img
-						src={fetchPokemonSpriteURL(`${pokemon.id}`, 'versions', 'generation-viii', 'icons')}
-						alt={pokemon.name}
-					/>
-					<span>{pokemon.name}</span>
-					{#each pokemon.types as type}
-						<PokemonType name={type} />
-					{/each}
-				</div>
+			<a
+				class="pokemon-result-row"
+				href="/pokemon/{pokemon.id}"
+				on:click={() => (searchResults = [])}
+			>
+				<img
+					src={fetchPokemonSpriteURL(`${pokemon.id}`, 'versions', 'generation-viii', 'icons')}
+					height="100%"
+					width="100%"
+					alt={pokemon.name}
+				/>
+				<span>{pokemon.name}</span>
+				{#each pokemon.types as type}
+					<PokemonType name={type} />
+				{/each}
 			</a>
 		{/each}
-	</div>
+	</section>
 {/if}
 
 <style>
 	input {
 		width: 100%;
 		height: 2rem;
-		padding: 0 10px;
-		font: inherit;
+		padding-inline-start: 1em;
 		border-radius: 1rem;
 		color: var(--theme-secondary);
 		border: 1px solid var(--theme-text);
@@ -115,43 +119,53 @@
 	}
 
 	input:focus {
-		outline: none;
-	}
-
-	a {
-		width: 100%;
-	}
-
-	img {
-		padding-bottom: 1rem;
+		outline: 1px solid transparent;
 	}
 
 	.pokemon-list {
-		z-index: 2;
-		max-height: 50vh;
 		position: absolute;
-		overflow-y: scroll;
-		border-style: solid;
-		border-width: 0 2px 2px;
+		left: calc(1em - 1px);
+		top: calc(2rem - 1px);
+		width: calc(100% - 2em);
+		z-index: 3;
+		max-height: 50vh;
+		overflow-y: auto;
+		border: 1px solid var(--theme-text);
+		border-top: 1px solid var(--theme-alt-background);
 		color: var(--theme-text);
 		border-radius: 0 0 10px 10px;
 		background-color: var(--theme-background);
 	}
 
-	.pokemon-result-row {
+	.pokemon-list > .pokemon-result-row:hover {
+		background-color: var(--theme-text);
+		color: var(--theme-background);
+		border-color: var(--theme-text);
+	}
+
+	.pokemon-list > .pokemon-result-row {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 1fr 2fr 2.2fr 2.2fr;
+		grid-template-columns: 1fr minmax(100px, 1fr) 2fr 2fr;
+		grid-template-rows: 1fr;
 		place-content: center;
 		align-items: center;
-		justify-items: stretch;
 		gap: 1em;
 		transition: all 0.2s;
 	}
 
-	.pokemon-result-row:hover {
-		background-color: var(--theme-text);
-		color: var(--theme-background);
-		border-color: var(--theme-text);
+	.pokemon-list > .pokemon-result-row > img {
+		transform: translateY(-0.75rem);
+		inline-size: 75%;
+	}
+
+	@media (max-width: 1024px) {
+		.pokemon-list {
+			left: 0;
+			top: 4em;
+			width: 100vw;
+			border-inline: none;
+			border-radius: 0;
+		}
 	}
 </style>
