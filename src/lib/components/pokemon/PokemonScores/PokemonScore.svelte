@@ -1,12 +1,11 @@
 <script lang="ts">
-	export let score: string | number = 0;
 	export let icon: string = '';
 	export let unit: string = '';
 </script>
 
 <div class="score-card">
 	<div class="score-icon">{icon}</div>
-	<div class="score-value">{score}</div>
+	<div class="score-value"><slot /></div>
 	<div class="score-unit">{unit}</div>
 </div>
 

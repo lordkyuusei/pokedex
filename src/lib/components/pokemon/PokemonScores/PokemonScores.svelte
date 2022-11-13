@@ -12,6 +12,11 @@
 	export let rate: number = 0;
 	export let egg: string[] = [];
 
+	const drawBackground = () => {
+		const femaleRatio = gender === -1 ? 0 : (gender / 8) * 360;
+		return `conic-gradient(darkorchid 0deg ${femaleRatio}deg, dodgerblue ${femaleRatio}deg 360deg`;
+	};
+
 	const egg_group = (): string =>
 		egg.map((group) => EGG_GROUPS.find((g) => g.group === group)?.icon).join('');
 
@@ -24,7 +29,10 @@
 		{ score: weight / 10, unit: units[1], icon: '⚖️' },
 		{ score: steps * 255 + 1, unit: units[2], icon: '🥚🦶' },
 		{
-			score: `${gender === -1 ? '0%' : `${(gender / 8) * 100} / ${100 - (gender / 8) * 100}`}`,
+			score: `<div
+						title="♀️${gender === -1 ? 0 : (gender / 8) * 100}% ; ♂${100 - (gender / 8) * 100}%"
+						style="height: 2em;width: 2em;border-radius: 1em;background: ${drawBackground()}">
+					</div>`,
 			unit: units[3],
 			icon: '♀️/♂%'
 		},
@@ -36,7 +44,7 @@
 <Card title={$t('title.data-factors')} size="md" span="md" close_up>
 	<div class="scores">
 		{#each scores as { score, unit, icon }}
-			<PokemonScore {score} {unit} {icon} />
+			<PokemonScore {unit} {icon}>{@html score}</PokemonScore>
 		{/each}
 	</div>
 </Card>
