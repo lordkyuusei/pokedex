@@ -16,6 +16,7 @@ export const sortMethod = (a: MoveLight, b: MoveLight, sortBy: SortBy) =>
     [
         { name: 'level', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.level, b.level, sortBy.order) },
         { name: 'name', sort: (a: MoveLight, b: MoveLight) => sortOrderStr(a.name, b.name, sortBy.order) },
+        { name: 'type', sort: (a: MoveLight, b: MoveLight) => sortOrderStr(a.type.name, b.type.name, sortBy.order) },
         { name: 'power', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.power, b.power, sortBy.order) },
         { name: 'accuracy', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.accuracy, b.accuracy, sortBy.order) },
         { name: 'pp', sort: (a: MoveLight, b: MoveLight) => sortOrderNbr(a.pp, b.pp, sortBy.order) },
