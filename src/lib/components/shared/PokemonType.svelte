@@ -26,11 +26,10 @@
 	.pokemon-type {
 		display: grid;
 		grid-template-columns: 1em auto;
-		width: 100%;
-		margin: 0.75em;
-		padding: 0.25em;
+		gap: 1em;
+		padding: 0.25em 0.5em;
 		border: 1px solid black;
-		border-radius: 50px;
+		border-radius: 1em;
 		text-transform: uppercase;
 	}
 

@@ -20,7 +20,7 @@
 
 <button id="pokedex-lang-toggle" on:click={() => (showLangs = !showLangs)}>㊙️</button>
 
-<section id="pokedex-lang-list" style="width: 0" class:shown={showLangs}>
+<section id="pokedex-lang-list" class:shown={showLangs}>
 	<section class="languages">
 		{#each locales as availableLocale}
 			{#if availableLocale !== $locale}

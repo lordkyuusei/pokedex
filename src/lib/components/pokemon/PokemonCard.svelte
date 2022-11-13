@@ -40,21 +40,21 @@
 </script>
 
 <Card title="N°{computePokemonId(id)}" reactive span={'md'} size={isLink ? 'md' : 'lg'}>
-	<div class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
-		<div class="pokemon-id">
+	<section class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
+		<header class="pokemon-id">
 			<div class="pokemon-name">{name}</div>
 			<button class="pokemon-shiny" on:mouseenter={showShiny} on:mouseleave={showRegular}>✨</button
 			>
-		</div>
+		</header>
 		<div class="pokemon-picture">
 			<img src={picture} alt={name} />
 		</div>
-		<div class="pokemon-types">
+		<footer class="pokemon-types">
 			{#each types as type (type)}
 				<PokemonType name={type} />
 			{/each}
-		</div>
-	</div>
+		</footer>
+	</section>
 </Card>
 
 <style>
@@ -125,7 +125,9 @@
 	.pokemon-types {
 		width: 100%;
 		display: flex;
-		justify-content: space-around;
+		justify-content: center;
+		gap: 2em;
+		padding: 0.25em 0;
 	}
 
 	@media screen and (aspect-ratio: 16/9) {
