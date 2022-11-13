@@ -26,7 +26,7 @@
 	<div id="kyuudex">
 		<header id="kyuudex-header">
 			<header class="header-logo">
-				<img src={logo} alt="Beast ball logo" />
+				<img src={logo} alt="Beast ball logo" height="100%" width="100%" />
 				<a href="/">KYUUDEX</a>
 			</header>
 			<section class="header-search">
@@ -63,21 +63,22 @@
 			'header header header header header'
 			'sidebar main main main main'
 			'footer main main main main';
-		grid-template-rows: 0.75fr minmax(auto, 30fr) 1.5fr;
-		grid-template-columns: 1fr 9fr;
+		grid-template-rows: 1.5fr minmax(auto, 30fr) 1.5fr;
+		grid-template-columns: 1fr minmax(auto, 9fr);
 		height: 100vh;
 	}
 
 	#kyuudex-header {
 		display: grid;
-		grid-template-areas: 'logo search links links links links';
+		grid-template-areas: 'logo search links';
 		grid-template-rows: 1fr;
-		grid-template-columns: 0.4fr 1fr 2fr;
+		grid-template-columns: 1fr 4fr 4fr;
+		gap: 1em;
 		grid-area: header;
-		width: 100%;
 		align-items: center;
 		border-bottom-right-radius: 1.5rem;
 		background: var(--theme-light-background);
+		min-height: 3em;
 	}
 
 	#kyuudex-header > .header-logo {
@@ -94,6 +95,7 @@
 
 	#kyuudex-header > .header-search {
 		grid-area: search;
+		position: relative;
 	}
 
 	#kyuudex-header > .header-footer {
@@ -109,6 +111,8 @@
 		margin-right: 2rem;
 		letter-spacing: 4px;
 		text-transform: uppercase;
+		margin-block: 0;
+		padding-inline: 0;
 	}
 
 	#kyuudex-header > .header-footer > .navigation > .navigation-item {
@@ -169,7 +173,7 @@
 		justify-content: flex-end;
 		gap: 0.5em;
 		width: 200%;
-		padding-right: 1em;
+		padding-inline-end: 1em;
 		border-top-right-radius: 1.5rem;
 		background: var(--theme-light-background);
 		z-index: 2;
@@ -187,13 +191,13 @@
 				'header footer'
 				'main main'
 				'main main';
-			grid-template-columns: 4fr 1fr;
-			grid-template-rows: 1fr auto;
+			grid-template-columns: 4fr auto;
+			justify-content: center;
 		}
 
 		#kyuudex-header {
-			grid-template-areas: 'logo search';
-			grid-template-columns: 1fr 4fr;
+			grid-template-areas: 'logo search footer';
+			grid-template-columns: 0.5fr 4fr auto;
 			border-bottom-right-radius: 0;
 			padding: 0.5rem 0;
 		}
@@ -201,6 +205,14 @@
 		#kyuudex-header > .header-logo > a,
 		#kyuudex-header > .header-footer {
 			display: none;
+		}
+
+		#kyuudex-header > .header-search {
+			position: inherit;
+		}
+
+		#kyuudex-header > .header-logo > img {
+			inline-size: 50%;
 		}
 
 		#kyuudex-sidebar {
@@ -214,17 +226,17 @@
 		#kyuudex-footer {
 			width: 100%;
 			border-radius: 0;
+			padding-inline-end: 0;
 		}
 	}
 
 	@media (min-width: 1024px) and (max-width: 1440px) {
 		#kyuudex-header {
-			grid-template-columns: 2fr 4fr;
+			grid-template-columns: 1.5fr 4fr auto;
 		}
 
 		#kyuudex-header > .header-footer > .navigation {
 			gap: 2rem;
-			margin-right: 1rem;
 			letter-spacing: 2px;
 			text-transform: uppercase;
 		}
