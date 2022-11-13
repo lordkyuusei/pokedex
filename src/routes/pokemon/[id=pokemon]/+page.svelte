@@ -32,7 +32,7 @@
 	<meta name="description" content="Kyuudex - {pokemonName} (N°{pokemon.id})" />
 </svelte:head>
 
-<div class="pokemon-page">
+<section class="pokemon-page">
 	{#if pokemon}
 		<div class="page-details">
 			<PokemonCard
@@ -67,7 +67,7 @@
 	{:else}
 		<PokemonLoader />
 	{/if}
-</div>
+</section>
 
 <style>
 	.page-details {

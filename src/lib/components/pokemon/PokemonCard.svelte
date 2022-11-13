@@ -123,11 +123,11 @@
 	}
 
 	.pokemon-types {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		gap: 2em;
-		padding: 0.25em 0;
+		width: calc(100% - 3em);
+		display: grid;
+		grid-template: 1fr / repeat(auto-fit, minmax(0, 1fr));
+		gap: 1em;
+		padding: 0 0 0.5em 0;
 	}
 
 	@media screen and (aspect-ratio: 16/9) {

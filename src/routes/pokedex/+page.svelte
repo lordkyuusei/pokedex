@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 	import { afterUpdate, onMount } from 'svelte';
 
 	import { pokedex } from '$lib/store/pokedex';
 	import { fetchPokemonSpriteURL } from '$lib/api';
-	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
 	import type { Lightkemon } from '$lib/types/Pokemon';
 	import type { PageData } from './$types';
 	import {
@@ -14,7 +13,9 @@
 		DEFAULT_POKEMON_OFFSET,
 		GENERATION_BOUNDARIES
 	} from '$lib/constants';
+
 	import Button from '$lib/components/barebone/Button.svelte';
+	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
 
 	export let data: PageData;
 
@@ -46,7 +47,7 @@
 				'_offset',
 				`${(parseInt(query.get('_offset')) || DEFAULT_POKEMON_OFFSET) + DEFAULT_OFFSET_INCREMENT}`
 			);
-			goto(`?${query.toString()}`, { noscroll: true });
+			goto(`?${query.toString()}`, { noScroll: true });
 		}
 	};
 

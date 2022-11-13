@@ -6,7 +6,7 @@ import { DEFAULT_POKEMON_OFFSET, MAX_POKEMON_LOADING } from '$lib/constants';
 
 export const GET: RequestHandler = async ({ url }) => {
     const limit = parseInt(url.searchParams.get('_limit')) || MAX_POKEMON_LOADING;
-    const offset = parseInt(url.searchParams.get('_offset')) || DEFAULT_POKEMON_OFFSET;
+    const offset = (parseInt(url.searchParams.get('_offset')) || 1) - 1 || DEFAULT_POKEMON_OFFSET;
 
     try {
         const pokemonBulk = await pokeapi.fetchPokemonBulk(limit, offset);

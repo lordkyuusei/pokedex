@@ -12,6 +12,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
             url.searchParams.get('_limit') || MAX_POKEMON_LOADING,
             url.searchParams.get('_offset') || DEFAULT_POKEMON_OFFSET
         ];
+
         const result: Response = await fetch(`/api/pokedex?_limit=${limit}&_offset=${offset}`);
 
         if (result.ok) {
@@ -21,6 +22,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
                 const lightkemon = lightcodex.default.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
 
                 return {
+                    nameId: pokemon.name,
                     id: lightkemon.id,
                     name: lightkemon.name,
                     image: '',
@@ -28,7 +30,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
                 };
             });
 
-            console.log(lightkedex);
             return {
                 pokemonBulk: lightkedex
             };
