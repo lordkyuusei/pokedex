@@ -1,5 +1,5 @@
 export async function GET() {
-  const lightkedex = await import('$lib/assets/lightkedex.json');
+  const lightkedex = await fetch('/lightkedex.json').then((r) => r.json());
   const urls = lightkedex.default.map(pokemon =>
     `<url><loc>https://kyuudex.lkyuusei.fr/pokemon/${pokemon.id}</loc></url><url><loc>https://kyuudex.lkyuusei.fr/pokemon/${pokemon.name.toLowerCase()}</loc></url>`
   ).join('\n');
