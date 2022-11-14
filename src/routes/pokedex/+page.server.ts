@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
         if (result.ok) {
             const pokemonBulk: PokemonBulk = await result.json();
-            const lightcodex = await import(`$lib/assets/lightkedex.json`);
+            const lightcodex = await fetch('/lightkedex.json').then((res) => res.json());
             const lightkedex = pokemonBulk.results.map((pokemon: EntityRef) => {
                 const lightkemon = lightcodex.default.find((p) => `${p.id}` === pokemon.url.match(/\d+/g)[1]);
 

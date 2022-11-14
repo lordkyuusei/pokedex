@@ -7,7 +7,6 @@
 	import PokedexSearch from '$lib/components/shared/Search.svelte';
 	import LangToggle from '$lib/components/shared/Lang.svelte';
 	import PokedexThemeToggle from '$lib/components/shared/Theme.svelte';
-	import logo from '$lib/assets/favicon.png';
 	import { routesList, pokemonList } from './routes';
 	import SettingsToggle from '$lib/components/shared/Settings.svelte';
 
@@ -26,7 +25,7 @@
 	<div id="kyuudex">
 		<header id="kyuudex-header">
 			<header class="header-logo">
-				<img src={logo} alt="Beast ball logo" height="100%" width="100%" />
+				<img src="/favicon.png" alt="Beast ball logo" height="100%" width="100%" />
 				<a href="/">KYUUDEX</a>
 			</header>
 			<section class="header-search">
