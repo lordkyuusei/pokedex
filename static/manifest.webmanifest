@@ -2,12 +2,16 @@
     "name": "Kyuudex",
     "short_name": "Kyuudex",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "background_color": "#1B1424",
     "theme_color": "#8950CE",
     "description": "Kyuudex is an app that acts as a Pokédex",
     "scope": "/",
     "icons": [
-        "/favicon.png"
+        {
+            "src": "/favicon.png",
+            "type": "image/png",
+            "sizes": "80x80"
+        }
     ]
 }
