@@ -15,9 +15,9 @@
 		<div class="link link-before" />
 	{/if}
 
-	<div class="link-picture">
-		<img src={spriteURL} alt={pokemon} on:click={() => goto(`/pokemon/${pokemon}`)} />
-	</div>
+	<a href={pokemon} class="link-picture">
+		<img src={spriteURL} alt={pokemon} />
+	</a>
 
 	{#if stage !== maxStage}
 		<div class="link link-after" />
