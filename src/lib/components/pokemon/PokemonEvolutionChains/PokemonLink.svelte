@@ -16,11 +16,7 @@
 	{/if}
 
 	<div class="link-picture">
-		<img
-			src={spriteURL}
-			alt={pokemon}
-			on:click={() => goto(`/pokemon/${pokemon}`, { noscroll: true })}
-		/>
+		<img src={spriteURL} alt={pokemon} on:click={() => goto(`/pokemon/${pokemon}`)} />
 	</div>
 
 	{#if stage !== maxStage}
