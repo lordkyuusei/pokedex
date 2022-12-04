@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { fetchPokemonEvolutionChain } from '$lib/api';
 	import type {
 		EvolutionChain,
 		PokemonEvolution,
 		EvolutionUnit
 	} from '$lib/types/PokemonEvolutionChain';
-	import Card from '../barebone/Card.svelte';
+	import { t } from '$lib/store/i18n/i18n';
+
+	import Card from '$lib/components/barebone/Card.svelte';
 	import StraightLine from './PokemonEvolutionChains/StraightLine.svelte';
 	import DoubleStraightLine from './PokemonEvolutionChains/DoubleStraightLine.svelte';
 	import PokemonLink from './PokemonEvolutionChains/PokemonLink.svelte';
 	import TopStraightBottomLine from './PokemonEvolutionChains/TopStraightBottomLine.svelte';
 	import TopCurvyLine from './PokemonEvolutionChains/TopCurvyLine.svelte';
 	import BottomCurvyLine from './PokemonEvolutionChains/BottomCurvyLine.svelte';
-	import { t } from '$lib/store/i18n/i18n';
 
 	const evolutionPattern = {
 		'1': ['straight'],
@@ -33,9 +33,20 @@
 	export let evolutionChain: { url: string };
 	let pokemonStages = new Map<number, EvolutionUnit[]>();
 
-	$: isHuge = pokemonStages.get(2)?.length >= 3;
-
 	$: fetchEvolutionChain(evolutionChain);
+
+	$: computedWidth = [
+		{ cond: pokemonStages.size === 1, value: 'sm' },
+		{ cond: pokemonStages.size === 2, value: 'md' },
+		{ cond: true, value: 'lg' }
+	].find(({ cond }) => cond).value;
+
+	$: computedHeight = [
+		{ cond: pokemonStages.get(2)?.length === 1, value: 'sm' },
+		{ cond: pokemonStages.get(2)?.length === 2, value: 'md' },
+		{ cond: pokemonStages.get(2)?.length <= 5, value: 'lg' },
+		{ cond: true, value: 'xl' }
+	].find(({ cond }) => cond).value;
 
 	const fetchEvolutionChain = (chain: { url: string }) => {
 		pokemonStages.clear();
@@ -68,11 +79,7 @@
 	};
 </script>
 
-<Card
-	title={$t('title.evolution-chain')}
-	size={isHuge ? 'xl' : 'md'}
-	span={{ 1: 'md', 2: 'lg', 3: 'xl' }[pokemonStages.size] || 'xl'}
->
+<Card title={$t('title.evolution-chain')}>
 	<div class="pokemon-evolution-chain">
 		{#each [...pokemonStages] as [stage, evolutionChain]}
 			<div class="evolution-chain-stage">
@@ -100,12 +107,10 @@
 	.pokemon-evolution-chain {
 		display: flex;
 		flex-direction: row;
-		align-content: center;
-		justify-content: center;
 		align-items: center;
 		height: 100%;
 		width: 100%;
-		overflow-y: scroll;
+		overflow-y: auto;
 	}
 
 	.evolution-chain-stage {

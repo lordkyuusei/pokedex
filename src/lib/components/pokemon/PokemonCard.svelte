@@ -33,18 +33,17 @@
 		if (picture.includes('undefined')) {
 			picture = 'http://placekitten.com/200/200';
 		}
-		if (picture === '') {
-			picture = fetchPokemonSpriteURL(id);
-		}
+		picture = fetchPokemonSpriteURL(id);
 	});
 </script>
 
-<Card title="N°{computePokemonId(id)}" reactive span={'md'} size={isLink ? 'md' : 'lg'}>
+<Card title="N°{computePokemonId(id)}" reactive>
 	<section class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<header class="pokemon-id">
 			<div class="pokemon-name">{name}</div>
-			<button class="pokemon-shiny" on:mouseenter={showShiny} on:mouseleave={showRegular}>✨</button
-			>
+			<button class="pokemon-shiny" on:mouseenter={showShiny} on:mouseleave={showRegular}>
+				✨
+			</button>
 		</header>
 		<div class="pokemon-picture">
 			<img src={picture} alt={name} />
@@ -117,7 +116,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 15vh;
+		height: 8em;
 		width: auto;
 		margin: auto;
 	}
@@ -127,7 +126,7 @@
 		display: grid;
 		grid-template: 1fr / repeat(auto-fit, minmax(0, 1fr));
 		gap: 1em;
-		padding: 0 0 0.5em 0;
+		padding-bottom: 0.5em;
 	}
 
 	@media screen and (aspect-ratio: 16/9) {

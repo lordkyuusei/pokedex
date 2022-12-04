@@ -41,7 +41,7 @@
 	];
 </script>
 
-<Card title={$t('title.data-factors')} size="md" span="md" close_up>
+<Card title={$t('title.data-factors')} close_up>
 	<div class="scores">
 		{#each scores as { score, unit, icon }}
 			<PokemonScore {unit} {icon}>{@html score}</PokemonScore>

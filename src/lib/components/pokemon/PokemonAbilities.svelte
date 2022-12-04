@@ -27,7 +27,7 @@
 			.flavor_text;
 </script>
 
-<Card title={$t('title.abilities')} span="md" size="xs">
+<Card title={$t('title.abilities')}>
 	<div class="pokemon-abilities-list">
 		{#each abilities as ability}
 			<button

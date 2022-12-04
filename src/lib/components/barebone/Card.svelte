@@ -3,11 +3,9 @@
 
 	export let reactive: boolean = false;
 	export let close_up: boolean = false;
-	export let size: string = 'sm';
-	export let span: string = 'sm';
 </script>
 
-<div class="card card-w-{span} card-h-{size}" class:reactive class:close_up>
+<div class="card" class:reactive class:close_up>
 	{#if title}
 		<div class="header">{title}</div>
 	{/if}
@@ -16,8 +14,10 @@
 
 <style>
 	.card {
-		margin: 0.5rem;
-		border-radius: 10px;
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 0.75rem);
+		border-radius: 0.5rem;
 		box-shadow: var(--theme-shadow);
 		background-color: var(--theme-alt-background);
 		transition: 0.2s ease-in-out;
@@ -56,181 +56,5 @@
 	.card:hover > .header {
 		opacity: 1;
 		transition: opacity 0.2s ease-in;
-	}
-
-	/* mobile small */
-	@media screen and (max-width: 320px) {
-		.card-w-xs,
-		.card-w-sm,
-		.card-w-md,
-		.card-w-lg,
-		.card-w-xl {
-			width: 100%;
-		}
-
-		.card-h-sm {
-			height: 20vh;
-		}
-
-		.card-h-md {
-			height: 30vh;
-		}
-
-		.card-h-lg,
-		.card-h-xl {
-			height: 45vh;
-		}
-	}
-
-	@media screen and (min-width: 320px) and (max-width: 375px) {
-		.card-w-xs {
-			width: 80%;
-		}
-
-		.card-w-sm,
-		.card-w-md,
-		.card-w-lg,
-		.card-w-xl {
-			width: 100%;
-		}
-
-		.card-h-sm {
-			height: 20vh;
-		}
-
-		.card-h-md {
-			height: 35vh;
-		}
-
-		.card-h-lg,
-		.card-h-xl {
-			height: 45vh;
-		}
-	}
-
-	@media screen and (min-width: 375px) and (max-width: 425px) {
-		.card-w-xs {
-			width: 60%;
-		}
-
-		.card-w-sm {
-			width: 80%;
-		}
-
-		.card-w-md,
-		.card-w-lg,
-		.card-w-xl {
-			width: 100%;
-		}
-
-		.card-h-sm {
-			height: 20vh;
-		}
-
-		.card-h-md {
-			height: 30vh;
-		}
-
-		.card-h-lg,
-		.card-h-xl {
-			height: 40vh;
-		}
-	}
-	@media screen and (min-width: 425px) and (max-width: 768px) {
-		.card-w-xs {
-			width: 40%;
-		}
-
-		.card-w-sm {
-			width: 60%;
-		}
-
-		.card-w-md,
-		.card-w-lg,
-		.card-w-xl {
-			width: calc(100% - 1rem);
-		}
-
-		.card-h-sm {
-			height: 25vh;
-		}
-
-		.card-h-md {
-			height: 40vh;
-		}
-
-		.card-h-lg {
-			height: 55vh;
-		}
-
-		.card-h-xl {
-			height: 70vh;
-		}
-	}
-
-	@media screen and (min-width: 768px) and (max-width: 1024px) {
-		.card-w-xs {
-			width: 20%;
-		}
-
-		.card-w-sm {
-			width: 40%;
-		}
-
-		.card-h-xs {
-			height: calc(15vh - 1rem);
-		}
-
-		.card-w-md {
-			width: calc(38vw - 1rem);
-		}
-
-		.card-h-md {
-			height: calc(30vh - 1rem);
-		}
-
-		.card-h-lg {
-			height: calc(45vh - 1rem);
-		}
-
-		.card-w-lg {
-			width: calc(80vw - 1rem);
-		}
-
-		.card-w-xl {
-			width: calc(100vw - 1rem);
-		}
-	}
-
-	@media screen and (min-width: 1024px) {
-		.card-w-xs {
-		}
-
-		.card-h-xs {
-			height: calc(12vh - 1rem);
-		}
-
-		.card-w-sm {
-		}
-
-		.card-w-md {
-			width: calc(25vw - 1rem);
-		}
-
-		.card-h-md {
-			height: calc(30vh - 1rem);
-		}
-
-		.card-h-lg {
-			height: calc(42vh - 1rem);
-		}
-
-		.card-w-lg {
-			width: calc(38vw - 1rem);
-		}
-
-		.card-w-xl {
-			width: calc(90vw - 1rem);
-		}
 	}
 </style>

@@ -110,7 +110,7 @@
 	});
 </script>
 
-<Card span="xl" size="lg">
+<Card title={$t('title.moveset')}>
 	<div class="pokemon-versions">
 		{#each pokemonVersions as version}
 			<button
@@ -188,6 +188,7 @@
 		flex-direction: row;
 		justify-content: flex-start;
 		width: 100%;
+		height: 2em;
 		overflow-x: auto;
 	}
 
@@ -218,12 +219,13 @@
 
 	.pokemon-moveset {
 		width: 100%;
-		height: calc(100% - 4.2rem);
-		overflow-y: scroll;
+		height: calc(100% - 4em);
+		overflow-y: auto;
 	}
 
 	.moveset-table {
 		width: 100%;
+		overflow-y: auto;
 		border-collapse: collapse;
 		table-layout: fixed;
 		transition: all 0.2s ease-in-out;

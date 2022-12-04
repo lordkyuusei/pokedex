@@ -29,7 +29,7 @@
 	};
 </script>
 
-<Card title={$t('title.stats')} close_up span="lg" size="lg">
+<Card title={$t('title.stats')} close_up>
 	<div class="pokemon-stats">
 		{#each statistics as stat}
 			<PokemonStat {stat} {evs} {ivs} {lvl} {nature} />
@@ -109,6 +109,7 @@
 	.stats-cursors {
 		display: flex;
 		flex-direction: column;
+		gap: 0.5em;
 		width: 100%;
 		height: 100%;
 		align-items: center;
@@ -117,16 +118,18 @@
 
 	.stats-nature {
 		font: inherit;
-		margin-bottom: 0.5rem;
-		background-color: var(--theme-background);
-		color: var(--theme-text);
 		border-radius: 5px;
 		width: calc(100% - 1rem);
+		color: var(--theme-text);
+		background-color: var(--theme-background);
 	}
 
 	.stats-ranges {
 		display: flex;
+		width: 100%;
 		height: 100%;
+		max-height: calc(100% - 2em);
+		justify-content: space-evenly;
 	}
 
 	.stats-iel {

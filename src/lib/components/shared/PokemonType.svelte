@@ -17,7 +17,11 @@
 	});
 </script>
 
-<div class="pokemon-type" style={`background-color: ${pokemonType?.color};`}>
+<div
+	class="pokemon-type"
+	title={$t(`type.${pokemonType?.name}`)}
+	style={`background-color: ${pokemonType?.color};`}
+>
 	<div class="pokemon-icon">{pokemonType?.icon}</div>
 	<div class="pokemon-typename">{$t(`type.${pokemonType?.name}`)}</div>
 </div>
@@ -31,6 +35,7 @@
 		border: 1px solid black;
 		border-radius: 1em;
 		text-transform: uppercase;
+		overflow: hidden;
 	}
 
 	.pokemon-icon {

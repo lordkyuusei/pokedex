@@ -16,17 +16,6 @@
 	let pokemonVarieties: Pokemon[] = [];
 	let pokemonForms: PokemonForm[] = [];
 
-	const spanCalculation = () => {
-		const mapLenghtToSize = [
-			{ cond: pokemonForms.length === 1 || pokemonVarieties.length === 1, size: 'sm' },
-			{ cond: pokemonForms.length === 2 || pokemonVarieties.length === 2, size: 'md' },
-			{ cond: pokemonForms.length === 3 || pokemonVarieties.length === 3, size: 'lg' },
-			{ cond: true, size: 'xl' }
-		];
-
-		return mapLenghtToSize.find(({ cond }) => cond === true)?.size || 'sm';
-	};
-
 	onMount(async () => {
 		if (varieties.length > 1) {
 			const pokemonPromises = varieties.map((variety) => {
@@ -51,7 +40,7 @@
 	});
 </script>
 
-<Card title={$t('title.forms-varieties')} span={spanCalculation()} size="lg" close_up>
+<Card title={$t('title.forms-varieties')} close_up>
 	{#if pokemonVarieties.length}
 		<div class="pokemon-varieties">
 			{#each pokemonVarieties as variety}

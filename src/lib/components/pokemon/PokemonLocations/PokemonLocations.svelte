@@ -66,7 +66,7 @@
 	};
 </script>
 
-<Card title={$t('title.locations')} span="xl" size="lg">
+<Card title={$t('title.locations')}>
 	<div class="pokemon-locations">
 		{#await pokemonLocations}
 			<div />

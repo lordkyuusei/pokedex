@@ -3,7 +3,6 @@
 	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
 
 	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
-	import PokemonLoader from '$lib/components/shared/Loader.svelte';
 	import PokemonStats from '$lib/components/pokemon/PokemonStats/PokemonStats.svelte';
 	import PokemonEvolutionChain from '$lib/components/pokemon/PokemonEvolutionChain.svelte';
 	import PokemonAbilities from '$lib/components/pokemon/PokemonAbilities.svelte';
@@ -32,79 +31,114 @@
 	<meta name="description" content="Kyuudex - {pokemonName} (N°{pokemon.id})" />
 </svelte:head>
 
-<section class="pokemon-page">
+<article class="pokemon-page">
 	{#if pokemon}
-		<div class="page-details">
+		<header class="pokemon-identity">
 			<PokemonCard
 				id={`${pokemon.id}`}
 				name={pokemonName}
 				picture={pokemon.sprites?.front_default || ''}
 				types={pokemon.types?.map(({ type }) => type.name)}
 			/>
-			<div>
-				<PokemonScores
-					height={pokemon.height}
-					weight={pokemon.weight}
-					rate={specie.capture_rate}
-					steps={specie.hatch_counter}
-					egg={specie.egg_groups?.map((egg) => egg.name)}
-					gender={specie.gender_rate}
-				/>
-				<PokemonAbilities abilities={pokemon.abilities} />
-			</div>
+			<PokemonScores
+				height={pokemon.height}
+				weight={pokemon.weight}
+				rate={specie.capture_rate}
+				steps={specie.hatch_counter}
+				egg={specie.egg_groups?.map((egg) => egg.name)}
+				gender={specie.gender_rate}
+			/>
+			<PokemonAbilities abilities={pokemon.abilities} />
 			<PokemonStats statistics={pokemon.stats} />
-			{#if pokemon.moves?.length > 0}
-				<PokemonMoves moves={pokemon.moves} />
-			{/if}
+		</header>
+		<section class="pokemon-environment">
+			<PokemonMoves moves={pokemon?.moves} />
 			<PokemonLocations pokemon={pokemon.id} />
-			{#if specie.evolution_chain}
-				<PokemonEvolutionChain evolutionChain={specie.evolution_chain} />
-			{/if}
-			{#if pokemon?.forms?.length > 1 || specie?.varieties?.length > 1}
-				<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
-			{/if}
-		</div>
-	{:else}
-		<PokemonLoader />
+			<PokemonEvolutionChain evolutionChain={specie?.evolution_chain} />
+			<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
+		</section>
 	{/if}
-</section>
+</article>
 
 <style>
-	.page-details {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-		align-items: flex-end;
+	.pokemon-identity,
+	.pokemon-environment {
 		height: 100%;
+		width: 100%;
+		display: grid;
+		transition: all 0.2s ease-in-out;
 	}
 
-	.page-details div {
-		display: flex;
-		flex-direction: column;
+	.pokemon-identity {
+		margin-bottom: 0.75rem;
+
+		grid-template: 1fr 0.25fr / 0.8fr 1.2fr 1fr;
+		gap: 0.75rem;
+		grid-template-areas:
+			'card scores stats'
+			'card abilities stats';
+	}
+
+	@media screen and (max-width: 1024px) {
+		.pokemon-identity {
+			grid-template: 1fr 0.5fr 1.5fr/ 1fr 1fr;
+			grid-template-areas:
+				'card scores'
+				'card abilities'
+				'stats stats';
+		}
 	}
 
 	@media screen and (max-width: 768px) {
-		.page-details {
-			display: grid;
-			grid-template-columns: 100%;
-			justify-content: center;
-			width: 100%;
-			align-items: center;
-			justify-items: center;
-			align-content: center;
-		}
-
-		.page-details div {
-			width: 100%;
+		.pokemon-identity {
+			grid-template: 1.2fr 1fr 0.5fr 1.5fr / 1fr;
+			grid-template-areas:
+				'card'
+				'scores'
+				'abilities'
+				'stats';
 		}
 	}
 
-	@media screen and (min-width: 768px) {
-		.page-details {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			width: 100%;
-		}
+	.pokemon-environment {
+		grid-template: repeat(4, 0.5fr) / 1fr;
+		gap: 0.75rem;
+		grid-template-areas:
+			'moves'
+			'locations'
+			'evolution'
+			'varieties';
+	}
+
+	.pokemon-identity > :global(.card):nth-child(1) {
+		grid-area: card;
+	}
+
+	.pokemon-identity > :global(.card):nth-child(2) {
+		grid-area: scores;
+	}
+
+	.pokemon-identity > :global(.card):nth-child(3) {
+		grid-area: abilities;
+	}
+
+	.pokemon-identity > :global(.card):nth-child(4) {
+		grid-area: stats;
+	}
+
+	.pokemon-environment > :global(.card):nth-child(1) {
+		grid-area: moves;
+	}
+
+	.pokemon-environment > :global(.card):nth-child(2) {
+		grid-area: locations;
+	}
+
+	.pokemon-environment > :global(.card):nth-child(3) {
+		grid-area: evolution;
+	}
+
+	.pokemon-environment > :global(.card):nth-child(4) {
+		grid-area: varieties;
 	}
 </style>
