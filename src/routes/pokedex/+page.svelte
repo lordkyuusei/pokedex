@@ -81,14 +81,14 @@
 	<meta name="description" content="Kyuudex list" />
 </svelte:head>
 
-<div class="pokedex-shortcuts">
+<header class="pokedex-shortcuts">
 	{#each GENERATION_BOUNDARIES as { start, end }, index}
 		<Button size="lg" on:click={() => handleNewBoundaries(start, end)}>
 			Gen.&nbsp;{index + 1} <br />({start}&nbsp;-&nbsp;{end})
 		</Button>
 	{/each}
-</div>
-<div class="pokedex" id="pokedex">
+</header>
+<section class="pokedex" id="pokedex">
 	{#each $pokedex as pokemon}
 		<a href={`/pokemon/${pokemon?.id}`} id={`pokemon-${pokemon?.id}`}>
 			<PokemonCard
@@ -100,21 +100,22 @@
 			/>
 		</a>
 	{/each}
-</div>
+</section>
 
 <style>
-	.pokedex {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-		flex-wrap: wrap;
-	}
-
 	.pokedex-shortcuts {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-evenly;
 		width: 100%;
+	}
+
+	.pokedex {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-auto-rows: 20em;
+		justify-content: center;
+		gap: 1rem;
 	}
 
 	@media screen and (min-width: 320px) and (max-width: 425px) {
@@ -126,24 +127,6 @@
 			flex-wrap: nowrap;
 			overflow-x: auto;
 			justify-content: flex-start;
-		}
-
-		a {
-			width: 95%;
-		}
-	}
-
-	@media screen and (min-width: 425px) and (max-width: 1024px) {
-		a {
-			display: flex;
-			justify-content: center;
-			width: calc(50% - 0.5rem);
-		}
-	}
-
-	@media screen and (min-width: 1024) {
-		a {
-			width: calc(33% - 0.5rem);
 		}
 	}
 </style>

@@ -17,6 +17,7 @@
 		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 0.75rem);
+		min-width: 200px;
 		border-radius: 0.5rem;
 		box-shadow: var(--theme-shadow);
 		background-color: var(--theme-alt-background);
