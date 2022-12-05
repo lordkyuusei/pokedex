@@ -32,8 +32,9 @@
 	beforeUpdate(() => {
 		if (picture.includes('undefined')) {
 			picture = 'http://placekitten.com/200/200';
+		} else if (picture === '') {
+			picture = fetchPokemonSpriteURL(id);
 		}
-		picture = fetchPokemonSpriteURL(id);
 	});
 </script>
 

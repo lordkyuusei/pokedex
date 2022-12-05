@@ -26,8 +26,7 @@
 	const search = async (event: KeyboardEvent): Promise<void> => {
 		const results = searchCodex
 			.filter((item: light) => item.name.toLowerCase().includes(searchText.toLowerCase()))
-			.slice(0, 20)
-			.map((res) => ({ ...res, name: res.name.replace(searchText, `[${searchText}]`) }));
+			.slice(0, 20);
 
 		searchResults = results;
 
@@ -94,9 +93,7 @@
 				on:click={() => (searchResults = [])}
 			>
 				<img
-					src={fetchPokemonSpriteURL(`${pokemon.id}`, 'versions', 'generation-viii', 'icons')}
-					height="100%"
-					width="100%"
+					src={fetchPokemonSpriteURL(`${pokemon.id}`, 'icons', 'generation-viii', '')}
 					alt={pokemon.name}
 				/>
 				<span>{pokemon.name}</span>
@@ -124,11 +121,13 @@
 	}
 
 	.pokemon-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
 		position: absolute;
 		left: calc(1em - 1px);
 		top: calc(2rem - 1px);
 		width: calc(100% - 2em);
-		z-index: 3;
 		max-height: 50vh;
 		overflow-y: auto;
 		border: 1px solid var(--theme-text);
@@ -136,6 +135,7 @@
 		color: var(--theme-text);
 		border-radius: 0 0 10px 10px;
 		background-color: var(--theme-background);
+		z-index: 3;
 	}
 
 	.pokemon-list > .pokemon-result-row:hover {
@@ -148,7 +148,7 @@
 		width: 100%;
 		display: grid;
 		grid-template-columns: 1fr minmax(100px, 1fr) 2fr 2fr;
-		grid-template-rows: 1fr;
+		grid-template-rows: 50px;
 		place-content: center;
 		align-items: center;
 		gap: 1em;
@@ -156,8 +156,15 @@
 	}
 
 	.pokemon-list > .pokemon-result-row > img {
-		transform: translateY(-0.75rem);
+		transform: translateY(-1rem);
 		inline-size: 75%;
+	}
+
+	@media (max-width: 768px) {
+		.pokemon-list > .pokemon-result-row > img {
+			transform: translateY(-0.5rem);
+			inline-size: 100%;
+		}
 	}
 
 	@media (max-width: 1024px) {

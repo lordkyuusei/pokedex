@@ -42,9 +42,9 @@
 
 <Card title={$t('title.forms-varieties')} close_up>
 	{#if pokemonVarieties.length}
-		<div class="pokemon-varieties">
+		<section class="pokemon-varieties">
 			{#each pokemonVarieties as variety}
-				<a href={`/pokemon/${variety.id}`}>
+				<a class="variety-element" href={`/pokemon/${variety.id}`}>
 					<PokemonCard
 						id={`${variety.id}`}
 						name={variety.name}
@@ -53,12 +53,12 @@
 					/>
 				</a>
 			{/each}
-		</div>
+		</section>
 	{/if}
 	{#if pokemonForms.length}
-		<div class="pokemon-forms">
+		<section class="pokemon-forms">
 			{#each pokemonForms as form}
-				<a href={`/pokemon/${form.id}`}>
+				<a class="form-element" href={`/pokemon/${form.id}`}>
 					<PokemonCard
 						id={`${form.id}`}
 						name={form.name}
@@ -67,7 +67,7 @@
 					/>
 				</a>
 			{/each}
-		</div>
+		</section>
 	{/if}
 </Card>
 
@@ -79,5 +79,11 @@
 		overflow-x: auto;
 		height: 100%;
 		gap: 1em;
+	}
+
+	.variety-element,
+	.form-element {
+		height: calc(100% - 1em);
+		width: 100vw;
 	}
 </style>

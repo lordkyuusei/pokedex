@@ -88,6 +88,7 @@
 	};
 
 	const extractVersions = (moves: MoveRef[]) => {
+		if (moves.length === 0) return [];
 		const reference: MoveRef = moves.reduce((prev, next) =>
 			prev.version_group_details.length > next.version_group_details.length ? prev : next
 		);
@@ -150,21 +151,27 @@
 						{/each}
 					</tr>
 				{:then moves}
-					{#each moves as move}
+					{#if moves.length}
+						{#each moves as move}
+							<tr>
+								<td class="move-level">{move.level}</td>
+								<td class="move-name" title={move.description}>{displayMove(move.name)}</td>
+								<td class="move-type">
+									<PokemonType name={move.type.name} />
+								</td>
+								<td class="move-power">{move.power || '➖'}</td>
+								<td class="move-accuracy">{move.accuracy || '♾️'}%</td>
+								<td class="move-pp">{move.pp}</td>
+								<td class="move-damage-type" title={move.damageClass}>
+									{displayDamageClass(move.damageClass)}
+								</td>
+							</tr>
+						{/each}
+					{:else}
 						<tr>
-							<td class="move-level">{move.level}</td>
-							<td class="move-name" title={move.description}>{displayMove(move.name)}</td>
-							<td class="move-type">
-								<PokemonType name={move.type.name} />
-							</td>
-							<td class="move-power">{move.power || '➖'}</td>
-							<td class="move-accuracy">{move.accuracy || '♾️'}%</td>
-							<td class="move-pp">{move.pp}</td>
-							<td class="move-damage-type" title={move.damageClass}>
-								{displayDamageClass(move.damageClass)}
-							</td>
+							<td class="move" colspan="7">{$t('error.no-moves')}</td>
 						</tr>
-					{/each}
+					{/if}
 				{:catch error}
 					<tr>
 						{#each [...Array(7)] as _}

@@ -13,6 +13,7 @@
 
 	import { locale } from '$lib/store/i18n/i18n';
 	import type { PageData } from './$types';
+	import PokemonImagery from '$lib/components/pokemon/PokemonImagery.svelte';
 
 	export let data: PageData;
 	let pokemon: Pokemon = null;
@@ -56,6 +57,7 @@
 			<PokemonLocations pokemon={pokemon.id} />
 			<PokemonEvolutionChain evolutionChain={specie?.evolution_chain} />
 			<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
+			<PokemonImagery id={pokemon.id} sprites={pokemon.sprites} />
 		</section>
 	{/if}
 </article>
@@ -101,13 +103,14 @@
 	}
 
 	.pokemon-environment {
-		grid-template: repeat(4, 0.5fr) / 1fr;
+		grid-template: auto 1fr minmax(auto, 300px) minmax(auto, 300px) minmax(auto, 300px) / 1fr;
 		gap: 0.75rem;
 		grid-template-areas:
 			'moves'
 			'locations'
 			'evolution'
-			'varieties';
+			'varieties'
+			'imagery';
 	}
 
 	.pokemon-identity > :global(.card):nth-child(1) {
@@ -140,5 +143,9 @@
 
 	.pokemon-environment > :global(.card):nth-child(4) {
 		grid-area: varieties;
+	}
+
+	.pokemon-environment > :global(.card):nth-child(5) {
+		grid-area: imagery;
 	}
 </style>

@@ -46,7 +46,7 @@ export const fetchPokemonSpriteURL = (
 	generation?: string,
 	orientation?: string
 ): string => {
-	const specific = version && generation ? `versions/${generation}/${version}` : '';
+	const specific = version && generation ? `/versions/${generation}/${version}` : '';
 	return `${SPRITE_URL}${specific}${orientation || ''}/${id}.png`;
 };
 
@@ -56,7 +56,7 @@ export const fetchPokemonShinySpriteURL = (
 	generation?: string,
 	orientation?: string
 ): string => {
-	const specific = version && generation ? `${version}/${generation}/` : '';
+	const specific = version && generation ? `/versions/${generation}/${version}` : '';
 	return `${SPRITE_URL}${specific}${orientation || ''}/shiny/${id}.png`;
 };
 

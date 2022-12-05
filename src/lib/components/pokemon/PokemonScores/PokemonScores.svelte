@@ -14,7 +14,8 @@
 
 	const drawBackground = () => {
 		const femaleRatio = gender === -1 ? 0 : (gender / 8) * 360;
-		return `conic-gradient(darkorchid 0deg ${femaleRatio}deg, dodgerblue ${femaleRatio}deg 360deg`;
+		const maleRatio = gender === -1 ? 0 : 360;
+		return `conic-gradient(darkorchid 0deg ${femaleRatio}deg, dodgerblue ${femaleRatio}deg ${maleRatio}deg, slategray ${maleRatio}deg 360deg)`;
 	};
 
 	const egg_group = (): string =>
@@ -30,11 +31,13 @@
 		{ score: steps * 255 + 1, unit: units[2], icon: '🥚🦶' },
 		{
 			score: `<div
-						title="♀️${gender === -1 ? 0 : (gender / 8) * 100}% ; ♂${100 - (gender / 8) * 100}%"
+						title="♀️${gender === -1 ? 0 : (gender / 8) * 100}% ; ♂${
+				gender === -1 ? 0 : 100 - (gender / 8) * 100
+			}%"
 						style="height: 2em;width: 2em;border-radius: 1em;background: ${drawBackground()}">
 					</div>`,
 			unit: units[3],
-			icon: '♀️/♂%'
+			icon: '⚧️%'
 		},
 		{ score: `${rate}`, unit: units[4], icon: '🔴' },
 		{ score: egg_group(), unit: units[5], icon: '🥚🗂️' }

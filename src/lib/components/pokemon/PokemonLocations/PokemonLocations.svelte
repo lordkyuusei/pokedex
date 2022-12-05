@@ -86,24 +86,28 @@
 			{#await versionLocations}
 				<div />
 			{:then vrsnLocations}
-				{#each vrsnLocations as location}
-					<li>{location.location} - {location.chances}%</li>
-					<ul>
-						{#each location.conditions as condition}
-							<li>
-								{condition.method.name} | {condition.chance}% chances, lvl[{condition.min_level} / {condition.max_level}]
-							</li>
-							{#if condition.condition_values.length}
-								<ul>
-									<li>only if {condition.condition_values.map((val) => val.name)}</li>
-								</ul>
-							{/if}
-						{/each}
-					</ul>
-				{/each}
+				{#if vrsnLocations?.length}
+					{#each vrsnLocations as location}
+						<li>{location.location} - {location.chances}%</li>
+						<ul>
+							{#each location.conditions as condition}
+								<li>
+									{condition.method.name} | {condition.chance}% chances, lvl[{condition.min_level} /
+									{condition.max_level}]
+								</li>
+								{#if condition.condition_values.length}
+									<ul>
+										<li>only if {condition.condition_values.map((val) => val.name)}</li>
+									</ul>
+								{/if}
+							{/each}
+						</ul>
+					{/each}
+				{:else}
+					<li>{$t('error.no-locations')}</li>
+				{/if}
 			{/await}
 		</ul>
-		<Map version={versionChosen} POI={[]} />
 	</div>
 </Card>
 
@@ -145,7 +149,7 @@
 
 	.location-map {
 		width: 100%;
-		height: calc(100% - 2.5em);
+		height: 100%;
 		overflow-y: scroll;
 		display: flex;
 		justify-content: space-evenly;

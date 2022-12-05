@@ -1,6 +1,6 @@
 // URLS
 export const BASE_URL = 'https://pokeapi.co/api/v2';
-export const SPRITE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+export const SPRITE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
 export const ITEMS_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/';
 
 // NUMBERS
