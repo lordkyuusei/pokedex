@@ -203,6 +203,7 @@
 		flex-direction: row;
 		overflow-x: auto;
 		overflow-y: hidden;
+		scroll-snap-type: x mandatory;
 	}
 
 	.pokemon-pictures > .picture {
@@ -212,6 +213,8 @@
 		align-items: center;
 		gap: 1em;
 		height: 100%;
+		scroll-snap-align: start;
+		scroll-margin-inline-start: 1em;
 	}
 
 	.pokemon-pictures > .picture > img {
