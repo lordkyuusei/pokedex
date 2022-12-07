@@ -156,7 +156,7 @@
 	<section class="pokemon-pictures">
 		{#each spritesChosen as sprite}
 			<figure class="picture">
-				<img src={sprite.url} alt={sprite.name} />
+				<img class:pixelated={imageryType === 'games'} src={sprite.url} alt={sprite.name} />
 				<figcaption>{sprite.name}, {sprite.game} Gen n°{sprite.generation}</figcaption>
 			</figure>
 		{/each}
@@ -220,8 +220,11 @@
 	.pokemon-pictures > .picture > img {
 		height: 125px;
 		aspect-ratio: 1 / 1;
-		image-rendering: pixelated;
 		border: 1px solid var(--theme-text);
 		border-radius: 10px;
+	}
+
+	.pokemon-pictures > .picture > .pixelated {
+		image-rendering: pixelated;
 	}
 </style>
