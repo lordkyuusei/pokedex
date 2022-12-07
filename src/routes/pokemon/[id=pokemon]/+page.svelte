@@ -57,7 +57,7 @@
 			<PokemonLocations pokemon={pokemon.id} />
 			<PokemonEvolutionChain evolutionChain={specie?.evolution_chain} />
 			<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
-			<PokemonImagery id={pokemon.id} sprites={pokemon.sprites} />
+			<PokemonImagery sprites={pokemon.sprites} />
 		</section>
 	{/if}
 </article>
@@ -103,7 +103,7 @@
 	}
 
 	.pokemon-environment {
-		grid-template: auto 1fr minmax(auto, 300px) minmax(auto, 300px) minmax(auto, 300px) / 1fr;
+		grid-template: 0.75fr 1fr minmax(auto, 300px) minmax(auto, 300px) minmax(auto, 300px) / 1fr;
 		gap: 0.75rem;
 		grid-template-areas:
 			'moves'

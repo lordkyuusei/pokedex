@@ -1,79 +1,224 @@
 <script lang="ts">
 	import Card from '$lib/components/barebone/Card.svelte';
-	import type { SpritesRef } from '$lib/types/Pokemon';
+	import type { OtherSpritesRef, SpritesRef, VersionsSpritesRef } from '$lib/types/Pokemon';
+	import type { PokemonImagery } from '$lib/types/PokemonImagery';
+	import { t } from '$lib/store/i18n/i18n';
 
-	export let id: number = 0;
 	export let sprites: SpritesRef = null;
 
-	$: console.log(sprites);
+	const mapRomanToGen = {
+		'generation-i': 1,
+		'generation-ii': 2,
+		'generation-iii': 3,
+		'generation-iv': 4,
+		'generation-v': 5,
+		'generation-vi': 6,
+		'generation-vii': 7,
+		'generation-viii': 8
+	};
+
+	const pokemonImageryTypes = ['default', 'games', 'other'];
+
+	let imageryType: string = pokemonImageryTypes[0];
+
+	$: spritesList = mapSpritesToList(sprites);
+	$: spritesChosen = getSpritesFromList(spritesList, imageryType);
+
+	const mapSpritesToDefault = (sprite: string) => ({
+		name: 'default',
+		url: sprite,
+		game: 'default',
+		generation: 0,
+		isFemale: false,
+		isShiny: false,
+		isFront: sprite?.includes('front') || false
+	});
+
+	const mapSpritesToOther = (sprites: OtherSpritesRef) => {
+		if (!sprites) return [];
+
+		let imagery: PokemonImagery[] = [];
+		Object.entries(sprites).map(([app, images]) => {
+			Object.entries(images).map(([name, url]) => {
+				imagery = [
+					...imagery,
+					{
+						name,
+						url,
+						game: app,
+						generation: 0,
+						isFemale: false,
+						isFront: false,
+						isShiny: false
+					}
+				];
+			});
+		});
+
+		return imagery;
+	};
+
+	const mapSpritesToVersions = (sprites: VersionsSpritesRef): PokemonImagery[] => {
+		if (!sprites) return [];
+
+		let imagery: PokemonImagery[] = [];
+		Object.entries(sprites).map(([generation, games]) => {
+			Object.entries(games).map(([game, images]) => {
+				Object.entries(images).map(([name, url]) => {
+					if (name === 'animated') {
+						Object.entries(url).map(([name, url]) => {
+							imagery = [
+								...imagery,
+								{
+									name,
+									url,
+									game,
+									generation: mapRomanToGen[generation],
+									isFemale: name.includes('female'),
+									isShiny: name.includes('shiny'),
+									isFront: name.includes('front')
+								}
+							];
+						});
+					} else {
+						imagery = [
+							...imagery,
+							{
+								name,
+								url,
+								game,
+								generation: mapRomanToGen[generation],
+								isFemale: name.includes('female'),
+								isShiny: name.includes('shiny'),
+								isFront: name.includes('front')
+							}
+						];
+					}
+				});
+			});
+		});
+
+		return imagery;
+	};
+
+	const mapSpritesToList = (sprites: SpritesRef): PokemonImagery[] => {
+		if (!sprites) return [];
+
+		const mapSpriteTypeToMethod = [
+			{
+				cond: (type: string) => type === 'versions',
+				func: (sprites: VersionsSpritesRef) => mapSpritesToVersions(sprites)
+			},
+			{
+				cond: (type: string) => type === 'other',
+				func: (sprites: OtherSpritesRef) => mapSpritesToOther(sprites)
+			},
+			{
+				cond: (_: any) => true,
+				func: (sprite: string) => mapSpritesToDefault(sprite)
+			}
+		];
+
+		const spritesListRaw = Object.entries(sprites).flatMap(([key, value]) => {
+			const method: any = mapSpriteTypeToMethod.find(({ cond }) => cond(key)).func;
+			return method(value);
+		});
+
+		return spritesListRaw.filter(({ url }) => ![null, undefined].includes(url));
+	};
+
+	const getSpritesFromList = (sprites: PokemonImagery[], type: string) => {
+		const mapSpritesToType = [
+			{ cond: type === 'default', sprites: sprites.filter(({ name }) => name === type) },
+			{ cond: type === 'games', sprites: sprites.filter(({ generation }) => generation !== 0) },
+			{
+				cond: type === 'other',
+				sprites: sprites.filter(({ name, generation }) => name !== 'default' && generation === 0)
+			}
+		];
+
+		return mapSpritesToType.find(({ cond }) => cond).sprites;
+	};
 </script>
 
 <Card title="Imagerie">
+	<section class="pokemon-imagery-type">
+		{#each pokemonImageryTypes as type}
+			<button
+				class="imagery-type-button"
+				title={$t(`imagery.type-${type}`)}
+				class:chosen={imageryType === type}
+				on:click={() => (imageryType = type)}>{$t(`imagery.type-${type}`)}</button
+			>
+		{/each}
+	</section>
+
 	<section class="pokemon-pictures">
-		<header>
-			<img src={sprites?.other['official-artwork'].front_default} alt="Official" />
-			<img src={sprites?.other.dream_world.front_default} alt="Dream world" />
-			<img src={sprites?.other.home.front_default} alt="Home" />
-			<img src={sprites?.front_default} alt="Front" />
-		</header>
-		<section>
-			<img src={sprites?.versions['generation-i']['red-blue'].front_default} alt="Red and Blue" />
-			<img src={sprites?.versions['generation-i']['yellow'].front_default} alt="Yellow" />
-			<img src={sprites?.versions['generation-ii']['crystal'].front_default} alt="Crystal" />
-			<img src={sprites?.versions['generation-ii']['gold'].front_default} alt="Gold" />
-			<img src={sprites?.versions['generation-ii']['silver'].front_default} alt="Silver" />
-			<img src={sprites?.versions['generation-iii']['emerald'].front_default} alt="Emerald" />
-			<img
-				src={sprites?.versions['generation-iii']['firered-leafgreen'].front_default}
-				alt="Fire Red and Leaf Green"
-			/>
-			<img
-				src={sprites?.versions['generation-iii']['ruby-sapphire'].front_default}
-				alt="Ruby and Sapphire"
-			/>
-			<img
-				src={sprites?.versions['generation-iv']['diamond-pearl'].front_default}
-				alt="Diamond and Pearl"
-			/>
-			<img
-				src={sprites?.versions['generation-iv']['heartgold-soulsilver'].front_default}
-				alt="Heart Gold and Soul Silver"
-			/>
-			<img src={sprites?.versions['generation-iv']['platinum'].front_default} alt="Platinum" />
-			<img
-				src={sprites?.versions['generation-v']['black-white']['animated'].front_default}
-				alt="Animated"
-			/>
-			<img
-				src={sprites?.versions['generation-vi']['omegaruby-alphasapphire'].front_default}
-				alt="Omega Ruby"
-			/>
-			<img src={sprites?.versions['generation-vi']['x-y'].front_default} alt="X and Y" />
-			<img
-				src={sprites?.versions['generation-vii']['ultra-sun-ultra-moon'].front_default}
-				alt="Ultra Sun and Ultra Moon"
-			/>
-		</section>
-		<footer>
-			<img src={sprites?.back_default} alt="Back" />
-			<img src={sprites?.front_shiny} alt="Front shiny" />
-			<img src={sprites?.back_shiny} alt="Back shiny" />
-		</footer>
+		{#each spritesChosen as sprite}
+			<figure class="picture">
+				<img src={sprite.url} alt={sprite.name} />
+				<figcaption>{sprite.name}, {sprite.game} Gen n°{sprite.generation}</figcaption>
+			</figure>
+		{/each}
 	</section>
 </Card>
 
 <style>
-	.pokemon-pictures {
+	.pokemon-imagery-type {
 		display: flex;
-		height: 100%;
 		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: space-around;
-		overflow-y: auto;
+		justify-content: flex-start;
+		width: 100%;
+		overflow-x: auto;
+		border-radius: 10px 10px 0 0;
 	}
 
-	.pokemon-pictures img {
-		aspect-ratio: 1/1;
-		max-height: 105px;
+	.imagery-type-button {
+		font: inherit;
+		border-width: 0 0 1px 0;
+		background-color: var(--theme-background);
+		color: var(--theme-text);
+		cursor: pointer;
+		width: 100%;
+		transition: 0.2s;
+		white-space: nowrap;
+		text-transform: capitalize;
+		border-color: var(--theme-text);
+	}
+
+	.imagery-type-button:hover {
+		color: var(--theme-background);
+		background-color: var(--theme-text);
+	}
+
+	.chosen {
+		color: white;
+		background-color: var(--theme-secondary);
+	}
+
+	.pokemon-pictures {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		flex-direction: row;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	.pokemon-pictures > .picture {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
+		height: 100%;
+	}
+
+	.pokemon-pictures > .picture > img {
+		height: 125px;
+		aspect-ratio: 1 / 1;
+		image-rendering: pixelated;
+		border: 1px solid var(--theme-text);
+		border-radius: 10px;
 	}
 </style>

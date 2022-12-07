@@ -113,15 +113,12 @@
 
 <style>
 	.pokemon-locations {
-		border-radius: 10px 10px 0 0;
-	}
-
-	.pokemon-locations {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		width: 100%;
 		overflow-x: auto;
+		border-radius: 10px 10px 0 0;
 	}
 
 	.location-button {
