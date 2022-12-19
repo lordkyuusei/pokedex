@@ -1,21 +1,16 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-
 	import { goto } from '$app/navigation';
 
-	import { fetchPokemonSpriteURL } from '$lib/api';
-	import { t } from '$lib/store/i18n/i18n';
-	import PokemonType from './PokemonType.svelte';
+	import type { LightCodex } from '$lib/types/Lightcodex';
 
-	type light = {
-		id: number;
-		name: string;
-		types: string[];
-	};
+	import { t, locale } from '$lib/store/i18n/i18n';
+	import PokemonType from './PokemonType.svelte';
+	import { fetchPokemonSpriteURL } from '$lib/api';
 
 	let searchText: string = '';
-	let searchResults: light[] = [];
-	let searchCodex: light[] = [];
+	let searchResults: LightCodex[] = [];
+	let searchCodex: LightCodex[] = [];
 
 	$: title = $t('search.placeholder');
 
@@ -23,9 +18,18 @@
 		searchCodex = await fetch('/lightkedex.json').then((res) => res.json());
 	};
 
+	const searchNames = (item: LightCodex, searchText) => {
+		const { name, names } = item;
+		return (
+			name.toLocaleLowerCase().includes(searchText) ||
+			names['fr'].toLocaleLowerCase().includes(searchText) ||
+			names['en'].toLocaleLowerCase().includes(searchText)
+		);
+	};
+
 	const search = async (event: KeyboardEvent): Promise<void> => {
 		const results = searchCodex
-			.filter((item: light) => item.name.toLowerCase().includes(searchText.toLowerCase()))
+			.filter((item: LightCodex) => searchNames(item, searchText.toLocaleLowerCase()))
 			.slice(0, 20);
 
 		searchResults = results;
@@ -35,10 +39,9 @@
 				goto(`/pokemon/${searchText}`);
 				onDismiss();
 			}
-			if (results.length === 1) {
-				goto(`/pokemon/${results[0].id}`);
-				onDismiss();
-			}
+
+			goto(`/pokemon/${results[0].id}`);
+			onDismiss();
 		}
 		if (!searchText.length) {
 			searchResults = [];
@@ -94,9 +97,9 @@
 			>
 				<img
 					src={fetchPokemonSpriteURL(`${pokemon.id}`, 'icons', 'generation-viii', '')}
-					alt={pokemon.name}
+					alt={pokemon.names[$locale.substring(0, 2)]}
 				/>
-				<span>{pokemon.name}</span>
+				<span>{pokemon.names[$locale.substring(0, 2)]}</span>
 				{#each pokemon.types as type}
 					<PokemonType name={type} />
 				{/each}
