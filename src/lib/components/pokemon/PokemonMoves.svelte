@@ -84,6 +84,7 @@
 				}
 			})
 		);
+
 		return moveset.filter((move) => move !== null);
 	};
 
