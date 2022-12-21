@@ -61,7 +61,6 @@
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		if (!chain) return;
 
-		console.log(chain);
 		const { species, evolves_to, evolution_details } = chain;
 		if (species && evolves_to.length) {
 			const { url } = species;
