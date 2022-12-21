@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PokemonForm } from '$lib/types/PokemonForm';
-	import type { VarietyRef } from '$lib/types/PokemonSpecie';
 	import type { EntityRef, Pokemon } from '$lib/types/Pokemon';
 
 	import PokemonCard from './PokemonCard.svelte';
@@ -11,19 +10,10 @@
 	import { fetchPokemonForm, fetchPokemonInfo } from '$lib/api';
 
 	export let forms: EntityRef[] = [];
-	export let varieties: VarietyRef[] = [];
 
-	let pokemonVarieties: Pokemon[] = [];
 	let pokemonForms: PokemonForm[] = [];
 
 	onMount(async () => {
-		if (varieties.length > 1) {
-			const pokemonPromises = varieties.map((variety) => {
-				const pokemon = fetchPokemonInfo(variety.pokemon.name);
-				return pokemon;
-			});
-			pokemonVarieties = await Promise.all(pokemonPromises);
-		}
 		if (forms.length > 1) {
 			const pokemonPromises = forms.map((form) => {
 				const formId = form.url.match(/\d+/g).pop();
@@ -34,28 +24,14 @@
 		}
 
 		return () => {
-			pokemonVarieties = [];
 			pokemonForms = [];
 		};
 	});
 </script>
 
 <Card title={$t('title.forms-varieties')} close_up>
-	{#if pokemonVarieties.length}
-		<section class="pokemon-varieties">
-			{#each pokemonVarieties as variety}
-				<a class="variety-element" href={`/pokemon/${variety.id}`}>
-					<PokemonCard
-						id={`${variety.id}`}
-						name={variety.name}
-						types={variety.types.map((type) => type.type.name)}
-						isLink
-					/>
-				</a>
-			{/each}
-		</section>
-	{/if}
 	{#if pokemonForms.length}
+		<h1>Formes</h1>
 		<section class="pokemon-forms">
 			{#each pokemonForms as form}
 				<a class="form-element" href={`/pokemon/${form.id}`}>
@@ -72,7 +48,6 @@
 </Card>
 
 <style>
-	.pokemon-varieties,
 	.pokemon-forms {
 		display: flex;
 		align-items: center;
@@ -81,7 +56,6 @@
 		gap: 1em;
 	}
 
-	.variety-element,
 	.form-element {
 		height: calc(100% - 1em);
 		width: 100vw;

@@ -6,7 +6,6 @@
 	import PokemonStats from '$lib/components/pokemon/PokemonStats/PokemonStats.svelte';
 	import PokemonEvolutionChain from '$lib/components/pokemon/PokemonEvolutionChain.svelte';
 	import PokemonAbilities from '$lib/components/pokemon/PokemonAbilities.svelte';
-	import PokemonVarieties from '$lib/components/pokemon/PokemonVarieties.svelte';
 	import PokemonMoves from '$lib/components/pokemon/PokemonMoves.svelte';
 	import PokemonScores from '$lib/components/pokemon/PokemonScores/PokemonScores.svelte';
 	import PokemonLocations from '$lib/components/pokemon/PokemonLocations/PokemonLocations.svelte';
@@ -14,6 +13,7 @@
 	import { locale } from '$lib/store/i18n/i18n';
 	import type { PageData } from './$types';
 	import PokemonImagery from '$lib/components/pokemon/PokemonImagery.svelte';
+	import PokemonSpecieVariants from '$lib/components/pokemon/PokemonSpecieVariants.svelte';
 
 	export let data: PageData;
 	let pokemon: Pokemon = null;
@@ -35,6 +35,7 @@
 <article class="pokemon-page">
 	{#if pokemon}
 		<header class="pokemon-identity">
+			<PokemonSpecieVariants id={`${pokemon.id}`} varieties={specie.varieties} />
 			<PokemonCard
 				id={`${pokemon.id}`}
 				name={pokemonName}
@@ -56,7 +57,7 @@
 			<PokemonMoves moves={pokemon?.moves} />
 			<PokemonLocations pokemon={pokemon.id} />
 			<PokemonEvolutionChain evolutionChain={specie?.evolution_chain} />
-			<PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} />
+			<!-- <PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} /> -->
 			<PokemonImagery sprites={pokemon.sprites} />
 		</section>
 	{/if}
@@ -74,17 +75,19 @@
 	.pokemon-identity {
 		margin-bottom: 0.75rem;
 
-		grid-template: 1fr 0.25fr / 0.8fr 1.2fr 1fr;
+		grid-template: auto 1fr 0.25fr / 0.8fr 1.2fr 1fr;
 		gap: 0.75rem;
 		grid-template-areas:
+			'varieties varieties varieties'
 			'card scores stats'
 			'card abilities stats';
 	}
 
 	@media screen and (max-width: 1024px) {
 		.pokemon-identity {
-			grid-template: 1fr 0.5fr 1.5fr/ 1fr 1fr;
+			grid-template: auto 1fr 0.5fr 1.5fr/ 1fr 1fr;
 			grid-template-areas:
+				'varieties varieties'
 				'card scores'
 				'card abilities'
 				'stats stats';
@@ -93,8 +96,9 @@
 
 	@media screen and (max-width: 768px) {
 		.pokemon-identity {
-			grid-template: 1.2fr 1fr 0.5fr 1.5fr / 1fr;
+			grid-template: auto 1.2fr 1fr 0.5fr 1.5fr / 1fr;
 			grid-template-areas:
+				'varieties'
 				'card'
 				'scores'
 				'abilities'
@@ -114,18 +118,22 @@
 	}
 
 	.pokemon-identity > :global(.card):nth-child(1) {
-		grid-area: card;
+		grid-area: varieties;
 	}
 
 	.pokemon-identity > :global(.card):nth-child(2) {
-		grid-area: scores;
+		grid-area: card;
 	}
 
 	.pokemon-identity > :global(.card):nth-child(3) {
-		grid-area: abilities;
+		grid-area: scores;
 	}
 
 	.pokemon-identity > :global(.card):nth-child(4) {
+		grid-area: abilities;
+	}
+
+	.pokemon-identity > :global(.card):nth-child(5) {
 		grid-area: stats;
 	}
 
