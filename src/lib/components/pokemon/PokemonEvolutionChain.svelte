@@ -49,6 +49,8 @@
 	].find(({ cond }) => cond).value;
 
 	const fetchEvolutionChain = (chain: { url: string }) => {
+		if (!chain) return;
+
 		pokemonStages.clear();
 		const pokemonId = chain.url.match(/\d+/g).at(-1);
 		fetchPokemonEvolutionChain(pokemonId).then((evolution: PokemonEvolution) => {
@@ -59,6 +61,7 @@
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		if (!chain) return;
 
+		console.log(chain);
 		const { species, evolves_to, evolution_details } = chain;
 		if (species && evolves_to.length) {
 			const { url } = species;

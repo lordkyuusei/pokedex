@@ -6,7 +6,7 @@
 
 	import { t, locale } from '$lib/store/i18n/i18n';
 	import PokemonType from './PokemonType.svelte';
-	import { fetchPokemonSpriteURL } from '$lib/api';
+	import { fetchItemSpriteURL, fetchPokemonSpriteURL } from '$lib/api';
 
 	let searchText: string = '';
 	let searchResults: LightCodex[] = [];
@@ -97,6 +97,7 @@
 			>
 				<img
 					src={fetchPokemonSpriteURL(`${pokemon.id}`, 'icons', 'generation-viii', '')}
+					on:error={(e) => (e.target.src = fetchPokemonSpriteURL('0'))}
 					alt={pokemon.names[$locale.substring(0, 2)]}
 				/>
 				<span>{pokemon.names[$locale.substring(0, 2)]}</span>
