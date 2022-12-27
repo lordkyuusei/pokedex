@@ -61,6 +61,9 @@ const POKEMON_TYPES: PokemonType[] = [
 			TYPES.FEU,
 			TYPES.GLACE,
 			TYPES.ACIER,
+			TYPES.INSECTE,
+			TYPES.FÉE,
+			TYPES.PLANTE,
 		]
 	},
 	{
