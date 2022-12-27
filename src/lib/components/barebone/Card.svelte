@@ -1,11 +1,10 @@
 <script lang="ts">
 	export let title: string = undefined;
 
-	export let reactive: boolean = false;
 	export let close_up: boolean = false;
 </script>
 
-<div class="card" class:reactive class:close_up>
+<div class="card" class:close_up>
 	{#if title}
 		<div class="header">{title}</div>
 	{/if}
@@ -24,12 +23,7 @@
 		transition: 0.2s ease-in-out;
 		box-sizing: border-box;
 		position: relative;
-		z-index: 1;
-	}
-
-	.card.reactive:hover {
-		transform: translateY(-2px);
-		box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+		z-index: 2;
 	}
 
 	.close_up {
@@ -49,7 +43,7 @@
 		left: 10px;
 		background-color: var(--theme-background);
 		border: 1px solid var(--theme-border);
-		z-index: 0;
+		z-index: 1;
 		opacity: 0;
 		transition: opacity 0.2s ease-out;
 	}
