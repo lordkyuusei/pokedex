@@ -52,4 +52,10 @@
 		color: white;
 		font-weight: bolder;
 	}
+
+	@media (max-width: 425px) {
+		.pokemon-typename {
+			font-size: 0.6em;
+		}
+	}
 </style>
