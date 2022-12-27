@@ -82,7 +82,6 @@
 			{ name: 'super-effective', value: superEffective }
 		];
 
-		console.log({ ineffective, superEffective, rawNotEffective });
 		return output;
 	};
 </script>
