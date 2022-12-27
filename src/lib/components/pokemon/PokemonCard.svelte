@@ -1,9 +1,11 @@
 <script lang="ts">
-	import PokemonType from '../shared/PokemonType.svelte';
-	import POKEMON_TYPES from '$lib/store/types';
-	import Card from '../barebone/Card.svelte';
-	import { fetchPokemonSpriteURL, fetchPokemonShinySpriteURL } from '$lib/api';
 	import { beforeUpdate } from 'svelte';
+
+	import Card from '../barebone/Card.svelte';
+	import POKEMON_TYPES from '$lib/store/types';
+	import PokemonType from '../shared/PokemonType.svelte';
+	import PokemonTypeTable from './PokemonTypeTable.svelte';
+	import { fetchPokemonSpriteURL, fetchPokemonShinySpriteURL } from '$lib/api';
 
 	export let id: string = '';
 	export let name: string = '';
@@ -14,14 +16,18 @@
 	const showShiny = () => (picture = fetchPokemonShinySpriteURL(id));
 	const showRegular = () => (picture = fetchPokemonSpriteURL(id));
 
-	const drawCardBackground = (types: string[]) => {
+	const drawCardBackground = (types: string[], isTransparent: boolean = true) => {
 		if (types.length > 0) {
 			const [fType, sType] = types.map(
 				(type) => POKEMON_TYPES.filter((ref) => ref.name === type.toLowerCase())[0].color
 			);
 			return sType
-				? `linear-gradient(90deg, ${fType} 0%, ${sType} 100%)`
-				: `radial-gradient(circle, ${fType} 50%, ${fType.replace('0.69', '1')} 100%)`;
+				? `linear-gradient(90deg, ${isTransparent ? fType : fType.replace('0.69', '1')} 0%, ${
+						isTransparent ? sType : sType.replace('0.69', '1')
+				  } 100%)`
+				: `radial-gradient(circle, ${
+						isTransparent ? fType : fType.replace('0.69', '1')
+				  } 50%, ${fType.replace('0.69', '1')} 100%)`;
 		} else {
 			return `linear-gradient(90deg, #C6C6C6 0%, #A1A1A1 100%)`;
 		}
@@ -38,7 +44,7 @@
 	});
 </script>
 
-<Card title="N°{computePokemonId(id)}" reactive>
+<Card title="N°{computePokemonId(id)}">
 	<section class="pokemon-card" {id} style={`background: ${drawCardBackground(types)};`}>
 		<header class="pokemon-id">
 			<div class="pokemon-name">{name}</div>
@@ -50,9 +56,12 @@
 			<img src={picture} alt={name} />
 		</div>
 		<footer class="pokemon-types">
-			{#each types as type (type)}
-				<PokemonType name={type} />
-			{/each}
+			<section class="types-names">
+				{#each types as type (type)}
+					<PokemonType name={type} />
+				{/each}
+			</section>
+			<PokemonTypeTable {types} background={drawCardBackground(types, false)} />
 		</footer>
 	</section>
 </Card>
@@ -123,11 +132,18 @@
 	}
 
 	.pokemon-types {
+		display: flex;
+		place-items: center;
 		width: calc(100% - 3em);
+		padding-bottom: 0.5em;
+	}
+
+	.types-names {
+		width: 100%;
 		display: grid;
 		grid-template: 1fr / repeat(auto-fit, minmax(0, 1fr));
 		gap: 1em;
-		padding-bottom: 0.5em;
+		padding-right: 1em;
 	}
 
 	@media screen and (aspect-ratio: 16/9) {
