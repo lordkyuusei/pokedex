@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { TYPES, type PokemonType } from '$lib/types/PokemonType';
+	import type { PokemonType } from '$lib/types/PokemonType';
 	import POKEMON_TYPES from '$lib/store/types';
 	import PokemonTypeElem from '../shared/PokemonType.svelte';
 	import { t } from '$lib/store/i18n/i18n';
+	import extractDuplicates from '$lib/extractDuplicatesFromArray';
 
 	export let types: string[] = [];
 	export let background: string;
@@ -21,65 +22,71 @@
 			return [...acc, ref];
 		}, [] as PokemonType[]);
 
-	const computeAffinities = (pkmnTypes: PokemonType[]) => {
-		const immunities = pkmnTypes.flatMap((type) =>
+	const computeAffinities = (types: PokemonType[]) => {
+		const immunities = types.flatMap((type) =>
 			POKEMON_TYPES.filter((t) => type.immunities.includes(t.id))
 		);
 
-		const rawResistances = pkmnTypes.flatMap((pkmnType) =>
+		const rawRawResistances = types.flatMap((pkmnType) =>
 			POKEMON_TYPES.filter((t) => !immunities.includes(t)).filter((t) =>
 				pkmnType.resistances.includes(t.id)
 			)
 		);
 
-		const resistances = rawResistances.filter(
-			(t) => pkmnTypes.findIndex((pkmnType) => pkmnType.weaknesses.includes(t.id)) === -1
+		const rawResistances = rawRawResistances.filter(
+			(t) => types.findIndex((pkmnType) => pkmnType.weaknesses.includes(t.id)) === -1
 		);
 
-		const neutral = rawResistances.filter((t) => !resistances.includes(t));
+		const [doubleResistances, resistances] = extractDuplicates(rawResistances, 'name');
 
-		const rawWeaknesses = pkmnTypes.flatMap((pkmnType) =>
+		const neutral = rawRawResistances.filter((t) => !resistances.includes(t));
+
+		const rawWeaknesses = types.flatMap((pkmnType) =>
 			POKEMON_TYPES.filter((t) => ![...immunities, ...resistances, ...neutral].includes(t)).filter(
 				(t) => pkmnType.weaknesses.includes(t.id)
 			)
 		);
 
-		const doubleWeaknesses = rawWeaknesses.filter(
-			(weakness, i, wks) => wks.indexOf(weakness) !== i
-		);
+		const [doubleWeaknesses, weaknesses] = extractDuplicates(rawWeaknesses, 'name');
 
 		return [
-			{ name: 'immunities', value: immunities },
+			{ name: 'double-weaknesses', value: doubleWeaknesses },
+			{ name: 'weaknesses', value: weaknesses },
 			{ name: 'resistances', value: resistances },
-			{ name: 'weaknesses', value: rawWeaknesses }
+			{ name: 'double-resistances', value: doubleResistances },
+			{ name: 'immunities', value: immunities }
 		];
 	};
 
-	const computeCoverage = (pkmnTypes: PokemonType[]) => {
-		const superEffective = pkmnTypes.flatMap((pkmnType) =>
-			POKEMON_TYPES.filter((t) => t.weaknesses.includes(pkmnType.id))
-		);
+	const computeCoverage = (types: PokemonType[]) => {
+		const [firstType, secondType] = types;
 
-		const rawNotEffective = pkmnTypes.flatMap((pkmnType) =>
-			POKEMON_TYPES.filter((t) => !superEffective.includes(t)).filter((t) =>
-				t.resistances.includes(pkmnType.id)
-			)
-		);
-
-		const ineffective = [
+		const superEffective = [
 			...new Set(
-				pkmnTypes.flatMap((pkmnType) =>
-					POKEMON_TYPES.filter((t) => ![...superEffective, ...rawNotEffective].includes(t)).filter(
-						(t) => t.immunities.includes(pkmnType.id)
-					)
-				)
+				types.flatMap((pkmnType) => POKEMON_TYPES.filter((t) => t.weaknesses.includes(pkmnType.id)))
 			)
 		];
 
+		const rawNotEffective = POKEMON_TYPES.filter((t) => !superEffective.includes(t)).filter((t) =>
+			t.resistances.includes(firstType.id)
+		);
+
+		const notEffective = secondType
+			? rawNotEffective.filter((t) => t.resistances.includes(secondType.id))
+			: rawNotEffective;
+
+		const rawIneffective = POKEMON_TYPES.filter(
+			(t) => ![...superEffective, ...notEffective].includes(t)
+		).filter((t) => t.immunities.includes(firstType.id));
+
+		const ineffective = secondType
+			? rawIneffective.filter((t) => t.immunities.includes(secondType.id))
+			: rawIneffective;
+
 		const output = [
-			{ name: 'no-effect', value: ineffective },
-			{ name: 'not-super-effective', value: rawNotEffective },
-			{ name: 'super-effective', value: superEffective }
+			{ name: 'super-effective', value: superEffective },
+			{ name: 'not-super-effective', value: notEffective },
+			{ name: 'no-effect', value: ineffective }
 		];
 
 		return output;
@@ -92,32 +99,36 @@
 		<header class="table-toggle">
 			<h1 class="toggle-title">{$t(`types.${showAffinity ? 'affinities' : 'coverage'}`)}</h1>
 			<button class="button-toggle" on:click={() => (showAffinity = !showAffinity)}
-				>{showAffinity ? '⚔️' : '🛡️'}</button
+				>{showAffinity ? '🛡️' : '⚔️'}</button
 			>
 		</header>
 		<hr />
 		<section class="affinities" class:show={showAffinity}>
 			{#each cumulativeAffinities as affinityType}
-				{$t(`types.affinity.${affinityType.name}`)}
-				<ul class="affinity-type">
-					{#each affinityType.value as affinity}
-						<li class="type-elem">
-							<PokemonTypeElem name={affinity.name} />
-						</li>
-					{/each}
-				</ul>
+				{#if affinityType.value.length}
+					{$t(`types.affinity.${affinityType.name}`)}
+					<ul class="affinity-type">
+						{#each affinityType.value as affinity}
+							<li class="type-elem">
+								<PokemonTypeElem name={affinity.name} />
+							</li>
+						{/each}
+					</ul>
+				{/if}
 			{/each}
 		</section>
 		<section class="coverage" class:show={!showAffinity}>
 			{#each cumulativeCoverage as coverageType}
-				{$t(`types.coverage.${coverageType.name}`)}
-				<ul class="coverage-type">
-					{#each coverageType.value as affinity}
-						<li class="type-elem">
-							<PokemonTypeElem name={affinity.name} />
-						</li>
-					{/each}
-				</ul>
+				{#if coverageType.value.length}
+					{$t(`types.coverage.${coverageType.name}`)}
+					<ul class="coverage-type">
+						{#each coverageType.value as affinity}
+							<li class="type-elem">
+								<PokemonTypeElem name={affinity.name} />
+							</li>
+						{/each}
+					</ul>
+				{/if}
 			{/each}
 		</section>
 		<button class="button-toggle" on:click={() => (show = !show)}>📚</button>

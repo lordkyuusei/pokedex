@@ -354,6 +354,28 @@ const POKEMON_TYPES: PokemonType[] = [
 		]
 	},
 	{
+		id: TYPES.SPECTRE,
+		name: 'ghost',
+		color: 'rgb(112, 90, 164, 0.69)',
+		icon: '👻',
+		weaknesses: [
+			TYPES.SPECTRE,
+			TYPES.TÉNĖBRES
+		],
+		strengths: [
+			TYPES.PSY,
+			TYPES.SPECTRE
+		],
+		immunities: [
+			TYPES.COMBAT,
+			TYPES.NORMAL
+		],
+		resistances: [
+			TYPES.INSECTE,
+			TYPES.TÉNĖBRES
+		]
+	},
+	{
 		id: TYPES.TÉNĖBRES,
 		name: 'dark',
 		color: 'rgb(73, 73, 92, 0.69)',
