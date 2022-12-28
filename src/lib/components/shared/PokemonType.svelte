@@ -5,26 +5,25 @@
 	import type { PokemonType } from '$lib/types/PokemonType';
 	import { t } from '$lib/store/i18n/i18n';
 
-	export let name = '???';
-	let pokemonType: PokemonType = { name, icon: '❓' };
+	export let name = POKEMON_TYPES[0].name;
+	let pokemonType: PokemonType = POKEMON_TYPES[0];
 
 	onMount(() => {
 		const type = POKEMON_TYPES.filter((type) => type.name === name.toLowerCase())[0];
 		if (type !== undefined) {
-			const { color = '#FFFFFF', icon = '🤌' } = type;
-			pokemonType = { name, color, icon };
+			pokemonType = type;
 		}
 	});
 </script>
 
-<div
+<section
 	class="pokemon-type"
 	title={$t(`type.${pokemonType?.name}`)}
 	style={`background-color: ${pokemonType?.color};`}
 >
-	<div class="pokemon-icon">{pokemonType?.icon}</div>
-	<div class="pokemon-typename">{$t(`type.${pokemonType?.name}`)}</div>
-</div>
+	<section class="pokemon-icon">{pokemonType?.icon}</section>
+	<section class="pokemon-typename">{$t(`type.${pokemonType?.name}`)}</section>
+</section>
 
 <style>
 	.pokemon-type {
@@ -42,7 +41,6 @@
 		text-align: center;
 		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 		width: 100%;
-		font-size: 1.25em;
 	}
 
 	.pokemon-typename {
@@ -54,8 +52,8 @@
 	}
 
 	@media (max-width: 425px) {
-		.pokemon-typename {
-			font-size: 0.6em;
+		.pokemon-type {
+			font-size: 0.8em;
 		}
 	}
 </style>
