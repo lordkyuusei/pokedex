@@ -2,6 +2,8 @@ Kyuukedex
 =========
 
 The (soon) ultimate SPA Pokedex.
+![light](/static/screenshots/kyuudex-light-espeon.png)
+![dark](/static/screenshots/kyuudex-dark-incineroar.png)
 
 Features
 --------
@@ -9,20 +11,19 @@ Features
 *   An infinite-scroll, lazy-loading complete Pokedex.
 *   A per-Pokemon detail page where you can (currently) check their:
     *   Default / shiny picture, body data, typing, stats and evolution family;
+    *   Typing table on both defensive & offensive spectrums;
     *   High final stat product using EV - IV - Level - Natures sliders;
     *   Complete moveset (name, power, type...) sort by game & method!
     *   Evolution chain with triggers, conditions in a tree-like visual;
     *   Abilities (hidden ones are marked with a \*);
     *   Alternate forms & varieties with clickable links!
 *   A (Moon/Sun stone)-inspired dark & light theme!
-*   French & English localization (~80% of content)
+*   French & English localization (~99% of content)
 
 Known bugs
 ----------
 
-*   Abilities translations are not immediate.
-    * Workaround: click on another ability & go back (or refresh the page).
-*   Forms & Varieties require a page refresh to show correct results.
+*   Firefox does djezfezufedbrf and displays the site in a weird way (on it)
 *   Some quirky evolutions tree are incomplete / falsy.
     * notable examples: poliwag, rockruff... due to alternate forms/mecanics
 
@@ -39,12 +40,6 @@ You can run the app too!
 git clone https://github.com/lordkyuusei/pokedex  
 npm install && npm run dev
 ```
-
-Screenshots
------------
-
-![light](/static/screenshots/kyuudex-light-espeon.png)
-![dark](/static/screenshots/kyuudex-dark-incineroar.png)
 
 License
 -------
