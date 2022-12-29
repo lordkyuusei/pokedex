@@ -2,18 +2,18 @@
 	import type { Pokemon } from '$lib/types/Pokemon';
 	import type { PokemonSpecie } from '$lib/types/PokemonSpecie';
 
-	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
-	import PokemonStats from '$lib/components/pokemon/PokemonStats/PokemonStats.svelte';
-	import PokemonEvolutionChain from '$lib/components/pokemon/PokemonEvolutionChain.svelte';
 	import PokemonAbilities from '$lib/components/pokemon/PokemonAbilities.svelte';
+	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
+	import PokemonEvolutionChain from '$lib/components/pokemon/PokemonEvolutionChain.svelte';
+	import PokemonLocations from '$lib/components/pokemon/PokemonLocations/PokemonLocations.svelte';
 	import PokemonMoves from '$lib/components/pokemon/PokemonMoves.svelte';
 	import PokemonScores from '$lib/components/pokemon/PokemonScores/PokemonScores.svelte';
-	import PokemonLocations from '$lib/components/pokemon/PokemonLocations/PokemonLocations.svelte';
+	import PokemonStats from '$lib/components/pokemon/PokemonStats/PokemonStats.svelte';
 
-	import { locale } from '$lib/store/i18n/i18n';
-	import type { PageData } from './$types';
 	import PokemonImagery from '$lib/components/pokemon/PokemonImagery.svelte';
 	import PokemonSpecieVariants from '$lib/components/pokemon/PokemonSpecieVariants.svelte';
+	import { locale } from '$lib/store/i18n/i18n';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 	let pokemon: Pokemon = null;
@@ -75,7 +75,7 @@
 	.pokemon-identity {
 		margin-bottom: 0.75rem;
 
-		grid-template: auto 1fr 0.25fr / 0.8fr 1.2fr 1fr;
+		grid-template: auto 1fr 0.25fr / 1fr 1.2fr 1fr;
 		gap: 0.75rem;
 		grid-template-areas:
 			'varieties varieties varieties'
