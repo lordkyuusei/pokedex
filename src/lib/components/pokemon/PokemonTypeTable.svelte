@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { PokemonType } from '$lib/types/PokemonType';
-	import POKEMON_TYPES from '$lib/store/types';
-	import PokemonTypeElem from '../shared/PokemonType.svelte';
 	import { t } from '$lib/store/i18n/i18n';
+	import POKEMON_TYPES from '$lib/store/types';
+	import type { PokemonType } from '$lib/types/PokemonType';
+	import PokemonTypeElem from '../shared/PokemonType.svelte';
 	import extractDuplicates from '$lib/extractDuplicatesFromArray';
 
 	export let types: string[] = [];
@@ -108,7 +108,7 @@
 				{#if affinityType.value.length}
 					{$t(`types.affinity.${affinityType.name}`)}
 					<ul class="affinity-type">
-						{#each affinityType.value as affinity}
+						{#each affinityType.value as affinity (affinity.name)}
 							<li class="type-elem">
 								<PokemonTypeElem name={affinity.name} />
 							</li>
@@ -122,7 +122,7 @@
 				{#if coverageType.value.length}
 					{$t(`types.coverage.${coverageType.name}`)}
 					<ul class="coverage-type">
-						{#each coverageType.value as affinity}
+						{#each coverageType.value as affinity (affinity.name)}
 							<li class="type-elem">
 								<PokemonTypeElem name={affinity.name} />
 							</li>
