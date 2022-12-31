@@ -15,13 +15,4 @@
 </div>
 
 <style>
-	code {
-		display: block;
-		white-space: pre-wrap;
-		background-color: var(--theme-cardglass);
-		padding: 1em;
-		border: 1px solid var(--theme-text);
-		border-radius: 5px;
-		width: fit-content;
-	}
 </style>

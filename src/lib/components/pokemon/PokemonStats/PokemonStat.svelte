@@ -62,7 +62,7 @@
 	.pokemon-stat {
 		width: calc(100% - 1rem);
 		height: 100%;
-		border-radius: 5px;
+		border-radius: var(--theme-border-r);
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -82,7 +82,7 @@
 		height: 100%;
 		width: 100%;
 		margin: 5px;
-		border-radius: 5px;
+		border-radius: var(--theme-border-r);
 		display: flex;
 		flex-direction: column-reverse;
 	}
@@ -91,7 +91,7 @@
 		width: 100%;
 		text-align: center;
 		font-size: 0.5rem;
-		border-radius: 5px;
+		border-radius: var(--theme-border-r);
 		transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 		color: #000000;
 	}

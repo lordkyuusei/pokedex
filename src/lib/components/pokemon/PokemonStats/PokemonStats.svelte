@@ -118,7 +118,7 @@
 
 	.stats-nature {
 		font: inherit;
-		border-radius: 5px;
+		border-radius: var(--theme-border-r);
 		width: calc(100% - 1rem);
 		color: var(--theme-text);
 		background-color: var(--theme-background);
@@ -137,7 +137,7 @@
 		flex-direction: column;
 		align-items: center;
 		height: 100%;
-		border-radius: 5px;
+		border-radius: var(--theme-border-r);
 	}
 
 	.iel-value {
@@ -151,7 +151,7 @@
 	.iel-slider {
 		width: 100%;
 		height: 100%;
-		border-radius: 5px;
+		border-radius: var(--theme-border-r);
 		writing-mode: vertical-rl;
 		-webkit-appearance: slider-vertical;
 	}

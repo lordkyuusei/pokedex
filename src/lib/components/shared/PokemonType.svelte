@@ -32,7 +32,7 @@
 		gap: 1em;
 		padding: 0.25em 0.5em;
 		border: 1px solid black;
-		border-radius: 1em;
+		border-radius: var(--theme-border-r);
 		text-transform: uppercase;
 		overflow: hidden;
 	}

@@ -52,7 +52,7 @@
 		grid-column: 2;
 		align-self: center;
 		cursor: pointer;
-		border-radius: 25px;
+		border-radius: var(--theme-border-r);
 		display: flex;
 		flex-wrap: nowrap;
 		align-content: center;

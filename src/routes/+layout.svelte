@@ -25,8 +25,10 @@
 	<div id="kyuudex">
 		<header id="kyuudex-header">
 			<header class="header-logo">
-				<img src="/favicon.png" alt="Beast ball logo" height="100%" width="100%" />
-				<a href="/">KYUUDEX</a>
+				<a class="logo-ball" href="/">
+					<img src="/favicon.png" alt="Beast ball logo" height="100%" width="100%" />
+				</a>
+				<a class="logo-text" href="/">KYUUDEX</a>
 			</header>
 			<section class="header-search">
 				<PokedexSearch />
@@ -62,7 +64,7 @@
 			'header header header header header'
 			'sidebar main main main main'
 			'footer main main main main';
-		grid-template-rows: 1.5fr minmax(auto, 30fr) 1.5fr;
+		grid-template-rows: 2.5fr minmax(auto, 100%) 2.5fr;
 		grid-template-columns: 1fr minmax(auto, 9fr);
 		height: 100vh;
 	}
@@ -88,7 +90,12 @@
 		align-items: center;
 	}
 
-	#kyuudex-header > .header-logo > img {
+	#kyuudex-header > .header-logo > .logo-ball {
+		display: flex;
+		place-content: center;
+	}
+
+	#kyuudex-header > .header-logo > .logo-ball > img {
 		inline-size: 20%;
 	}
 
@@ -127,7 +134,7 @@
 		grid-area: sidebar;
 		position: relative;
 		background: var(--theme-light-background);
-		z-index: 2;
+		z-index: 3;
 	}
 
 	#kyuudex-main {
@@ -198,10 +205,9 @@
 			grid-template-areas: 'logo search footer';
 			grid-template-columns: 0.5fr 4fr auto;
 			border-bottom-right-radius: 0;
-			padding: 0.5rem 0;
 		}
 
-		#kyuudex-header > .header-logo > a,
+		#kyuudex-header > .header-logo > .logo-text,
 		#kyuudex-header > .header-footer {
 			display: none;
 		}
@@ -210,7 +216,7 @@
 			position: inherit;
 		}
 
-		#kyuudex-header > .header-logo > img {
+		#kyuudex-header > .header-logo > .logo-ball > img {
 			inline-size: 50%;
 		}
 
@@ -219,7 +225,7 @@
 		}
 
 		#kyuudex-main {
-			padding: 0.5rem;
+			padding: 1rem;
 		}
 
 		#kyuudex-footer {

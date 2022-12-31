@@ -146,7 +146,7 @@
 		padding: 0.5em;
 		font-size: 1rem;
 		text-align: center;
-		border-radius: 25px;
+		border-radius: var(--theme-border-r);
 		width: fit-content;
 		border: none;
 		cursor: pointer;
@@ -170,7 +170,7 @@
 		display: none;
 		grid-template-rows: repeat(5, auto);
 		background-color: var(--theme-alt-background);
-		border-radius: 10px;
+		border-radius: var(--theme-border-r);
 		padding: var(--padding);
 	}
 

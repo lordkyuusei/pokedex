@@ -14,7 +14,7 @@
 		height: 100%;
 		display: flex;
 		gap: 0.25em;
-		border-radius: 10px;
+		border-radius: var(--theme-border-r);
 		padding-left: 0.5em;
 		align-content: center;
 		flex-direction: column;

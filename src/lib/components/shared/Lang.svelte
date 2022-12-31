@@ -37,7 +37,7 @@
 		align-items: center;
 		background-color: var(--theme-alt-background);
 		border: 2px solid var(--theme-background);
-		border-radius: 2em;
+		border-radius: var(--theme-border-r);
 		padding: 0.35em;
 		position: relative;
 	}
@@ -59,7 +59,7 @@
 		min-width: 5.5rem;
 		background-color: var(--theme-background);
 		border: 2px solid var(--theme-alt-background);
-		border-radius: 1em;
+		border-radius: var(--theme-border-r);
 	}
 
 	#pokedex-lang-list > .languages > button {
@@ -76,7 +76,7 @@
 
 	@media (min-width: 320px) and (max-width: 1024px) {
 		#pokedex-lang-list > .languages {
-			top: 3em;
+			top: 2em;
 		}
 	}
 </style>

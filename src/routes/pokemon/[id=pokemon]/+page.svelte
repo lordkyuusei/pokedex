@@ -5,13 +5,14 @@
 	import PokemonAbilities from '$lib/components/pokemon/PokemonAbilities.svelte';
 	import PokemonCard from '$lib/components/pokemon/PokemonCard.svelte';
 	import PokemonEvolutionChain from '$lib/components/pokemon/PokemonEvolutionChain.svelte';
+	import PokemonImagery from '$lib/components/pokemon/PokemonImagery.svelte';
 	import PokemonLocations from '$lib/components/pokemon/PokemonLocations/PokemonLocations.svelte';
 	import PokemonMoves from '$lib/components/pokemon/PokemonMoves.svelte';
 	import PokemonScores from '$lib/components/pokemon/PokemonScores/PokemonScores.svelte';
+	import PokemonSpecieForms from '$lib/components/pokemon/PokemonSpecieForms.svelte';
+	import PokemonSpecieVariants from '$lib/components/pokemon/PokemonSpecieVariants.svelte';
 	import PokemonStats from '$lib/components/pokemon/PokemonStats/PokemonStats.svelte';
 
-	import PokemonImagery from '$lib/components/pokemon/PokemonImagery.svelte';
-	import PokemonSpecieVariants from '$lib/components/pokemon/PokemonSpecieVariants.svelte';
 	import { locale } from '$lib/store/i18n/i18n';
 	import type { PageData } from './$types';
 
@@ -57,7 +58,7 @@
 			<PokemonMoves moves={pokemon?.moves} />
 			<PokemonLocations pokemon={pokemon.id} />
 			<PokemonEvolutionChain evolutionChain={specie?.evolution_chain} />
-			<!-- <PokemonVarieties forms={pokemon.forms} varieties={specie.varieties} /> -->
+			<PokemonSpecieForms forms={pokemon.forms} />
 			<PokemonImagery sprites={pokemon.sprites} />
 		</section>
 	{/if}
@@ -73,10 +74,10 @@
 	}
 
 	.pokemon-identity {
-		margin-bottom: 0.75rem;
+		margin-bottom: 1rem;
 
 		grid-template: auto 1fr 0.25fr / 1fr 1.2fr 1fr;
-		gap: 0.75rem;
+		gap: 1rem;
 		grid-template-areas:
 			'varieties varieties varieties'
 			'card scores stats'
@@ -107,8 +108,8 @@
 	}
 
 	.pokemon-environment {
-		grid-template: 0.75fr 1fr minmax(auto, 300px) minmax(auto, 300px) minmax(auto, 300px) / 1fr;
-		gap: 0.75rem;
+		grid-template: 0.75fr repeat(4, minmax(1em, auto)) / 1fr;
+		gap: 1rem;
 		grid-template-areas:
 			'moves'
 			'locations'

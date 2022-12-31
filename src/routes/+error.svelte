@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
-	import Loader from '$lib/components/shared/Loader.svelte';
 </script>
 
 <div class="error-page">
@@ -9,7 +8,6 @@
 		<h1>404.</h1>
 		<small><i>That's an error.</i></small>
 		<p>The resource you tried to look for doesn't exist.</p>
-		<Loader />
 	{:else}
 		<h1>Something happened and I'm not sure what exactly</h1>
 		<small>I know exactly what happened, you just can't see it for obvious reasons.</small>

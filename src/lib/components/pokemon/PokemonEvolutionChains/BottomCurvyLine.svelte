@@ -28,13 +28,13 @@
 		border-width: 0 0 0 10px;
 		border-style: solid;
 		border-color: var(--theme-text);
-		border-radius: 0 0 0 10px;
+		border-radius: 0 0 0 var(--theme-border-r);
 	}
 
 	.filler {
 		background-color: var(--theme-text);
 		width: 100%;
 		height: 10px;
-		border-radius: 0 0 0 10px;
+		border-radius: 0 0 0 var(--theme-border-r);
 	}
 </style>

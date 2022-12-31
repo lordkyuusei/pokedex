@@ -32,7 +32,7 @@
 		align-items: center;
 		background-color: var(--theme-alt-background);
 		border: 2px solid var(--theme-background);
-		border-radius: 2em;
+		border-radius: var(--theme-border-r);
 		padding: 0.35em;
 		position: relative;
 	}
@@ -52,7 +52,7 @@
 		top: -10rem;
 		left: -5rem;
 		background-color: var(--theme-alt-background);
-		border-radius: 0 1em 1em 0;
+		border-radius: 0 var(--theme-border-r) var(--theme-border-r) 0;
 		list-style: none;
 		padding-inline: 0;
 		padding: 0.25em 0.5em;
@@ -73,7 +73,7 @@
 
 	@media (min-width: 320px) and (max-width: 1024px) {
 		#pokedex-settings-list > .settings {
-			top: 3em;
+			top: 2em;
 		}
 	}
 </style>

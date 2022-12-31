@@ -74,7 +74,7 @@
 		align-items: center;
 		width: 100%;
 		height: 100%;
-		border-radius: 10px;
+		border-radius: var(--theme-border-r);
 	}
 
 	.pokemon-id {
@@ -94,7 +94,7 @@
 		text-align: center;
 		letter-spacing: 3px;
 		font-weight: bolder;
-		border-radius: 25px;
+		border-radius: var(--theme-border-r);
 		width: fit-content;
 		text-transform: capitalize;
 		background-color: var(--theme-cardglass);
@@ -106,7 +106,7 @@
 		padding: 0.5rem;
 		font-size: 1rem;
 		text-align: center;
-		border-radius: 25px;
+		border-radius: var(--theme-border-r);
 		width: fit-content;
 		border: none;
 		cursor: pointer;
@@ -119,7 +119,7 @@
 	}
 
 	.pokemon-picture img {
-		border-radius: 50px;
+		border-radius: var(--theme-border-r);
 		background-color: var(--theme-cardglass);
 		position: absolute;
 		top: 0;

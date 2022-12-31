@@ -157,7 +157,9 @@
 		{#each spritesChosen as sprite}
 			<figure class="picture">
 				<img class:pixelated={imageryType === 'games'} src={sprite.url} alt={sprite.name} />
-				<figcaption>{sprite.name}, {sprite.game} Gen n°{sprite.generation}</figcaption>
+				<figcaption>
+					{$t(`sprite.${sprite.name}`)}, {sprite.game}
+				</figcaption>
 			</figure>
 		{/each}
 	</section>
@@ -170,7 +172,7 @@
 		justify-content: flex-start;
 		width: 100%;
 		overflow-x: auto;
-		border-radius: 10px 10px 0 0;
+		border-radius: var(--theme-border-r) var(--theme-border-r) 0 0;
 	}
 
 	.imagery-type-button {
@@ -212,7 +214,6 @@
 		justify-content: center;
 		align-items: center;
 		gap: 1em;
-		height: 100%;
 		scroll-snap-align: start;
 		scroll-margin-inline-start: 1em;
 	}
@@ -221,7 +222,7 @@
 		height: 125px;
 		aspect-ratio: 1 / 1;
 		border: 1px solid var(--theme-text);
-		border-radius: 10px;
+		border-radius: var(--theme-border-r);
 	}
 
 	.pokemon-pictures > .picture > .pixelated {

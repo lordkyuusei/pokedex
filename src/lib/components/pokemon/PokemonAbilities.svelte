@@ -56,7 +56,7 @@
 		justify-content: center;
 		width: 100%;
 		overflow-x: auto;
-		border-radius: 10px 10px 0 0;
+		border-radius: var(--theme-border-r) var(--theme-border-r) 0 0;
 	}
 
 	.ability-button {
@@ -91,17 +91,17 @@
 	}
 
 	.ability-button:first-child {
-		border-radius: 10px 0 0 0;
+		border-radius: var(--theme-border-r) 0 0 0;
 		border-width: 0 1px 1px 0;
 	}
 
 	.ability-button:last-child {
-		border-radius: 0 10px 0 0;
+		border-radius: 0 var(--theme-border-r) 0 0;
 		border-width: 0 0 1px 1px;
 	}
 
 	.ability-button:only-child {
-		border-radius: 10px 10px 0 0;
+		border-radius: var(--theme-border-r) var(--theme-border-r) 0 0;
 		border-width: 0 0 1px 0;
 	}
 

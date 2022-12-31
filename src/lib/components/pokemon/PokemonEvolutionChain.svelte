@@ -81,7 +81,7 @@
 	};
 </script>
 
-<Card title={$t('title.evolution-chain')}>
+<Card title={$t('title.evolution-chain')} close_up>
 	<div class="pokemon-evolution-chain">
 		{#each [...pokemonStages] as [stage, evolutionChain]}
 			<div class="evolution-chain-stage">

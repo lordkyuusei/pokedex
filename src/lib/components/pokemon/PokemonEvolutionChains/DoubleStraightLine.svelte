@@ -29,7 +29,7 @@
 	.filler {
 		width: 100%;
 		height: calc(50% - 10px);
-		border-radius: 25px 0px 0px 25px;
+		border-radius: var(--theme-border-r) 0px 0px var(--theme-border-r);
 		border-color: var(--theme-text);
 		border-style: solid;
 		border-width: 10px 0 10px 10px;

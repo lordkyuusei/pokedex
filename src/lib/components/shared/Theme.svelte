@@ -34,7 +34,7 @@
 		display: block;
 		height: 2em;
 		width: 4em;
-		border-radius: 1.5em;
+		border-radius: var(--theme-border-r);
 		background-color: var(--theme-background);
 	}
 
@@ -61,7 +61,7 @@
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
 		background-color: var(--theme-alt-background);
-		border-radius: 1em;
+		border-radius: var(--theme-border-r);
 		transition: all 0.2s ease-out;
 		z-index: 2;
 		cursor: pointer;

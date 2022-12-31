@@ -130,7 +130,7 @@
 
 	.evolution_trigger_name {
 		background-color: var(--theme-cardglass);
-		border-radius: 25px;
+		border-radius: var(--theme-border-r);
 		height: 3em;
 		image-rendering: pixelated;
 	}

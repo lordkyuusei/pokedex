@@ -118,7 +118,7 @@
 		justify-content: flex-start;
 		width: 100%;
 		overflow-x: auto;
-		border-radius: 10px 10px 0 0;
+		border-radius: var(--theme-border-r) var(--theme-border-r) 0 0;
 	}
 
 	.location-button {

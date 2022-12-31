@@ -35,12 +35,8 @@
 		searchResults = results;
 
 		if (event.key === 'Enter') {
-			if (searchText.match(/^\d+$/)) {
-				goto(`/pokemon/${searchText}`);
-				onDismiss();
-			}
-
-			goto(`/pokemon/${results[0].id}`);
+			const dest = searchText.match(/^\d+$/) ? searchText : results[0].id;
+			goto(`/pokemon/${dest}`);
 			onDismiss();
 		}
 		if (!searchText.length) {
@@ -114,7 +110,7 @@
 		width: 100%;
 		height: 2rem;
 		padding-inline-start: 1em;
-		border-radius: 1rem;
+		border-radius: var(--theme-border-r);
 		color: var(--theme-secondary);
 		border: 1px solid var(--theme-text);
 		background-color: var(--theme-background);
@@ -137,7 +133,7 @@
 		border: 1px solid var(--theme-text);
 		border-top: 1px solid var(--theme-alt-background);
 		color: var(--theme-text);
-		border-radius: 0 0 10px 10px;
+		border-radius: 0 0 var(--theme-border-r) var(--theme-border-r);
 		background-color: var(--theme-background);
 		z-index: 3;
 	}
@@ -174,7 +170,7 @@
 	@media (max-width: 1024px) {
 		.pokemon-list {
 			left: 0;
-			top: 4em;
+			top: 3em;
 			width: 100vw;
 			border-inline: none;
 			border-radius: 0;
