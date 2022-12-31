@@ -67,7 +67,6 @@
 <style>
 	.pokemon-identity,
 	.pokemon-environment {
-		height: 100%;
 		width: 100%;
 		display: grid;
 		transition: all 0.2s ease-in-out;

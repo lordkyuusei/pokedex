@@ -200,8 +200,6 @@
 
 	.pokemon-pictures {
 		display: flex;
-		width: 100%;
-		height: 100%;
 		flex-direction: row;
 		overflow-x: auto;
 		overflow-y: hidden;

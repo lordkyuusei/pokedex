@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 
 	export let version: string;
-	export let POI: { lat: number; long: number }[];
 
 	const maps = ['kanto', 'johto', 'hoenn', 'sinnoh', 'unova', 'kalos', 'alola', 'galar'];
 
@@ -62,10 +61,6 @@
 <style>
 	.pokemon-map {
 		display: flex;
-		height: 100%;
 		place-content: center;
-	}
-	img {
-		image-rendering: pixelated;
 	}
 </style>

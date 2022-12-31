@@ -45,7 +45,6 @@
 		display: flex;
 		justify-content: flex-start;
 		gap: 1em;
-		height: 100%;
 		overflow-x: auto;
 	}
 

@@ -59,7 +59,6 @@
 		grid-template-rows: repeat(2, 1fr);
 		gap: 0.75em;
 		width: 100%;
-		height: 100%;
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;

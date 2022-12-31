@@ -14,7 +14,6 @@
 
 <style>
 	.card {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 0.75rem);
 		min-width: 200px;

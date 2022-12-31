@@ -110,7 +110,6 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		height: 100%;
 		width: 100%;
 		overflow-y: auto;
 	}

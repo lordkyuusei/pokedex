@@ -136,7 +136,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		height: 100%;
 		border-radius: var(--theme-border-r);
 	}
 
