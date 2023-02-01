@@ -14,11 +14,6 @@ export const routesList: any[] = [
         path: '/about',
         icon: 'info'
     },
-    {
-        name: 'menu.experiments',
-        path: '/experiments',
-        icon: 'experiment',
-    }
 ];
 
 const pokemonGenerations = [
@@ -30,6 +25,7 @@ const pokemonGenerations = [
     { name: "VI", start: 650, limit: 71 },
     { name: "VII", start: 722, limit: 87 },
     { name: "VIII", start: 810, limit: 88 },
+    { name: "IX", start: 906, limit: 100 },
 ];
 
 export const pokemonList: any[] = pokemonGenerations.map((gen) =>

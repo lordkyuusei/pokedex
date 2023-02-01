@@ -108,7 +108,7 @@
 <style>
 	input {
 		width: 100%;
-		height: 2rem;
+		height: 2.5rem;
 		padding-inline-start: 1em;
 		border-radius: var(--theme-border-r);
 		color: var(--theme-secondary);
@@ -126,7 +126,7 @@
 		gap: 0.5em;
 		position: absolute;
 		left: calc(1em - 1px);
-		top: calc(2rem - 1px);
+		top: calc(2.5rem - 1px);
 		width: calc(100% - 2em);
 		max-height: 50vh;
 		overflow-y: auto;

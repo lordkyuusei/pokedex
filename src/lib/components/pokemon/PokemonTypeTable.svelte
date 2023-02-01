@@ -160,18 +160,17 @@
 	}
 
 	.table-affinities-coverage {
-		--padding: 10px;
 		position: absolute;
 		top: 0;
 		left: 0;
-		height: calc(100% - var(--padding) * 2);
-		width: calc(100% - var(--padding) * 2);
-		overflow-y: scroll;
+		height: 100%;
+		width: calc(100% + 0.25rem);
+		overflow-y: auto;
 		display: none;
 		grid-template-rows: repeat(5, auto);
 		background-color: var(--theme-alt-background);
 		border-radius: var(--theme-border-r);
-		padding: var(--padding);
+		padding: var(--theme-border-r);
 	}
 
 	.table-affinities-coverage.show {

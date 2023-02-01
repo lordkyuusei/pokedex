@@ -59,13 +59,15 @@
 
 <style>
 	#kyuudex {
+		--sidebar-w: 3.5em;
+
 		display: grid;
 		grid-template-areas:
-			'header header header header header'
-			'sidebar main main main main'
-			'footer main main main main';
-		grid-template-rows: 2.5fr minmax(auto, 100%) 2.5fr;
-		grid-template-columns: 1fr minmax(auto, 9fr);
+			'header header'
+			'sidebar main'
+			'footer main';
+		grid-template-rows: 1fr minmax(auto, 13fr) 1fr;
+		grid-template-columns: minmax(var(--sidebar-w), 1fr) minmax(auto, 100%);
 		height: 100vh;
 	}
 
@@ -173,16 +175,18 @@
 	}
 
 	#kyuudex-footer {
+		--padding-inline: 1em;
+
 		grid-area: footer;
 		display: flex;
-		align-items: center;
 		justify-content: flex-end;
+		align-items: center;
 		gap: 0.5em;
-		width: 200%;
-		padding-inline-end: 1em;
+		padding-inline: 1em;
 		border-top-right-radius: 1.5rem;
 		background: var(--theme-light-background);
 		z-index: 2;
+		width: calc(calc(var(--sidebar-w) * 3.5) + calc(var(--padding-inline) * 2.5));
 	}
 
 	@media screen {

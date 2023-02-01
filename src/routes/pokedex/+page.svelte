@@ -118,6 +118,10 @@
 		gap: 1rem;
 	}
 
+	.pokedex > a {
+		display: flex;
+	}
+
 	@media screen and (min-width: 320px) and (max-width: 425px) {
 		.pokedex {
 			flex-direction: column;
