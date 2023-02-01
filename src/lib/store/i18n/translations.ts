@@ -128,6 +128,7 @@ export default {
         "version.ultra-sun-ultra-moon": "Ultra Sun/Ultra Moon",
         "version.lets-go-pikachu-lets-go-eevee": "Let's Go Pikachu/Eevee",
         "version.sword-shield": "Sword/Shield",
+        "version.scarlet-violet": "Scarlet/Violet",
     },
     french: {
         "error.no-moves": "Aucune attaque trouvée avec ce Pokémon. Est-ce que c'est une forme spéciale (méga, dynamax) ? Essayez sa forme de base.",
@@ -258,5 +259,6 @@ export default {
         "version.ultra-sun-ultra-moon": "Ultra Soleil/Ultra Lune",
         "version.lets-go-pikachu-lets-go-eevee": "Let's Go Pikachu/Eevee",
         "version.sword-shield": "Épée/Bouclier",
+        "version.scarlet-violet": "Écarlate/Violet",
     }
 };

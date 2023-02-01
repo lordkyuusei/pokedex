@@ -20,7 +20,7 @@
 	const moveCategories = ['level', 'name', 'type', 'power', 'accuracy', 'pp', 'damage type'];
 
 	export let moves: MoveRef[] = [];
-	let versionChosen: string = 'ultra-sun-ultra-moon';
+	let versionChosen: string = 'scarlet-violet';
 	let methodChosen: string = 'level-up';
 	let sortChosen: SortBy = { key: 'level', order: 'asc' };
 
@@ -66,7 +66,8 @@
 				if (version_details) {
 					const moveDetails = await fetchPokemonMove(move.move.name);
 					return {
-						name: moveDetails.names?.find((name) => name.language.name === locale).name,
+						name:
+							moveDetails.names?.find((name) => name.language.name === locale)?.name || '[unknown]',
 						level: version_details.level_learned_at,
 						method: version_details.move_learn_method,
 						type: moveDetails.type,
