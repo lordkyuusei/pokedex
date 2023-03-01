@@ -1,47 +1,38 @@
-Kyuukedex
-=========
+# create-svelte
 
-The (soon) ultimate SPA Pokedex.
-![light](/static/screenshots/kyuudex-light-espeon.png)
-![dark](/static/screenshots/kyuudex-dark-incineroar.png)
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-Features
---------
+## Creating a project
 
-*   An infinite-scroll, lazy-loading complete Pokedex.
-*   A per-Pokemon detail page where you can (currently) check their:
-    *   Default / shiny picture, body data, typing, stats and evolution family;
-    *   Typing table on both defensive & offensive spectrums;
-    *   High final stat product using EV - IV - Level - Natures sliders;
-    *   Complete moveset (name, power, type...) sort by game & method!
-    *   Evolution chain with triggers, conditions in a tree-like visual;
-    *   Abilities (hidden ones are marked with a \*);
-    *   Alternate forms & varieties with clickable links!
-*   A (Moon/Sun stone)-inspired dark & light theme!
-*   French & English localization (~99% of content)
+If you're seeing this, you've probably already done this step. Congrats!
 
-Known bugs
-----------
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-*   Firefox does djezfezufedbrf and displays the site in a weird way (on it)
-*   Some quirky evolutions tree are incomplete / falsy.
-    * notable examples: poliwag, rockruff... due to alternate forms/mecanics
-
-
-Why
----
-
-Go [here](https://kyuudex.lkyuusei.fr/about) to know more about this app! (and to use it)
-
-You can run the app too!
-------------------------
-
-```sh
-git clone https://github.com/lordkyuusei/pokedex  
-npm install && npm run dev
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-License
--------
+## Developing
 
-The Unlicense license.
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
