@@ -1,2 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<section id="page">
+	<p id="dex-navigation">test</p>
+</section>
+<p>another test</p>
+
+<style>
+	#page {
+	}
+</style>

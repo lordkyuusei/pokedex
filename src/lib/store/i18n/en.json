@@ -1,0 +1,9 @@
+{
+    "menu.pokedex": "Pokédex",
+    "menu.moves": "Moves",
+    "menu.abilities": "Abilities",
+    "menu.items": "Items",
+    "moves.title-all": "List of moves all genererations mixed up",
+    "moves.title": "List of moves since generation",
+    "scores.no-desc": "This Pokémon has no Pokédex entry for game "
+}

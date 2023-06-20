@@ -1,0 +1,142 @@
+<script lang="ts">
+	import _ from '$lib/store/i18n';
+	import Search from '../layout/Search.svelte';
+	import ThemeSwitch from '../layout/ThemeSwitch.svelte';
+
+	type Route = {
+		id: string;
+		alt_id: string;
+		name: string;
+	};
+
+	export let routes: Route[];
+	export let generationsList: any[];
+
+	let show: boolean = true;
+
+	const toggleShow = () => (show = !show);
+</script>
+
+<section id="dex-layout">
+	<slot />
+	<footer id="layout-menu" class:show>
+		<menu id="menu-customization">
+			<li class="feature-button button-0">
+				<ThemeSwitch />
+			</li>
+			<li class="feature-button button-1">
+				<Search />
+			</li>
+		</menu>
+		<menu id="menu-features">
+			{#each routes as route, i (route.id)}
+				<li class="feature-button button-{i}">
+					<a href={route.id} on:click={() => toggleShow()}>{$_(route.name)}</a>
+				</li>
+			{/each}
+		</menu>
+	</footer>
+	<button id="layout-button" on:click={() => toggleShow()}>{show ? '🎮' : '😳'}</button>
+</section>
+
+<style>
+	[class*='button'],
+	[id*='button'] {
+		height: 3rem;
+		aspect-ratio: 1;
+		border-radius: 2rem;
+		cursor: pointer;
+	}
+
+	#dex-layout {
+		display: grid;
+		grid-template: 100svh / 100svw;
+		background-color: var(--background-color);
+		color: var(--text-color);
+	}
+
+	#dex-layout > #layout-menu {
+		position: absolute;
+		display: grid;
+		grid-template:
+			'.' calc(3rem + 2 * 1rem)
+			'menu-customization' 1fr
+			'menu-features' 1fr
+			'.' calc(3rem + 2 * 1rem) / 100svw;
+		height: 50%;
+		width: 100%;
+		z-index: 1;
+		bottom: 0;
+		background: linear-gradient(0deg, rgba(42, 42, 40, 1) 75%, rgba(255, 0, 0, 0) 100%);
+		transition: opacity 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
+
+	#dex-layout > #layout-menu:not(.show) {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	#dex-layout > #layout-menu.show {
+		opacity: 1;
+	}
+
+	#dex-layout > #layout-menu > #menu-customization {
+		display: grid;
+		grid-area: menu-customization;
+	}
+
+	#dex-layout > #layout-menu > #menu-features {
+		display: grid;
+		grid-area: menu-features;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		place-items: center;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button {
+		position: relative;
+		background-color: var(--primary-color);
+		display: flex;
+		justify-content: center;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button.button-0 {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button.button-1 {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button.button-2 {
+		grid-column: 3;
+		grid-row: 1;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button.button-3 {
+		grid-column: 4;
+		grid-row: 2;
+	}
+
+	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button > a {
+		position: absolute;
+		top: -1.5rem;
+		height: calc(100% + 1.5rem);
+	}
+
+	#dex-layout > #layout-button {
+		position: fixed;
+		bottom: 1rem;
+		left: 50%;
+		transform: translateX(-50%);
+
+		background-color: yellow;
+		border: 1px solid gold;
+		z-index: 2;
+	}
+</style>

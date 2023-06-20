@@ -7,6 +7,10 @@ declare global {
 		// interface PageData {}
 		// interface Platform {}
 	}
+
+	type Theme = 'moon' | 'sun';
+	type Lang = 'fr' | 'en';
 }
 
-export {};
+
+export { };
