@@ -36,7 +36,7 @@
 			{/each}
 		</menu>
 	</footer>
-	<button id="layout-button" on:click={() => toggleShow()}>{show ? '🎮' : '😳'}</button>
+	<button id="layout-button" class:toggled={show} on:click={() => toggleShow()} />
 </section>
 
 <style>
@@ -59,16 +59,41 @@
 		position: absolute;
 		display: grid;
 		grid-template:
-			'.' calc(3rem + 2 * 1rem)
+			'.' calc(3rem + 2 * 2rem)
 			'menu-customization' 1fr
 			'menu-features' 1fr
-			'.' calc(3rem + 2 * 1rem) / 100svw;
+			'.' calc(3rem + 2 * 0.5rem) / 100svw;
 		height: 50%;
 		width: 100%;
 		z-index: 1;
 		bottom: 0;
 		background: linear-gradient(0deg, rgba(42, 42, 40, 1) 75%, rgba(255, 0, 0, 0) 100%);
 		transition: opacity 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
+
+	#dex-layout > #layout-menu::before,
+	#dex-layout > #layout-menu::after {
+		z-index: -1;
+		content: '';
+		position: absolute;
+		left: 50%;
+		aspect-ratio: 1;
+		border: 5px solid gold;
+		border-top-left-radius: 50%;
+		border-top-right-radius: 50%;
+		border-bottom: 0;
+		transform: translateX(-50%);
+		background-color: transparent;
+	}
+
+	#dex-layout > #layout-menu::after {
+		height: 69%;
+		bottom: -27.5%;
+	}
+
+	#dex-layout > #layout-menu::before {
+		height: 69%;
+		bottom: 5%;
 	}
 
 	#dex-layout > #layout-menu:not(.show) {
@@ -92,13 +117,14 @@
 
 	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) {
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 5svh);
 		place-items: center;
 	}
 
 	#dex-layout > #layout-menu > :is(#menu-customization, #menu-features) > .feature-button {
 		position: relative;
-		background-color: var(--primary-color);
+		background-color: gold;
+		box-shadow: inset 0px 0px 0px 2px var(--background-color);
 		display: flex;
 		justify-content: center;
 	}
@@ -132,11 +158,34 @@
 	#dex-layout > #layout-button {
 		position: fixed;
 		bottom: 1rem;
-		left: 50%;
-		transform: translateX(-50%);
+		left: calc(50% - 1.5rem);
 
-		background-color: yellow;
-		border: 1px solid gold;
+		border: none;
+		background-color: gold;
 		z-index: 2;
+	}
+
+	#dex-layout > #layout-button::before,
+	#dex-layout > #layout-button::after {
+		position: absolute;
+		content: '';
+	}
+
+	#dex-layout > #layout-button::before {
+		height: 10%;
+		width: 100%;
+		top: calc(50% - 5%);
+		left: 0;
+		background-color: var(--background-color);
+	}
+
+	#dex-layout > #layout-button::after {
+		height: 50%;
+		top: calc(50% - 25%);
+		left: calc(50% - 25%);
+		aspect-ratio: 1;
+		border-radius: 3rem;
+		box-shadow: inset 0px 0px 0px 5px var(--background-color);
+		background-color: gold;
 	}
 </style>

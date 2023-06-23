@@ -1,13 +1,12 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
 	import type { LayoutServerData } from './$types';
 
 	import { theme } from '$lib/store/theme';
-	import { deviceWidth, isMobile, device } from '$lib/store/device';
+	import { deviceWidth, device } from '$lib/store/device';
 
 	import SVGs from '$lib/components/common/SVGs.svelte';
 	import routes from './routes.json';
@@ -16,9 +15,7 @@
 
 	export let data: LayoutServerData;
 
-	onMount(() => {
-		$isMobile = data.mobile;
-	});
+	$: console.log($deviceWidth);
 </script>
 
 <svelte:head>
@@ -28,7 +25,7 @@
 	{/if}
 </svelte:head>
 
-<svelte:window bind:outerWidth={$deviceWidth} />
+<svelte:window bind:innerWidth={$deviceWidth} />
 
 <SVGs />
 {#if $device !== 'mobile'}
