@@ -1,0 +1,9 @@
+{
+    "menu.pokedex": "Pokédex",
+    "menu.moves": "Capacités",
+    "menu.abilities": "Talents",
+    "menu.items": "Objets",
+    "moves.title-all": "Liste des capacités toutes générations confondues",
+    "moves.title": "Liste des capacités disponibles depuis la génération",
+    "scores.no-desc": "Ce Pokémon n'a pas d'entrée Pokédex pour les jeux "
+}

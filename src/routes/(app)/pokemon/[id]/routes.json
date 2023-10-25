@@ -1,0 +1,22 @@
+[
+    {
+        "id": "/stats",
+        "icon": "icon-stats"
+    },
+    {
+        "id": "/moves",
+        "icon": "icon-moves"
+    },
+    {
+        "id": "/location",
+        "icon": "icon-map"
+    },
+    {
+        "id": "/sprites",
+        "icon": "icon-sprites"
+    },
+    {
+        "id": "/evolution",
+        "icon": "icon-evolution"
+    }
+]

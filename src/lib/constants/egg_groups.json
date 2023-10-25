@@ -1,0 +1,62 @@
+[
+    {
+        "group": "monster",
+        "icon": "👾"
+    },
+    {
+        "group": "water1",
+        "icon": "💧"
+    },
+    {
+        "group": "bug",
+        "icon": "🐛"
+    },
+    {
+        "group": "flying",
+        "icon": "🐦"
+    },
+    {
+        "group": "ground",
+        "icon": "🐕"
+    },
+    {
+        "group": "fairy",
+        "icon": "🧚‍♀️"
+    },
+    {
+        "group": "plant",
+        "icon": "🌿"
+    },
+    {
+        "group": "humanshape",
+        "icon": "👥"
+    },
+    {
+        "group": "mineral",
+        "icon": "🪨"
+    },
+    {
+        "group": "water3",
+        "icon": "💦"
+    },
+    {
+        "group": "indeterminate",
+        "icon": "〰️"
+    },
+    {
+        "group": "water2",
+        "icon": "💧"
+    },
+    {
+        "group": "ditto",
+        "icon": "💡"
+    },
+    {
+        "group": "dragon",
+        "icon": "🐲"
+    },
+    {
+        "group": "no-eggs",
+        "icon": "❌"
+    }
+]

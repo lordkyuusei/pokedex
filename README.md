@@ -1,47 +1,69 @@
-Kyuukedex
-=========
+# The Dex
+_Aims to be the best pokédex ever made._
 
-The (soon) ultimate SPA Pokedex.
-![light](/static/screenshots/kyuudex-light-espeon.png)
-![dark](/static/screenshots/kyuudex-dark-incineroar.png)
+## Features
+0. Global
+    - FR / EN 99% of the time
+    - Dark theme (light in construction)
+1. Pokédex
+    - Pokemon list sorted by # and by generation
+    - Search feature (includes SV's DLC)
+2. Pokémon
+    - Stats with gauges, EV gain, + pro mode with EV/IV/Nature sliders for stat calculation
+    - Type's strength & weaknesses
+    - Height, weight, egg group, catch rate...
+    - Abilities
+        - Click to access Ability's data
+    - Moveset per generation and per game
+        - Search & sort
+        - Click to access Move's data
+    - Locations (raw, but they're there)
+    - Evolutions with family, method...
+    - Sprites per generation and per game
+3. Moves
+    - All moves available until each gen, sorted by type in a music album kind of way
+    - List of all moves per type with power, accuracy, PPs
+    - List of Pokemon learning that move
+4. Abilities
+    - All abilities available until each gen
+    - List of Pokémon having that ability (normal or hidden)
 
-Features
---------
+## Use
+https://dex.lkyuusei.fr
 
-*   An infinite-scroll, lazy-loading complete Pokedex.
-*   A per-Pokemon detail page where you can (currently) check their:
-    *   Default / shiny picture, body data, typing, stats and evolution family;
-    *   Typing table on both defensive & offensive spectrums;
-    *   High final stat product using EV - IV - Level - Natures sliders;
-    *   Complete moveset (name, power, type...) sort by game & method!
-    *   Evolution chain with triggers, conditions in a tree-like visual;
-    *   Abilities (hidden ones are marked with a \*);
-    *   Alternate forms & varieties with clickable links!
-*   A (Moon/Sun stone)-inspired dark & light theme!
-*   French & English localization (~99% of content)
+## Or install idk
+### App
+1. clone
+2. npm i
+3. npm run dev
 
-Known bugs
-----------
+### Database
+1. have a mongodb running somewhere
+2. put your info in /src/lib/server/database/mongoose.ts
+3. go to localhost:[port]/admin
+4. click all the buttons to load data
 
-*   Firefox does djezfezufedbrf and displays the site in a weird way (on it)
-*   Some quirky evolutions tree are incomplete / falsy.
-    * notable examples: poliwag, rockruff... due to alternate forms/mecanics
+???. profit
 
+## Screenshots
+### Pokedex
+![](./static/screenshots/dex-pokedex.jpeg)
+![](./static/screenshots/dex-search.jpeg)
 
-Why
----
+### Pokemon
+![](./static/screenshots/dex-stats.jpeg)
+![](./static/screenshots/dex-stats-en.jpeg)
+![](./static/screenshots/dex-stats-strat.jpeg)
+![](./static/screenshots/dex-weaknesses.jpeg)
+![](./static/screenshots/dex-moves.jpeg)
+![](./static/screenshots/dex-locations.jpeg)
+![](./static/screenshots/dex-sprites.jpeg)
+![](./static/screenshots/dex-evolution.jpeg)
 
-Go [here](https://kyuudex.lkyuusei.fr/about) to know more about this app! (and to use it)
+### Moves
+![](./static/screenshots/dex-move-types-list.jpeg)
+![](./static/screenshots/dex-moves-list.jpeg)
+![](./static/screenshots/dex-move-detail.jpeg)
 
-You can run the app too!
-------------------------
-
-```sh
-git clone https://github.com/lordkyuusei/pokedex  
-npm install && npm run dev
-```
-
-License
--------
-
-The Unlicense license.
+### Abilities
+![](./static/screenshots/abilities.jpeg)

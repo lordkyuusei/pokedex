@@ -1,0 +1,22 @@
+[
+    {
+        "id": "/pokedex",
+        "alt_id": "/pokemon",
+        "name": "menu.pokedex"
+    },
+    {
+        "id": "/moves",
+        "alt_id": "/moves",
+        "name": "menu.moves"
+    },
+    {
+        "id": "/abilities",
+        "alt_id": "/abilities",
+        "name": "menu.abilities"
+    },
+    {
+        "id": "/items",
+        "alt_id": "/items",
+        "name": "menu.items"
+    }
+]

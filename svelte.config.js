@@ -1,16 +1,20 @@
 import adapter from '@sveltejs/adapter-node';
-import preprocess from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/kit/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-        // Consult https://github.com/sveltejs/svelte-preprocess
-        // for more information about preprocessors
-        preprocess: preprocess(),
+	preprocess: [vitePreprocess()],
+	kit: {
+		adapter: adapter(),
+		prerender: {
+			handleHttpError: ({ path, referrer, message, ...rest }) => {
+				console.log(path, message, rest);
 
-        kit: {
-                paths: { assets: "", base: "" },
-                adapter: adapter({}),
-        }
+				// otherwise fail the build
+				throw new Error(message);
+			}
+		}
+	}
 };
 
 export default config;
