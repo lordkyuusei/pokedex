@@ -1,29 +1,10 @@
-import { fetchAbilitiesList, fetchGenerationsList, fetchMovesList, fetchPokemonList } from "$lib/api/pokeapiql";
+import { fetchAbilitiesList, fetchGenerationsList, fetchMovesList, fetchPokemonList } from "$lib/server/api/pokeapiql";
 import type { Generation } from "$lib/types/generation";
 import type { LightAbilitiesResults } from "$lib/types/graphql/lightabilities";
 import type { LightGenerationResults } from "$lib/types/graphql/lightgenerations";
 import type { LightMoveResults } from "$lib/types/graphql/lightmove";
 import type { LightPokemonResults } from "$lib/types/graphql/lightpokemon";
 import { lightabilities, lightgenerations, lightkedex, lightmoves } from "./schemas";
-
-const addNationalGeneration = (generationsList: Generation[]) => {
-    const { from } = generationsList[0].boundaries;
-    const { to } = generationsList.at(-1)?.boundaries || {};
-
-    const versionsGroup = generationsList.flatMap(x => x.versionsGroup);
-
-    return [...generationsList, {
-        id: 0,
-        name: 'generation-nulla',
-        boundaries: { from, to },
-        region: {
-            name: 'all',
-            i18n: { fr: "Toutes", en: "All" }
-        },
-        versionsGroup,
-        i18n: { fr: "Génération 0", en: "Generation 0" }
-    }];
-};
 
 const parseGenerationsList = (rawGenerationsList: LightGenerationResults): Generation[] => {
     const result: Generation[] = rawGenerationsList.data.pokemon_v2_generation.map(g => ({
@@ -112,14 +93,13 @@ export const syncGenerationList = async () => {
     try {
         const rawGenerationsList: LightGenerationResults = await fetchGenerationsList();
         const generationsList = parseGenerationsList(rawGenerationsList);
-        const updatedGenerationList = addNationalGeneration(generationsList);
         await lightgenerations.deleteMany().exec();
 
-        updatedGenerationList
+        generationsList
             .map(gen => new lightgenerations(gen))
             .forEach(async (gen) => await gen.save());
 
-        return updatedGenerationList.length;
+        return generationsList.length;
     } catch (err) {
         console.error(err);
         return false;

@@ -19,7 +19,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: space-evenly;
-		border-radius: var(--border-r-100);
+		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
 		background: var(--background-accent);
 	}
 

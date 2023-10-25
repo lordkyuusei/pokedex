@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { fetchPokemonSpriteURL } from '$lib/api/fetch';
 	import pokemon from '$lib/store/pokemon';
 	import { lang } from '$lib/store/lang';
+
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
+
+	const LAST_POKEMON_KNOWN_ID: number = 1017;
 
 	let pokemonLocalName: string;
 
@@ -14,7 +17,7 @@
 	{#if $pokemon?.id}
 		{#if $pokemon.id - 1 !== 0}
 			<a href="/pokemon/{$pokemon.id - 1}/stats">
-				<button class="navigation-button" title={$pokemon.id + 1}>
+				<button class="navigation-button" title={`${$pokemon.id + 1}`}>
 					<img class="navigation-prev" src="/arrow.svg" alt="pokemon {$pokemon.id - 1}" />
 					<img
 						class="pokemon-sprite"
@@ -25,9 +28,9 @@
 			</a>
 		{/if}
 		<h1 class="header-name">{pokemonLocalName}</h1>
-		{#if $pokemon?.id + 1 !== 1009}
+		{#if $pokemon?.id !== LAST_POKEMON_KNOWN_ID}
 			<a href="/pokemon/{$pokemon.id + 1}/stats">
-				<button class="navigation-button" title={$pokemon.id + 1}>
+				<button class="navigation-button" title={`${$pokemon.id + 1}`}>
 					<img
 						class="pokemon-sprite"
 						src={fetchPokemonSpriteURL($pokemon.id + 1, 'icons', 'generation-viii')}

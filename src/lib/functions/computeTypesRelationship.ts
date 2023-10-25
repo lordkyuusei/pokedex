@@ -47,15 +47,19 @@ export const computeCoverage = (types: PokemonType[]) => {
     const rawNotEffective = POKEMON_TYPES.filter((t) => !superEffective.includes(t)).filter((t) =>
         t.resistances.includes(firstType.id)
     );
+
     const notEffective = secondType
         ? rawNotEffective.filter((t) => t.resistances.includes(secondType.id))
         : rawNotEffective;
+
     const rawIneffective = POKEMON_TYPES.filter(
         (t) => ![...superEffective, ...notEffective].includes(t)
     ).filter((t) => t.immunities.includes(firstType.id));
+
     const ineffective = secondType
         ? rawIneffective.filter((t) => t.immunities.includes(secondType.id))
         : rawIneffective;
+
     const output = [
         { name: 'super-effective', value: superEffective },
         { name: 'not-super-effective', value: notEffective },

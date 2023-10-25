@@ -1,4 +1,4 @@
-import { fetchPokemonMove } from '$lib/api/fetch';
+import { fetchPokemonMove } from '$lib/server/api/fetch';
 import { getMove } from '$lib/server/database/actions';
 import type { RequestHandler } from "./$types";
 

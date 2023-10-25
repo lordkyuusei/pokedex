@@ -11,6 +11,7 @@
 	import { generation } from '$lib/store/generation';
 	import Book from '$lib/components/common/Book.svelte';
 	import { browser } from '$app/environment';
+	import { fly } from 'svelte/transition';
 
 	export let data: PageServerData;
 
@@ -52,7 +53,7 @@
 
 <section id="pokedex">
 	{#each data.pokemonList as pokemon (pokemon._id)}
-		<a href="/pokemon/{pokemon.id}">
+		<a href="/pokemon/{pokemon.id}" transition:fly|local>
 			<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
 			<span id="{pokemon.id}-shelf" />
 		</a>

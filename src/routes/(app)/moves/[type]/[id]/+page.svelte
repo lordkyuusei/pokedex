@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { fetchPokemonSpriteURL } from '$lib/api/fetch';
-	import MoveCd from '$lib/components/common/MoveCD.svelte';
-	import { getPkmnTypeColor, getPkmnTypeTranslation } from '$lib/functions/drawBackgroundFromTypes';
-	import { generation } from '$lib/store/generation';
-	import { lang } from '$lib/store/lang';
 	import type { PageData } from './$types';
+
+	import { lang } from '$lib/store/lang';
+	import { generation } from '$lib/store/generation';
+	import MoveCd from '$lib/components/common/MoveCD.svelte';
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
+	import { getPkmnTypeColor, getPkmnTypeTranslation } from '$lib/functions/drawBackgroundFromTypes';
 
 	export let data: PageData;
 

@@ -45,10 +45,10 @@
 		<meter
 			id="stat-{stat.name}"
 			min="0"
+			low={0.6 * highStat}
+			optimum={0.75 * highStat}
+			high={highStat}
 			max={highStat}
-			low={(1 / 3) * highStat}
-			high={(2 / 3) * highStat}
-			optimum={(2.5 / 3) * highStat}
 			value={stat.value}
 			data-effort={stat.effort > 0 ? `+${stat.effort} EV` : undefined}
 		/>
@@ -93,6 +93,7 @@
 	#statistics-name,
 	#statistics-stats {
 		display: grid;
+		align-items: center;
 		grid-template: repeat(6, 1fr) / 100%;
 		width: 100%;
 		height: 100%;
@@ -109,17 +110,18 @@
 
 	#statistics-stats meter {
 		width: 100%;
-		height: 100%;
+		height: calc(50% + 1rem);
 		position: relative;
 	}
 
 	#statistics-stats meter::after {
 		position: absolute;
 		top: 50%;
-		transform: translateY(-50%);
-		left: 4px;
+		text-indent: 1em;
+		font-weight: bold;
 		content: attr(data-effort);
 		color: var(--background-color);
+		transform: translateY(-50%);
 	}
 
 	#statistics-stats meter::-webkit-meter-bar {
@@ -144,5 +146,9 @@
 		width: 0;
 		border: 1px dashed var(--background-accent);
 		height: 95%;
+	}
+
+	#statistics-total {
+		font-size: x-large;
 	}
 </style>

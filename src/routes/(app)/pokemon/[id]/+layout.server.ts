@@ -1,7 +1,7 @@
-import { fetchPokemonById, fetchPokemonSpecieByName } from "$lib/api/fetch";
+import { fetchPokemonById, fetchPokemonSpecieByName } from "$lib/server/api/fetch";
 import type { LayoutServerLoad } from "./$types";
 
-export const prerender = true;
+export const prerender = 'auto';
 export const ssr = true;
 
 export const load = (async ({ params }) => {

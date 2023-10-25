@@ -21,6 +21,12 @@ body {
     overflow: hidden;
 }
 
+@media (max-width: 414px) {
+    body {
+        font-size: 12px;
+    }
+}
+
 @font-face {
     font-family: "Pokemon";
     src: url("./fonts/ThraexSansRegular-v1000.ttf");
@@ -42,6 +48,10 @@ select {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+button {
+    cursor: pointer;
 }
 
 menu,

@@ -14,14 +14,16 @@ export const drawMoveCover = (type: string): string => {
     return `linear-gradient(90deg, ${fHsl}, ${sHsl})`;
 }
 
-const drawBookBackground = (types: string[] = []): string => {
+const drawBookBackground = (types: string[] = [], portrait: boolean = false): string => {
     if (types.length) {
         const [fHsl, sHsl] = types.map(
             (type) => TYPES.find((t) => t.name === type)?.color || []
         );
 
+        const angle = portrait ? '180deg' : '135deg';
+
         return sHsl
-            ? `linear-gradient(135deg, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 25%, hsl(${sHsl[0]}, ${sHsl[1]}%, ${sHsl[2]}%) 75%)`
+            ? `linear-gradient(${angle}, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 25%, hsl(${sHsl[0]}, ${sHsl[1]}%, ${sHsl[2]}%) 75%)`
             : `radial-gradient(circle, hsl(${fHsl[0]}, ${fHsl[1]}%, 40%) 25%, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 75%)`;
     }
     return "";

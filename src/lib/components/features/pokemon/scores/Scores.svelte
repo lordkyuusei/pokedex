@@ -60,10 +60,16 @@
 
 		gap: var(--small-gap);
 		padding: 1em;
-		border-radius: var(--border-r-200);
+		border-radius: var(--border-r-200) 0 var(--border-r-200) var(--border-r-50);
 		background-color: var(--background-color);
 		box-shadow: var(--box-shadow);
-		grid-row: 2 / 5;
+	}
+
+	@media (max-width: 414px) {
+		#pokemon-scores {
+			border-radius: 0;
+			box-shadow: none;
+		}
 	}
 
 	p {
@@ -76,7 +82,7 @@
 		margin: 0;
 		padding-inline: 1em;
 		line-height: 1.5em;
-		border-radius: var(--border-r-100);
+		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
 		background: var(--background-accent);
 		position: relative;
 	}

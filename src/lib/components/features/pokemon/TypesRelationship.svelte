@@ -54,14 +54,14 @@
 	.affinities.show,
 	.coverage.show {
 		display: grid;
+		gap: var(--small-gap);
 	}
 
 	.affinities > .affinity-type,
 	.coverage > .coverage-type {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		flex-wrap: wrap;
-		gap: var(--small-gap);
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--normal-gap);
 		padding-inline: 1em;
 	}
 

@@ -1,4 +1,4 @@
-import { fetchPokemonLocationArea } from '$lib/api/fetch';
+import { fetchPokemonLocationArea } from '$lib/server/api/fetch';
 import type { RequestHandler } from "./$types";
 
 export const GET = (async ({ params }) => {

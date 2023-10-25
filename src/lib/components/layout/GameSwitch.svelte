@@ -13,11 +13,11 @@
 	let selectGroup: VersionGroup;
 
 	$: genOfSelectPokemon = filterGenerationsFromPokemon(generationsList, $pokemon);
-	$: onExternalGenerationUpdate(genOfSelectPokemon);
+	$: updateGenOnPokemonChange(genOfSelectPokemon);
 	$: versionsOfSelectGen = selectGen.versionsGroup;
 
-	const onExternalGenerationUpdate = (generations: Generation[] = []) => {
-		selectGen = generations[generations.length - 1];
+	const updateGenOnPokemonChange = (generations: Generation[] = []) => {
+		selectGen = generations[0];
 		selectGroup = selectGen.versionsGroup[0];
 		generation.set(selectGen);
 		version.set(selectGroup.name);
@@ -35,7 +35,7 @@
 
 	const getTranslation = (versionGroup: VersionGroup, lang: Lang) => {
 		return versionGroup.games.reduce((acc, next) => {
-			return `${acc} ${next.i18n[lang]}`;
+			return next.i18n ? `${acc} ${next.i18n[lang]}` : `${acc} ${next.name}`;
 		}, '');
 	};
 </script>

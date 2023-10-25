@@ -1,12 +1,12 @@
 <svelte:options immutable />
 
 <script lang="ts">
-	import { fetchPokemonSpriteURL } from '$lib/api/fetch';
 	import Switch from '$lib/components/common/Switch.svelte';
 	import { generation, version } from '$lib/store/generation';
 	import type { Generation } from '$lib/types/generation';
 	import type { PokemonImagery } from '$lib/types/imagery';
 	import type { SpritesRef } from '$lib/types/pokeapi/pokemon';
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -27,7 +27,7 @@
 	$: versionSprites = versionSpritesRaw.filter((v) => v.isShiny === shiny);
 	$: otherSprites = otherSpritesRaw.filter((v) => v.isShiny === shiny);
 
-	const toggleShiny = (e) => (shiny = e.detail.shiny);
+	const toggleShiny = (e: any) => (shiny = e.detail.shiny);
 
 	const mapVersionToSprites = (sprites: SpritesRef, generation: Generation, version: string) => {
 		if (!sprites) return [];

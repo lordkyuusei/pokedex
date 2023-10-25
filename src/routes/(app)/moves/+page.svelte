@@ -6,12 +6,16 @@
 	import { generation } from '$lib/store/generation';
 	import Album from '$lib/components/features/moves/Album.svelte';
 
-	$: movesList = browser
-		? fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => await x.json())
-		: [];
+	$: movesList =
+		$generation && browser
+			? fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => await x.json())
+			: [];
 
-	$: header =
-		$generation.id === 0 ? $_('moves.title-all') : $_('moves.title') + ` ${$generation.id}`;
+	$: header = $generation
+		? $generation.id === 0
+			? $_('moves.title-all')
+			: $_('moves.title') + ` ${$generation.id}`
+		: '';
 </script>
 
 <section id="moves">

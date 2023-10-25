@@ -1,0 +1,7 @@
+---
+deployment
+ tasks
+ - export DEPLOY_PATH = ~/apps/pokedex
+ - ~/nodevenv/apps/dex/18/bin/npm run build
+ - cp -rf ./build/* package.json package-lock.json $DEPLOY_PATH
+ - cd $DEPLOY_PATH && npm ci --omit dev

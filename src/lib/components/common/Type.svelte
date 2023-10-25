@@ -13,21 +13,28 @@
 <style>
 	.pokemon-type {
 		display: grid;
-		grid-template: 'icon text' 100% / 1fr 5fr;
+		grid-template: 'icon text' auto / 1fr 5fr;
 		place-items: center;
 		place-content: center;
-		border-radius: var(--border-r-100);
+		border-radius: var(--border-r-200);
 		background-color: var(--background-color);
 		box-shadow: 0 0 10px 2px var(--background-alt-color);
 		width: 100%;
 	}
 
-	p {
-		text-transform: uppercase;
-		letter-spacing: 3px;
+	img {
+		grid-area: icon;
+
+		width: 3rem;
+		border-radius: var(--border-r-200);
+		box-shadow: 0 0 5px 2px var(--background-color);
 	}
 
-	img {
-		border-radius: var(--border-r-100);
+	p {
+		grid-area: text;
+
+		margin: 0;
+		text-transform: uppercase;
+		letter-spacing: 3px;
 	}
 </style>

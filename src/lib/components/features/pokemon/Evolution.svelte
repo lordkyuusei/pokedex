@@ -1,15 +1,20 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import type { EvolutionChain, EvolutionUnit } from '$lib/types/pokeapi/evolution';
-	import { fetchPokemonEvolutionChain, fetchPokemonSpriteURL } from '$lib/api/fetch';
 
-	import EeveeWays from './evolution/EeveeWays.svelte';
-	import OneWay from './evolution/OneWay.svelte';
-	import ThreeWays from './evolution/ThreeWays.svelte';
+	import type {
+		EvolutionChain,
+		EvolutionUnit,
+		PokemonEvolution
+	} from '$lib/types/pokeapi/evolution';
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
+
 	import Trigger from './evolution/Trigger.svelte';
+	import OneWay from './evolution/OneWay.svelte';
 	import TwoWays from './evolution/TwoWays.svelte';
+	import ThreeWays from './evolution/ThreeWays.svelte';
+	import EeveeWays from './evolution/EeveeWays.svelte';
 
-	export let evolutionChain: { url: string };
+	export let evolution: PokemonEvolution;
 
 	const mapSizeToComponent = {
 		'1': OneWay,
@@ -21,16 +26,7 @@
 	let pokemonStages = new Map<number, EvolutionUnit[]>();
 	let pokemonId: string;
 
-	$: fetchEvolutionChain(evolutionChain);
-
-	const fetchEvolutionChain = async (chain: { url: string }) => {
-		if (!chain) return;
-
-		pokemonStages.clear();
-		pokemonId = chain.url.match(/\d+/g)?.at(-1) ?? '0';
-		const evolution = await fetchPokemonEvolutionChain(pokemonId);
-		extractEvolutionChain(evolution.chain);
-	};
+	$: extractEvolutionChain(evolution.chain);
 
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		if (!chain) return;

@@ -3,7 +3,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
-	import type { LayoutServerData } from './$types';
+	import type { LayoutServerData } from '../$types';
 
 	import { theme } from '$lib/store/theme';
 	import { deviceWidth, device } from '$lib/store/device';
@@ -14,8 +14,6 @@
 	import MobileLayout from '$lib/components/interface/MobileLayout.svelte';
 
 	export let data: LayoutServerData;
-
-	$: console.log($deviceWidth);
 </script>
 
 <svelte:head>

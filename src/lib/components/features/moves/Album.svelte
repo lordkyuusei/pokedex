@@ -67,7 +67,7 @@
 	}
 
 	[id^='album'] > [id$='cover']:hover {
-		transform: translateY(-5px);
+		transform: scale(1.05);
 		box-shadow: var(--box-shadow);
 		transition: all 0.1s ease-in-out;
 	}

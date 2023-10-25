@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { fetchPokemonSpriteURL } from '$lib/api/fetch';
-
 	import drawBookBackground from '$lib/functions/drawBackgroundFromTypes';
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	export let name: string;
 	export let id: number;

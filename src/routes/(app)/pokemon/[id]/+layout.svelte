@@ -8,7 +8,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import pokemon from '$lib/store/pokemon';
-	import { fetchPokemonSpriteURL } from '$lib/api/fetch';
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	import routes from './routes.json';
 
@@ -47,9 +47,7 @@
 			</menu>
 		</header>
 	{/if}
-	<div style="display: contents; grid-area: main">
-		<slot />
-	</div>
+	<slot />
 	<nav id="data-navigation">
 		<menu>
 			{#each routes as route}
@@ -87,62 +85,62 @@
 		align-items: center;
 	}
 
-	#pokemon-data:not(.default-form) {
-		grid-template:
-			'header header' var(--layout-header-size)
-			'main navigation' var(--layout-pokemon-with-forms-size)
-			'line id' var(--layout-id-size) / 90% 10%;
+	@media (min-width: 414px) {
+		#pokemon-data:not(.default-form) {
+			grid-template:
+				'header header' var(--layout-header-size)
+				'main navigation' var(--layout-pokemon-with-forms-size)
+				'line id' var(--layout-id-size) / 90% 10%;
+		}
+
+		#pokemon-data.default-form {
+			grid-template:
+				'main navigation' var(--layout-pokemon-solo-size)
+				'line id' var(--layout-id-size) / 90% 10%;
+		}
 	}
 
-	#pokemon-data.default-form {
-		grid-template:
-			'main navigation' var(--layout-pokemon-solo-size)
-			'line id' var(--layout-id-size) / 90% 10%;
+	:global(#data-stats) {
+		grid-area: main;
 	}
 
 	#data-forms {
 		grid-area: header;
 
 		display: grid;
-		grid-auto-columns: auto 1fr;
-		grid-template-rows: 100%;
-		grid-auto-flow: column;
-		gap: var(--normal-gap);
-		width: 90%;
+		width: calc(100% - 10svw);
 
 		overflow-x: auto;
 		align-items: center;
 		padding: var(--small-gap) var(--normal-gap) 0;
 	}
 
-	#data-forms > #forms-alternate li [id^='data-form-'] {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-		font-size: 1.5rem;
-		letter-spacing: 2px;
-		text-transform: capitalize;
-		color: var(--background-color);
-		border-radius: var(--border-r-100);
-		background-color: var(--text-color);
-	}
-
 	#data-forms > #forms-alternate {
 		display: grid;
 		grid-auto-columns: minmax(10%, 1fr);
 		grid-auto-flow: column;
-		height: 100%;
-		margin-block: 0;
-		padding-inline: 0;
-		gap: var(--normal-gap);
 		list-style: none;
+		color: var(--background-color);
+		background-color: var(--text-color);
+		border-block: 4px solid var(--background-color);
+		border-inline: 2px solid var(--background-color);
 	}
 
-	#data-forms > #forms-alternate li [id^='data-form-'] {
-		cursor: pointer;
-		border: none;
+	#data-forms > #forms-alternate li button[id^='data-form-'] {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
 		width: 100%;
+		padding-inline-end: 1.25em;
+		font-size: 1.25rem;
+		letter-spacing: 2px;
+		text-transform: capitalize;
+		border: none;
+	}
+
+	#data-forms > #forms-alternate li:not(:first-child) {
+		border-inline: 2px solid var(--background-color);
 	}
 
 	#data-forms > #forms-alternate li [id^='data-form-'].selected {
@@ -158,19 +156,11 @@
 
 	#data-navigation {
 		grid-area: navigation;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
 	}
 
 	#data-navigation menu {
 		display: grid;
-		grid-template: repeat(5, 1fr) / 100%;
-		place-content: center;
-		place-items: center;
-		gap: var(--normal-gap);
-
-		padding-block-end: 100%;
+		place-items: end;
 	}
 
 	#data-navigation menu li {
@@ -183,46 +173,6 @@
 		background-color: var(--text-color);
 		border-radius: var(--border-r-200);
 		transition: transform 0.2s ease-out;
-	}
-
-	#data-navigation menu li.selected {
-		transform: translateX(-1em);
-		transition: transform 0.2s ease-out;
-		border-radius: var(--border-r-200) 0 0 var(--border-r-200);
-		position: relative;
-		width: 140%;
-	}
-
-	#data-navigation menu li.selected svg {
-		transform: translateX(-1.5em);
-	}
-
-	#data-navigation menu li.selected::before,
-	#data-navigation menu li.selected::after {
-		content: '';
-		position: absolute;
-		background-color: var(--background-alt-color);
-		right: 0;
-		height: 1em;
-		width: 1em;
-	}
-
-	#data-navigation menu li.selected::before {
-		bottom: 4em;
-		background-image: radial-gradient(
-			farthest-side at 0% 0%,
-			var(--background-alt-color) 100%,
-			var(--text-color)
-		);
-	}
-
-	#data-navigation menu li.selected::after {
-		top: 4em;
-		background-image: radial-gradient(
-			farthest-side at 0% 100%,
-			var(--background-alt-color) 100%,
-			var(--text-color)
-		);
 	}
 
 	#data-navigation menu li a {
@@ -253,15 +203,88 @@
 		font-size: 2em;
 	}
 
-	@media (max-width: 420px) {
-		#pokemon-data:not(.default-form) {
-			grid-template:
-				'header' 1fr
-				'main' auto;
+	@media (max-width: 414px) {
+		#data-forms,
+		hr,
+		#data-pokemon-id {
+			display: none;
 		}
 
-		#pokemon-data.default-form {
-			grid-template: 'main' 100% / 100%;
+		#pokemon-data {
+			height: 100%;
+			grid-template: 'navigation' auto 'main' 100% / 100%;
+		}
+
+		#data-navigation > menu {
+			color: var(--text-color);
+			background-color: var(--background-accent);
+			grid-template: 1fr / repeat(5, 1fr);
+		}
+
+		#data-navigation > menu > li {
+			background-color: var(--background-accent);
+			border-radius: 0;
+			cursor: pointer;
+		}
+
+		#data-navigation > menu > li::before,
+		#data-navigation > menu > li::after {
+			content: none;
+		}
+
+		#data-navigation > menu > li.selected {
+			width: 4rem;
+		}
+	}
+
+	@media (min-width: 414px) {
+		#data-navigation menu {
+			grid-template: repeat(5, 1fr) / 100%;
+			padding-block-end: 100%;
+			gap: var(--normal-gap);
+		}
+
+		#data-navigation > menu > li:not(.selected) {
+			margin-inline-end: 1rem;
+		}
+
+		#data-navigation > menu > li.selected {
+			width: 8em;
+			transition: all 0.2s ease-out;
+			border-radius: var(--border-r-50) 0 0 var(--border-r-50);
+			position: relative;
+		}
+
+		#data-navigation menu li.selected svg {
+			transform: translateX(-1.5em);
+		}
+
+		#data-navigation menu li.selected::before,
+		#data-navigation menu li.selected::after {
+			content: '';
+			position: absolute;
+			background-color: var(--background-alt-color);
+			right: 0;
+			height: 1em;
+			width: 1em;
+		}
+
+		#data-navigation menu li.selected::before {
+			bottom: 4em;
+			background-image: radial-gradient(
+				farthest-side at 0% 0%,
+				var(--background-alt-color) 100%,
+				var(--text-color)
+			);
+		}
+
+		#data-navigation menu li.selected::after {
+			top: 4em;
+			background-image: radial-gradient(
+				farthest-side at 0% 100%,
+				var(--background-alt-color) 100%,
+				var(--text-color)
+			);
 		}
 	}
 </style>

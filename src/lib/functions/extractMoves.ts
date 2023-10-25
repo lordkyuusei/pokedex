@@ -1,39 +1,44 @@
-import { fetchPokemonMove } from "$lib/api/fetch";
+import { browser } from "$app/environment";
 import type { SortOption } from "$lib/types/moves";
 import type { MoveLight, PokemonMove } from "$lib/types/pokeapi/move";
 import type { MoveLearnMethodRef, MoveRef } from "$lib/types/pokeapi/pokemon";
 
 export const extractMoves = async (refs: MoveRef[] = [], version: string): Promise<MoveLight[]> => {
-    const reducedMoves = refs.reduce(async (moves, ref) => {
-        const { move, version_group_details } = ref;
+    if (browser) {
+        const reducedMoves = refs.reduce(async (moves, ref) => {
+            const { move, version_group_details } = ref;
+            const { url } = move;
+            const id = Number(url.split('/').at(-2));
 
-        const details: MoveLearnMethodRef | undefined = version_group_details.find(v => v.version_group.name === version);
-        if (!details) {
-            return await moves;
-        }
+            const details: MoveLearnMethodRef | undefined = version_group_details.find(v => v.version_group.name === version);
+            if (!details) {
+                return await moves;
+            }
 
-        const fullMove: PokemonMove = await fetchPokemonMove(move.name);
-        const lightMove: MoveLight = {
-            id: fullMove.id,
-            level: details.level_learned_at,
-            name: fullMove.names
-                .filter(x => ['fr', 'en'].includes(x.language.name))
-                .reduce((acc, next) => ({ ...acc, [next.language.name]: next.name }), {}),
-            type: fullMove.type,
-            method: details.move_learn_method,
-            accuracy: fullMove.accuracy,
-            power: fullMove.power,
-            pp: fullMove.pp,
-            category: fullMove.meta?.category.name,
-            damageClass: fullMove.damage_class.name,
-            description: fullMove.flavor_text_entries
-                .filter(x => ['fr', 'en'].includes(x.language.name))
-                .reduce((acc, next) => ({ ...acc, [next.language.name]: next.flavor_text }), {}),
-        };
-        return [...await moves, lightMove];
-    }, [] as any)
+            const { moveDetails }: { moveDetails: PokemonMove } = await fetch(`/api/moves/${id}`).then(async x => await x.json());
+            const lightMove: MoveLight = {
+                id: moveDetails.id,
+                level: details.level_learned_at,
+                name: moveDetails.names
+                    .filter(x => ['fr', 'en'].includes(x.language.name))
+                    .reduce((acc, next) => ({ ...acc, [next.language.name]: next.name }), {}),
+                type: moveDetails.type,
+                method: details.move_learn_method,
+                accuracy: moveDetails.accuracy,
+                power: moveDetails.power,
+                pp: moveDetails.pp,
+                category: moveDetails.meta?.category.name,
+                damageClass: moveDetails.damage_class.name,
+                description: moveDetails.flavor_text_entries
+                    .filter(x => ['fr', 'en'].includes(x.language.name))
+                    .reduce((acc, next) => ({ ...acc, [next.language.name]: next.flavor_text }), {}),
+            };
+            return [...await moves, lightMove];
+        }, [] as any)
 
-    return await reducedMoves;
+        return await reducedMoves;
+    }
+    return [];
 }
 
 export const filterMoves = (moves: MoveLight[], option: string): MoveLight[] =>

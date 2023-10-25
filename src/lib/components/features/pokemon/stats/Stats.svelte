@@ -26,10 +26,16 @@
 		display: grid;
 		place-items: center;
 		padding: 1em;
-		border-radius: var(--border-r-200);
+		border-radius: var(--border-r-200) var(--border-r-50) var(--border-r-200) 0;
 		background-color: var(--background-color);
-		grid-row: 1 / 3;
 		box-shadow: var(--box-shadow);
+	}
+
+	@media (max-width: 414px) {
+		#stats-statistics {
+			border-radius: 0;
+			box-shadow: none;
+		}
 	}
 
 	#stats-statistics:not(.toggled) {

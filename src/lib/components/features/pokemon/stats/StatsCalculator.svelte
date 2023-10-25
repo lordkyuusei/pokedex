@@ -1,150 +1,238 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { beforeUpdate, onMount } from 'svelte';
 
-	import type { StatRef } from '$lib/types/pokeapi/pokemon';
+	import {
+		MAX_CUMULATIVE_EVS,
+		MAX_CUMULATIVE_STATS_POINTS_GEN1,
+		MAX_CUMULATIVE_STATS_POINTS_GEN2,
+		MAX_DV_PER_STAT,
+		MAX_EV_PER_STAT,
+		MAX_IV_PER_STAT,
+		MAX_STATS_POINTS_PER_STAT,
+		OLD_POLYGON_MAX_COORDINATES,
+		POLYGON_MAX_COORDINATES,
+		mapPolygonCoordinatesToString
+	} from '$lib/constants/stats';
+	import { generation } from '$lib/store/generation';
 	import Switch from '$lib/components/common/Switch.svelte';
+	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import { HPFormula, StatFormula } from '$lib/functions/statFormula';
 
 	export let stats: StatRef[] = [];
 
-	const defaultSize = 252;
+	let evPv: number = 0;
+	let evAtk: number = 0;
+	let evDef: number = 0;
+	let evAtkSpe: number = 0;
+	let evDefSpe: number = 0;
+	let evSpe: number = 0;
 
-	let statsCoordinates: number[][] = [];
-
-	let evPv: number = 100;
-	let evAtk: number = 100;
-	let evDef: number = 100;
-	let evAtkSpe: number = 100;
-	let evDefSpe: number = 100;
-	let evSpe: number = 100;
 	let lvl: number = 50;
 	let ivs: boolean = false;
 	let natures: number[] = [1, 1, 1, 1, 1];
 
-	$: IV = ivs === false ? 0 : 31;
-	$: HP = HPFormula(stats[0].base_stat, lvl, evPv, IV);
-	$: ATK = StatFormula(stats[1].base_stat, lvl, evAtk, IV, natures[0]);
-	$: ATKSPE = StatFormula(stats[2].base_stat, lvl, evAtkSpe, IV, natures[1]);
-	$: SPE = StatFormula(stats[3].base_stat, lvl, evSpe, IV, natures[2]);
-	$: DEFSPE = StatFormula(stats[4].base_stat, lvl, evDefSpe, IV, natures[3]);
-	$: DEF = StatFormula(stats[5].base_stat, lvl, evDef, IV, natures[4]);
+	let statsCoordinates: number[][] = [];
 
-	const setNature = (stat: number) => {
-		if (natures[stat] === 1) {
-			natures = natures.map((x, i) => (i === stat ? 1.1 : x));
-		} else if (natures[stat] === 1.1) {
-			natures = natures.map((x, i) => (i === stat ? 0.9 : x));
-		} else {
-			natures = natures.map((x, i) => (i === stat ? 1 : x));
-		}
+	const resetStatsOnGenerationChange = (_: number) => {
+		evPv = 0;
+		evAtk = 0;
+		evDef = 0;
+		evAtkSpe = 0;
+		evDefSpe = 0;
+		evSpe = 0;
+
+		statsCoordinates = config$.polygonMaxCoordinates;
+		[0, 1, 2, 3, 4, 5].forEach((order) => updatePolygonPoint(0, order, true));
 	};
 
-	const updatePolygonPoint = (value: number, angle: number) => {
-		const smallPoly = document.getElementById('small-poly');
-		const currentPointsRaw = smallPoly?.getAttribute('points')?.split(' ') ?? [];
-		let currentPoints = currentPointsRaw?.map((points) => points.split(','));
+	const updateConfigOnGenerationChange = (id: number) => ({
+		isGen1: id === 1,
+		isGen2: id === 2,
+		isOldGen: id < 3,
+		defaultSize: id < 3 ? MAX_STATS_POINTS_PER_STAT : MAX_EV_PER_STAT,
+		polygonMaxCoordinates: id < 3 ? OLD_POLYGON_MAX_COORDINATES : POLYGON_MAX_COORDINATES,
+		maxCumulEv:
+			id === 1
+				? MAX_CUMULATIVE_STATS_POINTS_GEN1
+				: id === 2
+				? MAX_CUMULATIVE_STATS_POINTS_GEN2
+				: MAX_CUMULATIVE_EVS
+	});
 
-		const [currX, currY] = [...statsCoordinates[angle]];
+	$: config$ = updateConfigOnGenerationChange($generation.id);
+	$: resetStatsOnGenerationChange($generation.id);
+
+	$: EV = evPv + evAtk + evDef + evAtkSpe + evDefSpe + evSpe;
+	$: IV = ivs === false ? 0 : config$.isOldGen ? MAX_DV_PER_STAT : MAX_IV_PER_STAT;
+	$: HP = HPFormula(stats[0].base_stat, lvl, evPv, IV, config$.isOldGen);
+	$: ATK = StatFormula(stats[1].base_stat, lvl, evAtk, IV, natures[0], config$.isOldGen);
+	$: ATKSPE = StatFormula(stats[2].base_stat, lvl, evAtkSpe, IV, natures[1], config$.isOldGen);
+	$: SPE = StatFormula(stats[3].base_stat, lvl, evSpe, IV, natures[2], config$.isOldGen);
+	$: DEFSPE = StatFormula(stats[4].base_stat, lvl, evDefSpe, IV, natures[3], config$.isOldGen);
+	$: DEF = StatFormula(stats[5].base_stat, lvl, evDef, IV, natures[4], config$.isOldGen);
+
+	const setNature = (stat: number) => {
+		const natureCoefficienMap = [
+			{ v: natures[stat] === 1, f: (x: number, i: number) => (i === stat ? 1.1 : x) },
+			{ v: natures[stat] === 1.1, f: (x: number, i: number) => (i === stat ? 0.9 : x) },
+			{ v: natures[stat] === 0.9, f: (x: number, i: number) => (i === stat ? 1 : x) }
+		];
+
+		const coeffMap = natureCoefficienMap.find((x) => x.v);
+		if (!coeffMap) return;
+
+		natures = natures.map(coeffMap.f);
+	};
+
+	const updatePolygonPoint = (value: number, angle: number, isReset = false) => {
+		if (EV >= config$.maxCumulEv && !isReset) return;
+
+		const smallPolygon = document.getElementById('small-poly') as unknown as SVGPolygonElement;
+		if (!smallPolygon) return;
+
+		const [maxX, maxY] = [...statsCoordinates[angle]];
+
 		const newValue = value / 2;
-		const newAngle = Math.atan2(currY - defaultSize / 2, currX - defaultSize / 2);
+		const newAngle = Math.atan2(maxY - config$.defaultSize / 2, maxX - config$.defaultSize / 2);
 
-		const xs = (defaultSize / 2 + newValue * Math.cos(newAngle)).toFixed(0);
-		const ys = (defaultSize / 2 + newValue * Math.sin(newAngle)).toFixed(0);
+		const newX = config$.defaultSize / 2 + newValue * Math.cos(newAngle);
+		const newY = config$.defaultSize / 2 + newValue * Math.sin(newAngle);
 
-		currentPoints[angle] = [xs, ys];
-
-		smallPoly?.setAttribute('points', currentPoints?.flatMap((x) => x.join(',')).join(' '));
+		smallPolygon.points[angle].x = newX;
+		smallPolygon.points[angle].y = newY;
 	};
 
 	onMount(() => {
+		const statsOrder = [0, 1, 2, 3, 4, 5];
 		const hexagon = document.getElementById('big-poly') as unknown as SVGPolygonElement;
-		if (hexagon) {
-			statsCoordinates = [0, 1, 2, 3, 4, 5].map((n) => [hexagon.points[n].x, hexagon.points[n].y]);
-			updatePolygonPoint(100, 0);
-			updatePolygonPoint(100, 1);
-			updatePolygonPoint(100, 2);
-			updatePolygonPoint(100, 3);
-			updatePolygonPoint(100, 4);
-			updatePolygonPoint(100, 5);
-		}
+		statsCoordinates = statsOrder.map((n) => [hexagon.points[n].x, hexagon.points[n].y]);
+		statsOrder.forEach((order) => updatePolygonPoint(0, order, true));
 	});
 </script>
 
 <aside id="stats-modifiers">
 	<label for="lvl">Niveau</label>
 	<input style="width: 100%" type="number" bind:value={lvl} min="1" max="100" />
-	<label for="ivs">IV à 31</label>
+	<label for="ivs">{config$.isOldGen ? 'DV à 15' : 'IV à 31'}</label>
 	<Switch event="ivs" icon="training" on:ivs={(e) => (ivs = e.detail.ivs)} />
 </aside>
 <section id="stats-calculator" style="grid-area: graph">
 	<div id="calculator-ui">
-		<svg viewBox="0 0 {defaultSize} {defaultSize}">
+		<svg id="polygon-holder" viewBox="0 0 {config$.defaultSize} {config$.defaultSize}">
 			<polygon
 				id="big-poly"
 				class="basic-stroke"
-				points="126,0 236,65, 236,187 126,252, 16,187, 16,65"
+				points={mapPolygonCoordinatesToString(config$.polygonMaxCoordinates)}
 			/>
-			<polygon id="small-poly" />
+			<polygon id="small-poly" points="0,0 0,0, 0,0 0,0 0,0 0,0" />
 		</svg>
 		<input
 			id="slider-ev-pv"
 			type="range"
 			min="0"
-			max="252"
+			max={config$.defaultSize}
 			step="4"
-			bind:value={evPv}
+			value={evPv}
 			data-value={evPv}
-			on:input={(v) => updatePolygonPoint(v.target.valueAsNumber, 0)}
+			on:input={(event) => {
+				const { valueAsNumber: value } = event.currentTarget;
+				if (value > evPv && EV - evPv + value > config$.maxCumulEv) {
+					event.currentTarget.value = evPv.toString();
+					return;
+				}
+				evPv = value;
+				updatePolygonPoint(evPv, 0);
+			}}
 		/>
 		<input
 			id="slider-ev-atk"
 			type="range"
 			min="0"
-			max="252"
+			max={config$.defaultSize}
 			step="4"
-			bind:value={evAtk}
+			value={evAtk}
 			data-value={evAtk}
-			on:input={(v) => updatePolygonPoint(v.target.valueAsNumber, 1)}
+			on:input={(event) => {
+				const { valueAsNumber: value } = event.currentTarget;
+				if (value > evAtk && EV - evAtk + value > config$.maxCumulEv) {
+					event.currentTarget.value = evAtk.toString();
+					return;
+				}
+				evAtk = value;
+				updatePolygonPoint(evAtk, 1);
+			}}
 		/>
 		<input
 			id="slider-ev-speatk"
 			type="range"
 			min="0"
-			max="252"
+			max={config$.defaultSize}
 			step="4"
-			bind:value={evAtkSpe}
+			value={evAtkSpe}
 			data-value={evAtkSpe}
-			on:input={(v) => updatePolygonPoint(v.target.valueAsNumber, 2)}
+			on:input={(event) => {
+				const { valueAsNumber: value } = event.currentTarget;
+				if (value > evAtkSpe && EV - evAtkSpe + value > config$.maxCumulEv) {
+					event.currentTarget.value = evAtkSpe.toString();
+					return;
+				}
+				evAtkSpe = value;
+				updatePolygonPoint(evAtkSpe, 2);
+			}}
 		/>
 		<input
 			id="slider-ev-spe"
 			type="range"
 			min="0"
-			max="252"
+			max={config$.defaultSize}
 			step="4"
-			bind:value={evSpe}
+			value={evSpe}
 			data-value={evSpe}
-			on:input={(v) => updatePolygonPoint(v.target.valueAsNumber, 3)}
+			on:input={(event) => {
+				const { valueAsNumber: value } = event.currentTarget;
+				if (value > evSpe && EV - evSpe + value > config$.maxCumulEv) {
+					event.currentTarget.value = evSpe.toString();
+					return;
+				}
+				evSpe = value;
+				updatePolygonPoint(evSpe, 3);
+			}}
 		/>
 		<input
 			id="slider-ev-spedef"
 			type="range"
 			min="0"
-			max="252"
+			max={config$.defaultSize}
 			step="4"
-			bind:value={evDefSpe}
+			value={evDefSpe}
 			data-value={evDefSpe}
-			on:input={(v) => updatePolygonPoint(v.target.valueAsNumber, 4)}
+			on:input={(event) => {
+				const { valueAsNumber: value } = event.currentTarget;
+				if (value > evDefSpe && EV - evDefSpe + value > config$.maxCumulEv) {
+					event.currentTarget.value = evDefSpe.toString();
+					return;
+				}
+				evDefSpe = value;
+				updatePolygonPoint(evDefSpe, 4);
+			}}
 		/>
 		<input
 			id="slider-ev-def"
 			type="range"
 			min="0"
-			max="252"
+			max={config$.defaultSize}
 			step="4"
-			bind:value={evDef}
+			value={evDef}
 			data-value={evDef}
-			on:input={(v) => updatePolygonPoint(v.target.valueAsNumber, 5)}
+			on:input={(event) => {
+				const { valueAsNumber: value } = event.currentTarget;
+				if (value > evDef && EV - evDef + value > config$.maxCumulEv) {
+					event.currentTarget.value = evDef.toString();
+					return;
+				}
+				evDef = value;
+				updatePolygonPoint(evDef, 5);
+			}}
 		/>
 	</div>
 	<button id="value-ev-pv"><span>P.V.</span><em>{HP}</em></button>
@@ -179,11 +267,7 @@
 		on:click={() => setNature(4)}><span>Défense</span><em>{DEF}</em></button
 	>
 </section>
-<div id="statistics-switch">
-	<button title="Utilisez les points du graphe pour faire varier les EVs dans chaque statistique."
-		>?</button
-	>
-</div>
+<div id="statistics-switch" />
 
 <style>
 	.basic-stroke {
@@ -254,26 +338,16 @@
 	#stats-calculator > #calculator-ui [id^='slider']::-webkit-slider-thumb {
 		appearance: none;
 		background-color: var(--background-secondary);
-		height: 0.5em;
+		height: 0.75em;
+		cursor: pointer;
 		border-radius: var(--border-r-50);
 		aspect-ratio: 1;
-	}
-
-	#stats-calculator > #calculator-ui [id^='slider']::after {
-		content: '';
-		position: absolute;
-		top: calc(50% - 0.12em);
-		right: -5%;
-		background-color: white;
-		height: 0.25em;
-		width: 0.25em;
-		border-radius: var(--border-r-50);
 	}
 
 	#stats-calculator > #calculator-ui [id^='slider']::before {
 		content: attr(data-value);
 		position: absolute;
-		left: calc(50% - 1em);
+		left: calc(50%);
 	}
 
 	#stats-calculator [id^='value'] {
@@ -298,40 +372,32 @@
 
 	#stats-calculator #value-ev-atk,
 	#stats-calculator #value-ev-atkspe {
-		right: -3%;
+		right: 0;
 		justify-items: left;
 	}
 
 	#stats-calculator #value-ev-def,
 	#stats-calculator #value-ev-defspe {
-		left: -3%;
+		left: 0;
 		justify-items: right;
 	}
 
 	#stats-calculator #value-ev-pv {
-		top: -2.5%;
-		left: calc(50% - 1.25em);
+		top: 0.75em;
 	}
 
-	#stats-calculator #value-ev-atk {
+	#stats-calculator #value-ev-atk,
+	#stats-calculator #value-ev-def {
 		top: 25%;
 	}
 
-	#stats-calculator #value-ev-atkspe {
+	#stats-calculator #value-ev-atkspe,
+	#stats-calculator #value-ev-defspe {
 		bottom: 25%;
 	}
 
 	#stats-calculator #value-ev-spe {
-		bottom: -2.5%;
-		left: calc(50% - 2em);
-	}
-
-	#stats-calculator #value-ev-defspe {
-		bottom: 20%;
-	}
-
-	#stats-calculator #value-ev-def {
-		top: 20%;
+		bottom: 0.75em;
 	}
 
 	#slider-ev-pv {
@@ -348,6 +414,10 @@
 
 	#slider-ev-spe {
 		transform: rotate(90deg);
+	}
+
+	:is(#slider-ev-spe, #slider-ev-spedef, #slider-ev-def)::before {
+		transform: rotate(-180deg);
 	}
 
 	#slider-ev-spedef {

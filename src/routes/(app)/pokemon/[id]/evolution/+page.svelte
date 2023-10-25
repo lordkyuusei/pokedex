@@ -6,7 +6,7 @@
 </script>
 
 <section id="data-evolution">
-	<Evolution evolutionChain={data.specie.evolution_chain} />
+	<Evolution evolution={data.evolution} />
 </section>
 
 <style>

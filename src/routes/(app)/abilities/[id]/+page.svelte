@@ -1,10 +1,10 @@
 <svelte:options immutable />
 
 <script lang="ts">
-	import { fetchPokemonSpriteURL } from '$lib/api/fetch';
 	import { generation } from '$lib/store/generation';
 	import { lang } from '$lib/store/lang';
 	import type { PageData } from './$types';
+	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	export let data: PageData;
 
@@ -24,8 +24,6 @@
 
 		return false;
 	});
-
-	$: console.log(changes);
 </script>
 
 <section id="ability-details">

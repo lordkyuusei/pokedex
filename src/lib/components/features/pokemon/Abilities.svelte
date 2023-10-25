@@ -38,10 +38,16 @@
 		place-items: center;
 		gap: var(--small-gap);
 		padding: 1em;
-		border-radius: var(--border-r-200);
+		border-radius: 0 var(--border-r-200) var(--border-r-50) var(--border-r-200);
 		background-color: var(--background-color);
-		grid-row: 3 / 5;
 		box-shadow: var(--box-shadow);
+	}
+
+	@media (max-width: 414px) {
+		#stats-abilities {
+			border-radius: 0;
+			box-shadow: none;
+		}
 	}
 
 	#stats-abilities > button:last-child span {
@@ -57,7 +63,7 @@
 		height: 100%;
 		width: 100%;
 		border: none;
-		font-size: 2em;
+		font-size: x-large;
 		cursor: pointer;
 
 		transition: padding 0.2s ease-in-out;
@@ -68,25 +74,15 @@
 	}
 
 	[id^='ability']:first-child {
-		border-radius: var(--border-r-100) var(--border-r-100) 0 0;
+		border-radius: 0 var(--border-r-100) 0 0;
 	}
 
 	[id^='ability']:last-child {
-		border-radius: 0 0 var(--border-r-100) var(--border-r-100);
+		border-radius: 0 0 0 var(--border-r-100);
 	}
 
 	[id^='ability']:only-child {
 		border-radius: var(--border-r-100);
-	}
-
-	#ability-title {
-		grid-area: title;
-		font-size: 1.5em;
-	}
-
-	#ability-desc {
-		grid-area: desc;
-		font-size: 1em;
 	}
 
 	.chosen {
@@ -100,7 +96,7 @@
 	}
 
 	.chosen > section {
-		font-size: x-large;
+		font-size: large;
 		line-height: 1em;
 	}
 </style>

@@ -9,7 +9,6 @@
 	import type { Lightkemon } from '$lib/types/lightkemon';
 
 	let show: boolean = false;
-	let filters: boolean = false;
 	let searchText: string;
 
 	let results: Lightkemon[] = [];
@@ -36,8 +35,6 @@
 		results = [];
 	};
 
-	const showFilters = () => (filters = !filters);
-
 	const getBookUrl = (pokemonId: string) => {
 		const { id } = $page.route;
 		if (id?.startsWith('/pokemon')) return id.replace('[id]', pokemonId);
@@ -55,8 +52,6 @@
 			<input type="search" class="search-input" bind:value={searchText} on:keyup={searchValue} />
 			<img class="search-icon" src="/dex-search.svg" alt="logo" />
 		</div>
-		<button class="search-button search-filters" on:click={showFilters}>🔖</button>
-		<button class="search-button search-close" on:click={showPane}>➡️</button>
 	</header>
 	<section id="pan-results">
 		{#each results as pokemon}
@@ -112,7 +107,6 @@
 
 	#pan-header {
 		display: grid;
-		grid-template: 'search-input filters close' / 5fr 1fr 1fr;
 		align-items: center;
 		justify-content: center;
 		gap: var(--small-gap);

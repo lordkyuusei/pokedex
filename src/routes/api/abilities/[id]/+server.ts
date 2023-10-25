@@ -1,4 +1,4 @@
-import { fetchPokemonAbility } from '$lib/api/fetch';
+import { fetchPokemonAbility } from '$lib/server/api/fetch';
 import type { RequestHandler } from "./$types";
 
 export const GET = (async ({ params }) => {

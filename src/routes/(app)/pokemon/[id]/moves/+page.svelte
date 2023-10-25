@@ -17,7 +17,6 @@
 	let searchOption: SearchOption = 'level-up';
 	let sortOption: SortOption = { option: 'level', direction: 'asc' };
 
-	$: console.log(searchOption);
 	$: fullMoveset = extractMoves(data.pokemon.moves, $version);
 	$: movesetHead = fullMoveset.then((moveset) =>
 		Object.keys(moveset[0] ?? []).filter((x) => !['id', 'description', 'method'].includes(x))
