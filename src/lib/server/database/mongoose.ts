@@ -1,8 +1,6 @@
+import { env } from "$env/dynamic/private";
 import mongoose from "mongoose"
 
-await mongoose.connect('').then(
-    () => console.log('MongoDB launched'),
-    error => console.error('MongoDB failure')
-);
+const mongoose$ = await mongoose.connect(env["CONNECTION_STRING"])
 
-export default mongoose;
+export default mongoose$;

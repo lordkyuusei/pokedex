@@ -2,21 +2,25 @@
 
 <script lang="ts">
 	import { afterUpdate, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import type { PageServerData } from './$types';
+	import { browser } from '$app/environment';
 
 	import { lang } from '$lib/store/lang';
+	import type { PageServerData } from './$types';
 	import { generation } from '$lib/store/generation';
+
 	import Book from '$lib/components/common/Book.svelte';
-	import { browser } from '$app/environment';
-	import { fly } from 'svelte/transition';
+	import { device } from '$lib/store/device';
 
 	export let data: PageServerData;
 
 	let target: Element;
 	let observer: IntersectionObserver;
+
+	$: interval = $device === 'desktop' ? 10 : $device === 'tablet' ? 5 : 3;
 
 	$: leftBoundary = $generation?.boundaries.from;
 	$: rightBoundary = $generation?.boundaries.to;
@@ -32,7 +36,7 @@
 				observer.unobserve(target);
 				const currentTo = parseInt($page.url.searchParams.get('to'));
 				if (currentTo < rightBoundary) {
-					const nextTo = Math.min(parseInt(currentTo) + 1, rightBoundary + 1);
+					const nextTo = Math.min(parseInt(currentTo) + interval, rightBoundary + interval);
 					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
 				} else if (currentTo > rightBoundary) {
 					const nextTo = leftBoundary + 42;
@@ -85,7 +89,7 @@
 		background-color: var(--background-accent);
 	}
 
-	@media (max-width: 420px) {
+	@media (max-width: 640px) {
 		#pokedex {
 			padding-inline: 1em;
 		}

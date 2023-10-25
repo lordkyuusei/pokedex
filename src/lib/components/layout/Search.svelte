@@ -155,7 +155,7 @@
 		overflow: auto;
 	}
 
-	@media (max-width: 420px) {
+	@media (max-width: 640px) {
 		#dex-pan {
 			width: 100svw;
 			right: -100%;

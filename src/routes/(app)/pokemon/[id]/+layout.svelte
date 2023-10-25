@@ -85,7 +85,7 @@
 		align-items: center;
 	}
 
-	@media (min-width: 414px) {
+	@media (min-width: 640px) {
 		#pokemon-data:not(.default-form) {
 			grid-template:
 				'header header' var(--layout-header-size)
@@ -203,7 +203,7 @@
 		font-size: 2em;
 	}
 
-	@media (max-width: 414px) {
+	@media (max-width: 640px) {
 		#data-forms,
 		hr,
 		#data-pokemon-id {
@@ -237,7 +237,7 @@
 		}
 	}
 
-	@media (min-width: 414px) {
+	@media (min-width: 640px) {
 		#data-navigation menu {
 			grid-template: repeat(5, 1fr) / 100%;
 			padding-block-end: 100%;

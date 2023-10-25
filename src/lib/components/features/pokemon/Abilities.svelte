@@ -43,7 +43,7 @@
 		box-shadow: var(--box-shadow);
 	}
 
-	@media (max-width: 414px) {
+	@media (max-width: 640px) {
 		#stats-abilities {
 			border-radius: 0;
 			box-shadow: none;

@@ -105,7 +105,7 @@
 		}
 	}
 
-	@media (max-width: 1024px) and (min-width: 415px) {
+	@media (max-width: 1024px) and (min-width: 640px) {
 		#data-stats {
 			grid-template: repeat(4, 1fr) / 100%;
 			overflow-y: auto;
@@ -114,7 +114,7 @@
 		}
 	}
 
-	@media (max-width: 414px) {
+	@media (max-width: 640px) {
 		#data-stats {
 			overflow-x: auto;
 			grid-template: 1fr 1.5fr / 100%;
