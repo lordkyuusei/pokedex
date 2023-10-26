@@ -83,8 +83,12 @@ table tr:hover td {
     cursor: pointer;
 }
 
+table thead tr {
+    background-color: var(--background-secondary);
+}
+
 table tr:nth-child(2n) td {
-    background-color: transparent;
+    background-color: var(--background-alt-color);
 }
 
 table tr:nth-child(2n + 1) td {
