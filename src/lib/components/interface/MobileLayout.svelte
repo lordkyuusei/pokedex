@@ -51,9 +51,11 @@
 </main>
 
 <style>
-	:global(#generations) {
-		margin-inline: 1rem;
-		margin-top: 1rem;
+	@media (max-width: 640px) {
+		:global(#generations) {
+			margin-inline: 1rem;
+			margin-top: 1rem;
+		}
 	}
 
 	[class*='button'],
@@ -108,6 +110,7 @@
 			&:not(.show) {
 				opacity: 0;
 				pointer-events: none;
+				height: 0;
 			}
 
 			&::before,
