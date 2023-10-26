@@ -8,22 +8,33 @@
 	import useDismiss from '$lib/functions/useDismiss';
 	import type { Lightkemon } from '$lib/types/lightkemon';
 
+	const DEFAULT_SEARCH_DELAY: number = 400;
+	const DEFAULT_SEARCH_MIN_LENGTH = 3;
+
 	let show: boolean = false;
 	let searchText: string;
+	let results: Promise<Lightkemon[]>;
+	let debounceTimer: NodeJS.Timeout;
 
-	let results: Lightkemon[] = [];
-
-	const searchValue = async (e: KeyboardEvent) => {
-		if (e.key === 'Escape') show = !show;
-		else if (e.key === 'Enter') {
+	const debounce = async (e: KeyboardEvent) => {
+		if (e.key === 'Escape') {
 			showPane();
-			goto(getBookUrl(`${results[0].id}`));
+		} else if (e.key === 'Enter') {
+			showPane();
+
+			results.then((pokemonList) => {
+				if (!pokemonList) return;
+				const url = getBookUrl(`${pokemonList[0]?.id}`);
+				if (url) goto(url);
+			});
 		} else {
-			if (searchText.length >= 3 || Number(searchText)) {
-				const result: Response = await fetch(`/api/search?input=${searchText}`);
-				results = await result.json();
-			} else {
-				results = [];
+			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(searchText)) {
+				clearTimeout(debounceTimer);
+
+				debounceTimer = setTimeout(async () => {
+					const result: Response = await fetch(`/api/search?input=${searchText}`);
+					results = result.json();
+				}, DEFAULT_SEARCH_DELAY);
 			}
 		}
 	};
@@ -32,7 +43,6 @@
 	const hidePane = () => {
 		show = false;
 		searchText = '';
-		results = [];
 	};
 
 	const getBookUrl = (pokemonId: string) => {
@@ -43,27 +53,32 @@
 </script>
 
 <button id="dex-search" class="search-button" on:click={showPane}>
-	<img src="/dex-search.svg" alt="Search" />
+	<img class="search-icon" src="/dex-search.svg" alt="Search" />
 </button>
 
-<section id="dex-pan" class:show use:useDismiss on:dismiss={hidePane}>
+<aside id="dex-pan" class:show use:useDismiss on:dismiss={hidePane}>
 	<header id="pan-header">
 		<div id="header-search">
-			<input type="search" class="search-input" bind:value={searchText} on:keyup={searchValue} />
+			<input type="search" class="search-input" bind:value={searchText} on:keyup={debounce} />
 			<img class="search-icon" src="/dex-search.svg" alt="logo" />
 		</div>
 	</header>
-	<section id="pan-results">
-		{#each results as pokemon}
-			<a href={getBookUrl(`${pokemon.id}`)} on:click={showPane}>
-				<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} landscape />
-			</a>
-		{/each}
-		{#if results?.length === 0}
-			<pre>No result</pre>
-		{/if}
-	</section>
-</section>
+	<output id="pan-results">
+		{#await results}
+			<div></div>
+		{:then pokemonList}
+			{#if !pokemonList || pokemonList?.length === 0}
+				<pre>No result</pre>
+			{:else}
+				{#each pokemonList as pokemon}
+					<a href={getBookUrl(`${pokemon.id}`)} on:click={showPane}>
+						<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} landscape />
+					</a>
+				{/each}
+			{/if}
+		{/await}
+	</output>
+</aside>
 
 <style>
 	.search-button {
@@ -74,78 +89,62 @@
 		cursor: pointer;
 	}
 
-	.search-button img {
-		inline-size: 70%;
-	}
-
 	#dex-pan {
 		display: grid;
-		grid-template:
-			'header' 10svh
-			'results' 90svh / 100%;
+		grid-template: 'header' 10svh 'results' 90svh / 100%;
+
 		position: fixed;
 		top: 0;
-		height: 100%;
 		width: 40svw;
 		right: -40svw;
 		background-color: var(--background-color);
 		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 		padding-inline: 2em;
 		z-index: 2;
-	}
-
-	#dex-pan:not(.show) {
 		transition: all 0.2s ease-out;
-		box-shadow: none;
-	}
 
-	#dex-pan.show {
-		transform: translateX(-100%);
-		transition: all 0.2s ease-out;
-		box-shadow: 0 -5px 5px 5px var(--background-alt-color);
+		&:not(.show) {
+			box-shadow: none;
+		}
+
+		&.show {
+			transform: translateX(-100%);
+			box-shadow: 0 -5px 5px 5px var(--background-alt-color);
+		}
 	}
 
 	#pan-header {
-		display: grid;
-		align-items: center;
+		grid-area: header;
+
+		display: flex;
 		justify-content: center;
-		gap: var(--small-gap);
+		align-items: center;
 	}
 
 	#pan-header > #header-search {
 		display: grid;
-		grid-template: 1fr / 1fr;
-		place-items: flex-end;
-		grid-area: search-input;
-	}
-
-	#pan-header > #header-search .search-input {
-		grid-column: 1;
-		grid-row: 1;
-		font-size: 2em;
-		border-radius: var(--border-r-100);
-		border: none;
-		background-color: var(--text-color);
-		color: var(--background-color);
-		padding: 0 1.5em 0 1em;
+		justify-items: flex-end;
 		width: 100%;
 	}
 
-	#pan-header > #header-search .search-icon {
-		grid-column: 1;
-		grid-row: 1;
-		margin-right: 1em;
+	#pan-header > #header-search .search-input {
+		grid-area: 1 / 1;
+		border: none;
+		border-radius: var(--border-r-100);
+		background-color: var(--text-color);
+		color: var(--background-color);
+		padding-inline: 1.5em;
+		width: 100%;
+	}
+
+	#pan-header > #header-search .search-icon,
+	.search-button > .search-icon {
 		transform: scale(0.85);
 	}
 
-	#pan-header > .search-filters {
-		grid-area: filters;
-		margin: auto;
-	}
-
-	#pan-header > .search-close {
-		grid-area: close;
-		margin: auto;
+	#pan-header > #header-search .search-icon {
+		grid-area: 1 / 1;
+		margin-right: 1em;
 	}
 
 	#pan-results {
@@ -158,7 +157,7 @@
 	@media (max-width: 640px) {
 		#dex-pan {
 			width: 100svw;
-			right: -100%;
+			right: -100svw;
 		}
 	}
 </style>
