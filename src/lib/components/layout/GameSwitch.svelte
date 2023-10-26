@@ -17,10 +17,17 @@
 	$: versionsOfSelectGen = selectGen.versionsGroup;
 
 	const updateGenOnPokemonChange = (generations: Generation[] = []) => {
-		selectGen = generations[0];
-		selectGroup = selectGen.versionsGroup[0];
-		generation.set(selectGen);
-		version.set(selectGroup.name);
+		if (
+			!$generation ||
+			!selectGen ||
+			!selectGroup ||
+			!generations.find((g) => g.id === $generation.id)
+		) {
+			selectGen = generations[0];
+			selectGroup = selectGen.versionsGroup[0];
+			generation.set(selectGen);
+			version.set(selectGroup.name);
+		}
 	};
 
 	const onGenerationUpdate = () => {
