@@ -13,14 +13,14 @@
 	import { generation } from '$lib/store/generation';
 
 	import Book from '$lib/components/common/Book.svelte';
-	import { device } from '$lib/store/device';
+	import { deviceWidth } from '$lib/store/device';
 
 	export let data: PageServerData;
 
 	let target: Element;
 	let observer: IntersectionObserver;
 
-	$: interval = $device === 'desktop' ? 10 : $device === 'tablet' ? 5 : 3;
+	$: interval = Math.ceil($deviceWidth / 150);
 
 	$: leftBoundary = $generation?.boundaries.from;
 	$: rightBoundary = $generation?.boundaries.to;
@@ -34,13 +34,12 @@
 			const { intersectionRatio, target } = entries[0];
 			if (intersectionRatio > 0) {
 				observer.unobserve(target);
-				const currentTo = parseInt($page.url.searchParams.get('to'));
-				if (currentTo < rightBoundary) {
+				const currentTo = parseInt($page.url.searchParams.get('to') ?? '0');
+				if (currentTo + interval <= rightBoundary) {
 					const nextTo = Math.min(parseInt(currentTo) + interval, rightBoundary + interval);
 					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
-				} else if (currentTo > rightBoundary) {
-					const nextTo = leftBoundary + 42;
-					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
+				} else {
+					await goto(`/pokedex?from=${leftBoundary}&to=${rightBoundary}`);
 				}
 			}
 		});
