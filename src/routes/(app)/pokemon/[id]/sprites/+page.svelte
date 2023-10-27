@@ -212,4 +212,14 @@
 	#data-sprites > #sprites > #sprites-pictures > :is(#pictures-forms, #pictures-gallery-version) {
 		border-bottom: 1px solid var(--background-alt-color);
 	}
+
+	@media (max-width: 640px) {
+		#data-sprites {
+			padding: 0;
+		}
+
+		#data-sprites > #sprites {
+			border-radius: 0;
+		}
+	}
 </style>

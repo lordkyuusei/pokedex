@@ -9,6 +9,7 @@
 
 	import type { SearchOption, SortOption } from '$lib/types/moves';
 	import type { PageData } from './$types';
+	import { device } from '$lib/store/device';
 
 	export let data: PageData;
 
@@ -36,24 +37,13 @@
 		level: (move) => (move === 0 ? 'Départ' : move),
 		name: (move) => move[$lang],
 		type: (move) =>
-			`<img src="/icons/${move.name}.png" alt="${move.name}" title="${move.name}"></img>`,
-		accuracy: (move: string | undefined) => move ?? '---',
+			`<img style="inline-size: 50%;" src="/icons/${move.name}.png" alt="${move.name}" title="${move.name}"></img>`,
 		power: (move: string | undefined) => move ?? '---',
+		accuracy: (move: string | undefined) => move ?? '---',
 		pp: (move: string) => move,
 		category: (move: string) => move,
 		damageClass: (move: string) =>
-			`<img src="/icons/${move}.png" alt="${move}" title="${move}"></img>`
-	};
-
-	const mapPropToOutput = {
-		level: (move) => (move === 0 ? 'Départ' : move),
-		name: (move) => move[$lang],
-		type: (move) => move.name,
-		accuracy: (move) => move ?? '---',
-		power: (move) => move ?? '---',
-		pp: (move) => move,
-		category: (move) => move,
-		damageClass: (move) => move
+			`<img style="inline-size: 50%;" src="/icons/${move}.png" alt="${move}" title="${move}"></img>`
 	};
 </script>
 
@@ -127,138 +117,132 @@
 		padding: 2em;
 		height: 100%;
 		overflow-y: auto;
-	}
 
-	#data-moves > #moves {
-		display: grid;
-		grid-template:
-			'moves-options' 1fr
-			'moves-table' 10fr / 100%;
+		& > #moves {
+			display: grid;
+			grid-template:
+				'moves-options' 1fr
+				'moves-table' 10fr / 100%;
 
-		height: 100%;
-		width: 100%;
-		border-radius: var(--border-r-200);
-		overflow-y: auto;
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 5px var(--background-secondary);
-	}
+			height: calc(100% - 10svh);
+			width: 100%;
+			border-radius: var(--border-r-200);
+			overflow-y: auto;
+			background-color: var(--background-color);
+			box-shadow: 0 0 10px 5px var(--background-secondary);
 
-	#data-moves > #moves > #moves-options {
-		display: flex;
-		gap: var(--normal-gap);
-		padding: 0.5em 1em;
-		border-bottom: 1px solid var(--background-accent);
-	}
+			& > #moves-options {
+				display: flex;
+				justify-content: start;
+				gap: var(--normal-gap);
+				padding: 0.5em 1em;
+				border-bottom: 1px solid var(--background-accent);
 
-	#data-moves > #moves > #moves-options > #options-search-group {
-		display: grid;
-		grid-template: 1fr / 1fr;
-		align-items: center;
-		justify-items: flex-end;
-	}
+				& > #options-search-group {
+					display: grid;
+					grid-template: 1fr / 1fr;
+					align-items: center;
+					justify-items: flex-end;
 
-	#data-moves > #moves > #moves-options > #options-search-group #options-search {
-		grid-column: 1;
-		grid-row: 1;
-		font-size: 2em;
-		border-radius: var(--border-r-100);
-		border: none;
-		background-color: var(--text-color);
-		color: var(--background-color);
-		padding: 0 1.5em 0 1em;
-		height: 100%;
-	}
+					& > :is(#options-search, .search-icon) {
+						grid-area: 1/1;
+					}
 
-	#data-moves > #moves > #moves-options > #options-search-group .search-icon {
-		grid-column: 1;
-		grid-row: 1;
-		margin-right: 1em;
-	}
+					& > #options-search {
+						border-radius: var(--border-r-100);
+						border: none;
+						background-color: var(--text-color);
+						color: var(--background-color);
+						padding: 0 1.5em 0 1em;
+						height: 100%;
+					}
 
-	#data-moves > #moves > #moves-options > #options-select {
-		cursor: pointer;
-		padding: 1em 1.5em;
-		border: none;
-		text-transform: uppercase;
-		text-align: center;
-		border-radius: var(--border-r-100);
-		border: none;
-	}
+					& > .search-icon {
+						margin-right: 1em;
+					}
+				}
 
-	#data-moves > #moves > #moves-options > #options-select:focus {
-		outline: none;
-	}
+				& > #options-select {
+					cursor: pointer;
+					padding: 1em 1.5em;
+					border: none;
+					text-transform: uppercase;
+					text-align: center;
+					border-radius: var(--border-r-100);
+					border: none;
 
-	#data-moves > #moves > #moves-options > #options-select,
-	#data-moves > #moves > #moves-options > #options-select option {
-		background: var(--text-color);
-		color: var(--background-color);
-	}
+					&:focus {
+						outline: none;
+					}
 
-	#data-moves > #moves > #moves-table {
-		width: 100%;
-		overflow-y: auto;
-	}
+					&,
+					& option {
+						background: var(--text-color);
+						color: var(--background-color);
+					}
+				}
+			}
 
-	#data-moves > #moves > #moves-table > #table {
-		width: 100%;
-		overflow-y: auto;
-		border-collapse: collapse;
-		table-layout: fixed;
-		transition: all 0.2s ease-in-out;
-	}
+			& > #moves-table {
+				width: 100%;
+				overflow-y: auto;
 
-	#data-moves > #moves > #moves-table > #table > #table-head th {
-		cursor: pointer;
-		color: var(--primary-color);
-		border: none;
-		border-bottom: 1px solid var(--background-accent);
-		background-color: var(--background-alt-color);
-		padding: 0.5em;
-		font-weight: bolder;
-		text-transform: capitalize;
-		transition: all 0.2s ease-in-out;
-		width: 100%;
-	}
+				& > #table {
+					width: 100%;
+					overflow-y: auto;
+					border-collapse: collapse;
+					table-layout: fixed;
+					transition: all 0.2s ease-in-out;
 
-	#data-moves > #moves > #moves-table > #table > #table-head th:hover {
-		border-color: var(--primary-color);
-	}
+					& > #table-head {
+						position: sticky;
+						top: 0;
 
-	#data-moves > #moves > #moves-table > #table > #table-body .loading {
-		height: 4em;
-		animation: loading 1s ease-in-out infinite alternate;
-	}
+						& th {
+							cursor: pointer;
+							color: var(--primary-color);
+							border: none;
+							border-bottom: 1px solid var(--background-accent);
+							background-color: var(--background-alt-color);
+							padding: 0.5em;
+							font-weight: bolder;
+							text-transform: capitalize;
+							transition: all 0.2s ease-in-out;
+							width: 100%;
 
-	#data-moves > #moves > #moves-table > #table > #table-body tr:nth-child(2n) {
-		background-color: var(--background-color);
-	}
+							&:hover {
+								border-color: var(--primary-color);
+							}
+						}
+					}
 
-	#data-moves > #moves > #moves-table > #table > #table-body tr:nth-child(2n + 1) {
-		background-color: var(--background-accent);
-	}
+					& > #table-body {
+						& > .loading {
+							height: 4em;
+							animation: loading 1s ease-in-out infinite alternate;
+						}
 
-	#data-moves > #moves > #moves-table > #table td[id^='move-'] {
-		text-align: center;
-		padding: 1em;
-	}
+						& > tr:has(td[id^='move-']:not([id$='-description'])) {
+							cursor: pointer;
+						}
 
-	#data-moves > #moves > #moves-table > #table tr:has(td[id^='move-']:not([id$='-description'])) {
-		cursor: pointer;
-	}
+						& > tr:has(td[id$='-description']) {
+							border: 1px solid var(--primary-color);
+						}
 
-	#data-moves > #moves > #moves-table > #table tr:has(td[id$='-description']) {
-		border: 1px solid var(--primary-color);
-	}
+						& > tr:has(td[id^='move-']:not([id$='-description'])):hover > td {
+							background-color: var(--background-alt-color);
+							transition: all 0.05s ease-in-out;
+						}
 
-	#data-moves
-		> #moves
-		> #moves-table
-		> #table
-		tr:has(td[id^='move-']:not([id$='-description'])):hover
-		> td {
-		background-color: var(--background-alt-color);
-		transition: all 0.05s ease-in-out;
+						& td[id^='move-'] {
+							text-align: center;
+							padding: 1em;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@keyframes loading {
@@ -268,6 +252,20 @@
 
 		100% {
 			filter: contrast(1.5);
+		}
+	}
+
+	@media (max-width: 640px) {
+		#data-moves {
+			padding: 0;
+		}
+
+		#data-moves > #moves {
+			border-radius: 0;
+		}
+
+		table :is(td, th):nth-child(n + 5) {
+			display: none;
 		}
 	}
 </style>

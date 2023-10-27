@@ -14,4 +14,14 @@
 		padding: 2em;
 		height: 100%;
 	}
+
+	@media (max-width: 640px) {
+		#data-evolution {
+			padding: 0;
+		}
+
+		#data-evolution > #evolution {
+			border-radius: 0;
+		}
+	}
 </style>

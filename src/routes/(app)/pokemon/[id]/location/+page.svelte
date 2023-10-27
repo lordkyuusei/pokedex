@@ -126,4 +126,14 @@
 			}
 		}
 	}
+
+	@media (max-width: 640px) {
+		#data-location {
+			padding: 0;
+		}
+
+		#data-location > #location {
+			border-radius: 0;
+		}
+	}
 </style>
