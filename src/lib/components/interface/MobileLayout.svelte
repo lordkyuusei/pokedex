@@ -118,24 +118,22 @@
 				z-index: -1;
 				content: '';
 				position: absolute;
-				left: 50%;
-				aspect-ratio: 1;
+				width: 100%;
 				border: 2px solid gold;
 				border-top-left-radius: 50%;
 				border-top-right-radius: 50%;
 				border-bottom: 0;
-				transform: translateX(-50%);
 				background-color: transparent;
 			}
 
 			&::before {
-				height: 120%;
-				bottom: -46%;
+				height: 70%;
+				bottom: 3%;
 			}
 
 			&::after {
-				height: 105%;
-				bottom: -64%;
+				height: 70%;
+				bottom: -28%;
 			}
 
 			& > :is(#menu-customization, #menu-features) {

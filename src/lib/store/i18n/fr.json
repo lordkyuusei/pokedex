@@ -1,4 +1,12 @@
 {
+    "home.welcome": "Bienvenue !",
+    "home.speech1": "« Mon devoir en tant que développeur est d'entraîner mes compétences. En les améliorant, j'ai pu créer des fonctionnalités surpuissantes ! J'ai ainsi créé le Dex Ultime, efficace dans toutes les situations !",
+    "home.speech2": "Ca t'épate, hein ? Je suis le meilleur ! Ecoute ça, minable ! Je suis le Pokédex le plus puissant du monde !'»",
+    "home.speech3": "- Blue, probablement",
+    "home.desktop": "Utilisez le menu de gauche ou la recherche en haut à droite pour naviguer à travers les fonctionnalités.",
+    "home.tablet": "???",
+    "home.mobile": "Utilisez le menu du bas pour naviguer à travers les fonctionnalités.",
+    "home.features": "En affichant un Pokémon, une capacité, un talent, vous pouvez obtenir des résultats plus précis en sélectionnant la génération et le jeu qui vous intéresse.",
     "menu.pokedex": "Pokédex",
     "menu.moves": "Capacités",
     "menu.abilities": "Talents",
