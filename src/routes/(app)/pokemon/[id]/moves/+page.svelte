@@ -124,7 +124,7 @@
 				'moves-options' 1fr
 				'moves-table' 10fr / 100%;
 
-			height: calc(100% - 10svh);
+			height: 100%;
 			width: 100%;
 			border-radius: var(--border-r-200);
 			overflow-y: auto;
@@ -262,6 +262,7 @@
 
 		#data-moves > #moves {
 			border-radius: 0;
+			height: calc(100% - 10svh);
 		}
 
 		table :is(td, th):nth-child(n + 5) {
