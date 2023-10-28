@@ -7,11 +7,18 @@
     "home.tablet": "???",
     "home.mobile": "Utilisez le menu du bas pour naviguer à travers les fonctionnalités.",
     "home.features": "En affichant un Pokémon, une capacité, un talent, vous pouvez obtenir des résultats plus précis en sélectionnant la génération et le jeu qui vous intéresse.",
+    "pokemon.type.weaknesses": "Faiblesses",
+    "pokemon.type.resistances": "Résistances",
+    "pokemon.type.double-resistances": "Double résistances",
+    "pokemon.type.immunities": "Immunités",
+    "pokemon.type.super-effective": "Super efficace",
+    "pokemon.type.not-super-effective": "Pas très efficace",
+    "pokemon.type.no-effect": "Sans effet",
     "menu.pokedex": "Pokédex",
     "menu.moves": "Capacités",
     "menu.abilities": "Talents",
     "menu.items": "Objets",
     "moves.title-all": "Liste des capacités toutes générations confondues",
     "moves.title": "Liste des capacités disponibles depuis la génération",
-    "scores.no-desc": "Ce Pokémon n'a pas d'entrée Pokédex pour les jeux "
+    "scores.no-desc": "(Pas d'entrée pokédex disponible pour le Pokémon et le jeu sélectionnés.)"
 }

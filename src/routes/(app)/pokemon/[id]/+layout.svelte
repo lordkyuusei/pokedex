@@ -172,7 +172,7 @@
 		list-style: none;
 		background-color: var(--text-color);
 		border-radius: var(--border-r-200);
-		transition: transform 0.2s ease-out;
+		transition: transform var(--transition-duration) var(--transition);
 	}
 
 	#data-navigation menu li a {
@@ -212,13 +212,19 @@
 
 		#pokemon-data {
 			height: 100%;
-			grid-template: 'navigation' auto 'main' 100% / 100%;
+			grid-template: 'navigation' 10% 'main' 90% / 100%;
+		}
+
+		#data-navigation {
+			height: 100%;
 		}
 
 		#data-navigation > menu {
 			color: var(--text-color);
 			background-color: var(--background-accent);
 			grid-template: 1fr / repeat(5, 1fr);
+			place-items: center;
+			height: 100%;
 		}
 
 		#data-navigation > menu > li {
@@ -250,7 +256,7 @@
 
 		#data-navigation > menu > li.selected {
 			width: 8em;
-			transition: all 0.2s ease-out;
+			transition: all var(--transition-duration) var(--transition);
 			border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 			position: relative;
 		}

@@ -1,15 +1,10 @@
 <script lang="ts">
 	import _ from '$lib/store/i18n';
+	import type { Route } from '$lib/types/meta';
 	import GameSwitch from '../layout/GameSwitch.svelte';
 	import LangSwitch from '../layout/LangSwitch.svelte';
 	import Search from '../layout/Search.svelte';
 	import ThemeSwitch from '../layout/ThemeSwitch.svelte';
-
-	type Route = {
-		id: string;
-		alt_id: string;
-		name: string;
-	};
 
 	export let routes: Route[];
 	export let generationsList: any[];
@@ -20,7 +15,7 @@
 </script>
 
 <main id="dex-layout">
-	<section class:opaque={show}>
+	<section id="layout-content" class:opaque={show}>
 		<GameSwitch {generationsList}></GameSwitch>
 		<slot />
 	</section>
@@ -52,6 +47,10 @@
 
 <style>
 	@media (max-width: 640px) {
+		::-webkit-scrollbar {
+			display: none;
+		}
+
 		:global(#generations) {
 			margin: 1rem 0.5rem;
 		}
@@ -67,7 +66,7 @@
 
 	#dex-layout {
 		display: grid;
-		grid-template: 90svh 10svh / 100svw;
+		grid-template: 95svh 5svh / 100svw;
 		background-color: var(--background-color);
 		color: var(--text-color);
 		transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -76,9 +75,13 @@
 			background-color: var(--background-alt-color);
 		}
 
-		& > .opaque {
-			filter: brightness(0.5);
-			pointer-events: none;
+		& > #layout-content {
+			display: grid;
+			grid-template: 10% 90% / 100%;
+			&.opaque {
+				filter: brightness(0.5);
+				pointer-events: none;
+			}
 		}
 
 		& > #layout-menu {
@@ -188,14 +191,14 @@
 
 		& > #layout-action {
 			display: grid;
-			grid-template: 100% / 100%;
+			grid-template: 1% 99% / 100%;
 			place-items: center;
 			z-index: 2;
 
 			& > .layout-line,
 			& > #layout-button {
 				grid-area: 1/1;
-				transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+				transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
 			}
 
 			& > .layout-line {

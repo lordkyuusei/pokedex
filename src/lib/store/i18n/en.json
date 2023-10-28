@@ -7,11 +7,18 @@
     "home.tablet": "???",
     "home.mobile": "Use the bottom-side circle menu to go through all the features.",
     "home.features": "You can get more accurate results while searching for a Pokémon, move, ability by choosing the right generation/game couple.",
+    "pokemon.type.weaknesses": "Weaknesses",
+    "pokemon.type.resistances": "Resistances",
+    "pokemon.type.double-resistances": "Double resistances",
+    "pokemon.type.immunities": "Immunities",
+    "pokemon.type.super-effective": "Super effective",
+    "pokemon.type.not-super-effective": "Not so effective",
+    "pokemon.type.no-effect": "No effect",
     "menu.pokedex": "Pokédex",
     "menu.moves": "Moves",
     "menu.abilities": "Abilities",
     "menu.items": "Items",
     "moves.title-all": "List of moves all genererations mixed up",
     "moves.title": "List of moves since generation",
-    "scores.no-desc": "This Pokémon has no Pokédex entry for game "
+    "scores.no-desc": "(No Pokédex entry available for chosen game & Pokémon.)"
 }

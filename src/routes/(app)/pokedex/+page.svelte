@@ -73,8 +73,7 @@
 		align-items: flex-end;
 		width: 100%;
 		height: 100%;
-		padding-block: 1em;
-		padding-inline: 4em;
+		padding: 1em 1.5rem;
 
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;

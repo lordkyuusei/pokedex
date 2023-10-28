@@ -192,7 +192,7 @@
 					overflow-y: auto;
 					border-collapse: collapse;
 					table-layout: fixed;
-					transition: all 0.2s ease-in-out;
+					transition: all var(--transition-duration) var(--transition);
 
 					& > #table-head {
 						position: sticky;
@@ -207,7 +207,7 @@
 							padding: 0.5em;
 							font-weight: bolder;
 							text-transform: capitalize;
-							transition: all 0.2s ease-in-out;
+							transition: all var(--transition-duration) var(--transition);
 							width: 100%;
 
 							&:hover {
@@ -219,7 +219,7 @@
 					& > #table-body {
 						& > .loading {
 							height: 4em;
-							animation: loading 1s ease-in-out infinite alternate;
+							animation: loading 1s var(--transition) infinite alternate;
 						}
 
 						& > tr:has(td[id^='move-']:not([id$='-description'])) {
@@ -232,7 +232,7 @@
 
 						& > tr:has(td[id^='move-']:not([id$='-description'])):hover > td {
 							background-color: var(--background-alt-color);
-							transition: all 0.05s ease-in-out;
+							transition: all 0.05s var(--transition);
 						}
 
 						& td[id^='move-'] {
@@ -262,7 +262,7 @@
 
 		#data-moves > #moves {
 			border-radius: 0;
-			height: calc(100% - 10svh);
+			height: 100%;
 		}
 
 		table :is(td, th):nth-child(n + 5) {

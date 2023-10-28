@@ -50,7 +50,7 @@
 			steps={data.specie.hatch_counter}
 			egg={data.specie.egg_groups.map((egg) => egg.name)}
 			gender={data.specie.gender_rate}
-			description={description?.flavor_text ?? $_('scores.no-desc') + $version}
+			description={description?.flavor_text}
 		/>
 		<Abilities abilities={data.abilities} />
 	{:else}
@@ -66,7 +66,7 @@
 					steps={data.specie.hatch_counter}
 					egg={data.specie.egg_groups.map((egg) => egg.name)}
 					gender={data.specie.gender_rate}
-					description={description?.flavor_text ?? $_('scores.no-desc') + $version}
+					description={description?.flavor_text}
 				/>
 				<Abilities abilities={data.abilities} />
 			</div>

@@ -167,4 +167,13 @@
 		place-items: center;
 		width: 100%;
 	}
+
+	@media (max-width: 640px) {
+		[id^='evolution'] {
+			grid-auto-flow: row;
+			grid-auto-rows: minmax(1em, 1fr);
+
+			border-radius: 0;
+		}
+	}
 </style>

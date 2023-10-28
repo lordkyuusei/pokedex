@@ -207,6 +207,7 @@
 		aspect-ratio: 1 / 1;
 		border: 1px solid var(--text-color);
 		border-radius: var(--border-r-100);
+		image-rendering: pixelated;
 	}
 
 	#data-sprites > #sprites > #sprites-pictures > :is(#pictures-forms, #pictures-gallery-version) {

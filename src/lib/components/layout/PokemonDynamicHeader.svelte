@@ -48,6 +48,7 @@
 		display: flex;
 		align-items: center;
 		gap: var(--small-gap);
+		padding-inline: 1rem;
 	}
 
 	.header-name {
