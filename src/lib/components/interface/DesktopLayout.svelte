@@ -1,21 +1,25 @@
 <script lang="ts">
-	import GameSwitch from '../layout/GameSwitch.svelte';
-	import LangSwitch from '../layout/LangSwitch.svelte';
-	import PokemonDynamicHeader from '../layout/PokemonDynamicHeader.svelte';
-	import Search from '../layout/Search.svelte';
-	import ThemeSwitch from '../layout/ThemeSwitch.svelte';
 	import _ from '$lib/store/i18n';
+	import type { Route } from '$lib/types/meta';
 
-	type Route = {
-		id: string;
-		alt_id: string;
-		name: string;
-	};
+	import GameSwitch from '$lib/components/layout/GameSwitch.svelte';
+	import LangSwitch from '$lib/components/layout/LangSwitch.svelte';
+	import PokemonDynamicHeader from '$lib/components/layout/PokemonDynamicHeader.svelte';
+	import Search from '$lib/components/layout/Search.svelte';
+	import ThemeSwitch from '$lib/components/layout/ThemeSwitch.svelte';
 
 	export let routes: Route[];
 	export let routeId: string | null = '';
 	export let isDev: boolean;
 	export let generationsList: any[];
+
+	const controlIfSelected = (routeId: string | null, route: Route) => {
+		if (!routeId) return false;
+
+		const [_, group, path, ...rest] = routeId.split('/');
+		console.log(path, route.id, route.alt_id);
+		return path.includes(route.id) || path.includes(route.alt_id);
+	};
 </script>
 
 <section id="dex-layout">
@@ -26,7 +30,7 @@
 		<nav id="navigation-links">
 			<menu class="links-texts">
 				{#each routes as route (route.id)}
-					<li class:selected={routeId?.startsWith(route.id) || routeId?.startsWith(route.alt_id)}>
+					<li class:selected={controlIfSelected(routeId, route)}>
 						<a href={route.id}>{$_(route.name)}</a>
 					</li>
 				{/each}
@@ -45,8 +49,10 @@
 	<main id="dex-main">
 		<header id="main-header">
 			<PokemonDynamicHeader />
-			<GameSwitch {generationsList} />
-			<Search />
+			<span>
+				<GameSwitch {generationsList} />
+				<Search />
+			</span>
 		</header>
 		<section id="main-content">
 			<slot />
@@ -59,120 +65,102 @@
 		display: grid;
 		background-color: var(--background-color);
 		color: var(--text-color);
-		grid-template: 'sidebar main' 100svh / 1fr 5fr;
-	}
+		grid-template: 'sidebar main' 100svh / 150px auto;
 
-	#dex-navigation {
-		grid-area: sidebar;
-		display: grid;
-		grid-template:
-			'sidebar-logo' 1fr
-			'sidebar-links' 1fr
-			'sidebar-settings' 1fr / auto;
+		& > #dex-navigation {
+			grid-area: sidebar;
+			display: grid;
+			grid-template:
+				'sidebar-logo' 10svh
+				'sidebar-links' 80svh
+				'sidebar-settings' 10svh / auto;
 
-		padding-block: 1em;
-	}
+			& > :is(#navigation-logo, #navigation-settings) {
+				display: flex;
+				place-content: center;
+				place-items: center;
+			}
 
-	#dex-navigation > #navigation-logo,
-	#dex-navigation > #navigation-settings {
-		display: flex;
-		place-content: center;
-	}
+			& > #navigation-logo {
+				& > img {
+					inline-size: 75%;
+				}
+			}
 
-	#dex-navigation > #navigation-logo {
-		place-items: start;
-	}
+			& > nav#navigation-links menu[class^='links'] {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				list-style-type: none;
+				padding-inline-start: 0;
 
-	#dex-navigation > #navigation-settings {
-		place-items: end;
-		gap: var(--normal-gap);
-	}
+				& > li {
+					width: 100%;
+					display: grid;
+					align-items: center;
+					place-content: center;
+					border-block: 1px solid var(--background-alt-color);
+					transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
 
-	#dex-navigation > #navigation-logo > img {
-		inline-size: 75%;
-	}
+					&:not(:first-child) {
+						border-top: 0;
+					}
 
-	#dex-navigation > #navigation-links [class^='links'] {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		font-size: 1.75rem;
-		gap: var(--small-gap);
-		list-style-type: none;
-		padding-inline-start: 0;
-	}
+					&.selected {
+						font-weight: bold;
+						background-color: var(--background-alt-color);
+					}
 
-	#dex-navigation > #navigation-links [class^='links'] > li {
-		display: grid;
-		align-items: center;
-		padding: var(--small-gap);
-	}
+					&:not(.selected) {
+						filter: brightness(0.5);
 
-	#dex-navigation > #navigation-links [class^='links'] > li > a {
-		display: block;
-		width: 100%;
-		text-align: end;
-		text-transform: uppercase;
-		letter-spacing: 0.2em;
-	}
+						&:hover {
+							filter: initial;
+							background-color: var(--background-fade-alt-color);
+						}
+					}
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected {
-		position: relative;
-		font-weight: bold;
-		color: var(--primary-color);
-		background-color: var(--background-alt-color);
-		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
-		transition: display 0.3s ease-in-out;
-	}
+					& > a {
+						display: block;
+						width: 100%;
+						text-align: end;
+						text-transform: uppercase;
+						letter-spacing: 0.2em;
+						padding: var(--normal-gap) var(--small-gap);
+					}
+				}
+			}
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected::before,
-	#dex-navigation > #navigation-links [class^='links'] > .selected::after {
-		position: absolute;
-		content: '';
-		right: 0;
-		height: 1em;
-		width: 1em;
-		background-color: var(--background-alt-color);
-	}
+			& > #navigation-settings {
+				gap: var(--normal-gap);
+			}
+		}
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected::before {
-		bottom: 100%;
-		background-image: radial-gradient(
-			farthest-side at 0% 0%,
-			var(--background-color) 100%,
-			var(--background-alt-color)
-		);
-	}
+		& > #dex-main {
+			grid-area: main;
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected::after {
-		top: 100%;
-		background-image: radial-gradient(
-			farthest-side at 0% 100%,
-			var(--background-color) 100%,
-			var(--background-alt-color)
-		);
-	}
+			display: grid;
+			grid-template: 'header' var(--layout-header-size) 'content' var(--layout-content-size) / 100%;
 
-	#dex-main {
-		display: grid;
-		grid-template:
-			'header' var(--layout-header-size)
-			'content' var(--layout-content-size) / 100%;
-		grid-area: main;
-	}
+			& > #main-header {
+				height: 100%;
+				display: flex;
+				gap: var(--normal-gap);
+				justify-content: space-between;
+				align-items: center;
+				padding-inline-end: 1em;
+				border-bottom-right-radius: 1em;
 
-	#dex-main > #main-header {
-		height: 100%;
-		display: flex;
-		gap: var(--normal-gap);
-		justify-content: space-between;
-		align-items: center;
-		padding-inline-end: 1em;
-		border-bottom-right-radius: 1em;
-	}
+				& > span {
+					display: flex;
+					gap: 1rem;
+				}
+			}
 
-	#dex-main > #main-content {
-		border-radius: var(--border-r-100) 0 0 0;
-		background-color: var(--background-alt-color);
+			& > #main-content {
+				border-radius: var(--border-r-100) 0 0 0;
+				background-color: var(--background-alt-color);
+			}
+		}
 	}
 </style>

@@ -9,8 +9,8 @@
 	import TypesRelationship from './TypesRelationship.svelte';
 	import { device } from '$lib/store/device';
 
-	export let sprite: string = '';
 	export let id: number = 0;
+	export let sprite: string = '';
 	export let types: string[] = [];
 
 	$: shinySprite = fetchPokemonShinySpriteURL(id);
@@ -21,8 +21,8 @@
 </script>
 
 <section
-	in:fade={{ delay: 50 }}
 	id="stats-main"
+	in:fade={{ delay: 50 }}
 	class:main={!toggleTypes}
 	style:background={drawBookBackground(types, $device === 'mobile')}
 >
@@ -36,11 +36,11 @@
 	</header>
 	{#if !toggleTypes}
 		<div class="main-image">
-			{#if !toggleShiny}
-				<img src={sprite} alt={sprite} />
-			{:else}
-				<img src={shinySprite} alt={sprite} on:error={(e) => (e.target.src = sprite)} />
-			{/if}
+			<img
+				src={!toggleShiny ? sprite : shinySprite}
+				alt={sprite}
+				on:error={(e) => (e.target.src = sprite)}
+			/>
 		</div>
 		<footer id="main-types">
 			{#each types as type}
@@ -58,9 +58,74 @@
 
 		place-items: center;
 		border-radius: var(--border-r-50) var(--border-r-200) 0 var(--border-r-200);
-		overflow: auto;
+		overflow-y: auto;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 
 		box-shadow: var(--box-shadow);
+
+		&.main {
+			grid-template:
+				'buttons' 8svh
+				'pokemon-sprite' 2fr
+				'typings' 1fr / 100%;
+		}
+
+		&:not(.main) {
+			grid-template:
+				'buttons' 8svh
+				'pokemon-types' auto / 100%;
+
+			padding-block-end: 1rem;
+		}
+
+		& > #main-buttons {
+			grid-area: buttons;
+
+			position: sticky;
+			top: 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-inline: 2em;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0, 0, 0, 0.35);
+			backdrop-filter: blur(2px);
+		}
+
+		& .main-image {
+			position: relative;
+			grid-area: pokemon-sprite;
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: -5%;
+				left: calc(50% - 100%);
+				height: 50%;
+				width: 200%;
+				border-radius: 50%;
+				background-color: rgba(0, 0, 0, 0.2);
+				z-index: 0;
+			}
+
+			& > img {
+				position: relative;
+				transform: scale(1.5) translateY(-0.5em);
+				image-rendering: pixelated;
+				z-index: 1;
+			}
+		}
+
+		& > #main-types {
+			grid-area: typings;
+			display: flex;
+			justify-content: space-between;
+			padding-inline: 3em;
+			gap: var(--normal-gap);
+		}
 	}
 
 	@media (max-width: 640px) {
@@ -68,58 +133,12 @@
 			border-radius: 0;
 			box-shadow: none;
 		}
-	}
 
-	#stats-main.main {
-		grid-template:
-			'buttons' 1fr
-			'pokemon-sprite' 1fr
-			'typings' 1fr / 100%;
-	}
-
-	#stats-main:not(.main) {
-		grid-template:
-			'buttons' 6em
-			'pokemon-types' auto / 100%;
-	}
-
-	#main-buttons {
-		grid-area: buttons;
-		display: flex;
-		justify-content: space-between;
-		padding-inline: 2em;
-		width: 100%;
-	}
-
-	.main-image {
-		position: relative;
-		grid-area: pokemon-sprite;
-	}
-
-	.main-image::after {
-		content: '';
-		position: absolute;
-		bottom: -5%;
-		left: calc(50% - 100%);
-		height: 50%;
-		width: 200%;
-		border-radius: 50%;
-		background-color: rgba(0, 0, 0, 0.2);
-		z-index: 0;
-	}
-
-	.main-image > img {
-		position: relative;
-		transform: scale(1.5) translateY(-0.5em);
-		image-rendering: pixelated;
-		z-index: 1;
-	}
-
-	#main-types {
-		grid-area: typings;
-		display: flex;
-		justify-content: space-between;
-		padding-inline: 3em;
-		gap: var(--normal-gap);
+		.main {
+			grid-template:
+				'buttons' 5svh
+				'pokemon-sprite' 2fr
+				'typings' 1fr / 100% !important;
+		}
 	}
 </style>

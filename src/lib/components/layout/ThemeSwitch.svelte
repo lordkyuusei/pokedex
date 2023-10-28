@@ -69,7 +69,7 @@
 		width: calc(2em - 4px);
 		background-color: var(--background-color);
 		border-radius: var(--border-r-50);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 		z-index: 2;
 		cursor: pointer;
 	}
@@ -78,7 +78,7 @@
 	}
 	.theme-visual > .theme-toggle.toggle-check {
 		transform: translateX(2em);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 	}
 	.theme-visual > .theme-image {
 		position: absolute;
@@ -87,11 +87,11 @@
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
 		background: url('/sun.png') no-repeat center/90%;
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 	}
 	.theme-visual > .theme-image.image-check {
 		background: url('/moon.png') no-repeat center/90%;
 		transform: translateX(-2em);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 	}
 </style>
