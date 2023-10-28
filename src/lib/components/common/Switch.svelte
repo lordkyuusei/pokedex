@@ -75,7 +75,7 @@
 		width: calc(2em - 4px);
 		background-color: var(--background-accent);
 		border-radius: var(--border-r-50);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 		z-index: 2;
 		cursor: pointer;
 	}
@@ -90,7 +90,7 @@
 
 	.label > .toggle-visual > .toggle-block.toggle-check {
 		transform: translateX(2em);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 	}
 
 	.label > .toggle-visual > .toggle-image {
@@ -99,13 +99,13 @@
 		right: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 		filter: brightness(0.3) grayscale(1);
 	}
 
 	.label > .toggle-visual > .toggle-image.image-check {
 		transform: translateX(-2em);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 		filter: none;
 	}
 </style>

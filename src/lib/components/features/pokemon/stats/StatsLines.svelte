@@ -125,12 +125,12 @@
 	}
 
 	#statistics-stats meter::-webkit-meter-bar {
-		transition: all 0.2s ease-in-out;
+		transition: all var(--transition-duration) var(--transition);
 		border-radius: 0px var(--border-r-100) var(--border-r-100) 0;
 	}
 
 	#statistics-stats meter::-webkit-meter-optimum-value {
-		transition: all 0.2s ease-in-out;
+		transition: all var(--transition-duration) var(--transition);
 	}
 
 	#statistics-scale,

@@ -58,10 +58,10 @@
 
 <aside id="dex-pan" class:show use:useDismiss on:dismiss={hidePane}>
 	<header id="pan-header">
-		<div id="header-search">
+		<search id="header-search">
 			<input type="search" class="search-input" bind:value={searchText} on:keyup={debounce} />
 			<img class="search-icon" src="/dex-search.svg" alt="logo" />
-		</div>
+		</search>
 	</header>
 	<output id="pan-results">
 		{#await results}
@@ -101,7 +101,7 @@
 		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 		padding-inline: 2em;
 		z-index: 2;
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition);
 
 		&:not(.show) {
 			box-shadow: none;

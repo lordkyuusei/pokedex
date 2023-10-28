@@ -31,12 +31,12 @@
 
 		border-radius: var(--border-r-50) var(--border-r-50) 0 0;
 		padding-block: 0.5em;
-		transition: transform 0.2s ease-in-out;
+		transition: transform var(--transition-duration) var(--transition);
 		cursor: pointer;
 	}
 
 	[id^='book']:hover {
-		animation: float 0.2s ease-in-out infinite alternate;
+		animation: float var(--transition-duration) var(--transition) infinite alternate;
 	}
 
 	[id^='book'] .book-picture {

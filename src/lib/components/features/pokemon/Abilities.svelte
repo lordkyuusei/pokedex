@@ -66,7 +66,7 @@
 		font-size: x-large;
 		cursor: pointer;
 
-		transition: padding 0.2s ease-in-out;
+		transition: padding var(--transition-duration) var(--transition);
 	}
 
 	[id^='ability']:hover {
@@ -92,7 +92,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		transition: padding 0.2s ease-in-out;
+		transition: padding var(--transition-duration) var(--transition);
 	}
 
 	.chosen > section {
