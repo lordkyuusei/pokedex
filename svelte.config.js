@@ -13,6 +13,12 @@ const config = {
 				// otherwise fail the build
 				throw new Error(message);
 			}
+		},
+		serviceWorker: {
+			register: false,
+		},
+		files: {
+			serviceWorker: 'src/service-worker.ts'
 		}
 	}
 };

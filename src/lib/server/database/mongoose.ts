@@ -1,6 +1,12 @@
 import { env } from "$env/dynamic/private";
-import mongoose from "mongoose"
+import mongoose, { STATES } from "mongoose"
 
-const mongoose$ = await mongoose.connect(env["CONNECTION_STRING"])
+let mongooseDb: typeof mongoose;
 
-export default mongoose$;
+if (mongoose.connection.readyState === STATES.disconnected) {
+    mongooseDb = await mongoose.connect(env["CONNECTION_STRING"])
+} else {
+    mongooseDb = mongoose;
+}
+
+export default mongooseDb;

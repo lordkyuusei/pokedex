@@ -96,7 +96,7 @@ const lightabilitiesSchema = new Schema<Ability>({
     }
 })
 
-export const lightkedex = db.model('lightkedex', lightkemonSchema);
-export const lightmoves = db.model('lightmoves', lightmovesSchema);
-export const lightgenerations = db.model('lightgenerations', lightgenerationsSchema);
-export const lightabilities = db.model('lightabilities', lightabilitiesSchema);
+export const lightkedex = db.models.lightkedex || db.model('lightkedex', lightkemonSchema);
+export const lightmoves = db.models.lightmoves || db.model('lightmoves', lightmovesSchema);
+export const lightgenerations = db.models.lightgenerations || db.model('lightgenerations', lightgenerationsSchema);
+export const lightabilities = db.models.lightabilities || db.model('lightabilities', lightabilitiesSchema);

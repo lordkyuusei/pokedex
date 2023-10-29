@@ -7,7 +7,7 @@ import type { PokemonMove } from "$lib/types/pokeapi/move";
 import type { Pokemon } from "$lib/types/pokeapi/pokemon";
 import type { PokemonSpecie } from "$lib/types/pokeapi/specie";
 
-const fetchPokeApi = async <T>(url: string, svelteFetch: any = null): Promise<T> => {
+const fetchPokeApi = async <T>(url: string, svelteFetch: any = null): Promise<T | undefined> => {
     const func = svelteFetch ?? fetch;
 
     try {
@@ -19,27 +19,27 @@ const fetchPokeApi = async <T>(url: string, svelteFetch: any = null): Promise<T>
             console.error("error", response.status, response.statusText);
         }
     } catch (e) {
-        console.error(e)
+        console.error(e);
     }
 }
 
-export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvolution> =>
+export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvolution | undefined> =>
     await fetchPokeApi<PokemonEvolution>(`${POKEAPI_ENDPOINT}/evolution-chain/${id}`);
 
-export const fetchPokemonMove = async (id: string, svelteFetch: any = null): Promise<PokemonMove> =>
+export const fetchPokemonMove = async (id: string, svelteFetch: any = null): Promise<PokemonMove | undefined> =>
     await fetchPokeApi(`${POKEAPI_ENDPOINT}/move/${id}`, svelteFetch);
 
-export const fetchPokemonAbility = async (nameOrId: string): Promise<PokemonAbility> =>
+export const fetchPokemonAbility = async (nameOrId: string): Promise<PokemonAbility | undefined> =>
     await fetchPokeApi(`${POKEAPI_ENDPOINT}/ability/${nameOrId}`);
 
-export const fetchPokemonSpecieByName = async (specieName: string): Promise<PokemonSpecie> =>
+export const fetchPokemonSpecieByName = async (specieName: string): Promise<PokemonSpecie | undefined> =>
     await fetchPokeApi(`${POKEAPI_ENDPOINT}/pokemon-species/${specieName}`);
 
-export const fetchPokemonById = async (id: number): Promise<Pokemon> =>
+export const fetchPokemonById = async (id: number): Promise<Pokemon | undefined> =>
     await fetchPokeApi(`${POKEAPI_ENDPOINT}/pokemon/${id}`);
 
-export const fetchPokemonLocation = async (id: number): Promise<PokemonLocation> =>
+export const fetchPokemonLocation = async (id: number): Promise<PokemonLocation | undefined> =>
     await fetchPokeApi(`${POKEAPI_ENDPOINT}/location/${id}`);
 
-export const fetchPokemonLocationArea = async (id: number): Promise<PokemonLocationArea[]> =>
+export const fetchPokemonLocationArea = async (id: number): Promise<PokemonLocationArea[] | undefined> =>
     await fetchPokeApi(`${POKEAPI_ENDPOINT}/pokemon/${id}/encounters`);
