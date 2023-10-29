@@ -16,8 +16,7 @@
 	const controlIfSelected = (routeId: string | null, route: Route) => {
 		if (!routeId) return false;
 
-		const [_, group, path, ...rest] = routeId.split('/');
-		console.log(path, route.id, route.alt_id);
+		const [_, group, path = '', ...rest] = routeId.split('/');
 		return path.includes(route.id) || path.includes(route.alt_id);
 	};
 </script>
@@ -31,7 +30,7 @@
 			<menu class="links-texts">
 				{#each routes as route (route.id)}
 					<li class:selected={controlIfSelected(routeId, route)}>
-						<a href={route.id}>{$_(route.name)}</a>
+						<a href={'/' + route.id}>{$_(route.name)}</a>
 					</li>
 				{/each}
 				{#if isDev}

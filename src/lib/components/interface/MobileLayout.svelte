@@ -34,7 +34,7 @@
 		<menu id="menu-features">
 			{#each routes as route, i (route.id)}
 				<li class="feature-button button-{i}">
-					<a href={route.id} on:click={() => toggleShow()}>{$_(route.name)}</a>
+					<a href={'/' + route.id} on:click={() => toggleShow()}>{$_(route.name)}</a>
 				</li>
 			{/each}
 		</menu>
@@ -49,10 +49,6 @@
 	@media (max-width: 640px) {
 		::-webkit-scrollbar {
 			display: none;
-		}
-
-		:global(#generations) {
-			margin: 1rem 0.5rem;
 		}
 	}
 
@@ -77,7 +73,7 @@
 
 		& > #layout-content {
 			display: grid;
-			grid-template: 10% 90% / 100%;
+			grid-template: 7% 93% / 100%;
 			&.opaque {
 				filter: brightness(0.5);
 				pointer-events: none;

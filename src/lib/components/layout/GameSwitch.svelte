@@ -66,12 +66,21 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		overflow: hidden;
-	}
-
-	.generations {
 		border: 1px solid white;
 		border-radius: var(--border-r-100);
 		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-95%, -50%);
+			height: 0;
+			width: 0;
+			border: 15px solid transparent;
+			border-right: 15px solid var(--background-color);
+		}
 	}
 
 	.generations-gen,
@@ -103,14 +112,13 @@
 	}
 
 	.generations::before {
-		content: '';
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-95%, -50%);
-		height: 0;
-		width: 0;
-		border: 15px solid transparent;
-		border-right: 15px solid var(--background-color);
+	}
+
+	@media (max-width: 640px) {
+		#generations {
+			border-radius: 0;
+			border: 0;
+			border-bottom: 1px solid white;
+		}
 	}
 </style>

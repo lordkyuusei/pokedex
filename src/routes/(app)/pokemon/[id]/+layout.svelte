@@ -15,12 +15,19 @@
 	export let data: LayoutData;
 
 	$: pokemon.set(data.specie);
-	$: varieties = data.specie?.varieties.map((x) => {
-		const id = Number(x.pokemon.url.split('/').at(-2));
-		const [_, ...form] = x.pokemon.name.split('-');
+	$: varieties =
+		data.specie?.varieties.map((x) => {
+			const id = Number(x.pokemon.url.split('/').at(-2));
+			const [_, ...form] = x.pokemon.name.split('-');
 
-		return { id, name: form.length ? form?.join(' ') : 'Default' };
-	});
+			return { id, name: form.length ? form?.join(' ') : 'Default' };
+		}) ?? [];
+
+	const changeForm = (id: number) => {
+		const [_, group, path, currentId, page] = $page.route.id.split('/');
+
+		goto(`/${path}/${id}/${page}`);
+	};
 
 	onDestroy(() => {
 		pokemon.set(null);
@@ -37,7 +44,7 @@
 							type="button"
 							id="data-form-{variety.name}"
 							class:selected={$page.params.id === variety.id.toString()}
-							on:click={() => goto($page.route.id.replace('[id]', variety.id))}
+							on:click={() => changeForm(variety.id)}
 						>
 							<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
 							{variety.name}
