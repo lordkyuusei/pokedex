@@ -1,5 +1,8 @@
 /// <reference types="@sveltejs/kit" />
 import { build, files, version } from '$service-worker';
+import { precacheAndRoute } from 'workbox-precaching'
+
+precacheAndRoute(self.__WB_MANIFEST)
 
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;

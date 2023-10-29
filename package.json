@@ -31,10 +31,12 @@
 		"tslib": "^2.6.2",
 		"typescript": "^5.2.2",
 		"vite": "^4.5.0",
-		"vitest": "^0.34.6"
+		"vitest": "^0.34.6",
+		"workbox-precaching": "^7.0.0"
 	},
 	"type": "module",
 	"dependencies": {
+		"kolorist": "1.8.0",
 		"mongoose": "^7.0.0"
 	}
 }
