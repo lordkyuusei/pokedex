@@ -4,9 +4,9 @@
 
 	import GameSwitch from '$lib/components/layout/GameSwitch.svelte';
 	import LangSwitch from '$lib/components/layout/LangSwitch.svelte';
-	import PokemonDynamicHeader from '$lib/components/layout/PokemonDynamicHeader.svelte';
 	import Search from '$lib/components/layout/Search.svelte';
 	import ThemeSwitch from '$lib/components/layout/ThemeSwitch.svelte';
+	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
 
 	export let routes: Route[];
 	export let routeId: string | null = '';
@@ -47,7 +47,7 @@
 	</sidebar>
 	<main id="dex-main">
 		<header id="main-header">
-			<PokemonDynamicHeader />
+			<PrevNextNavigation />
 			<span>
 				<GameSwitch {generationsList} />
 				<Search />

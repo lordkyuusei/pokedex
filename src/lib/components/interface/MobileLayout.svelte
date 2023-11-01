@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import _ from '$lib/store/i18n';
 	import type { Route } from '$lib/types/meta';
 	import GameSwitch from '../layout/GameSwitch.svelte';

@@ -8,6 +8,7 @@
 
 	import TypesRelationship from './TypesRelationship.svelte';
 	import { device } from '$lib/store/device';
+	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
 
 	export let id: number = 0;
 	export let sprite: string = '';
@@ -35,13 +36,16 @@
 		{/if}
 	</header>
 	{#if !toggleTypes}
-		<div class="main-image">
+		<div id="prev-next-nav">
+			<PrevNextNavigation />
+		</div>
+		<figure class="main-image">
 			<img
 				src={!toggleShiny ? sprite : shinySprite}
 				alt={sprite}
-				on:error={(e) => (e.target.src = sprite)}
+				on:error={(e) => (e.currentTarget.src = sprite)}
 			/>
-		</div>
+		</figure>
 		<footer id="main-types">
 			{#each types as type}
 				<Type {type} />
@@ -67,22 +71,17 @@
 		box-shadow: var(--box-shadow);
 
 		&.main {
-			grid-template:
-				'buttons' 8svh
-				'pokemon-sprite' 2fr
-				'typings' 1fr / 100%;
+			grid-template: 8svh 2fr 1fr / 100%;
 		}
 
 		&:not(.main) {
-			grid-template:
-				'buttons' 8svh
-				'pokemon-types' auto / 100%;
+			grid-template: 8svh auto / 100%;
 
 			padding-block-end: 1rem;
 		}
 
 		& > #main-buttons {
-			grid-area: buttons;
+			grid-area: 1/1;
 
 			position: sticky;
 			top: 0;
@@ -97,8 +96,9 @@
 		}
 
 		& .main-image {
+			grid-area: 2/1;
+
 			position: relative;
-			grid-area: pokemon-sprite;
 			&::after {
 				content: '';
 				position: absolute;
@@ -119,8 +119,12 @@
 			}
 		}
 
+		& > #prev-next-nav {
+			grid-area: 2 / 1;
+		}
+
 		& > #main-types {
-			grid-area: typings;
+			grid-area: 3 / 1;
 			display: flex;
 			justify-content: space-between;
 			padding-inline: 3em;
@@ -135,10 +139,7 @@
 		}
 
 		.main {
-			grid-template:
-				'buttons' 5svh
-				'pokemon-sprite' 2fr
-				'typings' 1fr / 100% !important;
+			grid-template: 5svh 2fr 1fr / 100% !important;
 		}
 	}
 </style>

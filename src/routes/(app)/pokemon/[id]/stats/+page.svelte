@@ -81,7 +81,7 @@
 		grid-template: repeat(8, 1fr) / 1fr 1fr;
 	}
 
-	@media (min-width: 1025px) {
+	@media (min-width: 1024px) {
 		#data-stats {
 			overflow-y: auto;
 			padding: var(--small-gap) var(--normal-gap);
@@ -118,6 +118,7 @@
 		#data-stats {
 			overflow-x: auto;
 			grid-template: 1fr 1.5fr / 100%;
+			gap: var(--smaller-gap);
 		}
 
 		:global(#stats-main) {

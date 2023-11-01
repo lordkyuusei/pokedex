@@ -8,7 +8,7 @@
 	import useDismiss from '$lib/functions/useDismiss';
 	import type { Lightkemon } from '$lib/types/lightkemon';
 
-	const DEFAULT_SEARCH_DELAY: number = 400;
+	const DEFAULT_SEARCH_DELAY: number = 300;
 	const DEFAULT_SEARCH_MIN_LENGTH = 3;
 
 	let show: boolean = false;
@@ -29,7 +29,7 @@
 			});
 		} else {
 			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(searchText)) {
-				clearTimeout(debounceTimer);
+				if (debounceTimer) clearTimeout(debounceTimer);
 
 				debounceTimer = setTimeout(async () => {
 					const result: Response = await fetch(`/api/search?input=${searchText}`);

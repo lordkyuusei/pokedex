@@ -3,6 +3,8 @@
     --border-r-100: 1.5rem;
     --border-r-200: 3rem;
 
+    --smallest-gap: 0.25em;
+    --smaller-gap: 0.5em;
     --small-gap: 1em;
     --normal-gap: 2em;
     --large-gap: 4em;
