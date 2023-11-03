@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [sveltekit(), SvelteKitPWA({
 		strategies: "generateSW",
 		srcDir: "src",
-		mode: "development",
+		mode: "production",
 		devOptions: {
 			enabled: true,
 			suppressWarnings: process.env.SUPPRESS_WARNING === 'true',
