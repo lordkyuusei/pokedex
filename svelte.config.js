@@ -14,12 +14,6 @@ const config = {
 				throw new Error(message);
 			}
 		},
-		serviceWorker: {
-			register: false,
-		},
-		files: {
-			serviceWorker: 'src/service-worker.ts'
-		}
 	}
 };
 
