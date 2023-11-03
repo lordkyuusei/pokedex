@@ -14,9 +14,9 @@
 
 	export let data: LayoutData;
 
-	$: pokemon.set(data.specie);
+	$: pokemon.set(data?.specie);
 	$: varieties =
-		data.specie?.varieties.map((x) => {
+		data?.specie?.varieties.map((x) => {
 			const id = Number(x.pokemon.url.split('/').at(-2));
 			const [_, ...form] = x.pokemon.name.split('-');
 
@@ -24,9 +24,11 @@
 		}) ?? [];
 
 	const changeForm = (id: number) => {
-		const [_, group, path, currentId, page] = $page.route.id.split('/');
+		if (!$page.route.id) return;
 
-		goto(`/${path}/${id}/${page}`);
+		const [_, group, path, currentId, section] = $page.route.id.split('/');
+
+		goto(`/${path}/${id}/${section}`);
 	};
 
 	onDestroy(() => {

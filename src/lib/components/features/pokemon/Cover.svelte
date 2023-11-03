@@ -36,9 +36,11 @@
 		{/if}
 	</header>
 	{#if !toggleTypes}
-		<div id="prev-next-nav">
-			<PrevNextNavigation />
-		</div>
+		{#if $device === 'mobile'}
+			<div id="prev-next-nav">
+				<PrevNextNavigation />
+			</div>
+		{/if}
 		<figure class="main-image">
 			<img
 				src={!toggleShiny ? sprite : shinySprite}

@@ -49,7 +49,7 @@
 
 		@media (min-width: 640px) {
 			padding-inline: 1rem;
-			grid-template: 100% / 1fr 1.5fr 1fr;
+			grid-template: 100% / 1fr auto 1fr;
 		}
 
 		@media (max-width: 640px) {
@@ -63,10 +63,10 @@
 			min-width: 5em;
 			border-radius: var(--border-r-200);
 			margin-block: 0;
+			letter-spacing: 2px;
 
 			@media (min-width: 640px) {
 				padding: 0.75em 1em;
-				letter-spacing: 2px;
 				background-color: var(--background-accent);
 			}
 
@@ -74,6 +74,7 @@
 				background-color: transparent;
 				color: rgba(255, 255, 255, 0.3);
 				scale: 2;
+				translate: 0 -300%;
 			}
 		}
 

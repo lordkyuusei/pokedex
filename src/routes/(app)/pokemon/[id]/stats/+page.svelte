@@ -12,6 +12,7 @@
 	import { generation } from '$lib/store/generation';
 	import type { PastTypesRef, TypeRef } from '$lib/types/pokeapi/pokemon';
 	import { device } from '$lib/store/device';
+	import { browser } from '$app/environment';
 
 	export let data: PageData;
 
@@ -36,9 +37,54 @@
 	const fetchNewTypes = (types: TypeRef[]) => types.map((t) => t.type.name);
 
 	$: genus = data.specie?.genera.find((x) => x.language.name === $lang)?.genus;
+
+	let isGrabbing: boolean = false;
+	let treshold: number = 0;
+
+	const grabHandle = (event: MouseEvent | TouchEvent) => {
+		isGrabbing = true;
+		console.log('grabbing');
+		if (event instanceof TouchEvent) {
+			event.preventDefault();
+		}
+	};
+
+	const resizeGrid = (event: MouseEvent | TouchEvent) => {
+		if (isGrabbing && browser) {
+			const { clientY } = event instanceof MouseEvent ? event : event.touches[0];
+			const grid = document.querySelector('#data-stats');
+			const gridRect = grid.getBoundingClientRect();
+			const newTopRowHeight = ((clientY - gridRect.top) / gridRect.height) * 100;
+			const newBottomRowHeight = 100 - newTopRowHeight;
+
+			treshold = newTopRowHeight;
+			grid.style.gridTemplateRows = `${newTopRowHeight}% ${newBottomRowHeight}%`;
+		}
+	};
+
+	const releaseHandle = (event: MouseEvent | TouchEvent) => {
+		isGrabbing = false;
+		console.log('releasing');
+		if (browser) {
+			const grid = document.querySelector('#data-stats');
+			if (treshold - 25 < 10) {
+				grid.style.gridTemplateRows = `25% 75%`;
+			} else if (treshold - 25 > 40 && treshold - 25 < 60) {
+				grid.style.gridTemplateRows = `75% 25%`;
+			} else {
+				grid.style.gridTemplateRows = `${50}% ${50}%`;
+			}
+		}
+	};
 </script>
 
-<section id="data-stats">
+<section
+	id="data-stats"
+	on:mousemove={resizeGrid}
+	on:touchmove={resizeGrid}
+	on:mouseup={releaseHandle}
+	on:touchend={releaseHandle}
+>
 	<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
 	{#if $device !== 'mobile'}
 		<Stats stats={data.pokemon.stats} />
@@ -55,7 +101,13 @@
 		<Abilities abilities={data.abilities} />
 	{:else}
 		<div id="stats-group">
-			<hr class="group-separator" />
+			<hr
+				role="button"
+				style="cursor: pointer"
+				class="group-separator"
+				on:mousedown={grabHandle}
+				on:touchstart={grabHandle}
+			/>
 			<div id="group-data">
 				<Stats stats={data.pokemon.stats} />
 				<Scores
