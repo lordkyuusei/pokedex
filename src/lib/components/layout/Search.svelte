@@ -47,7 +47,7 @@
 	};
 
 	const getBookUrl = (id: string) => {
-		const url = navigatePokemon(id, $page);
+		const url = navigatePokemon(id, $page, 'pokemon');
 		return url;
 	};
 </script>

@@ -13,6 +13,8 @@
 	import TwoWays from './evolution/TwoWays.svelte';
 	import ThreeWays from './evolution/ThreeWays.svelte';
 	import EeveeWays from './evolution/EeveeWays.svelte';
+	import { navigatePokemon } from '$lib/functions/navigate';
+	import { page } from '$app/stores';
 
 	export let evolution: PokemonEvolution;
 
@@ -24,9 +26,14 @@
 	};
 
 	let pokemonStages = new Map<number, EvolutionUnit[]>();
-	let pokemonId: string;
 
-	$: extractEvolutionChain(evolution.chain);
+	$: ({ id: pokemonId } = evolution);
+	$: updateOnIdChange(pokemonId);
+
+	const updateOnIdChange = (_: number) => {
+		pokemonStages.clear();
+		extractEvolutionChain(evolution.chain);
+	};
 
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		if (!chain) return;
@@ -72,7 +79,7 @@
 			{/if}
 			<section id="{level}-stage-pokemon" in:fade={{ delay: i * 100 }}>
 				{#each evolutionUnits as unit, i (unit.name)}
-					<a href="/pokemon/{unit.name}">
+					<a href={navigatePokemon(unit.name, $page)}>
 						<img src={fetchPokemonSpriteURL(Number(unit.name))} alt={unit.name} />
 					</a>
 				{/each}
