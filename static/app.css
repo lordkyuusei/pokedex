@@ -12,6 +12,10 @@
     --layout-header-size: 8svh;
     --layout-content-size: calc(100svh - var(--layout-header-size));
 
+    --layout-id-size: calc(var(--layout-header-size) - 2svh);
+    --layout-pokemon-with-forms-size: calc(var(--layout-content-size) - var(--layout-header-size) - var(--layout-id-size));
+    --layout-pokemon-solo-size: calc(var(--layout-content-size) - var(--layout-id-size));
+
     --transition-duration: 0.2s;
     --transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }

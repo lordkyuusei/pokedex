@@ -24,7 +24,7 @@ const drawBookBackground = (types: string[] = [], portrait: boolean = false): st
 
         return sHsl
             ? `linear-gradient(${angle}, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 25%, hsl(${sHsl[0]}, ${sHsl[1]}%, ${sHsl[2]}%) 75%)`
-            : `radial-gradient(circle, hsl(${fHsl[0]}, ${fHsl[1]}%, 40%) 25%, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 75%)`;
+            : `radial-gradient(circle, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 25%, hsl(${fHsl[0]}, ${fHsl[1]}%, 35%) 75%)`;
     }
     return "";
 };

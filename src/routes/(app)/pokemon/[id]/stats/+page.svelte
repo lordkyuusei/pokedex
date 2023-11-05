@@ -10,9 +10,8 @@
 	import { lang } from '$lib/store/lang';
 	import { version } from '$lib/store/generation';
 	import { generation } from '$lib/store/generation';
-	import type { PastTypesRef, TypeRef } from '$lib/types/pokeapi/pokemon';
 	import { device } from '$lib/store/device';
-	import { browser } from '$app/environment';
+	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
 
 	export let data: PageData;
 
@@ -26,102 +25,25 @@
 		? fetchOldTypes(data.pokemon.past_types, data.pokemon.types, $generation.id)
 		: fetchNewTypes(data.pokemon.types);
 
-	const fetchOldTypes = (past_types: PastTypesRef[], types: TypeRef[], gen: number) => {
-		const relevantTypes = past_types
-			.filter((t) => gen <= Number(t.generation.url.at(-2)))
-			.flatMap((t) => t.types.map((t) => t.type.name));
-
-		return relevantTypes.length ? relevantTypes : fetchNewTypes(types);
-	};
-
-	const fetchNewTypes = (types: TypeRef[]) => types.map((t) => t.type.name);
-
 	$: genus = data.specie?.genera.find((x) => x.language.name === $lang)?.genus;
-
-	let isGrabbing: boolean = false;
-	let treshold: number = 0;
-
-	const grabHandle = (event: MouseEvent | TouchEvent) => {
-		isGrabbing = true;
-		if (event instanceof TouchEvent) {
-			event.preventDefault();
-		}
-	};
-
-	const resizeGrid = (event: MouseEvent | TouchEvent) => {
-		if (isGrabbing && browser) {
-			const { clientY } = event instanceof MouseEvent ? event : event.touches[0];
-			const grid = document.querySelector('#data-stats');
-			const gridRect = grid.getBoundingClientRect();
-			const newTopRowHeight = ((clientY - gridRect.top) / gridRect.height) * 100;
-			const newBottomRowHeight = 100 - newTopRowHeight;
-
-			treshold = newTopRowHeight;
-			grid.style.gridTemplateRows = `${newTopRowHeight}% ${newBottomRowHeight}%`;
-		}
-	};
-
-	const releaseHandle = (event: MouseEvent | TouchEvent) => {
-		isGrabbing = false;
-		if (browser && isGrabbing) {
-			const grid = document.querySelector('#data-stats');
-			if (treshold - 25 < 10) {
-				grid.style.gridTemplateRows = `25% 75%`;
-			} else if (treshold - 25 > 40 && treshold - 25 < 60) {
-				grid.style.gridTemplateRows = `75% 25%`;
-			} else {
-				grid.style.gridTemplateRows = `${50}% ${50}%`;
-			}
-		}
-	};
 </script>
 
-<section
-	id="data-stats"
-	on:mousemove={resizeGrid}
-	on:touchmove={resizeGrid}
-	on:mouseup={releaseHandle}
-	on:touchend={releaseHandle}
->
-	<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
+<section id="data-stats">
 	{#if $device !== 'mobile'}
-		<Stats stats={data.pokemon.stats} />
-		<Scores
-			{genus}
-			height={data.pokemon.height}
-			weight={data.pokemon.weight}
-			rate={data.specie.capture_rate}
-			steps={data.specie.hatch_counter}
-			egg={data.specie.egg_groups.map((egg) => egg.name)}
-			gender={data.specie.gender_rate}
-			description={description?.flavor_text}
-		/>
-		<Abilities abilities={data.abilities} />
-	{:else}
-		<div id="stats-group">
-			<hr
-				role="button"
-				style="cursor: pointer"
-				class="group-separator"
-				on:mousedown={grabHandle}
-				on:touchstart={grabHandle}
-			/>
-			<div id="group-data">
-				<Stats stats={data.pokemon.stats} />
-				<Scores
-					{genus}
-					height={data.pokemon.height}
-					weight={data.pokemon.weight}
-					rate={data.specie.capture_rate}
-					steps={data.specie.hatch_counter}
-					egg={data.specie.egg_groups.map((egg) => egg.name)}
-					gender={data.specie.gender_rate}
-					description={description?.flavor_text}
-				/>
-				<Abilities abilities={data.abilities} />
-			</div>
-		</div>
+		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
 	{/if}
+	<Stats stats={data.pokemon.stats} />
+	<Scores
+		{genus}
+		height={data.pokemon.height}
+		weight={data.pokemon.weight}
+		rate={data.specie.capture_rate}
+		steps={data.specie.hatch_counter}
+		egg={data.specie.egg_groups.map((egg) => egg.name)}
+		gender={data.specie.gender_rate}
+		description={description?.flavor_text}
+	/>
+	<Abilities abilities={data.abilities} />
 </section>
 
 <style>
@@ -167,33 +89,12 @@
 	@media (max-width: 640px) {
 		#data-stats {
 			overflow-x: auto;
-			grid-template: 1fr 1.5fr / 100%;
+			grid-template: 100% / 100% 100% 100%;
 			gap: var(--smaller-gap);
 		}
 
 		:global(#stats-main) {
 			margin-bottom: -1rem;
-		}
-
-		#stats-group {
-			border-radius: var(--border-r-100);
-			border: 1px solid transparent;
-			background-color: var(--background-color);
-			padding-block: 0.5rem;
-		}
-
-		#stats-group > #group-data {
-			display: grid;
-			grid-template-columns: repeat(3, 100%);
-			overflow-x: auto;
-		}
-
-		#stats-group > .group-separator {
-			width: 80%;
-			height: 5px;
-			background-color: var(--text-color);
-			border: 1px solid transparent;
-			border-radius: 1rem;
 		}
 	}
 </style>

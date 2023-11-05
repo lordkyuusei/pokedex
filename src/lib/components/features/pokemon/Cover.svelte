@@ -61,8 +61,9 @@
 <style>
 	#stats-main {
 		display: grid;
-
 		place-items: center;
+
+		height: 100%;
 		border-radius: var(--border-r-50) var(--border-r-200) 0 var(--border-r-200);
 		overflow-y: auto;
 

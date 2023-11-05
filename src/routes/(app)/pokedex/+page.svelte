@@ -60,7 +60,7 @@
 
 <section id="pokedex">
 	{#each data.pokemonList as pokemon (pokemon._id)}
-		<a href="/pokemon/{pokemon.id}" transition:fly|local>
+		<a href="/pokemon/{pokemon.id}/stats" transition:fly|local>
 			<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
 			<span id="{pokemon.id}-shelf" />
 		</a>

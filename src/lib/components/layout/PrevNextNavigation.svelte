@@ -1,24 +1,26 @@
 <script lang="ts">
-	import { afterUpdate, beforeUpdate } from 'svelte';
 	import { page } from '$app/stores';
 	import pokemon from '$lib/store/pokemon';
 	import { lang } from '$lib/store/lang';
 
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 	import { LAST_POKEMON_KNOWN_ID } from '$lib/constants/global';
+	import { navigatePokemon } from '$lib/functions/navigate';
 
 	$: pkmnId = $pokemon?.id ?? 0;
-	$: [_, __, path, ___, infoType] = $page.route.id?.split('/') ?? [];
-
 	$: pkmnPrevId = Math.max(pkmnId - 1, 0);
 	$: pkmnLocalName = $pokemon?.names.find((x) => x.language.name === $lang)?.name ?? '';
 	$: pkmnNextId = Math.min(pkmnId + 1, LAST_POKEMON_KNOWN_ID);
 </script>
 
-{#if path === 'pokemon'}
+{#if $page.route.id?.includes('pokemon')}
 	<div id="dex-pokemon-header">
 		{#if pkmnPrevId !== 0}
-			<a href="/pokemon/{pkmnPrevId}/{infoType}" class="navigation-button" title={`${pkmnPrevId}`}>
+			<a
+				href={navigatePokemon(pkmnPrevId, $page)}
+				class="navigation-button"
+				title={`${pkmnPrevId}`}
+			>
 				<img class="navigation-prev" src="/arrow.svg" alt="pokemon {pkmnPrevId}" />
 				<img
 					class="pokemon-sprite"
@@ -29,7 +31,11 @@
 		{/if}
 		<h1 class="header-name">{pkmnLocalName}</h1>
 		{#if pkmnNextId !== LAST_POKEMON_KNOWN_ID}
-			<a href="/pokemon/{pkmnNextId}/{infoType}" class="navigation-button" title={`${pkmnNextId}`}>
+			<a
+				href={navigatePokemon(pkmnNextId, $page)}
+				class="navigation-button"
+				title={`${pkmnNextId}`}
+			>
 				<img
 					class="pokemon-sprite"
 					src={fetchPokemonSpriteURL(pkmnNextId, 'icons', 'generation-viii')}
@@ -99,6 +105,9 @@
 	}
 
 	@media (max-width: 640px) {
+		a.navigation-button {
+			background-color: rgba(255, 255, 255, 0.5) !important;
+		}
 		a.navigation-button:first-child {
 			grid-template-columns: 50% 50%;
 			border-radius: 0 var(--border-r-200) var(--border-r-200) 0 !important;
