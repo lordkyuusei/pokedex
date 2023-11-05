@@ -1,8 +1,8 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { afterUpdate, onDestroy, onMount } from 'svelte';
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -14,6 +14,7 @@
 
 	import Book from '$lib/components/common/Book.svelte';
 	import { deviceWidth } from '$lib/store/device';
+	import { DEFAULT_LEFT_BOUNDARY } from '$lib/constants/global';
 
 	export let data: PageServerData;
 
@@ -25,18 +26,17 @@
 	$: leftBoundary = $generation?.boundaries.from;
 	$: rightBoundary = $generation?.boundaries.to;
 
-	$: if (browser) {
-		goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + 42}`);
-	}
-
 	onMount(() => {
-		observer = new IntersectionObserver(async (entries, observers) => {
+		observer = new IntersectionObserver(async (entries, _) => {
 			const { intersectionRatio, target } = entries[0];
 			if (intersectionRatio > 0) {
 				observer.unobserve(target);
-				const currentTo = parseInt($page.url.searchParams.get('to') ?? '0');
-				if (currentTo + interval <= rightBoundary) {
-					const nextTo = Math.min(parseInt(currentTo) + interval, rightBoundary + interval);
+
+				const currentTo = parseInt($page.url.searchParams.get('to') ?? DEFAULT_LEFT_BOUNDARY);
+				if (leftBoundary >= currentTo) {
+					await goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + interval}`);
+				} else if (currentTo + interval <= rightBoundary) {
+					const nextTo = Math.min(currentTo + interval, rightBoundary + interval);
 					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
 				} else {
 					await goto(`/pokedex?from=${leftBoundary}&to=${rightBoundary}`);
@@ -51,6 +51,10 @@
 			target = document.querySelector(`#book-${id}`);
 			observer.observe(target);
 		}
+	});
+
+	onDestroy(() => {
+		observer?.disconnect();
 	});
 </script>
 

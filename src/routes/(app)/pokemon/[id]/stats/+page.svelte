@@ -43,7 +43,6 @@
 
 	const grabHandle = (event: MouseEvent | TouchEvent) => {
 		isGrabbing = true;
-		console.log('grabbing');
 		if (event instanceof TouchEvent) {
 			event.preventDefault();
 		}
@@ -64,8 +63,7 @@
 
 	const releaseHandle = (event: MouseEvent | TouchEvent) => {
 		isGrabbing = false;
-		console.log('releasing');
-		if (browser) {
+		if (browser && isGrabbing) {
 			const grid = document.querySelector('#data-stats');
 			if (treshold - 25 < 10) {
 				grid.style.gridTemplateRows = `25% 75%`;

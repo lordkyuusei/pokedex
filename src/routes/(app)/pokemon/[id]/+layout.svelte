@@ -11,6 +11,7 @@
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	import routes from './routes.json';
+	import { navigatePokemon } from '$lib/functions/navigate';
 
 	export let data: LayoutData;
 
@@ -24,11 +25,8 @@
 		}) ?? [];
 
 	const changeForm = (id: number) => {
-		if (!$page.route.id) return;
-
-		const [_, group, path, currentId, section] = $page.route.id.split('/');
-
-		goto(`/${path}/${id}/${section}`);
+		const url = navigatePokemon(id, $page);
+		goto(url);
 	};
 
 	onDestroy(() => {

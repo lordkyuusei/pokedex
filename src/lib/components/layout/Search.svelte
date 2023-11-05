@@ -7,6 +7,7 @@
 	import Book from '$lib/components/common/Book.svelte';
 	import useDismiss from '$lib/functions/useDismiss';
 	import type { Lightkemon } from '$lib/types/lightkemon';
+	import { navigatePokemon } from '$lib/functions/navigate';
 
 	const DEFAULT_SEARCH_DELAY: number = 300;
 	const DEFAULT_SEARCH_MIN_LENGTH = 3;
@@ -25,10 +26,10 @@
 			results.then((pokemonList) => {
 				if (!pokemonList) return;
 				const url = getBookUrl(`${pokemonList[0]?.id}`);
-				if (url) goto(url);
+				goto(url);
 			});
 		} else {
-			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(searchText)) {
+			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(parseInt(searchText))) {
 				if (debounceTimer) clearTimeout(debounceTimer);
 
 				debounceTimer = setTimeout(async () => {
@@ -45,10 +46,9 @@
 		searchText = '';
 	};
 
-	const getBookUrl = (pokemonId: string) => {
-		const { id } = $page.route;
-		if (id?.startsWith('/pokemon')) return id.replace('[id]', pokemonId);
-		else return '/pokemon/' + pokemonId;
+	const getBookUrl = (id: string) => {
+		const url = navigatePokemon(id, $page);
+		return url;
 	};
 </script>
 
