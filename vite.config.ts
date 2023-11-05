@@ -7,12 +7,80 @@ export default defineConfig({
 		strategies: "generateSW",
 		srcDir: "src",
 		mode: "production",
-		devOptions: {
-			enabled: true,
-			suppressWarnings: process.env.SUPPRESS_WARNING === 'true',
-			type: 'module',
-			navigateFallback: '/',
-		},
+		manifest: {
+			"theme_color": "#8936FF",
+			"background_color": "#2EC6FE",
+			"orientation": "any",
+			"display": "standalone",
+			"lang": "fr-FR",
+			"name": "The Dex",
+			"short_name": "the-dex",
+			"start_url": "./",
+			"description": "The ultimate Pokédex",
+			"id": "dex.lkyuusei.fr",
+			"icons": [
+				{
+					"src": "./pwa-64x64.png",
+					"sizes": "64x64",
+					"type": "image/png"
+				},
+				{
+					"src": "./pwa-192x192.png",
+					"sizes": "192x192",
+					"type": "image/png"
+				},
+				{
+					"src": "./pwa-512x512.png",
+					"sizes": "512x512",
+					"type": "image/png",
+					"purpose": "any"
+				},
+				{
+					"src": "./maskable-icon-512x512.png",
+					"sizes": "512x512",
+					"type": "image/png",
+					"purpose": "maskable"
+				}
+			],
+			"screenshots": [
+				{
+					"src": "./screenshots/dex-stats.jpeg",
+					"type": "image/jpeg",
+					"sizes": "2788x1809",
+					"form_factor": "wide"
+				},
+				{
+					"src": "./screenshots/dex-moves.jpeg",
+					"type": "image/jpeg",
+					"sizes": "2788x1809",
+					"form_factor": "wide"
+				},
+				{
+					"src": "./screenshots/dex-sprites.jpeg",
+					"type": "image/jpeg",
+					"sizes": "2788x1809",
+					"form_factor": "wide"
+				},
+				{
+					"src": "./screenshots/dex-stats-mobile.jpg",
+					"type": "image/jpeg",
+					"sizes": "780x1689",
+					"form_factor": "narrow"
+				}
+			],
+			"protocol_handlers": [
+				{
+					"protocol": "web+dex",
+					"url": "/pokemon/%s/stats"
+				}
+			]
+		}
+		// devOptions: {
+		// 	enabled: true,
+		// 	suppressWarnings: process.env.SUPPRESS_WARNING === 'true',
+		// 	type: 'module',
+		// 	navigateFallback: '/',
+		// },
 	})],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
