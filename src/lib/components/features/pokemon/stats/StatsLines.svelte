@@ -120,7 +120,7 @@
 		text-indent: 1em;
 		font-weight: bold;
 		content: attr(data-effort);
-		color: var(--background-color);
+		color: var(--background-color-___);
 		transform: translateY(-50%);
 	}
 
@@ -137,14 +137,14 @@
 	#statistics-lines {
 		display: grid;
 		grid-template: 100% / repeat(4, 1fr);
-		color: var(--background-accent);
+		color: var(--text-color);
 		width: 100%;
 		height: 100%;
 	}
 
 	#statistics-lines hr {
 		width: 0;
-		border: 1px dashed var(--background-accent);
+		border: 1px dashed var(--background-color-_);
 		height: 95%;
 	}
 

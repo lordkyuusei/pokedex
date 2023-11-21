@@ -44,7 +44,7 @@
 		height: 2em;
 		width: 4em;
 		border-radius: var(--border-r-50);
-		background-color: var(--background-alt-color);
+		background-color: var(--background-color-___);
 	}
 
 	.label.label-check {
@@ -73,7 +73,7 @@
 		left: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		background-color: var(--background-accent);
+		background-color: var(--background-color-_);
 		border-radius: var(--border-r-50);
 		transition: all var(--transition-duration) var(--transition);
 		z-index: 2;
@@ -81,7 +81,7 @@
 	}
 
 	.label.label-check > .toggle-visual > .toggle-block {
-		background-color: var(--text-color);
+		background-color: var(--background-color-___);
 	}
 
 	.label > .toggle-visual > .toggle-block:hover {
@@ -100,7 +100,7 @@
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
 		transition: all var(--transition-duration) var(--transition);
-		filter: brightness(0.3) grayscale(1);
+		filter: brightness(0.4);
 	}
 
 	.label > .toggle-visual > .toggle-image.image-check {

@@ -66,7 +66,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		overflow: hidden;
-		border: 1px solid white;
+		border: 1px solid var(--text-color);
 		border-radius: var(--border-r-100);
 		position: relative;
 
@@ -75,11 +75,11 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translate(-95%, -50%);
+			transform: translate(-100%, -50%);
 			height: 0;
 			width: 0;
 			border: 15px solid transparent;
-			border-right: 15px solid var(--background-color);
+			border-right: 15px solid var(--background-color-___);
 		}
 	}
 
@@ -101,17 +101,14 @@
 
 	.generations-gen,
 	.generations-gen option {
-		background-color: var(--text-color);
-		color: var(--background-color);
+		background-color: var(--background-color-_);
+		color: var(--background-color-____);
 	}
 
 	.generations-game,
 	.generations-game option {
-		background: var(--background-color);
+		background: var(--background-color-___);
 		color: var(--text-color);
-	}
-
-	.generations::before {
 	}
 
 	@media (max-width: 640px) {

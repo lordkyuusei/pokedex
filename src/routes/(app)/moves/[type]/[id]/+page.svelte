@@ -97,8 +97,8 @@
 
 	[id^='moves-'] > [id$='-data'] table > thead > th:not(:first-child, :last-child),
 	[id^='moves-'] > [id$='-data'] table > tbody td:not(:first-child, :last-child) {
-		border-left: 2px solid var(--background-color);
-		border-right: 2px solid var(--background-color);
+		border-left: 2px solid var(--background-color-___);
+		border-right: 2px solid var(--background-color-___);
 	}
 
 	[id^='moves-'] > [id$='-data'] table th,

@@ -73,7 +73,7 @@
 
 			@media (min-width: 640px) {
 				padding: 0.75em 1em;
-				background-color: var(--background-accent);
+				background-color: var(--background-color-__);
 			}
 
 			@media (max-width: 640px) {
@@ -85,13 +85,12 @@
 		}
 
 		& > .navigation-button {
-			background-color: var(--text-color);
-			border-radius: var(--border-r-200);
-			border: none;
-			cursor: pointer;
 			display: grid;
 			grid-template: 100% / 1fr 1fr;
 			place-items: center;
+
+			border-radius: var(--border-r-200);
+			padding: 0;
 
 			& > .pokemon-sprite {
 				object-fit: cover;

@@ -62,7 +62,7 @@
 <style>
 	#dex-layout {
 		display: grid;
-		background-color: var(--background-color);
+		background-color: var(--background-color-____);
 		color: var(--text-color);
 		grid-template: 'sidebar main' 100svh / 150px auto;
 
@@ -97,8 +97,7 @@
 					width: 100%;
 					display: grid;
 					align-items: center;
-					place-content: center;
-					border-block: 1px solid var(--background-alt-color);
+					border-block: 1px solid var(--background-color-_);
 					transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
 
 					&:not(:first-child) {
@@ -107,7 +106,7 @@
 
 					&.selected {
 						font-weight: bold;
-						background-color: var(--background-alt-color);
+						background-color: var(--background-color-__);
 					}
 
 					&:not(.selected) {
@@ -115,17 +114,16 @@
 
 						&:hover {
 							filter: initial;
-							background-color: var(--background-fade-alt-color);
+							background-color: var(--background-color-___);
 						}
 					}
 
 					& > a {
-						display: block;
-						width: 100%;
-						text-align: end;
+						text-align: center;
 						text-transform: uppercase;
 						letter-spacing: 0.2em;
 						padding: var(--normal-gap) var(--small-gap);
+						border-radius: 0;
 					}
 				}
 			}
@@ -153,12 +151,13 @@
 				& > span {
 					display: flex;
 					gap: 1rem;
+					align-items: center;
 				}
 			}
 
 			& > #main-content {
 				border-radius: var(--border-r-100) 0 0 0;
-				background-color: var(--background-alt-color);
+				background-color: var(--background-color-___);
 			}
 		}
 	}

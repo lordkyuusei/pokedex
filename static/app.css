@@ -52,6 +52,8 @@ button,
 textarea,
 select {
     font: inherit;
+    border: 1px solid var(--background-color-_);
+    background-color: var(--background-color-__);
 }
 
 a {
@@ -59,8 +61,20 @@ a {
     color: inherit;
 }
 
+a,
 button {
     cursor: pointer;
+    color: var(--text-color);
+    border-radius: var(--border-r-50);
+    padding: var(--smaller-gap) var(--small-gap);
+    border: 1px solid var(--background-secondary);
+    background-color: var(--background-color-__);
+    transition: all var(--transition-duration) var(--transition);
+}
+
+a:hover,
+button:hover {
+    background-color: var(--background-color-_);
 }
 
 menu,
@@ -87,20 +101,20 @@ table td {
 
 table tr:hover td {
     font-weight: bolder;
-    background-color: var(--primary-color);
+    background-color: var(--background-color-_);
     cursor: pointer;
 }
 
 table thead tr {
-    background-color: var(--background-secondary);
+    background-color: var(--background-color-_);
 }
 
 table tr:nth-child(2n) td {
-    background-color: var(--background-alt-color);
+    background-color: var(--background-color-__);
 }
 
 table tr:nth-child(2n + 1) td {
-    background-color: var(--background-color);
+    background-color: var(--background-color-___);
 }
 
 em {

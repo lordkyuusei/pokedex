@@ -115,8 +115,8 @@
 
 			height: 100%;
 			border-radius: var(--border-r-200);
-			background-color: var(--background-color);
-			box-shadow: 0 0 10px 5px var(--background-secondary);
+			background-color: var(--background-color-___);
+			box-shadow: var(--box-shadow);
 
 			& > table thead {
 				text-align: center;

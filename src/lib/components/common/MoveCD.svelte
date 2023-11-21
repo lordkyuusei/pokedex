@@ -107,6 +107,6 @@
 
 	[id^='album-'] > [id$='-disc']::after {
 		content: '';
-		background-color: var(--background-color);
+		background-color: var(--background-color-___);
 	}
 </style>

@@ -208,8 +208,8 @@
 					height: 4em;
 					width: 4em;
 					list-style: none;
-					background-color: var(--text-color);
 					border-radius: var(--border-r-200);
+					background-color: var(--background-color-__);
 					transition: transform var(--transition-duration) var(--transition);
 
 					& > a {
@@ -250,12 +250,12 @@
 				padding-block: 0.5rem;
 				border: 1px solid transparent;
 				border-radius: var(--border-r-100);
-				background-color: var(--background-color);
+				background-color: var(--background-color-___);
 
 				& > .group-separator {
 					width: 50%;
 					height: 5px;
-					background-color: var(--text-color);
+					background-color: var(--background-color-____);
 					border: 1px solid transparent;
 					border-radius: var(--border-r-100);
 					margin-inline: auto;
@@ -267,12 +267,12 @@
 				& > menu {
 					height: 100%;
 					color: var(--text-color);
-					background-color: var(--background-accent);
+					background-color: var(--background-color-__);
 					grid-template: 1fr / repeat(5, 1fr);
 					place-items: center;
 
 					& > li {
-						background-color: var(--background-accent);
+						background-color: var(--background-color-__);
 						border-radius: 0;
 						cursor: pointer;
 					}
@@ -312,27 +312,20 @@
 
 			& > header#data-forms {
 				grid-area: header;
+
 				display: grid;
-				width: calc(100% - 10svw);
 				overflow-x: auto;
 				align-items: center;
 				padding: var(--small-gap) var(--normal-gap) 0;
 
 				& > menu#forms-alternate {
 					display: grid;
-					grid-auto-columns: minmax(10%, 1fr);
+					grid-auto-columns: minmax(10%, 10rem);
 					grid-auto-flow: column;
+					gap: var(--small-gap);
 					list-style: none;
-					color: var(--background-color);
-					background-color: var(--text-color);
-					border-block: 4px solid var(--background-color);
-					border-inline: 2px solid var(--background-color);
 
 					& > li {
-						&:not(:first-child) {
-							border-inline: 2px solid var(--background-color);
-						}
-
 						& > button[id^='data-form-'] {
 							display: inline-flex;
 							justify-content: center;
@@ -347,8 +340,8 @@
 
 							&.selected {
 								font-weight: bolder;
-								color: var(--primary-color);
-								background-color: var(--background-color);
+								color: var(--text-color);
+								background-color: var(--background-color-_);
 							}
 
 							& > img {

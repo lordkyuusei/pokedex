@@ -128,15 +128,15 @@
 			width: 100%;
 			border-radius: var(--border-r-200);
 			overflow-y: auto;
-			background-color: var(--background-color);
-			box-shadow: 0 0 10px 5px var(--background-secondary);
+			background-color: var(--background-color-__);
+			box-shadow: var(--box-shadow);
 
 			& > #moves-options {
 				display: flex;
 				justify-content: start;
 				gap: var(--normal-gap);
 				padding: 0.5em 1em;
-				border-bottom: 1px solid var(--background-accent);
+				border-bottom: 1px solid var(--background-color-__);
 
 				& > #options-search-group {
 					display: grid;
@@ -151,8 +151,8 @@
 					& > #options-search {
 						border-radius: var(--border-r-100);
 						border: none;
-						background-color: var(--text-color);
-						color: var(--background-color);
+						background-color: var(--background-color-_);
+						color: var(--text-color);
 						padding: 0 1.5em 0 1em;
 						height: 100%;
 					}
@@ -178,7 +178,7 @@
 					&,
 					& option {
 						background: var(--text-color);
-						color: var(--background-color);
+						color: var(--background-color-___);
 					}
 				}
 			}
@@ -202,7 +202,7 @@
 							cursor: pointer;
 							color: var(--primary-color);
 							border: none;
-							border-bottom: 1px solid var(--background-accent);
+							border-bottom: 1px solid var(--background-color-__);
 							background-color: var(--background-alt-color);
 							padding: 0.5em;
 							font-weight: bolder;

@@ -29,13 +29,15 @@
 				goto(url);
 			});
 		} else {
-			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(parseInt(searchText))) {
-				if (debounceTimer) clearTimeout(debounceTimer);
+			if (debounceTimer) clearTimeout(debounceTimer);
 
+			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(parseInt(searchText))) {
 				debounceTimer = setTimeout(async () => {
 					const result: Response = await fetch(`/api/search?input=${searchText}`);
 					results = result.json();
 				}, DEFAULT_SEARCH_DELAY);
+			} else {
+				results = new Promise((res, rej) => res([]));
 			}
 		}
 	};
@@ -64,16 +66,14 @@
 		</search>
 	</header>
 	<output id="pan-results">
-		{#await results}
-			<div></div>
-		{:then pokemonList}
-			{#if !pokemonList || pokemonList?.length === 0}
-				<pre>No result</pre>
-			{:else}
+		{#await results then pokemonList}
+			{#if pokemonList}
 				{#each pokemonList as pokemon}
 					<a href={getBookUrl(`${pokemon.id}`)} on:click={showPane}>
 						<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} landscape />
 					</a>
+				{:else}
+					<pre>No result</pre>
 				{/each}
 			{/if}
 		{/await}
@@ -81,14 +81,6 @@
 </aside>
 
 <style>
-	.search-button {
-		border-radius: var(--border-r-100);
-		border: 1px solid var(--background-color);
-		background-color: var(--text-color);
-		aspect-ratio: 1 / 1;
-		cursor: pointer;
-	}
-
 	#dex-pan {
 		display: grid;
 		grid-template: 'header' 10svh 'results' 90svh / 100%;
@@ -97,10 +89,10 @@
 		top: 0;
 		width: 40svw;
 		right: -40svw;
-		background-color: var(--background-color);
-		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
-		padding-inline: 2em;
+		padding-inline: var(--small-gap);
 		z-index: 2;
+		background-color: var(--background-color-__);
+		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 		transition: all var(--transition-duration) var(--transition);
 
 		&:not(.show) {
@@ -109,7 +101,7 @@
 
 		&.show {
 			transform: translateX(-100%);
-			box-shadow: 0 -5px 5px 5px var(--background-alt-color);
+			box-shadow: var(--box-shadow);
 		}
 	}
 
@@ -130,11 +122,10 @@
 	#pan-header > #header-search .search-input {
 		grid-area: 1 / 1;
 		border: none;
-		border-radius: var(--border-r-100);
-		background-color: var(--text-color);
-		color: var(--background-color);
-		padding-inline: 1.5em;
 		width: 100%;
+		padding-inline: var(--normal-gap);
+		border-radius: var(--border-r-100);
+		background-color: var(--background-color-_);
 	}
 
 	#pan-header > #header-search .search-icon,

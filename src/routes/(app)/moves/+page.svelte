@@ -60,7 +60,7 @@
 	#moves > .header-name {
 		font-size: 1.8em;
 		text-align: center;
-		background-color: var(--background-accent);
+		background-color: var(--background-color-__);
 		text-transform: uppercase;
 		padding: 0.7em 1em;
 		margin: 0;

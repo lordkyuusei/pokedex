@@ -24,9 +24,9 @@
 				{ability.names.find((x) => x.language.name === $lang)?.name}
 			</span>
 			{#if ability.id === chosenAbility.id}
-				<section>
+				<span class="flavor">
 					{ability.flavor_text_entries.find((x) => x.language.name === $lang)?.flavor_text}
-				</section>
+				</span>
 			{/if}
 		</button>
 	{/each}
@@ -39,7 +39,7 @@
 		gap: var(--small-gap);
 		padding: 1em;
 		border-radius: 0 var(--border-r-200) var(--border-r-50) var(--border-r-200);
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -62,15 +62,15 @@
 	[id^='ability'] {
 		height: 100%;
 		width: 100%;
-		border: none;
 		font-size: x-large;
 		cursor: pointer;
 
+		background-color: var(--background-color-_);
 		transition: padding var(--transition-duration) var(--transition);
 	}
 
 	[id^='ability']:hover {
-		filter: brightness(0.8);
+		filter: brightness(1.2);
 	}
 
 	[id^='ability']:first-child {
@@ -95,7 +95,7 @@
 		transition: padding var(--transition-duration) var(--transition);
 	}
 
-	.chosen > section {
+	.chosen > span.flavor {
 		font-size: large;
 		line-height: 1em;
 	}

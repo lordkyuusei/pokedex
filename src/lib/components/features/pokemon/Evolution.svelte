@@ -101,11 +101,12 @@
 		height: 100%;
 		width: 100%;
 
+		overflow-y: auto;
 		grid-auto-flow: column;
 		grid-auto-columns: minmax(1em, 1fr);
 
 		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -129,9 +130,9 @@
 
 	[id$='-evolution-stage'] [id$='-stage-prev'] {
 		height: 1em;
-		color: var(--background-color);
+		color: var(--background-color-___);
 		border: 1px solid var(--text-color);
-		background-color: var(--text-color);
+		background-color: var(--background-color-___);
 	}
 
 	[id$='-evolution-stage'] [id$='-stage-prev'] {

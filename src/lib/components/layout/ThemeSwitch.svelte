@@ -45,7 +45,7 @@
 		height: 2em;
 		width: 4em;
 		border-radius: var(--border-r-50);
-		background-color: var(--background-alt-color);
+		background-color: var(--background-color-__);
 	}
 	.theme-switch {
 		position: absolute;
@@ -67,7 +67,7 @@
 		left: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		background-color: var(--background-color);
+		background-color: var(--background-color-_);
 		border-radius: var(--border-r-50);
 		transition: all var(--transition-duration) var(--transition);
 		z-index: 2;

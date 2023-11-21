@@ -22,15 +22,10 @@
 
 <style>
 	#lang-switch {
-		inset: all;
-		color: var(--primary-color);
-		background-color: var(--background-alt-color);
 		text-transform: capitalize;
-		border: none;
-		border-radius: var(--border-r-50);
-		cursor: pointer;
 
 		height: 2em;
-		width: 2em;
+		aspect-ratio: 1;
+		padding: 0;
 	}
 </style>

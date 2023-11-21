@@ -1,8 +1,15 @@
 :root {
-    --text-color: hsl(0, 0%, 50%);
-    --background-accent: hsl(265, 27%, 79%);
-    --background-alt-color: hsl(262, 29%, 89%);
-    --background-color: hsl(264, 27%, 83%);
+    --text-color: hsl(0, 0%, 15%);
 
-    --primary-color: red;
+    --background-color-_: hsl(263, 79%, 92%);
+    --background-color-__: hsl(264, 27%, 87%);
+    --background-color-___: hsl(264, 27%, 83%);
+    --background-color-____: hsl(264, 27%, 79%);
+
+    --box-shadow: 4px 4px 16px hsl(264, 27%, 65%),
+        -4px -4px 16px hsl(264, 27%, 65%);
+
+    --primary-color: hsl(267, 95%, 16%);
+    --secondary-color: #2980ef;
+    --third-color: hsl(267, 95%, 64%);
 }

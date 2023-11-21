@@ -27,7 +27,7 @@
 		place-items: center;
 		padding: 1em;
 		border-radius: var(--border-r-200) var(--border-r-50) var(--border-r-200) 0;
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 

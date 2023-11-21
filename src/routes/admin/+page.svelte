@@ -36,7 +36,7 @@
 		font-size: 1.5rem;
 		color: var(--primary-color);
 		background-color: var(--background-secondary);
-		border: 1px solid var(--background-accent);
+		border: 1px solid var(--background-color-__);
 		border-radius: var(--border-r-100);
 		height: 100%;
 		padding: var(--small-gap);

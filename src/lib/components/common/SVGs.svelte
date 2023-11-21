@@ -172,7 +172,7 @@
 	.main-stroke,
 	.side-stroke {
 		fill: none;
-		stroke: var(--background-color);
+		stroke: var(--background-color-____);
 		stroke-opacity: 1;
 	}
 

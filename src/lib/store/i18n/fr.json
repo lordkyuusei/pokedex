@@ -19,7 +19,14 @@
     "menu.moves": "Capacités",
     "menu.abilities": "Talents",
     "menu.items": "Objets",
+    "menu.tools": "Outils",
     "moves.title-all": "Liste des capacités toutes générations confondues",
     "moves.title": "Liste des capacités disponibles depuis la génération",
-    "scores.no-desc": "(Pas d'entrée pokédex disponible pour le Pokémon et le jeu sélectionnés.)"
+    "scores.no-desc": "(Pas d'entrée pokédex disponible pour le Pokémon et le jeu sélectionnés.)",
+    "scores.weight": "Poids",
+    "scores.height": "Taille",
+    "scores.egg": "Groupe Œuf",
+    "scores.gender": "Sexe",
+    "scores.rate": "Taux Capture",
+    "scores.steps": "Nb. pas Éclosion"
 }

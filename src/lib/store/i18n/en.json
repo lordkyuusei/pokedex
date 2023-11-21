@@ -19,7 +19,14 @@
     "menu.moves": "Moves",
     "menu.abilities": "Abilities",
     "menu.items": "Items",
+    "menu.tools": "Tools",
     "moves.title-all": "List of moves all genererations mixed up",
     "moves.title": "List of moves since generation",
-    "scores.no-desc": "(No Pokédex entry available for chosen game & Pokémon.)"
+    "scores.no-desc": "(No Pokédex entry available for chosen game & Pokémon.)",
+    "scores.weight": "Weight",
+    "scores.height": "Height",
+    "scores.egg": "Egg Group",
+    "scores.gender": "Sex",
+    "scores.rate": "Catch Rate",
+    "scores.steps": "Hatch Step Nb"
 }

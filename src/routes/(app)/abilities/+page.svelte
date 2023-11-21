@@ -65,7 +65,7 @@
 		font-weight: bolder;
 		cursor: pointer;
 		border-color: var(--primary-color);
-		background-color: var(--background-accent);
+		background-color: var(--background-color-__);
 	}
 
 	[id$='-table'] table td {

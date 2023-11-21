@@ -27,19 +27,19 @@ export const fetchPokemonEvolutionChain = async (id: string): Promise<PokemonEvo
     await fetchPokeApi<PokemonEvolution>(`${POKEAPI_ENDPOINT}/evolution-chain/${id}`);
 
 export const fetchPokemonMove = async (id: string, svelteFetch: any = null): Promise<PokemonMove | undefined> =>
-    await fetchPokeApi(`${POKEAPI_ENDPOINT}/move/${id}`, svelteFetch);
+    await fetchPokeApi<PokemonMove>(`${POKEAPI_ENDPOINT}/move/${id}`, svelteFetch);
 
 export const fetchPokemonAbility = async (nameOrId: string): Promise<PokemonAbility | undefined> =>
-    await fetchPokeApi(`${POKEAPI_ENDPOINT}/ability/${nameOrId}`);
+    await fetchPokeApi<PokemonAbility>(`${POKEAPI_ENDPOINT}/ability/${nameOrId}`);
 
 export const fetchPokemonSpecieByName = async (specieName: string): Promise<PokemonSpecie | undefined> =>
-    await fetchPokeApi(`${POKEAPI_ENDPOINT}/pokemon-species/${specieName}`);
+    await fetchPokeApi<PokemonSpecie>(`${POKEAPI_ENDPOINT}/pokemon-species/${specieName}`);
 
 export const fetchPokemonById = async (id: number): Promise<Pokemon | undefined> =>
-    await fetchPokeApi(`${POKEAPI_ENDPOINT}/pokemon/${id}`);
+    await fetchPokeApi<Pokemon>(`${POKEAPI_ENDPOINT}/pokemon/${id}`);
 
 export const fetchPokemonLocation = async (id: number): Promise<PokemonLocation | undefined> =>
-    await fetchPokeApi(`${POKEAPI_ENDPOINT}/location/${id}`);
+    await fetchPokeApi<PokemonLocation>(`${POKEAPI_ENDPOINT}/location/${id}`);
 
 export const fetchPokemonLocationArea = async (id: number): Promise<PokemonLocationArea[] | undefined> =>
-    await fetchPokeApi(`${POKEAPI_ENDPOINT}/pokemon/${id}/encounters`);
+    await fetchPokeApi<PokemonLocationArea[]>(`${POKEAPI_ENDPOINT}/pokemon/${id}/encounters`);

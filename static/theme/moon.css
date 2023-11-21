@@ -1,15 +1,15 @@
 :root {
     --text-color: hsl(150, 7%, 94%);
-    --background-accent: hsl(0, 0%, 40%);
-    --background-color: hsl(0, 0%, 26%);
-    --background-fade-alt-color: hsl(60, 2%, 16%, 0.5);
-    --background-alt-color: hsl(60, 2%, 16%);
-    --background-secondary: hsl(60, 2%, 8%);
 
-    --box-shadow: 4px 4px 16px #1d1d1c,
-        -4px -4px 16px #373734;
+    --background-color-_: hsl(264, 20%, 45%);
+    --background-color-__: hsl(263, 20%, 32%);
+    --background-color-___: hsl(262, 24%, 22%);
+    --background-color-____: hsl(261, 33%, 16%);
 
-    --primary-color: #f26c25;
+    --box-shadow: 4px 4px 16px #2e233e,
+        -4px -4px 16px #1a1424;
+
+    --primary-color: hsl(264, 30%, 70%);
     --secondary-color: #2980ef;
-    --third-color: #f10100;
+    --third-color: hsl(264, 28%, 56%);
 }

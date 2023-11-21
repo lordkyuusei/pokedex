@@ -21,6 +21,6 @@
 
 	div {
 		height: 1em;
-		background-color: var(--text-color);
+		background-color: var(--background-color-___);
 	}
 </style>

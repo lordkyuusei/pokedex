@@ -314,7 +314,7 @@
 	}
 
 	#stats-calculator > #calculator-ui > svg #big-poly {
-		fill: var(--background-accent);
+		fill: var(--background-color-_);
 	}
 
 	#stats-calculator > #calculator-ui > svg #small-poly {
@@ -337,7 +337,7 @@
 
 	#stats-calculator > #calculator-ui [id^='slider']::-webkit-slider-thumb {
 		appearance: none;
-		background-color: var(--background-secondary);
+		background-color: var(--background-color-___);
 		height: 0.75em;
 		cursor: pointer;
 		border-radius: var(--border-r-50);

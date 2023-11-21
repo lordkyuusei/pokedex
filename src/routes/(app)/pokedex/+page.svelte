@@ -18,13 +18,19 @@
 
 	export let data: PageServerData;
 
+	let ref: Element;
 	let target: Element;
 	let observer: IntersectionObserver;
 
-	$: interval = Math.ceil($deviceWidth / 150);
+	$: interval = Math.ceil($deviceWidth / 125);
 
 	$: leftBoundary = $generation?.boundaries.from;
 	$: rightBoundary = $generation?.boundaries.to;
+
+	$: navigateOnGenerationChange(leftBoundary);
+
+	const navigateOnGenerationChange = async (leftBoundary: number) =>
+		browser && (await goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + interval}`));
 
 	onMount(() => {
 		observer = new IntersectionObserver(async (entries, _) => {
@@ -45,10 +51,9 @@
 		});
 	});
 
-	afterUpdate(() => {
-		if (data.pokemonList.length) {
-			const { id } = data.pokemonList[data.pokemonList.length - 1];
-			target = document.querySelector(`#book-${id}`);
+	afterUpdate(async () => {
+		if (data.pokemonList.length && ref) {
+			target = ref;
 			observer.observe(target);
 		}
 	});
@@ -59,10 +64,14 @@
 </script>
 
 <section id="pokedex">
-	{#each data.pokemonList as pokemon (pokemon._id)}
+	{#each data.pokemonList as pokemon, index (pokemon._id)}
 		<a href="/pokemon/{pokemon.id}/stats" transition:fly|local>
 			<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
-			<span id="{pokemon.id}-shelf" />
+			{#if index + 1 === data.pokemonList.length}
+				<span bind:this={ref} id="{pokemon.id}-shelf" />
+			{:else}
+				<span id="{pokemon.id}-shelf" />
+			{/if}
 		</a>
 	{/each}
 </section>
@@ -88,7 +97,7 @@
 		width: calc(100% + 0.5em);
 		transform: translateX(-0.25em);
 		height: 1em;
-		background-color: var(--background-accent);
+		background-color: var(--background-color-__);
 	}
 
 	@media (max-width: 640px) {
