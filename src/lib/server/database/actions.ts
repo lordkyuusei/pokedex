@@ -11,7 +11,7 @@ export const searchPokemonByName = async (pokemon: string) => {
             { "name": { $regex: pokemon, $options: 'i' } },
             { "i18n.fr": { $regex: pokemon, $options: 'i' } },
             { "i18n.en": { $regex: pokemon, $options: 'i' } },
-        ]).exec();
+        ]).sort("id").exec();
 
     return JSON.stringify(pokemonList);
 }

@@ -18,5 +18,10 @@
         "id": "items",
         "alt_id": "items",
         "name": "menu.items"
+    },
+    {
+        "id": "tools",
+        "alt_id": "tools",
+        "name": "menu.tools"
     }
 ]

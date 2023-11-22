@@ -90,6 +90,10 @@
 
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
+
+		& > a {
+			padding: 0;
+		}
 	}
 
 	[id$='-shelf'] {

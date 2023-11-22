@@ -19,19 +19,23 @@
 		return `conic-gradient(darkorchid 0deg ${femaleRatio}deg, dodgerblue ${femaleRatio}deg ${maleRatio}deg, slategray ${maleRatio}deg 360deg)`;
 	};
 
+	const getGenderCircle = (gender: number) => {
+		const femaleMod = gender === -1 ? 0 : (gender / 8) * 100;
+		const maleMod = gender === -1 ? 0 : 100 - (gender / 8) * 100;
+		return `<div title="♀️${femaleMod}% ; ♂${maleMod}%" style="height: 2rem; aspect-ratio: 1; border-radius: 1rem; background: ${drawBackground()}"></div>`;
+	};
+
 	const egg_group = (): string =>
 		egg.map((group) => EGG_GROUPS.find((g) => g.group === group)?.icon).join('');
 
 	$: units = ['height', 'weight', 'steps', 'gender', 'rate', 'egg'].map((unit) => unit);
 
 	$: scores = [
-		{ score: (height / 10).toPrecision(2), unit: units[0], icon: '📏' },
-		{ score: weight / 10, unit: units[1], icon: '⚖️' },
-		{ score: steps * 255 + 1, unit: units[2], icon: '🥚🦶' },
+		{ score: `${(height / 10).toPrecision(2)} m`, unit: units[0], icon: '📏' },
+		{ score: `${weight / 10} kg`, unit: units[1], icon: '⚖️' },
+		{ score: steps * 255 + 1, unit: units[2], icon: '🦶' },
 		{
-			score: `<div title="♀️${gender === -1 ? 0 : (gender / 8) * 100}% ; ♂${
-				gender === -1 ? 0 : 100 - (gender / 8) * 100
-			}%" style="height: 2em;width: 2em;border-radius: 1em;background: ${drawBackground()}"></div>`,
+			score: getGenderCircle(gender),
 			unit: units[3],
 			icon: '⚧️%'
 		},
@@ -62,7 +66,7 @@
 		gap: var(--small-gap);
 		padding: 1em;
 		border-radius: var(--border-r-200) 0 var(--border-r-200) var(--border-r-50);
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -84,7 +88,7 @@
 		padding-inline: 1em;
 		line-height: 1.5em;
 		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
-		background: var(--background-accent);
+		background: var(--background-color-_);
 		position: relative;
 	}
 
@@ -98,7 +102,7 @@
 		align-items: center;
 		width: fit-content;
 		padding: 0 0.5em;
-		background-color: var(--background-color);
+		background-color: var(--background-color-___);
 		border: 1px solid var(--text-color);
 		border-radius: var(--border-r-50);
 	}

@@ -35,7 +35,13 @@
 		<menu id="menu-features">
 			{#each routes as route, i (route.id)}
 				<li class="feature-button button-{i}">
-					<a href={'/' + route.id} on:click={() => toggleShow()}>{$_(route.name)}</a>
+					<a
+						title={$_(route.name)}
+						href={'/' + route.id}
+						on:click={() => toggleShow()}
+						data-link={$_(route.name)}
+					>
+					</a>
 				</li>
 			{/each}
 		</menu>
@@ -64,12 +70,12 @@
 	#dex-layout {
 		display: grid;
 		grid-template: 95svh 5svh / 100svw;
-		background-color: var(--background-color);
+		background-color: var(--background-color-___);
 		color: var(--text-color);
 		transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
 
 		&:has(.opaque) {
-			background-color: var(--background-alt-color);
+			background-color: var(--background-color-___);
 		}
 
 		& > #layout-content {
@@ -83,21 +89,22 @@
 
 		& > #layout-menu {
 			position: absolute;
+			overflow: hidden;
 			bottom: 0;
 			z-index: 1;
 
 			display: grid;
 			grid-template:
-				'.' calc(3rem + 2 * 2rem)
-				'menu-customization' 1fr
-				'menu-features' 1fr
-				'.' calc(3rem + 2 * 0.5rem) / 100%;
+				'.' 5svh
+				'menu-customization' 20svh
+				'menu-features' 20svh
+				'.' 5svh / 100%;
 			height: 50%;
 			width: 100%;
 			background: linear-gradient(
 				0deg,
-				var(--background-color) 85%,
-				var(--background-fade-alt-color) 95%,
+				var(--background-color-___) 85%,
+				var(--background-color-____) 95%,
 				transparent 100%
 			);
 			transition: opacity 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -112,47 +119,35 @@
 				height: 0;
 			}
 
-			&::before,
-			&::after {
-				z-index: -1;
-				content: '';
-				position: absolute;
-				width: 100%;
-				border: 2px solid gold;
-				border-top-left-radius: 50%;
-				border-top-right-radius: 50%;
-				border-bottom: 0;
-				background-color: transparent;
-			}
-
-			&::before {
-				height: 70%;
-				bottom: 3%;
-			}
-
-			&::after {
-				height: 70%;
-				bottom: -28%;
-			}
-
 			& > :is(#menu-customization, #menu-features) {
+				position: relative;
 				display: grid;
 				place-items: center;
-				grid-template-rows: repeat(2, 3svh);
 
 				& > .feature-button {
 					position: relative;
-					background-color: var(--background-alt-color);
 					box-shadow: inset 0px 0px 0px 2px gold;
 					display: flex;
 					justify-content: center;
 					align-items: center;
+					background-color: var(--background-color-__);
 
 					& > a {
-						position: absolute;
-						top: -1.5rem;
-						height: calc(100% + 1.5rem);
+						display: flex;
+						justify-content: center;
+						position: relative;
+						height: calc(100% - 2px);
+						aspect-ratio: 1 / 1;
 						text-transform: uppercase;
+
+						padding: 0;
+						border-radius: var(--border-r-200);
+
+						&::before {
+							position: absolute;
+							content: attr(data-link);
+							top: -50%;
+						}
 					}
 					&.button-0 {
 						grid-area: 2 / 1;
@@ -163,25 +158,61 @@
 					&.button-3 {
 						grid-area: 2 / 4;
 					}
+					&.button-4 {
+						grid-area: 2 / 5;
+					}
+				}
+
+				&::before {
+					position: absolute;
+					top: 25%;
+					content: '';
+					width: 120%;
+					aspect-ratio: 1;
+					border: 2px solid gold;
+					border-radius: 50%;
 				}
 			}
 
 			& > #menu-customization {
 				grid-area: menu-customization;
-				grid-template-columns: 1fr 0.2fr 1fr;
+				grid-template-columns: 1fr 1fr 1.25fr 1fr 1fr;
+				grid-template-rows: 50% 20% 5%;
 
-				& > .feature-button.button-2 {
-					grid-area: 2 / 3;
+				& > .feature-button {
+					&.button-0 {
+						grid-area: 2 / 1 / 4 / 1;
+					}
+					&.button-1 {
+						grid-area: 2 / 5 / 4 / 5;
+					}
+					&.button-2 {
+						grid-area: 1 / 3;
+					}
 				}
 			}
 
 			& > #menu-features {
 				grid-area: menu-features;
-				grid-template-columns: repeat(4, 1fr);
-				grid-template-rows: repeat(2, 5svh);
+				grid-template-columns: 1fr 1fr 1.25fr 1fr 1fr;
+				grid-template-rows: 50% 20% 5%;
 
-				& > .feature-button.button-2 {
-					grid-area: 1 / 3;
+				& > .feature-button {
+					&.button-0 {
+						grid-area: 1 / 3;
+					}
+					&.button-1 {
+						grid-area: 1 / 2 / 3 / 2;
+					}
+					&.button-2 {
+						grid-area: 1 / 4 / 3 / 4;
+					}
+					&.button-3 {
+						grid-area: 2 / 1 / 4 / 1;
+					}
+					&.button-4 {
+						grid-area: 2 / 5 / 4 / 5;
+					}
 				}
 			}
 		}
@@ -203,7 +234,7 @@
 				width: 100%;
 				height: 2px;
 				border: 0;
-				background-color: var(--background-alt-color);
+				background-color: var(--background-color-__);
 				overflow: visible;
 
 				&.toggled {
@@ -215,7 +246,7 @@
 					left: 0px;
 					position: absolute;
 					content: '';
-					background-color: var(--background-color);
+					background-color: var(--background-color-___);
 					height: 10svh;
 					width: 100%;
 				}
@@ -224,12 +255,12 @@
 			& > #layout-button {
 				position: relative;
 				z-index: 2;
-				border: 2px solid var(--background-alt-color);
+				border: 2px solid var(--background-color-___);
 				background-color: gold;
 
 				&.toggled {
 					border-color: gold;
-					background-color: var(--background-alt-color);
+					background-color: var(--background-color-___);
 
 					&::before {
 						background-color: gold;
@@ -237,7 +268,7 @@
 
 					&::after {
 						box-shadow: inset 0px 0px 0px 3px gold;
-						background-color: var(--background-alt-color);
+						background-color: var(--background-color-___);
 					}
 				}
 
@@ -252,7 +283,7 @@
 					width: 100%;
 					top: calc(50% - 2.5%);
 					left: 0;
-					background-color: var(--background-alt-color);
+					background-color: var(--background-color-___);
 				}
 
 				&::after {
@@ -261,7 +292,7 @@
 					left: calc(50% - 25%);
 					aspect-ratio: 1;
 					border-radius: 3rem;
-					box-shadow: inset 0px 0px 0px 3px var(--background-alt-color);
+					box-shadow: inset 0px 0px 0px 3px var(--background-color-___);
 					background-color: gold;
 				}
 			}

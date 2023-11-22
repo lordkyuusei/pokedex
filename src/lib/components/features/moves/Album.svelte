@@ -106,5 +106,6 @@
 			'info' 1fr / 100%;
 
 		text-transform: uppercase;
+		padding-inline: var(--smaller-gap);
 	}
 </style>
