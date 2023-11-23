@@ -71,8 +71,13 @@ button {
     transition: all var(--transition-duration) var(--transition);
 }
 
+a.round,
+button.round {
+    border-radius: var(--border-r-200);
+}
+
 button {
-    padding: var(--smaller-gap) var(--small-gap);
+    padding: var(--smallest-gap) var(--smaller-gap);
 }
 
 a:hover,

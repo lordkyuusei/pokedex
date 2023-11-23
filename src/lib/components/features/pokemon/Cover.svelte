@@ -137,6 +137,11 @@
 
 	@media (max-width: 640px) {
 		#stats-main {
+			position: absolute;
+			inset: 0;
+			overflow: auto;
+			height: unset;
+
 			border-radius: 0;
 			box-shadow: none;
 		}

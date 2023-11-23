@@ -1,7 +1,7 @@
 <svelte:options immutable />
 
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import type { LayoutData } from './$types';
 
@@ -17,88 +17,9 @@
 	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
 	import { generation } from '$lib/store/generation';
 	import { browser } from '$app/environment';
-	import { tweened, type Tweened } from 'svelte/motion';
-	import { cubicInOut } from 'svelte/easing';
 	import { computeOpenGraphDescription } from '$lib/functions/openGraph';
 
 	export let data: LayoutData;
-
-	let isGrabbing: boolean = false;
-
-	const botTreshold: Tweened<number> = tweened(40, {
-		duration: 50,
-		easing: cubicInOut
-	});
-	const topTreshold: Tweened<number> = tweened(50, {
-		duration: 50,
-		easing: cubicInOut
-	});
-
-	let gridRef: HTMLElement | null;
-
-	const grabHandle = (event: MouseEvent | TouchEvent) => {
-		isGrabbing = true;
-
-		if (browser) {
-			gridRef = document.querySelector('#pokemon-data');
-		}
-
-		if (event instanceof TouchEvent && event.cancelable) {
-			event.preventDefault();
-		}
-	};
-
-	const resizeGrid = (event: MouseEvent | TouchEvent) => {
-		if (isGrabbing && browser) {
-			if (!gridRef) return;
-			const { clientY } = event instanceof MouseEvent ? event : event.touches[0];
-			const { top, height } = gridRef.getBoundingClientRect();
-			$topTreshold = ((clientY - top) / height) * 100;
-			$botTreshold = 100 - $topTreshold;
-		}
-	};
-
-	const releaseHandle = (_: MouseEvent | TouchEvent) => {
-		if (browser && isGrabbing && gridRef) {
-			isGrabbing = false;
-			if ($topTreshold <= 25) {
-				$topTreshold = 25;
-				$botTreshold = 65;
-			} else if ($topTreshold > 25 && $topTreshold < 65) {
-				$topTreshold = 40;
-				$botTreshold = 50;
-			} else if ($topTreshold >= 65) {
-				$topTreshold = 65;
-				$botTreshold = 25;
-			}
-		}
-	};
-
-	let mapEventToListener = [
-		{ e: 'mousemove', l: resizeGrid },
-		{ e: 'touchmove', l: resizeGrid },
-		{ e: 'mouseup', l: releaseHandle },
-		{ e: 'touchend', l: releaseHandle }
-	];
-
-	const getGridTemplateInline = (
-		isMobile: boolean,
-		showForms: boolean,
-		top: number,
-		bottom: number
-	) =>
-		isMobile
-			? `'navigation' 10% 'cover' ${top}% 'content' ${bottom}% / 100%`
-			: showForms
-			? "'header header' 8svh 'main navigation' 78svh 'line id' 6svh / 90% 10%"
-			: "'main navigation' 86svh 'line id' 6svh / 90% 10%";
-
-	$: gridTemplate = getGridTemplateInline(
-		$device === 'mobile',
-		varieties.length !== 1,
-		$topTreshold,
-		$botTreshold
-	);
 
 	$: pokemon.set(data?.specie);
 	$: varieties =
@@ -113,19 +34,8 @@
 		? fetchOldTypes(data.pokemon.past_types, data.pokemon.types, $generation?.id)
 		: fetchNewTypes(data.pokemon.types);
 
-	onMount(() => {
-		mapEventToListener.forEach((etl) =>
-			document.addEventListener(etl.e, etl.l, {
-				passive: true
-			})
-		);
-	});
-
 	onDestroy(() => {
 		pokemon.set(null);
-		if (browser) {
-			mapEventToListener.forEach((etl) => document.removeEventListener(etl.e, etl.l));
-		}
 	});
 </script>
 
@@ -140,73 +50,84 @@
 		content={fetchPokemonSpriteURL($page.params.id, 'icons', 'generation-viii')}
 	/>
 </svelte:head>
-<section
-	id="pokemon-data"
-	class:default-form={varieties.length === 1}
-	out:fade
-	style:grid-template={gridTemplate}
->
-	<!-- Header / Pokemon forms on desktop -->
-	{#if $device !== 'mobile' && varieties.length !== 1}
-		<header id="data-forms" in:fade>
-			<menu id="forms-alternate">
-				{#each varieties as variety (variety.id)}
-					<li>
-						<button
-							type="button"
-							id="data-form-{variety.name}"
-							class:selected={$page.params.id === variety.id.toString()}
-							on:click={() => goto(navigatePokemon(variety.id, $page))}
-						>
-							<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
-							{variety.name}
-						</button>
+
+<section id="pokemon-data" class:default-form={varieties.length === 1} out:fade>
+	{#if $device === 'mobile'}
+		<div class="data-content">
+			<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
+			<div class="handle"></div>
+		</div>
+		<div class="data-content">
+			<nav id="data-navigation">
+				<menu>
+					{#each routes as route}
+						<li class:selected={$page.route.id?.endsWith(route.id)}>
+							<a href={`/pokemon/${$page.params.id}${route.id}`}>
+								{#if route.icon.includes('icon')}
+									<svg>
+										<use href="#{route.icon}" />
+									</svg>
+								{:else}
+									<img src={`/${route.icon}`} alt={route.icon} />
+								{/if}
+							</a>
+						</li>
+					{/each}
+				</menu>
+			</nav>
+			<slot />
+		</div>
+	{:else}
+		<!-- Header / Pokemon forms on desktop -->
+		{#if varieties.length !== 1}
+			<header id="data-forms" in:fade>
+				<menu id="forms-alternate">
+					{#each varieties as variety (variety.id)}
+						<li>
+							<button
+								type="button"
+								id="data-form-{variety.name}"
+								class:selected={$page.params.id === variety.id.toString()}
+								on:click={() => goto(navigatePokemon(variety.id, $page))}
+							>
+								<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
+								{variety.name}
+							</button>
+						</li>
+					{/each}
+				</menu>
+			</header>
+		{/if}
+		<slot />
+		<nav id="data-navigation">
+			<menu>
+				{#each routes as route}
+					<li class:selected={$page.route.id?.endsWith(route.id)}>
+						<a href={`/pokemon/${$page.params.id}${route.id}`}>
+							{#if route.icon.includes('icon')}
+								<svg>
+									<use href="#{route.icon}" />
+								</svg>
+							{:else}
+								<img src={`/${route.icon}`} alt={route.icon} />
+							{/if}
+						</a>
 					</li>
 				{/each}
 			</menu>
-		</header>
-	{/if}
-
-	<nav id="data-navigation">
-		<menu>
-			{#each routes as route}
-				<li class:selected={$page.route.id?.endsWith(route.id)}>
-					<a href={`/pokemon/${$page.params.id}${route.id}`}>
-						{#if route.icon.includes('icon')}
-							<svg>
-								<use href="#{route.icon}" />
-							</svg>
-						{:else}
-							<img src={`/${route.icon}`} alt={route.icon} />
-						{/if}
-					</a>
-				</li>
-			{/each}
-		</menu>
-	</nav>
-
-	<!-- Desktop-only content // then mobile-only -->
-	{#if $device !== 'mobile'}
-		<slot />
+		</nav>
 		<hr />
 		<span id="data-pokemon-id">
 			#{data.pokemon.id}
 		</span>
-	{:else}
-		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
-		<div id="stats-group">
-			<button class="group-separator" on:mousedown={grabHandle} on:touchstart={grabHandle} />
-			<slot />
-		</div>
 	{/if}
 </section>
 
 <style>
 	#pokemon-data {
 		display: grid;
-		align-items: center;
 
-		& > nav#data-navigation {
+		& nav#data-navigation {
 			grid-area: navigation;
 
 			& > menu {
@@ -249,33 +170,53 @@
 		}
 
 		@media (max-width: 640px) {
-			height: 100%;
-			/* grid-template: 'navigation' 8% 'cover' 40% 'content' 50% / 100%; */
+			container-type: size;
+			grid-template: auto 1fr / 100%;
+			overflow: hidden;
+			gap: var(--normal-gap);
 
-			& > #stats-group {
-				display: grid;
-				grid-template: 5% 95% / 100%;
-				justify-content: center;
-				align-items: center;
+			& .data-content {
+				min-height: 25%;
+				position: relative;
+				background: hsl(0 0% 98%);
+				border-radius: 12px;
 
-				height: 100%;
-				padding-block: 0.5rem;
-				border: 1px solid transparent;
-				border-radius: var(--border-r-100);
-				background-color: var(--background-color-___);
-
-				& > .group-separator {
-					width: 50%;
-					height: 5px;
-					background-color: var(--background-color-____);
-					border: 1px solid transparent;
-					border-radius: var(--border-r-100);
-					margin-inline: auto;
+				&:first-of-type::before {
+					content: '';
+					position: absolute;
+					pointer-events: none;
+					height: var(--smaller-gap);
+					width: 3rem;
+					left: 50%;
+					bottom: 0%;
+					background: var(--text-color);
+					border-radius: 4rem;
+					translate: -50% calc(1.5rem + -50%);
+					z-index: 3;
 				}
 			}
-			& > nav#data-navigation {
-				height: 100%;
 
+			& .handle {
+				position: relative;
+				right: 50%;
+				bottom: 0;
+				height: 40svh;
+				width: 100%;
+				resize: vertical;
+				overflow: hidden;
+				min-height: 25%;
+				max-height: calc(100cqh - (var(--small-gap) + 25%));
+				transform-origin: 100% 100%;
+				scale: 4 1;
+				translate: 28px 1.5rem;
+				background: green;
+				z-index: 9999;
+				clip-path: inset(calc(100% - 14px) 0 0 calc(100% - 14px));
+				/* Important to hide it */
+				opacity: 0;
+			}
+
+			& nav#data-navigation {
 				& > menu {
 					height: 100%;
 					color: var(--text-color);
@@ -294,16 +235,11 @@
 
 		@media (min-width: 640px) {
 			&:not(.default-form) {
-				/* grid-template:
-					'header header' var(--layout-header-size)
-					'main navigation' var(--layout-pokemon-with-forms-size)
-					'line id' var(--layout-id-size) / 90% 10% !important; */
+				grid-template: 'header header' 8svh 'main navigation' 78svh 'line id' 6svh / 90% 10%;
 			}
 
 			&.default-form {
-				/* grid-template:
-					'main navigation' var(--layout-pokemon-solo-size)
-					'line id' var(--layout-id-size) / 90% 10% !important; */
+				grid-template: 'main navigation' 86svh 'line id' 6svh / 90% 10%;
 			}
 
 			& > hr {
