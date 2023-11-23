@@ -1,13 +1,13 @@
 :root {
     --text-color: hsl(0, 0%, 15%);
 
-    --background-color-_: hsl(263, 79%, 92%);
-    --background-color-__: hsl(264, 27%, 87%);
-    --background-color-___: hsl(264, 27%, 83%);
-    --background-color-____: hsl(264, 27%, 79%);
+    --background-color-_: hsl(326, 69%, 56%);
+    --background-color-__: hsl(0, 100%, 96%);
+    --background-color-___: hsl(340, 60%, 83%);
+    --background-color-____: hsl(333, 60%, 32%);
 
-    --box-shadow: 4px 4px 16px hsl(264, 27%, 65%),
-        -4px -4px 16px hsl(264, 27%, 65%);
+    --box-shadow: 4px 4px 16px hsl(333, 60%, 40%),
+        -4px -4px 16px hsl(333, 60%, 40%);
 
     --primary-color: hsl(267, 95%, 16%);
     --secondary-color: #2980ef;

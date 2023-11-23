@@ -128,6 +128,14 @@
 	});
 </script>
 
+<svelte:head>
+	<meta property="og:title" content="The Dex - Info about {data.pokemon?.name}" />
+	<meta property="og:description" content="Info about {data.pokemon?.name}" />
+	<meta
+		property="og:image"
+		content={fetchPokemonSpriteURL($page.params.id, 'icons', 'generation-viii')}
+	/>
+</svelte:head>
 <section
 	id="pokemon-data"
 	class:default-form={varieties.length === 1}
