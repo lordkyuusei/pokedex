@@ -19,6 +19,7 @@
 	import { browser } from '$app/environment';
 	import { tweened, type Tweened } from 'svelte/motion';
 	import { cubicInOut } from 'svelte/easing';
+	import { computeOpenGraphDescription } from '$lib/functions/openGraph';
 
 	export let data: LayoutData;
 
@@ -130,7 +131,10 @@
 
 <svelte:head>
 	<meta property="og:title" content="The Dex - Info about {data.pokemon?.name}" />
-	<meta property="og:description" content="Info about {data.pokemon?.name}" />
+	<meta
+		property="og:description"
+		content={computeOpenGraphDescription({ pokemon: data.pokemon, specie: data.specie })}
+	/>
 	<meta
 		property="og:image"
 		content={fetchPokemonSpriteURL($page.params.id, 'icons', 'generation-viii')}
