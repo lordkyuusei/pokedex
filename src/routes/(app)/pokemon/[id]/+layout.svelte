@@ -40,6 +40,7 @@
 </script>
 
 <svelte:head>
+	<title>The Dex - Info about {data.pokemon?.name}"</title>
 	<meta property="og:title" content="The Dex - Info about {data.pokemon?.name}" />
 	<meta
 		property="og:description"
@@ -129,6 +130,7 @@
 
 		& nav#data-navigation {
 			grid-area: navigation;
+			margin-block: auto;
 
 			& > menu {
 				display: grid;

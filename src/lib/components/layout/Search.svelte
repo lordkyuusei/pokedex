@@ -61,7 +61,13 @@
 <aside id="dex-pan" class:show use:useDismiss on:dismiss={hidePane}>
 	<header id="pan-header">
 		<search id="header-search">
-			<input type="search" class="search-input" bind:value={searchText} on:keyup={debounce} />
+			<input
+				title="Search N°, Pokémon..."
+				type="search"
+				class="search-input"
+				bind:value={searchText}
+				on:keyup={debounce}
+			/>
 			<img class="search-icon" src="/dex-search.svg" alt="logo" />
 		</search>
 	</header>
