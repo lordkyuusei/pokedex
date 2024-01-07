@@ -35,7 +35,7 @@ export const fetchPokemonAbility = async (nameOrId: string): Promise<PokemonAbil
 export const fetchPokemonSpecieByName = async (specieName: string): Promise<PokemonSpecie | undefined> =>
     await fetchPokeApi<PokemonSpecie>(`${POKEAPI_ENDPOINT}/pokemon-species/${specieName}`);
 
-export const fetchPokemonById = async (id: number): Promise<Pokemon | undefined> =>
+export const fetchPokemonById = async (id: number | string): Promise<Pokemon | undefined> =>
     await fetchPokeApi<Pokemon>(`${POKEAPI_ENDPOINT}/pokemon/${id}`);
 
 export const fetchPokemonLocation = async (id: number): Promise<PokemonLocation | undefined> =>

@@ -14,14 +14,15 @@
 
 	$: genOfSelectPokemon = filterGenerationsFromPokemon(generationsList, $pokemon);
 	$: updateGenOnPokemonChange(genOfSelectPokemon);
-	$: versionsOfSelectGen = selectGen.versionsGroup;
+	$: versionsOfSelectGen = selectGen?.versionsGroup ?? [];
 
 	const updateGenOnPokemonChange = (generations: Generation[] = []) => {
 		if (
-			!$generation ||
-			!selectGen ||
-			!selectGroup ||
-			!generations.find((g) => g.id === $generation.id)
+			generations.length &&
+			(!$generation ||
+				!selectGen ||
+				!selectGroup ||
+				!generations.find((g) => g.id === $generation.id))
 		) {
 			selectGen = generations[0];
 			selectGroup = selectGen.versionsGroup[0];

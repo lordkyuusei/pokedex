@@ -4,7 +4,11 @@ import mongoose, { STATES } from "mongoose"
 let mongooseDb: typeof mongoose;
 
 if (mongoose.connection.readyState === STATES.disconnected) {
-    mongooseDb = await mongoose.connect(env["CONNECTION_STRING"])
+    try {
+        mongooseDb = await mongoose.connect(env["CONNECTION_STRING"])
+    } catch (err) {
+        mongooseDb = mongoose;
+    }
 } else {
     mongooseDb = mongoose;
 }

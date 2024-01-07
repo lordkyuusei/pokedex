@@ -23,8 +23,12 @@ export const searchPokemonById = async (id: number) => {
 }
 
 export const getGenerationsList = async (from: number = 0, to: number = 10) => {
-    const generationList = await lightgenerations.find().bulkByGen(from, to).exec();
-    return JSON.stringify(generationList);
+    try {
+        const generationList = await lightgenerations.find().bulkByGen(from, to).exec();
+        return JSON.stringify(generationList);
+    } catch (error) {
+        return "[]";
+    }
 }
 
 export const getMoveTypesGeneration = async (id: number = 9) => {

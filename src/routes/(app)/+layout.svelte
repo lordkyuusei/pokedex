@@ -13,7 +13,6 @@
 	import MobileLayout from '$lib/components/interface/MobileLayout.svelte';
 
 	import routes from './routes.json';
-	import UpdateSw from '$lib/components/layout/UpdateSW.svelte';
 
 	export let data: LayoutServerData;
 </script>
@@ -30,7 +29,8 @@
 <SVGs />
 {#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
 	<UpdateSW />
-{/await}{#if $device !== 'mobile'}
+{/await}
+{#if $device !== 'mobile'}
 	<DesktopLayout
 		{routes}
 		routeId={$page.route.id}
