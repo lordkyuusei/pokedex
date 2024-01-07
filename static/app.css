@@ -130,6 +130,12 @@ em {
     color: var(--primary-color)
 }
 
+img.img-error {
+    height: 100%;
+    aspect-ratio: 1;
+    object-position: 0 !important;
+}
+
 ::-webkit-scrollbar {
     margin-left: 1.5rem;
     float: left;
