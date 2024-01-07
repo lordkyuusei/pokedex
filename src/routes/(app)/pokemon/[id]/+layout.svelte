@@ -130,7 +130,10 @@
 
 		& nav#data-navigation {
 			grid-area: navigation;
-			margin-block: auto;
+
+			@media (min-width: 640px) {
+				margin-block: auto;
+			}
 
 			& > menu {
 				display: grid;
