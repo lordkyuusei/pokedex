@@ -1,5 +1,6 @@
 <script lang="ts">
 	import drawBookBackground from '$lib/functions/drawBackgroundFromTypes';
+	import onImgError from '$lib/functions/fixImgLoadingError';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	export let name: string;
@@ -13,7 +14,7 @@
 		<img
 			src={fetchPokemonSpriteURL(id, 'icons', 'generation-viii')}
 			alt={name}
-			on:error={({ target }) => (target.src = fetchPokemonSpriteURL(0))}
+			on:error={onImgError}
 		/>
 	</header>
 	<p class="book-name">{name}</p>

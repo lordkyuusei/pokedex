@@ -6,6 +6,7 @@
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 	import { LAST_POKEMON_KNOWN_ID } from '$lib/constants/global';
 	import { navigatePokemon } from '$lib/functions/navigate';
+	import onImgError from '$lib/functions/fixImgLoadingError';
 
 	$: pkmnId = $pokemon?.id ?? 0;
 	$: pkmnPrevId = Math.max(pkmnId - 1, 0);
@@ -26,6 +27,7 @@
 					class="pokemon-sprite"
 					src={fetchPokemonSpriteURL(pkmnPrevId, 'icons', 'generation-viii')}
 					alt="pokemon {pkmnPrevId}"
+					on:error={onImgError}
 				/>
 			</a>
 		{/if}
@@ -40,6 +42,7 @@
 					class="pokemon-sprite"
 					src={fetchPokemonSpriteURL(pkmnNextId, 'icons', 'generation-viii')}
 					alt="pokemon {pkmnNextId}"
+					on:error={onImgError}
 				/>
 				<img src="/arrow.svg" class="navigation-next" alt="pokemon {pkmnNextId}" />
 			</a>
