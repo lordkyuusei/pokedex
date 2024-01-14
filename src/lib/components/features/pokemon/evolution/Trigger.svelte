@@ -47,7 +47,7 @@
 	}
 
 	.section-1-rows {
-		height: 12%;
+		height: 25%;
 	}
 
 	.section-2-rows {
@@ -75,7 +75,6 @@
 	}
 
 	.trigger-separator {
-		border: 1px solid var(--text-color);
 		background-color: var(--background-color-___);
 	}
 

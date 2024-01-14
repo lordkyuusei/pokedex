@@ -119,6 +119,7 @@
 		align-items: center;
 		grid-template-columns: repeat(3, 1fr);
 		grid-auto-rows: minmax(0, 1fr);
+		gap: var(--small-gap);
 	}
 
 	[id$='-evolution-triggers'] {
@@ -131,7 +132,6 @@
 	[id$='-evolution-stage'] [id$='-stage-prev'] {
 		height: 1em;
 		color: var(--background-color-___);
-		border: 1px solid var(--text-color);
 		background-color: var(--background-color-___);
 	}
 
