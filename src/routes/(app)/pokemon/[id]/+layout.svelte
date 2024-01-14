@@ -3,21 +3,20 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import type { LayoutData } from './$types';
-
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import type { LayoutData } from './$types';
+
 	import pokemon from '$lib/store/pokemon';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	import routes from './routes.json';
-	import { navigatePokemon } from '$lib/functions/navigate';
 	import { device } from '$lib/store/device';
-	import Cover from '$lib/components/features/pokemon/Cover.svelte';
-	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
 	import { generation } from '$lib/store/generation';
-	import { browser } from '$app/environment';
+	import { navigatePokemon } from '$lib/functions/navigate';
+	import Cover from '$lib/components/features/pokemon/Cover.svelte';
 	import { computeOpenGraphDescription } from '$lib/functions/openGraph';
+	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
 
 	export let data: LayoutData;
 
@@ -54,30 +53,25 @@
 
 <section id="pokemon-data" class:default-form={varieties.length === 1} out:fade>
 	{#if $device === 'mobile'}
-		<div class="data-content">
-			<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
-			<div class="handle"></div>
-		</div>
-		<div class="data-content">
-			<nav id="data-navigation">
-				<menu>
-					{#each routes as route}
-						<li class:selected={$page.route.id?.endsWith(route.id)}>
-							<a href={`/pokemon/${$page.params.id}${route.id}`}>
-								{#if route.icon.includes('icon')}
-									<svg>
-										<use href="#{route.icon}" />
-									</svg>
-								{:else}
-									<img src={`/${route.icon}`} alt={route.icon} />
-								{/if}
-							</a>
-						</li>
-					{/each}
-				</menu>
-			</nav>
-			<slot />
-		</div>
+		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
+		<nav id="data-navigation">
+			<menu>
+				{#each routes as route}
+					<li class:selected={$page.route.id?.endsWith(route.id)}>
+						<a href={`/pokemon/${$page.params.id}${route.id}`}>
+							{#if route.icon.includes('icon')}
+								<svg>
+									<use href="#{route.icon}" />
+								</svg>
+							{:else}
+								<img src={`/${route.icon}`} alt={route.icon} />
+							{/if}
+						</a>
+					</li>
+				{/each}
+			</menu>
+		</nav>
+		<slot />
 	{:else}
 		<!-- Header / Pokemon forms on desktop -->
 		{#if varieties.length !== 1}
@@ -175,53 +169,11 @@
 		}
 
 		@media (max-width: 640px) {
-			container-type: size;
-			grid-template: auto 1fr / 100%;
+			grid-template: 40% 10% 50% / 100%;
 			overflow: hidden;
-			gap: var(--normal-gap);
-
-			& .data-content {
-				min-height: 25%;
-				position: relative;
-				background: hsl(0 0% 98%);
-				border-radius: 12px;
-
-				&:first-of-type::before {
-					content: '';
-					position: absolute;
-					pointer-events: none;
-					height: var(--smaller-gap);
-					width: 3rem;
-					left: 50%;
-					bottom: 0%;
-					background: var(--text-color);
-					border-radius: 4rem;
-					translate: -50% calc(1.5rem + -50%);
-					z-index: 3;
-				}
-			}
-
-			& .handle {
-				position: relative;
-				right: 50%;
-				bottom: 0;
-				height: 40svh;
-				width: 100%;
-				resize: vertical;
-				overflow: hidden;
-				min-height: 25%;
-				max-height: calc(100cqh - (var(--small-gap) + 25%));
-				transform-origin: 100% 100%;
-				scale: 4 1;
-				translate: 28px 1.5rem;
-				background: green;
-				z-index: 9999;
-				clip-path: inset(calc(100% - 14px) 0 0 calc(100% - 14px));
-				/* Important to hide it */
-				opacity: 0;
-			}
 
 			& nav#data-navigation {
+				grid-area: unset;
 				& > menu {
 					height: 100%;
 					color: var(--text-color);

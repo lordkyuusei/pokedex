@@ -178,9 +178,8 @@
 
 	@media (max-width: 640px) {
 		[id^='evolution'] {
-			grid-auto-flow: row;
-			grid-auto-rows: minmax(1em, 1fr);
-
+			grid-auto-rows: 1fr;
+			grid-auto-columns: 40%;
 			border-radius: 0;
 		}
 	}

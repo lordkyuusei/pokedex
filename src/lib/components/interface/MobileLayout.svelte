@@ -82,8 +82,9 @@
 			display: grid;
 			grid-template: 7% 93% / 100%;
 			&.opaque {
-				filter: brightness(0.5);
+				filter: brightness(0.8);
 				pointer-events: none;
+				background-color: var(--background-color-____);
 			}
 		}
 

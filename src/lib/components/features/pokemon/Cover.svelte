@@ -137,8 +137,6 @@
 
 	@media (max-width: 640px) {
 		#stats-main {
-			position: absolute;
-			inset: 0;
 			overflow: auto;
 			height: unset;
 
