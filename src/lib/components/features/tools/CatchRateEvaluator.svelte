@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Generation } from '$lib/types/generation';
-	import { computeCatchRate, simulateCatchGen1 } from '$lib/functions/computeCatchRates';
 	import { balls } from '$lib/constants/pokeballs';
 	import { ailments } from '$lib/constants/ailments';
 	import { HPFormula } from '$lib/functions/statFormula';
-	import { ITEMS_SPRITE_URL } from '$lib/constants/api.json';
-	import type { Pokemon } from '$lib/types/pokeapi/pokemon';
-	import type { PokemonSpecie } from '$lib/types/pokeapi/specie';
+	import type { Generation } from '$lib/types/generation';
 	import type { Lightkemon } from '$lib/types/lightkemon';
+	import type { Pokemon } from '$lib/types/pokeapi/pokemon';
+	import { ITEMS_SPRITE_URL } from '$lib/constants/api.json';
+	import type { PokemonSpecie } from '$lib/types/pokeapi/specie';
+	import { computeCatchRate, simulateCatchGen1 } from '$lib/functions/computeCatchRates';
 
 	export let generation: Generation;
 
@@ -21,6 +21,7 @@
 	let shakes: number = 0;
 	let catchChances: string = '0';
 
+	$: console.log(ballUsed);
 	$: genBalls = balls.filter((ball) => ball.appearedInGen <= generation.id);
 	$: pokemonList = fetch(`/api/pokemon?from=1&to=${generation.boundaries.to}`).then(
 		async (response) => (await response.json()) as Promise<Lightkemon[]>
@@ -35,6 +36,7 @@
 		const { pokemon, specie } = info;
 		const pokemonHp = HPFormula(pokemon.stats[0].base_stat, level, 0, 31, true);
 		const conditions = {
+			catchRate: specie.capture_rate,
 			ballId: ballUsed,
 			ailmentId: ailmentInflicted,
 			isCaught: specie.capture_rate,
@@ -45,7 +47,7 @@
 		const chances = computeCatchRate(generation.id, conditions);
 		const result = simulateCatchGen1(conditions);
 
-		catchChances = `${chances}%`;
+		catchChances = `${chances}`;
 		isCaught = result.catch;
 		shakes = result.shakes;
 	};
@@ -79,7 +81,7 @@
 							bind:group={ballUsed}
 							value={ball.id}
 						/>
-						<label for={ball.name}>
+						<label for={ball.name} class:chosen={ball.id === ballUsed}>
 							<img alt={ball.name} src={`${ITEMS_SPRITE_URL}/${ball.name}.png`} />
 							{ball.name}
 						</label>
@@ -160,17 +162,14 @@
 				& > ul#options-ball {
 					display: grid;
 					grid-auto-flow: column;
-					grid-auto-columns: max-content;
-					gap: var(--small-gap);
+					grid-auto-columns: auto;
+					gap: var(--smallest-gap);
 					align-items: center;
 
 					list-style: none;
 
 					overflow-x: auto;
 					& > li.ball-info {
-						padding: var(--smallest-gap) var(--small-gap);
-						border-radius: var(--border-r-50);
-
 						&:hover {
 							cursor: pointer;
 							background-color: var(--background-color-___);
@@ -180,8 +179,15 @@
 							display: grid;
 							grid-template-columns: auto 1fr;
 							align-items: center;
+							padding: var(--smallest-gap) var(--small-gap);
+							border-radius: var(--border-r-50);
+
 							&:hover {
 								cursor: pointer;
+							}
+
+							&.chosen {
+								background-color: var(--background-color-____);
 							}
 						}
 						& > input {
