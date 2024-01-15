@@ -30,6 +30,7 @@ export const simulateCatchGen1 = (conditions: any) => {
 
     const M = Math.trunc(Math.random() * 255);
     const N = Math.trunc(Math.random() * ballThreshold);
+    const f = gen1F(maxHp, curHp, ballBonus);
 
     if (N < ailmentThreshold) {
         return { catch: true, shakes: 3 };
@@ -38,8 +39,6 @@ export const simulateCatchGen1 = (conditions: any) => {
     if ((N - ailmentThreshold) > catchRate) {
         return { catch: false, shakes: simulateFailShakes(catchRate, ballThreshold, ailmentBonus, f) };
     }
-
-    const f = gen1F(maxHp, curHp, ballBonus);
 
     if (f >= M) {
         return { catch: true, shakes: 3 };
