@@ -10,7 +10,7 @@
 	import { lang } from '$lib/store/lang';
 	import { version } from '$lib/store/generation';
 	import { generation } from '$lib/store/generation';
-	import { device } from '$lib/store/device';
+	import { isMobile } from '$lib/store/device';
 	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
 
 	export let data: PageData;
@@ -29,7 +29,7 @@
 </script>
 
 <section id="data-stats">
-	{#if $device !== 'mobile'}
+	{#if !$isMobile}
 		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
 	{/if}
 	<Stats stats={data.pokemon.stats} />

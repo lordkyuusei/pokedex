@@ -11,7 +11,7 @@
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	import routes from './routes.json';
-	import { device } from '$lib/store/device';
+	import { isMobile } from '$lib/store/device';
 	import { generation } from '$lib/store/generation';
 	import { navigatePokemon } from '$lib/functions/navigate';
 	import Cover from '$lib/components/features/pokemon/Cover.svelte';
@@ -52,7 +52,7 @@
 </svelte:head>
 
 <section id="pokemon-data" class:default-form={varieties.length === 1} out:fade>
-	{#if $device === 'mobile'}
+	{#if $isMobile}
 		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
 		<nav id="data-navigation">
 			<menu>

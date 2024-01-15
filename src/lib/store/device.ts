@@ -9,3 +9,5 @@ export const deviceWidth = writable(0);
 export const device: Readable<Device> = derived(deviceWidth, (width) =>
     width > TABLET_THRESHOLD ? 'desktop' :
         width > MOBILE_THRESHOLD ? 'tablet' : 'mobile');
+
+export const isMobile: Readable<boolean> = derived(device, (device) => device === 'mobile');

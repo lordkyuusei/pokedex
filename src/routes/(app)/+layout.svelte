@@ -6,7 +6,7 @@
 	import type { LayoutServerData } from '../$types';
 
 	import { theme } from '$lib/store/theme';
-	import { deviceWidth, device } from '$lib/store/device';
+	import { deviceWidth, isMobile } from '$lib/store/device';
 
 	import SVGs from '$lib/components/common/SVGs.svelte';
 	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
@@ -30,7 +30,11 @@
 {#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
 	<UpdateSW />
 {/await}
-{#if $device !== 'mobile'}
+{#if $isMobile}
+	<MobileLayout {routes} generationsList={data.generationsList}>
+		<slot />
+	</MobileLayout>
+{:else}
 	<DesktopLayout
 		{routes}
 		routeId={$page.route.id}
@@ -39,8 +43,4 @@
 	>
 		<slot />
 	</DesktopLayout>
-{:else}
-	<MobileLayout {routes} generationsList={data.generationsList}>
-		<slot />
-	</MobileLayout>
 {/if}
