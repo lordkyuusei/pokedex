@@ -4,6 +4,7 @@
 	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import StatsCalculator from './StatsCalculator.svelte';
 	import StatsLines from './StatsLines.svelte';
+	import StatBlock from './StatBlock.svelte';
 
 	export let stats: StatRef[];
 
@@ -15,7 +16,7 @@
 		<Switch event="strat" icon="training" on:strat={(e) => (toggleStrat = e.detail.strat)} />
 	</div>
 	{#if !toggleStrat}
-		<StatsLines {stats} />
+		<StatBlock {stats} />
 	{:else}
 		<StatsCalculator {stats} />
 	{/if}
@@ -23,6 +24,7 @@
 
 <style>
 	#stats-statistics {
+		position: relative;
 		display: grid;
 		place-items: center;
 		padding: 1em;
@@ -38,10 +40,13 @@
 		}
 	}
 
+	#statistics-switch {
+		position: absolute;
+		top: 1.5rem;
+		left: var(--normal-gap);
+	}
 	#stats-statistics:not(.toggled) {
-		grid-template:
-			'switch scale total' 1fr
-			'name graph base' 5fr / 1fr 4fr 1fr;
+		grid-template: 'graph' 100% / 100%;
 	}
 
 	.toggled {
