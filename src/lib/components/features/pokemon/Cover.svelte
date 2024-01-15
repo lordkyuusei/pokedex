@@ -4,16 +4,20 @@
 	import Type from '$lib/components/common/Type.svelte';
 	import Switch from '$lib/components/common/Switch.svelte';
 	import drawBookBackground from '$lib/functions/drawBackgroundFromTypes';
-	import { fetchPokemonShinySpriteURL } from '$lib/functions/getPokemonSpritesURL';
+	import {
+		fetchPokemonShinySpriteURL,
+		fetchPokemonSpriteURL
+	} from '$lib/functions/getPokemonSpritesURL';
 
 	import TypesRelationship from './TypesRelationship.svelte';
-	import { device } from '$lib/store/device';
+	import { isMobile } from '$lib/store/device';
 	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
 
 	export let id: number = 0;
 	export let sprite: string = '';
 	export let types: string[] = [];
 
+	$: artwork = fetchPokemonSpriteURL(id, undefined, undefined, '/other/official-artwork/');
 	$: shinySprite = fetchPokemonShinySpriteURL(id);
 
 	let toggleShiny: boolean = false;
@@ -25,26 +29,40 @@
 	id="stats-main"
 	in:fade={{ delay: 50 }}
 	class:main={!toggleTypes}
-	style:background={drawBookBackground(types, $device === 'mobile')}
+	style:background={drawBookBackground(types, $isMobile)}
 >
 	<header id="main-buttons">
-		<Switch event="types" icon="pokedex" on:types={(e) => (toggleTypes = e.detail.types)} />
+		<Switch
+			event="typesTable"
+			icon="pokedex"
+			on:typesTable={(e) => (toggleTypes = e.detail.typesTable)}
+		/>
 		{#if !toggleTypes}
-			<Switch event="shiny" icon="shiny" on:shiny={(e) => (toggleShiny = e.detail.shiny)} />
+			<Switch
+				event="shinyCover"
+				icon="shiny"
+				on:shinyCover={(e) => (toggleShiny = e.detail.shinyCover)}
+			/>
 		{:else}
-			<Switch event="cover" icon="pokedex" on:cover={(e) => (toggleCover = e.detail.cover)} />
+			<Switch
+				event="coverage"
+				icon="pokedex"
+				on:coverage={(e) => (toggleCover = e.detail.coverage)}
+			/>
 		{/if}
 	</header>
 	{#if !toggleTypes}
-		{#if $device === 'mobile'}
+		{#if $isMobile}
 			<div id="prev-next-nav">
 				<PrevNextNavigation />
 			</div>
+		{:else}
+			<img class="main-illustration" src={artwork} alt={`${id}`} />
 		{/if}
 		<figure class="main-image">
 			<img
 				src={!toggleShiny ? sprite : shinySprite}
-				alt={sprite}
+				alt={`${id}`}
 				on:error={(e) => (e.currentTarget.src = sprite)}
 			/>
 		</figure>
@@ -65,6 +83,7 @@
 
 		height: 100%;
 		border-radius: var(--border-r-50) var(--border-r-200) 0 var(--border-r-200);
+		position: relative;
 		overflow-y: auto;
 
 		&::-webkit-scrollbar {
@@ -95,7 +114,16 @@
 			height: 100%;
 			width: 100%;
 			background-color: rgba(0, 0, 0, 0.35);
-			backdrop-filter: blur(2px);
+			z-index: 2;
+		}
+
+		& .main-illustration {
+			position: absolute;
+			right: -10%;
+			bottom: 0%;
+			height: 100%;
+			filter: opacity(0.2) grayscale(0.9);
+			pointer-events: none;
 		}
 
 		& .main-image {
@@ -132,13 +160,13 @@
 			justify-content: space-between;
 			padding-inline: 3em;
 			gap: var(--normal-gap);
+			z-index: 2;
 		}
 	}
 
 	@media (max-width: 640px) {
 		#stats-main {
 			overflow: auto;
-			height: unset;
 
 			border-radius: 0;
 			box-shadow: none;

@@ -19,7 +19,7 @@
 		{#if pkmnPrevId !== 0}
 			<a
 				href={navigatePokemon(pkmnPrevId, $page)}
-				class="navigation-button"
+				class="navigation-button prev"
 				title={`${pkmnPrevId}`}
 			>
 				<img class="navigation-prev" src="/arrow.svg" alt="pokemon {pkmnPrevId}" />
@@ -35,7 +35,7 @@
 		{#if pkmnNextId !== LAST_POKEMON_KNOWN_ID}
 			<a
 				href={navigatePokemon(pkmnNextId, $page)}
-				class="navigation-button"
+				class="navigation-button next"
 				title={`${pkmnNextId}`}
 			>
 				<img
@@ -94,6 +94,14 @@
 
 			border-radius: var(--border-r-200);
 			padding: 0;
+
+			&.prev {
+				grid-column: 1;
+			}
+
+			&.next {
+				grid-column: 3;
+			}
 
 			& > .pokemon-sprite {
 				object-fit: cover;
