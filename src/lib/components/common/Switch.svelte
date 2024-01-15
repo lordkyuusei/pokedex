@@ -17,11 +17,11 @@
 	onMount(() => {});
 </script>
 
-<label for="{event}-switch" class="label" class:label-check={checked}>
+<label for="{event}-switch" class="label" class:label-check={checked} title="Toggle {event}">
 	<input
 		id="{event}-switch"
-		title="Toggle {event} mode"
-		aria-label="Toggle {event}- mode"
+		title="Toggle {event}"
+		aria-label="Toggle {event}"
 		type="checkbox"
 		class="switch"
 		class:checked
