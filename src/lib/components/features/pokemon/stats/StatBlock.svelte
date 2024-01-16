@@ -1,18 +1,14 @@
 <script lang="ts">
-	import { POLYGON_MAX_COORDINATES, mapPolygonCoordinatesToString } from '$lib/constants/stats';
+	import {
+		MAX_STAT,
+		POLYGON_MAX_COORDINATES,
+		mapKeyToStat,
+		mapPolygonCoordinatesToString
+	} from '$lib/constants/stats';
 	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import { afterUpdate } from 'svelte';
 
 	export let stats: StatRef[] = [];
-
-	const mapKeyToStat: { [x: string]: { order: number; name: string } } = {
-		hp: { order: 0, name: 'H.P.' },
-		attack: { order: 1, name: 'Attaque' },
-		'special-attack': { order: 2, name: 'Atk Spé.' },
-		speed: { order: 3, name: 'Vitesse' },
-		'special-defense': { order: 4, name: 'Déf Spé.' },
-		defense: { order: 5, name: 'Défense' }
-	};
 
 	$: baseStats = stats
 		.map((s) => ({
@@ -33,11 +29,11 @@
 		const [maxX, maxY] = [...statsCoordinates[angle]];
 
 		const newValue = value / 2;
-		const newAngle = Math.atan2(maxY - 255 / 2, maxX - 255 / 2);
+		const newAngle = Math.atan2(maxY - MAX_STAT / 2, maxX - MAX_STAT / 2);
 
 		// I have no idea why the -2 solves the alignment but it does???
-		const newX = (255 - 2) / 2 + newValue * Math.cos(newAngle);
-		const newY = (255 - 2) / 2 + newValue * Math.sin(newAngle);
+		const newX = (MAX_STAT - 2) / 2 + newValue * Math.cos(newAngle);
+		const newY = (MAX_STAT - 2) / 2 + newValue * Math.sin(newAngle);
 
 		smallPoly.points[angle].x = newX;
 		smallPoly.points[angle].y = newY;
@@ -54,7 +50,7 @@
 </script>
 
 <section id="stat-block">
-	<svg id="polygon-holder" viewBox="0 0 255 255">
+	<svg id="polygon-holder" viewBox="0 0 {MAX_STAT} {MAX_STAT}">
 		<polygon
 			id="big-poly"
 			class="basic-stroke"
@@ -86,7 +82,7 @@
 		place-content: center;
 		place-items: center;
 
-		grid-template-rows: 0.5fr 1fr 1fr 0.5fr;
+		grid-template-rows: 0.3fr 1fr 1fr 0.3fr;
 		grid-template-columns: 1fr 3fr 1fr;
 
 		& > svg {
@@ -111,7 +107,7 @@
 			grid-area: 2 / 2 / 4 / 2;
 			color: var(--background-color-____);
 			z-index: 1;
-			font-size: xx-large;
+			font-size: x-large;
 		}
 
 		& > [id^='value'] {

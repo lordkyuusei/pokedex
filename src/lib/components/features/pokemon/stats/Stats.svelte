@@ -3,7 +3,6 @@
 	import Switch from '$lib/components/common/Switch.svelte';
 	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import StatsCalculator from './StatsCalculator.svelte';
-	import StatsLines from './StatsLines.svelte';
 	import StatBlock from './StatBlock.svelte';
 
 	export let stats: StatRef[];
@@ -45,15 +44,8 @@
 		top: 1.5rem;
 		left: var(--normal-gap);
 	}
-	#stats-statistics:not(.toggled) {
+	#stats-statistics {
 		grid-template: 'graph' 100% / 100%;
-	}
-
-	.toggled {
-		grid-template:
-			'switch graph' 1fr
-			'modifiers graph' 5fr
-			'help graph' 1fr / 1fr 5fr;
 	}
 
 	#statistics-switch {

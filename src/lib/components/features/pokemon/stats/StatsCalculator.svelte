@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { beforeUpdate, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	import {
 		MAX_CUMULATIVE_EVS,
@@ -55,8 +55,8 @@
 			id === 1
 				? MAX_CUMULATIVE_STATS_POINTS_GEN1
 				: id === 2
-				? MAX_CUMULATIVE_STATS_POINTS_GEN2
-				: MAX_CUMULATIVE_EVS
+					? MAX_CUMULATIVE_STATS_POINTS_GEN2
+					: MAX_CUMULATIVE_EVS
 	});
 
 	$: config$ = updateConfigOnGenerationChange($generation.id);
@@ -110,13 +110,13 @@
 	});
 </script>
 
-<aside id="stats-modifiers">
-	<label for="lvl">Niveau</label>
-	<input style="width: 100%" type="number" bind:value={lvl} min="1" max="100" />
-	<label for="ivs">{config$.isOldGen ? 'DV à 15' : 'IV à 31'}</label>
-	<Switch event="ivs" icon="training" on:ivs={(e) => (ivs = e.detail.ivs)} />
-</aside>
 <section id="stats-calculator" style="grid-area: graph">
+	<aside id="stats-modifiers">
+		<label for="lvl">Niveau</label>
+		<input style="width: 100%" type="number" bind:value={lvl} min="1" max="100" />
+		<label for="ivs">{config$.isOldGen ? 'DV à 15' : 'IV à 31'}</label>
+		<Switch event="ivs" icon="training" on:ivs={(e) => (ivs = e.detail.ivs)} />
+	</aside>
 	<div id="calculator-ui">
 		<svg id="polygon-holder" viewBox="0 0 {config$.defaultSize} {config$.defaultSize}">
 			<polygon
