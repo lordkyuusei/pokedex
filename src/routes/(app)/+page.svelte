@@ -4,6 +4,7 @@
 </script>
 
 <section id="home-page">
+	<a href="web+dex://5">Test</a>
 	<h1>
 		{$t('home.welcome')}
 	</h1>
