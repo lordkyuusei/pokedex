@@ -1,7 +1,7 @@
 {
     "theme_color": "#ae9cc9",
     "background_color": "#352b46",
-    "orientation": "any",
+    "orientation": "portrait",
     "display": "standalone",
     "lang": "fr-FR",
     "name": "The Dex",
