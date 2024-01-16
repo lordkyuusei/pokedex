@@ -1,13 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/store/theme';
+	import { browser } from '$app/environment';
 
 	const prefersDark = '(prefers-color-scheme: dark)';
 	const prefersLight = '(prefers-color-scheme: light)';
 
 	$: isChecked = $theme === 'moon';
 
-	const setTheme = () => ($theme = $theme === 'moon' ? 'sun' : 'moon');
+	const setTheme = () => {
+		$theme = $theme === 'moon' ? 'sun' : 'moon';
+		if (browser) {
+			localStorage.setItem('themePreference', $theme);
+		}
+	};
 
 	onMount(() => {
 		const mapColorSchemeToTheme: Array<{ match: boolean; theme: Theme }> = [
@@ -15,10 +21,11 @@
 			{ match: window.matchMedia(prefersLight).matches, theme: 'sun' }
 		];
 
-		const match = mapColorSchemeToTheme.find((x) => x.match === true);
-		if (match) {
-			$theme = match.theme;
-		}
+		const themePreference = mapColorSchemeToTheme.find((x) => x.match === true);
+		const setThemePreference: Theme =
+			(localStorage.getItem('themePreference') as Theme) ?? themePreference?.theme ?? 'moon';
+
+		$theme = setThemePreference;
 	});
 </script>
 
