@@ -14,6 +14,7 @@
 
 	let show: boolean = false;
 	let searchText: string;
+	let searchInputRef: HTMLInputElement;
 	let results: Promise<Lightkemon[]>;
 	let debounceTimer: NodeJS.Timeout;
 
@@ -42,10 +43,15 @@
 		}
 	};
 
-	const showPane = () => (show = !show);
+	const showPane = () => {
+		show = !show;
+		searchInputRef.focus();
+	};
+
 	const hidePane = () => {
 		show = false;
 		searchText = '';
+		searchInputRef.blur();
 	};
 
 	const getBookUrl = (id: string) => {
@@ -65,6 +71,7 @@
 				title="Search N°, Pokémon..."
 				type="search"
 				class="search-input"
+				bind:this={searchInputRef}
 				bind:value={searchText}
 				on:keyup={debounce}
 			/>

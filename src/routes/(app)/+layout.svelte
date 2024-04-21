@@ -6,7 +6,7 @@
 	import type { LayoutServerData } from '../$types';
 
 	import { theme } from '$lib/store/theme';
-	import { deviceWidth, isMobile } from '$lib/store/device';
+	import { deviceWidth, isMobile, isRendered } from '$lib/store/device';
 
 	import SVGs from '$lib/components/common/SVGs.svelte';
 	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
@@ -14,6 +14,7 @@
 
 	import routes from './routes.json';
 
+	$: console.log($deviceWidth);
 	export let data: LayoutServerData;
 </script>
 
@@ -30,17 +31,29 @@
 {#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
 	<UpdateSW />
 {/await}
-{#if $isMobile}
-	<MobileLayout {routes} generationsList={data.generationsList}>
-		<slot />
-	</MobileLayout>
+{#if $isRendered}
+	{#if $isMobile}
+		<MobileLayout {routes} generationsList={data.generationsList}>
+			<slot />
+		</MobileLayout>
+	{:else}
+		<DesktopLayout
+			{routes}
+			routeId={$page.route.id}
+			isDev={dev}
+			generationsList={data.generationsList}
+		>
+			<slot />
+		</DesktopLayout>
+	{/if}
 {:else}
-	<DesktopLayout
-		{routes}
-		routeId={$page.route.id}
-		isDev={dev}
-		generationsList={data.generationsList}
-	>
-		<slot />
-	</DesktopLayout>
+	<div></div>
 {/if}
+
+<style>
+	div {
+		height: 100svh;
+		width: 100svw;
+		background-color: var(--background-color-____);
+	}
+</style>

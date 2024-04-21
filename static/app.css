@@ -9,7 +9,7 @@
     --normal-gap: 2em;
     --large-gap: 4em;
 
-    --layout-header-size: 8svh;
+    --layout-header-size: 10svh;
     --layout-content-size: calc(100svh - var(--layout-header-size));
 
     --layout-id-size: calc(var(--layout-header-size) - 2svh);

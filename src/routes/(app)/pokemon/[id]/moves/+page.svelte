@@ -153,18 +153,18 @@
 						border: none;
 						background-color: var(--background-color-_);
 						color: var(--text-color);
-						padding: 0 1.5em 0 1em;
-						height: 100%;
+						padding: 0.75rem 1.25rem;
 					}
 
 					& > .search-icon {
 						margin-right: 1em;
+						height: 75%;
 					}
 				}
 
 				& > #options-select {
 					cursor: pointer;
-					padding: 1em 1.5em;
+					padding: 0.75rem 1.25rem;
 					border: none;
 					text-transform: uppercase;
 					text-align: center;
