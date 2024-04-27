@@ -7,7 +7,7 @@
 
 	export let stats: StatRef[];
 
-	let toggleStrat: boolean = true;
+	let toggleStrat: boolean = false;
 </script>
 
 <section in:fade={{ delay: 100 }} id="stats-statistics" class:toggled={toggleStrat}>

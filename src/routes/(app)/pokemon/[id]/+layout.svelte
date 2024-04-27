@@ -138,7 +138,7 @@
 					justify-content: center;
 					align-items: center;
 					height: 4rem;
-					aspect-ratio: 1;
+					width: 4rem;
 					list-style: none;
 					border-radius: var(--border-r-200);
 					background-color: var(--background-color-__);
@@ -193,14 +193,14 @@
 		@media (min-width: 640px) {
 			&:not(.default-form) {
 				grid-template:
-					'aside main navigation' 84svh
-					'line line id' 6svh / 100px auto 8svw;
+					'aside main navigation' 85svh
+					'line line id' 5svh / 100px auto 8svw;
 			}
 
 			&.default-form {
 				grid-template:
-					'main navigation' 86svh
-					'line id' 6svh / 90% 10%;
+					'main navigation' 85svh
+					'line id' 5svh / 90% 10%;
 			}
 
 			& > hr {
@@ -208,6 +208,7 @@
 				height: 0.5em;
 				width: 100%;
 				border: none;
+				border-radius: 0 var(--small-gap) var(--small-gap) 0;
 				background-color: var(--primary-color);
 			}
 
@@ -216,7 +217,7 @@
 				color: var(--primary-color);
 				font-weight: bolder;
 				text-align: center;
-				font-size: 2em;
+				font-size: 1.5rem;
 			}
 
 			& > aside#data-forms {
@@ -270,10 +271,15 @@
 				}
 
 				& > li.selected {
-					width: 8em;
+					width: 7rem;
+					position: relative;
+					background-color: var(--background-color-_);
 					transition: all var(--transition-duration) var(--transition);
 					border-radius: var(--border-r-50) 0 0 var(--border-r-50);
-					position: relative;
+
+					& > a {
+						background-color: var(--background-color-_);
+					}
 					& > a > svg {
 						transform: translateX(-1.5em);
 					}

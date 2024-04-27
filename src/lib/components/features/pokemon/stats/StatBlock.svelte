@@ -141,22 +141,22 @@
 		}
 
 		& > #value-hp {
-			grid-area: 1 / 2 / 1 / 2;
+			grid-area: 1 / 2;
 		}
 		& > #value-attack {
-			grid-area: 2 / 3 / 2 / 3;
+			grid-area: 2 / 3;
 		}
 		& > #value-special-attack {
-			grid-area: 3 / 3 / 3 / 3;
+			grid-area: 3 / 3;
 		}
 		& > #value-special-defense {
-			grid-area: 3 / 1 / 3 / 1;
+			grid-area: 3 / 1;
 		}
 		& > #value-defense {
-			grid-area: 2 / 1 / 2 / 1;
+			grid-area: 2 / 1;
 		}
 		& > #value-speed {
-			grid-area: 4 / 2 / 4 / 2;
+			grid-area: 4 / 2;
 		}
 	}
 </style>
