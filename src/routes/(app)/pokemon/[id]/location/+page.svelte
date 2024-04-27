@@ -105,8 +105,7 @@
 
 <style>
 	#data-location {
-		padding: 2em;
-		height: 100%;
+		padding: var(--small-gap);
 
 		& > #location {
 			display: grid;

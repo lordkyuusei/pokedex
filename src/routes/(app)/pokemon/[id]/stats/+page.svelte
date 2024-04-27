@@ -56,7 +56,7 @@
 	@media (min-width: 1024px) {
 		#data-stats {
 			overflow-y: auto;
-			padding: var(--small-gap) var(--normal-gap);
+			padding: var(--small-gap);
 			gap: var(--normal-gap);
 		}
 

@@ -7,7 +7,7 @@
 
 	export let stats: StatRef[];
 
-	let toggleStrat: boolean = false;
+	let toggleStrat: boolean = true;
 </script>
 
 <section in:fade={{ delay: 100 }} id="stats-statistics" class:toggled={toggleStrat}>
@@ -44,6 +44,7 @@
 		top: 1.5rem;
 		left: var(--normal-gap);
 	}
+
 	#stats-statistics {
 		grid-template: 'graph' 100% / 100%;
 	}

@@ -114,8 +114,8 @@
 
 <style>
 	#data-moves {
-		padding: 2em;
-		height: 100%;
+		padding: var(--small-gap);
+		width: 100%;
 		overflow-y: auto;
 
 		& > #moves {

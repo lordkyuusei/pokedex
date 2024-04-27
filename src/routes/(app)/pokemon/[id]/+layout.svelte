@@ -75,23 +75,23 @@
 	{:else}
 		<!-- Header / Pokemon forms on desktop -->
 		{#if varieties.length !== 1}
-			<header id="data-forms" in:fade>
+			<aside id="data-forms" in:fade>
 				<menu id="forms-alternate">
 					{#each varieties as variety (variety.id)}
 						<li>
 							<button
 								type="button"
 								id="data-form-{variety.name}"
+								title={variety.name}
 								class:selected={$page.params.id === variety.id.toString()}
 								on:click={() => goto(navigatePokemon(variety.id, $page))}
 							>
 								<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
-								{variety.name}
 							</button>
 						</li>
 					{/each}
 				</menu>
-			</header>
+			</aside>
 		{/if}
 		<slot />
 		<nav id="data-navigation">
@@ -137,8 +137,8 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					height: 4em;
-					width: 4em;
+					height: 4rem;
+					aspect-ratio: 1;
 					list-style: none;
 					border-radius: var(--border-r-200);
 					background-color: var(--background-color-__);
@@ -192,11 +192,15 @@
 
 		@media (min-width: 640px) {
 			&:not(.default-form) {
-				grid-template: 'header header' 8svh 'main navigation' 78svh 'line id' 6svh / 90% 10%;
+				grid-template:
+					'aside main navigation' 84svh
+					'line line id' 6svh / 100px auto 8svw;
 			}
 
 			&.default-form {
-				grid-template: 'main navigation' 86svh 'line id' 6svh / 90% 10%;
+				grid-template:
+					'main navigation' 86svh
+					'line id' 6svh / 90% 10%;
 			}
 
 			& > hr {
@@ -215,18 +219,19 @@
 				font-size: 2em;
 			}
 
-			& > header#data-forms {
-				grid-area: header;
+			& > aside#data-forms {
+				grid-area: aside;
 
 				display: grid;
-				overflow-x: auto;
+				overflow-y: auto;
 				align-items: center;
-				padding: var(--small-gap) var(--normal-gap) 0;
+				align-content: start;
+				padding: var(--small-gap);
 
 				& > menu#forms-alternate {
 					display: grid;
-					grid-auto-columns: minmax(10%, 10rem);
-					grid-auto-flow: column;
+					grid-auto-rows: auto;
+					grid-auto-flow: row;
 					gap: var(--small-gap);
 					list-style: none;
 
@@ -235,13 +240,10 @@
 							display: inline-flex;
 							justify-content: center;
 							align-items: center;
-							height: 100%;
 							width: 100%;
-							padding-inline-end: 1.25em;
-							font-size: 1.25rem;
-							letter-spacing: 2px;
-							text-transform: capitalize;
+							aspect-ratio: 1;
 							border: none;
+							border-radius: 3rem;
 
 							&.selected {
 								font-weight: bolder;
@@ -250,8 +252,8 @@
 							}
 
 							& > img {
-								inline-size: 3em;
-								transform: translateY(-0.5em);
+								inline-size: 4rem;
+								transform: translateY(-0.5rem);
 							}
 						}
 					}

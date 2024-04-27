@@ -154,7 +154,7 @@
 
 <style>
 	#data-sprites {
-		padding: 2em;
+		padding: var(--small-gap);
 		height: 100%;
 	}
 

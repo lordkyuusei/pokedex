@@ -95,8 +95,8 @@
 		const newValue = value / 2;
 		const newAngle = Math.atan2(maxY - config$.defaultSize / 2, maxX - config$.defaultSize / 2);
 
-		const newX = config$.defaultSize / 2 + newValue * Math.cos(newAngle);
-		const newY = config$.defaultSize / 2 + newValue * Math.sin(newAngle);
+		const newX = (config$.defaultSize - 2) / 2 + newValue * Math.cos(newAngle);
+		const newY = (config$.defaultSize - 2) / 2 + newValue * Math.sin(newAngle);
 
 		smallPolygon.points[angle].x = newX;
 		smallPolygon.points[angle].y = newY;
@@ -234,40 +234,39 @@
 				updatePolygonPoint(evDef, 5);
 			}}
 		/>
+		<button id="value-ev-pv"><span>P.V.</span><em>{HP}</em></button>
+		<button
+			id="value-ev-atk"
+			class:minus={natures[0] === 0.9}
+			class:major={natures[0] === 1.1}
+			on:click={() => setNature(0)}><span>Attaque</span><em>{ATK}</em></button
+		>
+		<button
+			id="value-ev-atkspe"
+			class:minus={natures[1] === 0.9}
+			class:major={natures[1] === 1.1}
+			on:click={() => setNature(1)}><span>Att. Spé.</span><em>{ATKSPE}</em></button
+		>
+		<button
+			id="value-ev-spe"
+			class:minus={natures[2] === 0.9}
+			class:major={natures[2] === 1.1}
+			on:click={() => setNature(2)}><span>Vitesse</span><em>{SPE}</em></button
+		>
+		<button
+			id="value-ev-defspe"
+			class:minus={natures[3] === 0.9}
+			class:major={natures[3] === 1.1}
+			on:click={() => setNature(3)}><span>Déf. Spé.</span><em>{DEFSPE}</em></button
+		>
+		<button
+			id="value-ev-def"
+			class:minus={natures[4] === 0.9}
+			class:major={natures[4] === 1.1}
+			on:click={() => setNature(4)}><span>Défense</span><em>{DEF}</em></button
+		>
 	</div>
-	<button id="value-ev-pv"><span>P.V.</span><em>{HP}</em></button>
-	<button
-		id="value-ev-atk"
-		class:minus={natures[0] === 0.9}
-		class:major={natures[0] === 1.1}
-		on:click={() => setNature(0)}><span>Attaque</span><em>{ATK}</em></button
-	>
-	<button
-		id="value-ev-atkspe"
-		class:minus={natures[1] === 0.9}
-		class:major={natures[1] === 1.1}
-		on:click={() => setNature(1)}><span>Att. Spé.</span><em>{ATKSPE}</em></button
-	>
-	<button
-		id="value-ev-spe"
-		class:minus={natures[2] === 0.9}
-		class:major={natures[2] === 1.1}
-		on:click={() => setNature(2)}><span>Vitesse</span><em>{SPE}</em></button
-	>
-	<button
-		id="value-ev-defspe"
-		class:minus={natures[3] === 0.9}
-		class:major={natures[3] === 1.1}
-		on:click={() => setNature(3)}><span>Déf. Spé.</span><em>{DEFSPE}</em></button
-	>
-	<button
-		id="value-ev-def"
-		class:minus={natures[4] === 0.9}
-		class:major={natures[4] === 1.1}
-		on:click={() => setNature(4)}><span>Défense</span><em>{DEF}</em></button
-	>
 </section>
-<div id="statistics-switch" />
 
 <style>
 	.basic-stroke {
@@ -282,149 +281,154 @@
 		color: var(--third-color);
 	}
 
-	#stats-modifiers {
-		grid-area: modifiers;
-		height: 100%;
-		display: grid;
-		align-content: center;
-		justify-items: center;
-		gap: 0.5em;
-	}
-
 	#stats-calculator {
 		position: relative;
 		width: 100%;
 		aspect-ratio: 1;
 
 		display: grid;
-		place-content: center;
-		place-items: center;
-	}
+		grid-template: 'modifiers calculator' 100% / 150px auto;
 
-	#stats-calculator #calculator-ui,
-	#stats-calculator #calculator-ui > svg {
-		position: relative;
-		height: 100%;
-		width: 100%;
-	}
+		& > #stats-modifiers {
+			grid-area: modifiers;
 
-	#stats-calculator > #calculator-ui > svg [id$='-poly'] {
-		stroke-width: 1;
-		stroke: var(--text-color);
-	}
+			height: 100%;
+			display: grid;
+			align-content: center;
+			justify-items: center;
+			gap: 0.5em;
+		}
 
-	#stats-calculator > #calculator-ui > svg #big-poly {
-		fill: var(--background-color-_);
-	}
+		& > #calculator-ui {
+			grid-area: calculator;
+			position: relative;
 
-	#stats-calculator > #calculator-ui > svg #small-poly {
-		fill: var(--primary-color);
-	}
+			height: 100%;
+			display: grid;
+			place-items: center;
 
-	#stats-calculator > #calculator-ui [id^='slider'] {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		height: 1px;
-		width: calc(50% - 1px);
-		margin: 0;
-		padding: 0;
-		outline: none;
-		appearance: none;
-		background: var(--text-color);
-		transform-origin: left;
-	}
+			& > svg {
+				position: relative;
 
-	#stats-calculator > #calculator-ui [id^='slider']::-webkit-slider-thumb {
-		appearance: none;
-		background-color: var(--background-color-___);
-		height: 0.75em;
-		cursor: pointer;
-		border-radius: var(--border-r-50);
-		aspect-ratio: 1;
-	}
+				&[id$='-poly'] {
+					stroke-width: 1;
+					stroke: var(--text-color);
+				}
 
-	#stats-calculator > #calculator-ui [id^='slider']::before {
-		content: attr(data-value);
-		position: absolute;
-		left: calc(50%);
-	}
+				&#big-poly {
+					fill: var(--background-color-_);
+				}
 
-	#stats-calculator [id^='value'] {
-		appearance: none;
-		border: none;
-		background: none;
-		position: absolute;
-		display: grid;
-		grid-template-rows: 1fr 1fr;
-		align-items: center;
-		cursor: pointer;
-	}
+				&#small-poly {
+					fill: var(--primary-color);
+				}
+			}
 
-	#stats-calculator [id^='value'] > *:not(span) {
-		color: var(--primary-color);
-	}
+			& > [id^='slider'] {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				height: 1px;
+				width: calc(50% - 1px);
+				margin: 0;
+				padding: 0;
+				outline: none;
+				appearance: none;
+				background: var(--text-color);
+				transform-origin: left;
 
-	#stats-calculator #value-ev-pv,
-	#stats-calculator #value-ev-spe {
-		justify-content: items;
-	}
+				&::-webkit-slider-thumb {
+					appearance: none;
+					background-color: var(--background-color-___);
+					height: 0.75em;
+					cursor: pointer;
+					border-radius: var(--border-r-50);
+					aspect-ratio: 1;
+				}
 
-	#stats-calculator #value-ev-atk,
-	#stats-calculator #value-ev-atkspe {
-		right: 0;
-		justify-items: left;
-	}
+				&::before {
+					content: attr(data-value);
+					position: absolute;
+					left: calc(50%);
+				}
+			}
 
-	#stats-calculator #value-ev-def,
-	#stats-calculator #value-ev-defspe {
-		left: 0;
-		justify-items: right;
-	}
+			& > #slider-ev-pv {
+				transform: rotate(270deg);
+			}
 
-	#stats-calculator #value-ev-pv {
-		top: 0.75em;
-	}
+			& > #slider-ev-atk {
+				transform: rotate(-29deg);
+			}
 
-	#stats-calculator #value-ev-atk,
-	#stats-calculator #value-ev-def {
-		top: 25%;
-	}
+			& > #slider-ev-speatk {
+				transform: rotate(29deg);
+			}
 
-	#stats-calculator #value-ev-atkspe,
-	#stats-calculator #value-ev-defspe {
-		bottom: 25%;
-	}
+			& > #slider-ev-spe {
+				transform: rotate(90deg);
+			}
 
-	#stats-calculator #value-ev-spe {
-		bottom: 0.75em;
-	}
+			& > :is(#slider-ev-spe, #slider-ev-spedef, #slider-ev-def)::before {
+				transform: rotate(-180deg);
+			}
 
-	#slider-ev-pv {
-		transform: rotate(270deg);
-	}
+			& > #slider-ev-spedef {
+				transform: rotate(151deg);
+			}
 
-	#slider-ev-atk {
-		transform: rotate(-29deg);
-	}
+			& > #slider-ev-def {
+				transform: rotate(209deg);
+			}
 
-	#slider-ev-speatk {
-		transform: rotate(29deg);
-	}
+			& > [id^='value'] {
+				appearance: none;
+				border: none;
+				background: none;
+				position: absolute;
+				display: grid;
+				grid-template-rows: 1fr 1fr;
+				align-items: center;
+				cursor: pointer;
 
-	#slider-ev-spe {
-		transform: rotate(90deg);
-	}
+				& > *:not(span) {
+					color: var(--primary-color);
+				}
+			}
+			& > #value-ev-pv,
+			& > #value-ev-spe {
+				justify-content: items;
+			}
 
-	:is(#slider-ev-spe, #slider-ev-spedef, #slider-ev-def)::before {
-		transform: rotate(-180deg);
-	}
+			& > #value-ev-atk,
+			& > #value-ev-atkspe {
+				right: 0;
+				justify-items: left;
+			}
 
-	#slider-ev-spedef {
-		transform: rotate(151deg);
-	}
+			& > #value-ev-def,
+			& > #value-ev-defspe {
+				left: 0;
+				justify-items: right;
+			}
 
-	#slider-ev-def {
-		transform: rotate(209deg);
+			& > #value-ev-pv {
+				top: 0.75em;
+			}
+
+			& > #value-ev-atk,
+			& > #value-ev-def {
+				top: 25%;
+			}
+
+			& > #value-ev-atkspe,
+			& > #value-ev-defspe {
+				bottom: 25%;
+			}
+
+			& > #value-ev-spe {
+				bottom: 0.75em;
+			}
+		}
 	}
 </style>
