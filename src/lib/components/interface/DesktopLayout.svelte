@@ -110,10 +110,9 @@
 					}
 
 					&:not(.selected) {
-						filter: brightness(0.5);
-
+						opacity: 0.75;
 						&:hover {
-							filter: initial;
+							opacity: initial;
 							background-color: var(--background-color-___);
 						}
 					}
