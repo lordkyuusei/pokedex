@@ -35,6 +35,8 @@
 				});
 				res(result);
 			} else {
+				movesFilter = [];
+				itemFilter = null;
 				res([]);
 			}
 		});
