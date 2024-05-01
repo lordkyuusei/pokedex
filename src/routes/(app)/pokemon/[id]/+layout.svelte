@@ -76,25 +76,22 @@
 		<!-- Header / Pokemon forms on desktop -->
 		{#if varieties.length !== 1}
 			<aside id="data-forms" in:fade>
-				<menu id="forms-alternate">
+				<menu>
 					{#each varieties as variety (variety.id)}
-						<li>
-							<button
-								type="button"
-								id="data-form-{variety.name}"
+						<li class:selected={$page.params.id === variety.id.toString()}>
+							<a
 								title={variety.name}
-								class:selected={$page.params.id === variety.id.toString()}
-								on:click={() => goto(navigatePokemon(variety.id, $page))}
+								id="data-form-{variety.name}"
+								href={navigatePokemon(variety.id, $page)}
 							>
 								<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
-							</button>
+							</a>
 						</li>
 					{/each}
 				</menu>
 			</aside>
 		{/if}
-		<slot />
-		<nav id="data-navigation">
+		<nav id="data-navigation" in:fade>
 			<menu>
 				{#each routes as route}
 					<li class:selected={$page.route.id?.endsWith(route.id)}>
@@ -111,6 +108,7 @@
 				{/each}
 			</menu>
 		</nav>
+		<slot />
 		<hr />
 		<span id="data-pokemon-id">
 			#{data.pokemon.id}
@@ -120,54 +118,73 @@
 
 <style>
 	#pokemon-data {
+		--data-forms-width: var(--width-unit);
+		--data-nav-width: var(--width-unit);
+
 		display: grid;
 
 		& nav#data-navigation {
 			grid-area: navigation;
 
+			& > menu {
+				justify-items: end;
+			}
+		}
+
+		& aside#data-forms {
+			grid-area: forms;
+
+			& > menu {
+				justify-items: start;
+			}
+		}
+
+		& nav#data-navigation,
+		& aside#data-forms {
+			height: 100%;
+			overflow-y: auto;
+
 			@media (min-width: 640px) {
-				margin-block: auto;
+				margin-block: 1rem;
 			}
 
 			& > menu {
 				display: grid;
-				place-items: end;
+				grid-auto-rows: 1fr;
+				grid-template-columns: 100%;
+				gap: var(--normal-gap);
+			}
 
-				& > li {
+			& > menu > li {
+				display: flex;
+				place-items: center;
+				height: 4rem;
+				width: 4rem;
+				list-style: none;
+				border-radius: var(--border-r-200);
+				background-color: var(--background-color-__);
+				transition: transform var(--transition-duration) var(--transition);
+
+				& > a {
 					display: flex;
 					justify-content: center;
-					align-items: center;
-					height: 4rem;
-					width: 4rem;
-					list-style: none;
-					border-radius: var(--border-r-200);
-					background-color: var(--background-color-__);
-					transition: transform var(--transition-duration) var(--transition);
+					height: 100%;
+					width: 100%;
+					padding: 0.25em;
 
-					& > a {
-						display: flex;
-						justify-content: center;
+					& > svg {
 						height: 100%;
-						width: 100%;
-						padding: 0.25em;
-
-						& > svg {
-							height: 100%;
-						}
 					}
 				}
-			}
 
-			& > menu > li.selected {
-				width: 4rem;
-			}
-
-			& > menu > li:not(.selected)::before,
-			& > menu > li:not(.selected)::after {
-				content: none;
+				&:not(.selected)::before,
+				&:not(.selected)::after {
+					content: none;
+				}
 			}
 		}
 
+		/* Mobile */
 		@media (max-width: 640px) {
 			grid-template: 40% 10% 50% / 100%;
 			overflow: hidden;
@@ -190,22 +207,23 @@
 			}
 		}
 
+		/* Not mobile */
 		@media (min-width: 640px) {
 			&:not(.default-form) {
 				grid-template:
-					'aside main navigation' 85svh
-					'line line id' 5svh / 100px auto 8svw;
+					'forms main navigation' 85svh
+					'line line id' 5svh / var(--data-forms-width) auto var(--data-nav-width);
 			}
 
 			&.default-form {
 				grid-template:
 					'main navigation' 85svh
-					'line id' 5svh / 90% 10%;
+					'line id' 5svh / auto var(--data-nav-width);
 			}
 
 			& > hr {
 				grid-area: line;
-				height: 0.5em;
+				height: 0.5rem;
 				width: 100%;
 				border: none;
 				border-radius: 0 var(--small-gap) var(--small-gap) 0;
@@ -220,68 +238,43 @@
 				font-size: 1.5rem;
 			}
 
-			& > aside#data-forms {
-				grid-area: aside;
-
-				display: grid;
-				overflow-y: auto;
-				align-items: center;
-				align-content: start;
-				padding: var(--small-gap);
-
-				& > menu#forms-alternate {
-					display: grid;
-					grid-auto-rows: auto;
-					grid-auto-flow: row;
-					gap: var(--small-gap);
-					list-style: none;
-
-					& > li {
-						& > button[id^='data-form-'] {
-							display: inline-flex;
-							justify-content: center;
-							align-items: center;
-							width: 100%;
-							aspect-ratio: 1;
-							border: none;
-							border-radius: 3rem;
-
-							&.selected {
-								font-weight: bolder;
-								color: var(--text-color);
-								background-color: var(--background-color-_);
-							}
-
-							& > img {
-								inline-size: 4rem;
-								transform: translateY(-0.5rem);
-							}
-						}
-					}
-				}
-			}
-
 			& > nav#data-navigation menu {
-				grid-template: repeat(5, 1fr) / 100%;
-				padding-block-end: 100%;
-				gap: var(--normal-gap);
-
 				& > li:not(.selected) {
 					margin-inline-end: 1rem;
 				}
 
 				& > li.selected {
-					width: 7rem;
+					border-radius: var(--border-r-50) 0 0 var(--border-r-50);
+
+					& > a > svg {
+						transform: translateX(-1.5em);
+					}
+				}
+			}
+			& > aside#data-forms menu {
+				& > li:not(.selected) {
+					margin-inline-start: 1rem;
+				}
+
+				& > li.selected {
+					border-radius: 0 var(--border-r-50) var(--border-r-50) 0;
+
+					& > a > img {
+						transform: translateX(1.5rem);
+					}
+				}
+			}
+
+			& > nav#data-navigation menu,
+			& > aside#data-forms menu {
+				& > li.selected {
+					width: 100%;
 					position: relative;
 					background-color: var(--background-color-_);
 					transition: all var(--transition-duration) var(--transition);
-					border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 
 					& > a {
 						background-color: var(--background-color-_);
-					}
-					& > a > svg {
-						transform: translateX(-1.5em);
 					}
 
 					&::before,

@@ -14,7 +14,6 @@
 
 	import routes from './routes.json';
 
-	$: console.log($deviceWidth);
 	export let data: LayoutServerData;
 </script>
 

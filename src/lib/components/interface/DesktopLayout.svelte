@@ -22,7 +22,7 @@
 </script>
 
 <section id="dex-layout">
-	<sidebar id="dex-navigation">
+	<aside id="dex-navigation">
 		<header id="navigation-logo">
 			<img src="/dex-logo.svg" alt="logo" />
 		</header>
@@ -44,7 +44,7 @@
 			<ThemeSwitch />
 			<LangSwitch />
 		</footer>
-	</sidebar>
+	</aside>
 	<main id="dex-main">
 		<header id="main-header">
 			<PrevNextNavigation />
@@ -64,15 +64,17 @@
 		display: grid;
 		background-color: var(--background-color-____);
 		color: var(--text-color);
-		grid-template: 'sidebar main' 100svh / 150px auto;
+		grid-template: 'aside main' var(--app-height) / var(--app-navigation-width) var(
+				--app-content-width
+			);
 
 		& > #dex-navigation {
-			grid-area: sidebar;
+			grid-area: aside;
 			display: grid;
 			grid-template:
-				'sidebar-logo' 10svh
-				'sidebar-links' 80svh
-				'sidebar-settings' 10svh / auto;
+				'aside-logo' var(--layout-header-size)
+				'aside-links' var(--layout-nav-size)
+				'aside-settings' var(--layout-header-size) / 100%;
 
 			& > :is(#navigation-logo, #navigation-settings) {
 				display: flex;
@@ -120,7 +122,7 @@
 					& > a {
 						text-align: center;
 						text-transform: uppercase;
-						letter-spacing: 0.2em;
+						letter-spacing: 0.1em;
 						padding: var(--normal-gap) var(--small-gap);
 						border-radius: 0;
 					}
@@ -128,7 +130,7 @@
 			}
 
 			& > #navigation-settings {
-				gap: var(--normal-gap);
+				gap: var(--smaller-gap);
 			}
 		}
 
@@ -136,7 +138,9 @@
 			grid-area: main;
 
 			display: grid;
-			grid-template: 'header' var(--layout-header-size) 'content' var(--layout-content-size) / 100%;
+			grid-template:
+				'header' var(--layout-header-size)
+				'content' var(--layout-content-size) / 100%;
 
 			& > #main-header {
 				height: 100%;
@@ -155,7 +159,6 @@
 			}
 
 			& > #main-content {
-				border-radius: var(--border-r-100) 0 0 0;
 				background-color: var(--background-color-___);
 			}
 		}

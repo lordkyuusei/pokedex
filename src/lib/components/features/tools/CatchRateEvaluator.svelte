@@ -21,7 +21,6 @@
 	let shakes: number = 0;
 	let catchChances: string = '0';
 
-	$: console.log(ballUsed);
 	$: genBalls = balls.filter((ball) => ball.appearedInGen <= generation.id);
 	$: pokemonList = fetch(`/api/pokemon?from=1&to=${generation.boundaries.to}`).then(
 		async (response) => (await response.json()) as Promise<Lightkemon[]>

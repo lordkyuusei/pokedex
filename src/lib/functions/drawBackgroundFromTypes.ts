@@ -23,8 +23,8 @@ const drawBookBackground = (types: string[] = [], portrait: boolean = false): st
         const angle = portrait ? '180deg' : '135deg';
 
         return sHsl
-            ? `linear-gradient(${angle}, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 25%, hsl(${sHsl[0]}, ${sHsl[1]}%, ${sHsl[2]}%) 75%)`
-            : `radial-gradient(circle, hsl(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%) 25%, hsl(${fHsl[0]}, ${fHsl[1]}%, 35%) 75%)`;
+            ? `linear-gradient(${angle}, hsla(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%, 0.50) 25%, hsla(${sHsl[0]}, ${sHsl[1]}%, ${sHsl[2]}%, 0.50) 75%)`
+            : `radial-gradient(circle, hsla(${fHsl[0]}, ${fHsl[1]}%, ${fHsl[2]}%, 0.50) 25%, hsla(${fHsl[0]}, ${fHsl[1]}%, 35%, 0.50) 75%)`;
     }
     return "";
 };

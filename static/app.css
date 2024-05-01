@@ -9,8 +9,15 @@
     --normal-gap: 2em;
     --large-gap: 4em;
 
+    --app-width: 100svw;
+    --width-unit: calc(var(--app-width) / 12);
+    --app-navigation-width: calc(var(--width-unit) * 1);
+    --app-content-width: calc(var(--app-width) - var(--app-navigation-width));
+
+    --app-height: 100svh;
     --layout-header-size: 10svh;
-    --layout-content-size: calc(100svh - var(--layout-header-size));
+    --layout-nav-size: calc(var(--app-height) - calc(var(--layout-header-size) * 2));
+    --layout-content-size: calc(var(--app-height) - var(--layout-header-size));
 
     --layout-id-size: calc(var(--layout-header-size) - 2svh);
     --layout-pokemon-with-forms-size: calc(var(--layout-content-size) - var(--layout-header-size) - var(--layout-id-size));
