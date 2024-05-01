@@ -1,8 +1,9 @@
 import type { FactoryPokemon } from "$lib/types/battle-factory";
 
-const factoryPokemonList: FactoryPokemon[] = [
+export const openLevelPokemonStart: number = 373;
+export const factoryPokemonList: FactoryPokemon[] = [
     {
-        "id": "1",
+        "id": 1,
         "name": "Sunkern",
         "variant": "1",
         "nature": "Relaxed",
@@ -17,7 +18,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/50/55/82/50/45"
     },
     {
-        "id": "2",
+        "id": 2,
         "name": "Azurill",
         "variant": "1",
         "nature": "Rash",
@@ -32,7 +33,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/40/60/79/54/40"
     },
     {
-        "id": "3",
+        "id": 3,
         "name": "Caterpie",
         "variant": "1",
         "nature": "Quirky",
@@ -47,7 +48,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/82/55/40/40/65"
     },
     {
-        "id": "4",
+        "id": 4,
         "name": "Weedle",
         "variant": "1",
         "nature": "Quirky",
@@ -62,7 +63,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/87/50/40/40/70"
     },
     {
-        "id": "5",
+        "id": 5,
         "name": "Wurmple",
         "variant": "1",
         "nature": "Quirky",
@@ -77,7 +78,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/97/55/40/50/40"
     },
     {
-        "id": "6",
+        "id": 6,
         "name": "Ralts",
         "variant": "1",
         "nature": "Docile",
@@ -92,7 +93,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/45/45/97/55/60"
     },
     {
-        "id": "7",
+        "id": 7,
         "name": "Magikarp",
         "variant": "1",
         "nature": "Hardy",
@@ -107,7 +108,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "127/62/75/35/40/100"
     },
     {
-        "id": "8",
+        "id": 8,
         "name": "Feebas",
         "variant": "1",
         "nature": "Lonely",
@@ -122,7 +123,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "127/73/36/30/75/100"
     },
     {
-        "id": "9",
+        "id": 9,
         "name": "Metapod",
         "variant": "1",
         "nature": "Bashful",
@@ -137,7 +138,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/40/75/45/77/50"
     },
     {
-        "id": "10",
+        "id": 10,
         "name": "Kakuna",
         "variant": "1",
         "nature": "Bashful",
@@ -152,7 +153,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/45/70/45/77/55"
     },
     {
-        "id": "11",
+        "id": 11,
         "name": "Pichu",
         "variant": "1",
         "nature": "Rash",
@@ -167,7 +168,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "127/60/35/95/49/80"
     },
     {
-        "id": "12",
+        "id": 12,
         "name": "Silcoon",
         "variant": "1",
         "nature": "Bashful",
@@ -182,7 +183,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/55/75/45/77/35"
     },
     {
-        "id": "13",
+        "id": 13,
         "name": "Cascoon",
         "variant": "1",
         "nature": "Bashful",
@@ -197,7 +198,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/55/75/45/77/35"
     },
     {
-        "id": "14",
+        "id": 14,
         "name": "Igglybuff",
         "variant": "1",
         "nature": "Docile",
@@ -212,7 +213,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/82/35/60/40/35"
     },
     {
-        "id": "15",
+        "id": 15,
         "name": "Wooper",
         "variant": "1",
         "nature": "Docile",
@@ -227,7 +228,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/97/65/45/45/35"
     },
     {
-        "id": "16",
+        "id": 16,
         "name": "Tyrogue",
         "variant": "1",
         "nature": "Docile",
@@ -242,7 +243,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/87/55/55/55/55"
     },
     {
-        "id": "17",
+        "id": 17,
         "name": "Sentret",
         "variant": "1",
         "nature": "Docile",
@@ -257,7 +258,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/98/54/55/65/40"
     },
     {
-        "id": "18",
+        "id": 18,
         "name": "Cleffa",
         "variant": "1",
         "nature": "Serious",
@@ -272,7 +273,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/45/48/97/75/35"
     },
     {
-        "id": "19",
+        "id": 19,
         "name": "Seedot",
         "variant": "1",
         "nature": "Docile",
@@ -287,7 +288,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/92/70/50/50/50"
     },
     {
-        "id": "20",
+        "id": 20,
         "name": "Lotad",
         "variant": "1",
         "nature": "Docile",
@@ -302,7 +303,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/50/50/92/70/50"
     },
     {
-        "id": "21",
+        "id": 21,
         "name": "Poochyena",
         "variant": "1",
         "nature": "Relaxed",
@@ -317,7 +318,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/75/61/82/50/49"
     },
     {
-        "id": "22",
+        "id": 22,
         "name": "Shedinja",
         "variant": "1",
         "nature": "Naive",
@@ -332,7 +333,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "1/110/65/50/45/101"
     },
     {
-        "id": "23",
+        "id": 23,
         "name": "Makuhita",
         "variant": "1",
         "nature": "Docile",
@@ -347,7 +348,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "179/112/50/40/50/45"
     },
     {
-        "id": "24",
+        "id": 24,
         "name": "Whismur",
         "variant": "1",
         "nature": "Relaxed",
@@ -362,7 +363,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/103/47/71/43/43"
     },
     {
-        "id": "25",
+        "id": 25,
         "name": "Zigzagoon",
         "variant": "1",
         "nature": "Timid",
@@ -377,7 +378,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/73/61/50/61/88"
     },
     {
-        "id": "26",
+        "id": 26,
         "name": "Zubat",
         "variant": "1",
         "nature": "Sassy",
@@ -392,7 +393,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/97/55/50/66/67"
     },
     {
-        "id": "27",
+        "id": 27,
         "name": "Togepi",
         "variant": "1",
         "nature": "Relaxed",
@@ -407,7 +408,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/72/94/60/85/36"
     },
     {
-        "id": "28",
+        "id": 28,
         "name": "Spinarak",
         "variant": "1",
         "nature": "Quirky",
@@ -422,7 +423,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/112/60/60/60/50"
     },
     {
-        "id": "29",
+        "id": 29,
         "name": "Marill",
         "variant": "1",
         "nature": "Gentle",
@@ -437,7 +438,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/72/63/40/77/60"
     },
     {
-        "id": "30",
+        "id": 30,
         "name": "Hoppip",
         "variant": "1",
         "nature": "Lax",
@@ -452,7 +453,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "110/55/101/55/96/70"
     },
     {
-        "id": "31",
+        "id": 31,
         "name": "Slugma",
         "variant": "1",
         "nature": "Sassy",
@@ -467,7 +468,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/60/81/90/89/36"
     },
     {
-        "id": "32",
+        "id": 32,
         "name": "Swinub",
         "variant": "1",
         "nature": "Gentle",
@@ -482,7 +483,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "125/102/54/82/55/70"
     },
     {
-        "id": "33",
+        "id": 33,
         "name": "Smeargle",
         "variant": "1",
         "nature": "Hardy",
@@ -497,7 +498,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/72/55/40/65/95"
     },
     {
-        "id": "34",
+        "id": 34,
         "name": "Pidgey",
         "variant": "1",
         "nature": "Lonely",
@@ -512,7 +513,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/106/54/55/55/76"
     },
     {
-        "id": "35",
+        "id": 35,
         "name": "Rattata",
         "variant": "1",
         "nature": "Docile",
@@ -527,7 +528,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/108/55/45/55/92"
     },
     {
-        "id": "36",
+        "id": 36,
         "name": "Wynaut",
         "variant": "1",
         "nature": "Jolly",
@@ -542,7 +543,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/43/100/39/100/47"
     },
     {
-        "id": "37",
+        "id": 37,
         "name": "Skitty",
         "variant": "1",
         "nature": "Docile",
@@ -557,7 +558,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/97/65/55/55/70"
     },
     {
-        "id": "38",
+        "id": 38,
         "name": "Spearow",
         "variant": "1",
         "nature": "Docile",
@@ -572,7 +573,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/80/50/51/51/122"
     },
     {
-        "id": "39",
+        "id": 39,
         "name": "Hoothoot",
         "variant": "1",
         "nature": "Quirky",
@@ -587,7 +588,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/50/50/88/76/70"
     },
     {
-        "id": "40",
+        "id": 40,
         "name": "Diglett",
         "variant": "1",
         "nature": "Naive",
@@ -602,7 +603,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "85/107/45/55/58/161"
     },
     {
-        "id": "41",
+        "id": 41,
         "name": "Ledyba",
         "variant": "1",
         "nature": "Bashful",
@@ -617,7 +618,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/40/50/92/100/75"
     },
     {
-        "id": "42",
+        "id": 42,
         "name": "Nincada",
         "variant": "1",
         "nature": "Calm",
@@ -632,7 +633,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "138/87/110/50/55/60"
     },
     {
-        "id": "43",
+        "id": 43,
         "name": "Surskit",
         "variant": "1",
         "nature": "Relaxed",
@@ -647,7 +648,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/50/57/102/72/76"
     },
     {
-        "id": "44",
+        "id": 44,
         "name": "Jigglypuff",
         "variant": "1",
         "nature": "Relaxed",
@@ -662,7 +663,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "211/65/67/65/66/36"
     },
     {
-        "id": "45",
+        "id": 45,
         "name": "Taillow",
         "variant": "1",
         "nature": "Gentle",
@@ -677,7 +678,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/96/45/50/55/126"
     },
     {
-        "id": "46",
+        "id": 46,
         "name": "Wingull",
         "variant": "1",
         "nature": "Hardy",
@@ -692,7 +693,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/50/50/107/50/105"
     },
     {
-        "id": "47",
+        "id": 47,
         "name": "Nidoran♂",
         "variant": "1",
         "nature": "Quirky",
@@ -707,7 +708,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/109/60/60/60/70"
     },
     {
-        "id": "48",
+        "id": 48,
         "name": "Nidoran♀",
         "variant": "1",
         "nature": "Quirky",
@@ -722,7 +723,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/99/72/60/60/61"
     },
     {
-        "id": "49",
+        "id": 49,
         "name": "Kirlia",
         "variant": "1",
         "nature": "Docile",
@@ -737,7 +738,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/55/55/85/75/102"
     },
     {
-        "id": "50",
+        "id": 50,
         "name": "Mareep",
         "variant": "1",
         "nature": "Relaxed",
@@ -752,7 +753,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/60/66/117/65/49"
     },
     {
-        "id": "51",
+        "id": 51,
         "name": "Meditite",
         "variant": "1",
         "nature": "Naughty",
@@ -767,7 +768,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/101/75/60/67/80"
     },
     {
-        "id": "52",
+        "id": 52,
         "name": "Slakoth",
         "variant": "1",
         "nature": "Quirky",
@@ -782,7 +783,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/112/80/55/55/50"
     },
     {
-        "id": "53",
+        "id": 53,
         "name": "Paras",
         "variant": "1",
         "nature": "Relaxed",
@@ -797,7 +798,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/90/83/97/75/40"
     },
     {
-        "id": "54",
+        "id": 54,
         "name": "Ekans",
         "variant": "1",
         "nature": "Docile",
@@ -812,7 +813,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/112/64/60/74/75"
     },
     {
-        "id": "55",
+        "id": 55,
         "name": "Ditto",
         "variant": "1",
         "nature": "Hardy",
@@ -827,7 +828,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/68/68/68/68/100"
     },
     {
-        "id": "56",
+        "id": 56,
         "name": "Barboach",
         "variant": "1",
         "nature": "Bashful",
@@ -842,7 +843,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "125/100/63/98/61/80"
     },
     {
-        "id": "57",
+        "id": 57,
         "name": "Meowth",
         "variant": "1",
         "nature": "Quirky",
@@ -857,7 +858,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/97/55/60/60/110"
     },
     {
-        "id": "58",
+        "id": 58,
         "name": "Pineco",
         "variant": "1",
         "nature": "Quirky",
@@ -872,7 +873,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/117/110/55/55/35"
     },
     {
-        "id": "59",
+        "id": 59,
         "name": "Trapinch",
         "variant": "1",
         "nature": "Serious",
@@ -887,7 +888,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/152/65/65/65/30"
     },
     {
-        "id": "60",
+        "id": 60,
         "name": "Spheal",
         "variant": "1",
         "nature": "Docile",
@@ -902,7 +903,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/60/70/107/70/45"
     },
     {
-        "id": "61",
+        "id": 61,
         "name": "Horsea",
         "variant": "1",
         "nature": "Relaxed",
@@ -917,7 +918,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/60/99/122/45/72"
     },
     {
-        "id": "62",
+        "id": 62,
         "name": "Shroomish",
         "variant": "1",
         "nature": "Relaxed",
@@ -932,7 +933,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/60/88/92/80/49"
     },
     {
-        "id": "63",
+        "id": 63,
         "name": "Shuppet",
         "variant": "1",
         "nature": "Rash",
@@ -947,7 +948,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/127/55/91/48/65"
     },
     {
-        "id": "64",
+        "id": 64,
         "name": "Duskull",
         "variant": "1",
         "nature": "Quirky",
@@ -962,7 +963,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "127/60/110/50/110/77"
     },
     {
-        "id": "65",
+        "id": 65,
         "name": "Electrike",
         "variant": "1",
         "nature": "Docile",
@@ -977,7 +978,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/65/60/85/60/117"
     },
     {
-        "id": "66",
+        "id": 66,
         "name": "Vulpix",
         "variant": "1",
         "nature": "Docile",
@@ -992,7 +993,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/61/60/70/85/117"
     },
     {
-        "id": "67",
+        "id": 67,
         "name": "Pikachu",
         "variant": "1",
         "nature": "Docile",
@@ -1007,7 +1008,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/75/50/70/60/142"
     },
     {
-        "id": "68",
+        "id": 68,
         "name": "Sandshrew",
         "variant": "1",
         "nature": "Docile",
@@ -1022,7 +1023,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/127/105/40/50/60"
     },
     {
-        "id": "69",
+        "id": 69,
         "name": "Poliwag",
         "variant": "1",
         "nature": "Relaxed",
@@ -1037,7 +1038,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/70/66/60/60/127"
     },
     {
-        "id": "70",
+        "id": 70,
         "name": "Bellsprout",
         "variant": "1",
         "nature": "Lax",
@@ -1052,7 +1053,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "146/95/84/90/64/60"
     },
     {
-        "id": "71",
+        "id": 71,
         "name": "Geodude",
         "variant": "1",
         "nature": "Brave",
@@ -1067,7 +1068,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/145/120/50/50/36"
     },
     {
-        "id": "72",
+        "id": 72,
         "name": "Dratini",
         "variant": "1",
         "nature": "Docile",
@@ -1082,7 +1083,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/84/65/102/70/70"
     },
     {
-        "id": "73",
+        "id": 73,
         "name": "Snubbull",
         "variant": "1",
         "nature": "Relaxed",
@@ -1097,7 +1098,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/132/77/60/60/45"
     },
     {
-        "id": "74",
+        "id": 74,
         "name": "Remoraid",
         "variant": "1",
         "nature": "Quirky",
@@ -1112,7 +1113,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "110/85/55/117/55/117"
     },
     {
-        "id": "75",
+        "id": 75,
         "name": "Larvitar",
         "variant": "1",
         "nature": "Naughty",
@@ -1127,7 +1128,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/127/70/65/63/61"
     },
     {
-        "id": "76",
+        "id": 76,
         "name": "Baltoy",
         "variant": "1",
         "nature": "Naughty",
@@ -1142,7 +1143,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "115/101/75/92/81/75"
     },
     {
-        "id": "77",
+        "id": 77,
         "name": "Snorunt",
         "variant": "1",
         "nature": "Brave",
@@ -1157,7 +1158,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/112/70/70/70/63"
     },
     {
-        "id": "78",
+        "id": 78,
         "name": "Bagon",
         "variant": "1",
         "nature": "Naughty",
@@ -1172,7 +1173,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/139/80/60/45/70"
     },
     {
-        "id": "79",
+        "id": 79,
         "name": "Beldum",
         "variant": "1",
         "nature": "Hardy",
@@ -1187,7 +1188,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/107/100/55/80/50"
     },
     {
-        "id": "80",
+        "id": 80,
         "name": "Gulpin",
         "variant": "1",
         "nature": "Serious",
@@ -1202,7 +1203,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/63/94/63/94/60"
     },
     {
-        "id": "81",
+        "id": 81,
         "name": "Venonat",
         "variant": "1",
         "nature": "Relaxed",
@@ -1217,7 +1218,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/75/77/92/75/58"
     },
     {
-        "id": "82",
+        "id": 82,
         "name": "Mankey",
         "variant": "1",
         "nature": "Naughty",
@@ -1232,7 +1233,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/145/55/55/58/90"
     },
     {
-        "id": "83",
+        "id": 83,
         "name": "Machop",
         "variant": "1",
         "nature": "Adamant",
@@ -1247,7 +1248,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/145/70/49/55/55"
     },
     {
-        "id": "84",
+        "id": 84,
         "name": "Shellder",
         "variant": "1",
         "nature": "Relaxed",
@@ -1262,7 +1263,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/85/132/97/45/54"
     },
     {
-        "id": "85",
+        "id": 85,
         "name": "Smoochum",
         "variant": "1",
         "nature": "Docile",
@@ -1277,7 +1278,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/82/35/105/85/85"
     },
     {
-        "id": "86",
+        "id": 86,
         "name": "Numel",
         "variant": "1",
         "nature": "Hardy",
@@ -1292,7 +1293,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/112/60/85/65/55"
     },
     {
-        "id": "87",
+        "id": 87,
         "name": "Carvanha",
         "variant": "1",
         "nature": "Quiet",
@@ -1307,7 +1308,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/110/40/128/40/76"
     },
     {
-        "id": "88",
+        "id": 88,
         "name": "Corphish",
         "variant": "1",
         "nature": "Brave",
@@ -1322,7 +1323,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/110/85/102/55/49"
     },
     {
-        "id": "89",
+        "id": 89,
         "name": "Charmander",
         "variant": "1",
         "nature": "Docile",
@@ -1337,7 +1338,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "146/72/63/112/70/85"
     },
     {
-        "id": "90",
+        "id": 90,
         "name": "Cyndaquil",
         "variant": "1",
         "nature": "Docile",
@@ -1352,7 +1353,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "146/72/63/112/70/85"
     },
     {
-        "id": "91",
+        "id": 91,
         "name": "Abra",
         "variant": "1",
         "nature": "Lonely",
@@ -1367,7 +1368,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "132/44/31/125/75/142"
     },
     {
-        "id": "92",
+        "id": 92,
         "name": "Doduo",
         "variant": "1",
         "nature": "Lonely",
@@ -1382,7 +1383,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "142/116/58/55/55/127"
     },
     {
-        "id": "93",
+        "id": 93,
         "name": "Gastly",
         "variant": "1",
         "nature": "Lonely",
@@ -1397,7 +1398,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/61/45/120/55/132"
     },
     {
-        "id": "94",
+        "id": 94,
         "name": "Swablu",
         "variant": "1",
         "nature": "Lonely",
@@ -1412,7 +1413,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/66/72/92/95/70"
     },
     {
-        "id": "95",
+        "id": 95,
         "name": "Treecko",
         "variant": "1",
         "nature": "Lonely",
@@ -1427,7 +1428,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "115/106/49/117/75/90"
     },
     {
-        "id": "96",
+        "id": 96,
         "name": "Torchic",
         "variant": "1",
         "nature": "Lonely",
@@ -1442,7 +1443,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/88/54/122/70/65"
     },
     {
-        "id": "97",
+        "id": 97,
         "name": "Mudkip",
         "variant": "1",
         "nature": "Docile",
@@ -1457,7 +1458,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/90/70/102/70/60"
     },
     {
-        "id": "98",
+        "id": 98,
         "name": "Squirtle",
         "variant": "1",
         "nature": "Docile",
@@ -1472,7 +1473,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/68/85/102/84/63"
     },
     {
-        "id": "99",
+        "id": 99,
         "name": "Totodile",
         "variant": "1",
         "nature": "Docile",
@@ -1487,7 +1488,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/85/84/96/68/63"
     },
     {
-        "id": "100",
+        "id": 100,
         "name": "Slowpoke",
         "variant": "1",
         "nature": "Brave",
@@ -1502,7 +1503,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/94/85/92/60/31"
     },
     {
-        "id": "101",
+        "id": 101,
         "name": "Bulbasaur",
         "variant": "1",
         "nature": "Relaxed",
@@ -1517,7 +1518,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/69/76/117/85/58"
     },
     {
-        "id": "102",
+        "id": 102,
         "name": "Chikorita",
         "variant": "1",
         "nature": "Relaxed",
@@ -1532,7 +1533,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/69/94/101/85/58"
     },
     {
-        "id": "103",
+        "id": 103,
         "name": "Oddish",
         "variant": "1",
         "nature": "Relaxed",
@@ -1547,7 +1548,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/102/83/95/85/45"
     },
     {
-        "id": "104",
+        "id": 104,
         "name": "Psyduck",
         "variant": "1",
         "nature": "Hasty",
@@ -1562,7 +1563,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "125/104/61/117/70/83"
     },
     {
-        "id": "105",
+        "id": 105,
         "name": "Cubone",
         "variant": "1",
         "nature": "Hardy",
@@ -1577,7 +1578,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/102/115/60/70/55"
     },
     {
-        "id": "106",
+        "id": 106,
         "name": "Goldeen",
         "variant": "1",
         "nature": "Docile",
@@ -1592,7 +1593,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/87/80/87/70/83"
     },
     {
-        "id": "107",
+        "id": 107,
         "name": "Natu",
         "variant": "1",
         "nature": "Relaxed",
@@ -1607,7 +1608,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/70/72/122/65/81"
     },
     {
-        "id": "108",
+        "id": 108,
         "name": "Clefairy",
         "variant": "1",
         "nature": "Lonely",
@@ -1622,7 +1623,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/106/61/80/85/55"
     },
     {
-        "id": "109",
+        "id": 109,
         "name": "Magnemite",
         "variant": "1",
         "nature": "Gentle",
@@ -1637,7 +1638,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "100/55/81/147/83/97"
     },
     {
-        "id": "110",
+        "id": 110,
         "name": "Seel",
         "variant": "1",
         "nature": "Hardy",
@@ -1652,7 +1653,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/65/75/97/90/65"
     },
     {
-        "id": "111",
+        "id": 111,
         "name": "Grimer",
         "variant": "1",
         "nature": "Quirky",
@@ -1667,7 +1668,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/100/91/60/91/45"
     },
     {
-        "id": "112",
+        "id": 112,
         "name": "Krabby",
         "variant": "1",
         "nature": "Hardy",
@@ -1682,7 +1683,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/157/110/45/45/70"
     },
     {
-        "id": "113",
+        "id": 113,
         "name": "Exeggcute",
         "variant": "1",
         "nature": "Naughty",
@@ -1697,7 +1698,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/66/100/112/58/60"
     },
     {
-        "id": "114",
+        "id": 114,
         "name": "Eevee",
         "variant": "1",
         "nature": "Docile",
@@ -1712,7 +1713,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/75/70/65/85/107"
     },
     {
-        "id": "115",
+        "id": 115,
         "name": "Drowzee",
         "variant": "1",
         "nature": "Quirky",
@@ -1727,7 +1728,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/89/65/84/110/62"
     },
     {
-        "id": "116",
+        "id": 116,
         "name": "Voltorb",
         "variant": "1",
         "nature": "Docile",
@@ -1742,7 +1743,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/50/70/107/75/120"
     },
     {
-        "id": "117",
+        "id": 117,
         "name": "Chinchou",
         "variant": "1",
         "nature": "Hardy",
@@ -1757,7 +1758,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/90/58/108/76/87"
     },
     {
-        "id": "118",
+        "id": 118,
         "name": "Teddiursa",
         "variant": "1",
         "nature": "Relaxed",
@@ -1772,7 +1773,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/132/77/70/70/54"
     },
     {
-        "id": "119",
+        "id": 119,
         "name": "Delibird",
         "variant": "1",
         "nature": "Docile",
@@ -1787,7 +1788,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/75/65/117/65/95"
     },
     {
-        "id": "120",
+        "id": 120,
         "name": "Houndour",
         "variant": "1",
         "nature": "Docile",
@@ -1802,7 +1803,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/80/50/132/70/85"
     },
     {
-        "id": "121",
+        "id": 121,
         "name": "Phanpy",
         "variant": "1",
         "nature": "Naughty",
@@ -1817,7 +1818,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/123/80/60/54/60"
     },
     {
-        "id": "122",
+        "id": 122,
         "name": "Spoink",
         "variant": "1",
         "nature": "Relaxed",
@@ -1832,7 +1833,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/45/61/122/100/72"
     },
     {
-        "id": "123",
+        "id": 123,
         "name": "Aron",
         "variant": "1",
         "nature": "Docile",
@@ -1847,7 +1848,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/122/120/60/60/50"
     },
     {
-        "id": "124",
+        "id": 124,
         "name": "Luvdisc",
         "variant": "1",
         "nature": "Relaxed",
@@ -1862,7 +1863,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/50/83/92/85/105"
     },
     {
-        "id": "125",
+        "id": 125,
         "name": "Tentacool",
         "variant": "1",
         "nature": "Hardy",
@@ -1877,7 +1878,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/81/55/91/120/90"
     },
     {
-        "id": "126",
+        "id": 126,
         "name": "Cacnea",
         "variant": "1",
         "nature": "Quirky",
@@ -1892,7 +1893,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/137/60/105/60/55"
     },
     {
-        "id": "127",
+        "id": 127,
         "name": "Unown",
         "variant": "1",
         "nature": "Hardy",
@@ -1907,7 +1908,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "144/113/68/113/68/68"
     },
     {
-        "id": "128",
+        "id": 128,
         "name": "Koffing",
         "variant": "1",
         "nature": "Quirky",
@@ -1922,7 +1923,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/117/115/80/65/55"
     },
     {
-        "id": "129",
+        "id": 129,
         "name": "Staryu",
         "variant": "1",
         "nature": "Quirky",
@@ -1937,7 +1938,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/65/75/122/75/105"
     },
     {
-        "id": "130",
+        "id": 130,
         "name": "Skiploom",
         "variant": "1",
         "nature": "Docile",
@@ -1952,7 +1953,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/65/70/97/85/100"
     },
     {
-        "id": "131",
+        "id": 131,
         "name": "Nuzleaf",
         "variant": "1",
         "nature": "Hardy",
@@ -1967,7 +1968,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/90/60/112/60/80"
     },
     {
-        "id": "132",
+        "id": 132,
         "name": "Lombre",
         "variant": "1",
         "nature": "Quirky",
@@ -1982,7 +1983,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/102/70/80/90/70"
     },
     {
-        "id": "133",
+        "id": 133,
         "name": "Vibrava",
         "variant": "1",
         "nature": "Quirky",
@@ -1997,7 +1998,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/122/70/70/70/90"
     },
     {
-        "id": "134",
+        "id": 134,
         "name": "Rhyhorn",
         "variant": "1",
         "nature": "Hardy",
@@ -2012,7 +2013,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/137/115/50/50/45"
     },
     {
-        "id": "135",
+        "id": 135,
         "name": "Clamperl",
         "variant": "1",
         "nature": "Docile",
@@ -2027,7 +2028,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "131/84/126/94/96/52"
     },
     {
-        "id": "136",
+        "id": 136,
         "name": "Pidgeotto",
         "variant": "1",
         "nature": "Quirky",
@@ -2042,7 +2043,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/112/75/70/70/91"
     },
     {
-        "id": "137",
+        "id": 137,
         "name": "Growlithe",
         "variant": "1",
         "nature": "Docile",
@@ -2057,7 +2058,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/90/65/122/70/80"
     },
     {
-        "id": "138",
+        "id": 138,
         "name": "Farfetch'd",
         "variant": "1",
         "nature": "Relaxed",
@@ -2072,7 +2073,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/85/106/78/103/72"
     },
     {
-        "id": "139",
+        "id": 139,
         "name": "Omanyte",
         "variant": "1",
         "nature": "Quirky",
@@ -2087,7 +2088,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "131/81/120/131/75/55"
     },
     {
-        "id": "140",
+        "id": 140,
         "name": "Kabuto",
         "variant": "1",
         "nature": "Hardy",
@@ -2102,7 +2103,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "105/132/110/107/65/75"
     },
     {
-        "id": "141",
+        "id": 141,
         "name": "Lileep",
         "variant": "1",
         "nature": "Docile",
@@ -2117,7 +2118,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "173/93/97/81/107/43"
     },
     {
-        "id": "142",
+        "id": 142,
         "name": "Anorith",
         "variant": "1",
         "nature": "Hardy",
@@ -2132,7 +2133,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/147/70/60/70/95"
     },
     {
-        "id": "143",
+        "id": 143,
         "name": "Aipom",
         "variant": "1",
         "nature": "Relaxed",
@@ -2147,7 +2148,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/122/83/60/75/94"
     },
     {
-        "id": "144",
+        "id": 144,
         "name": "Elekid",
         "variant": "1",
         "nature": "Naive",
@@ -2162,7 +2163,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/83/57/117/67/127"
     },
     {
-        "id": "145",
+        "id": 145,
         "name": "Loudred",
         "variant": "1",
         "nature": "Relaxed",
@@ -2177,7 +2178,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/123/69/91/63/61"
     },
     {
-        "id": "146",
+        "id": 146,
         "name": "Spinda",
         "variant": "1",
         "nature": "Relaxed",
@@ -2192,7 +2193,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/112/88/80/80/72"
     },
     {
-        "id": "147",
+        "id": 147,
         "name": "Nidorina",
         "variant": "1",
         "nature": "Quirky",
@@ -2207,7 +2208,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/114/87/75/75/76"
     },
     {
-        "id": "148",
+        "id": 148,
         "name": "Nidorino",
         "variant": "1",
         "nature": "Quirky",
@@ -2222,7 +2223,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "168/124/77/75/75/85"
     },
     {
-        "id": "149",
+        "id": 149,
         "name": "Flaaffy",
         "variant": "1",
         "nature": "Mild",
@@ -2237,7 +2238,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/75/67/145/80/65"
     },
     {
-        "id": "150",
+        "id": 150,
         "name": "Magby",
         "variant": "1",
         "nature": "Docile",
@@ -2252,7 +2253,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/95/57/122/75/103"
     },
     {
-        "id": "151",
+        "id": 151,
         "name": "Nosepass",
         "variant": "1",
         "nature": "Sassy",
@@ -2267,7 +2268,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "137/65/155/65/156/45"
     },
     {
-        "id": "152",
+        "id": 152,
         "name": "Corsola",
         "variant": "1",
         "nature": "Impish",
@@ -2282,7 +2283,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/75/139/76/126/55"
     },
     {
-        "id": "153",
+        "id": 153,
         "name": "Mawile",
         "variant": "1",
         "nature": "Docile",
@@ -2297,7 +2298,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/105/105/107/75/70"
     },
     {
-        "id": "154",
+        "id": 154,
         "name": "Butterfree",
         "variant": "1",
         "nature": "Quirky",
@@ -2312,7 +2313,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/65/70/132/100/90"
     },
     {
-        "id": "155",
+        "id": 155,
         "name": "Beedrill",
         "variant": "1",
         "nature": "Naughty",
@@ -2327,7 +2328,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/145/60/65/90/127"
     },
     {
-        "id": "156",
+        "id": 156,
         "name": "Poliwhirl",
         "variant": "1",
         "nature": "Quirky",
@@ -2342,7 +2343,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/85/85/102/70/110"
     },
     {
-        "id": "157",
+        "id": 157,
         "name": "Onix",
         "variant": "1",
         "nature": "Hardy",
@@ -2357,7 +2358,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "131/65/201/50/86/90"
     },
     {
-        "id": "158",
+        "id": 158,
         "name": "Beautifly",
         "variant": "1",
         "nature": "Docile",
@@ -2372,7 +2373,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/90/70/110/70/117"
     },
     {
-        "id": "159",
+        "id": 159,
         "name": "Dustox",
         "variant": "1",
         "nature": "Docile",
@@ -2387,7 +2388,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/70/90/70/110/117"
     },
     {
-        "id": "160",
+        "id": 160,
         "name": "Ledian",
         "variant": "1",
         "nature": "Bashful",
@@ -2402,7 +2403,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "130/87/70/75/130/137"
     },
     {
-        "id": "161",
+        "id": 161,
         "name": "Ariados",
         "variant": "1",
         "nature": "Serious",
@@ -2417,7 +2418,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/142/90/80/80/60"
     },
     {
-        "id": "162",
+        "id": 162,
         "name": "Yanma",
         "variant": "1",
         "nature": "Relaxed",
@@ -2432,7 +2433,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/85/106/95/97/103"
     },
     {
-        "id": "163",
+        "id": 163,
         "name": "Delcatty",
         "variant": "1",
         "nature": "Lonely",
@@ -2447,7 +2448,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/128/76/75/75/90"
     },
     {
-        "id": "164",
+        "id": 164,
         "name": "Sableye",
         "variant": "1",
         "nature": "Lonely",
@@ -2462,7 +2463,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/139/85/85/85/70"
     },
     {
-        "id": "165",
+        "id": 165,
         "name": "Lickitung",
         "variant": "1",
         "nature": "Quirky",
@@ -2477,7 +2478,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/107/95/80/95/50"
     },
     {
-        "id": "166",
+        "id": 166,
         "name": "Weepinbell",
         "variant": "1",
         "nature": "Quiet",
@@ -2492,7 +2493,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/110/70/150/65/67"
     },
     {
-        "id": "167",
+        "id": 167,
         "name": "Graveler",
         "variant": "1",
         "nature": "Adamant",
@@ -2507,7 +2508,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/150/135/58/86/55"
     },
     {
-        "id": "168",
+        "id": 168,
         "name": "Gloom",
         "variant": "1",
         "nature": "Quirky",
@@ -2522,7 +2523,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/85/90/137/95/60"
     },
     {
-        "id": "169",
+        "id": 169,
         "name": "Porygon",
         "variant": "1",
         "nature": "Relaxed",
@@ -2537,7 +2538,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/80/99/137/95/54"
     },
     {
-        "id": "170",
+        "id": 170,
         "name": "Kadabra",
         "variant": "1",
         "nature": "Impish",
@@ -2552,7 +2553,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/55/90/126/90/125"
     },
     {
-        "id": "171",
+        "id": 171,
         "name": "Wailmer",
         "variant": "1",
         "nature": "Docile",
@@ -2567,7 +2568,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "205/90/87/90/87/80"
     },
     {
-        "id": "172",
+        "id": 172,
         "name": "Roselia",
         "variant": "1",
         "nature": "Docile",
@@ -2582,7 +2583,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/80/97/120/100/85"
     },
     {
-        "id": "173",
+        "id": 173,
         "name": "Volbeat",
         "variant": "1",
         "nature": "Quirky",
@@ -2597,7 +2598,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/125/75/67/95/137"
     },
     {
-        "id": "174",
+        "id": 174,
         "name": "Illumise",
         "variant": "1",
         "nature": "Quirky",
@@ -2612,7 +2613,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/99/75/93/95/105"
     },
     {
-        "id": "175",
+        "id": 175,
         "name": "Ivysaur",
         "variant": "1",
         "nature": "Gentle",
@@ -2627,7 +2628,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/82/75/132/110/80"
     },
     {
-        "id": "176",
+        "id": 176,
         "name": "Charmeleon",
         "variant": "1",
         "nature": "Naughty",
@@ -2642,7 +2643,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/127/78/100/76/100"
     },
     {
-        "id": "177",
+        "id": 177,
         "name": "Wartortle",
         "variant": "1",
         "nature": "Docile",
@@ -2657,7 +2658,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/83/100/117/100/78"
     },
     {
-        "id": "178",
+        "id": 178,
         "name": "Parasect",
         "variant": "1",
         "nature": "Rash",
@@ -2672,7 +2673,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/115/132/88/118/50"
     },
     {
-        "id": "179",
+        "id": 179,
         "name": "Machoke",
         "variant": "1",
         "nature": "Adamant",
@@ -2687,7 +2688,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/132/90/63/112/65"
     },
     {
-        "id": "180",
+        "id": 180,
         "name": "Haunter",
         "variant": "1",
         "nature": "Rash",
@@ -2702,7 +2703,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "152/102/65/149/67/115"
     },
     {
-        "id": "181",
+        "id": 181,
         "name": "Bayleef",
         "variant": "1",
         "nature": "Docile",
@@ -2717,7 +2718,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/82/100/115/100/80"
     },
     {
-        "id": "182",
+        "id": 182,
         "name": "Quilava",
         "variant": "1",
         "nature": "Docile",
@@ -2732,7 +2733,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/84/78/132/85/100"
     },
     {
-        "id": "183",
+        "id": 183,
         "name": "Croconaw",
         "variant": "1",
         "nature": "Docile",
@@ -2747,7 +2748,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/132/100/111/83/78"
     },
     {
-        "id": "184",
+        "id": 184,
         "name": "Togetic",
         "variant": "1",
         "nature": "Relaxed",
@@ -2762,7 +2763,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/60/150/100/125/54"
     },
     {
-        "id": "185",
+        "id": 185,
         "name": "Murkrow",
         "variant": "1",
         "nature": "Quirky",
@@ -2777,7 +2778,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/105/83/105/83/111"
     },
     {
-        "id": "186",
+        "id": 186,
         "name": "Wobbuffet",
         "variant": "1",
         "nature": "Careful",
@@ -2792,7 +2793,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "286/53/99/48/109/53"
     },
     {
-        "id": "187",
+        "id": 187,
         "name": "Plusle",
         "variant": "1",
         "nature": "Docile",
@@ -2807,7 +2808,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/70/92/105/95/115"
     },
     {
-        "id": "188",
+        "id": 188,
         "name": "Minun",
         "variant": "1",
         "nature": "Docile",
@@ -2822,7 +2823,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/60/102/95/105/115"
     },
     {
-        "id": "189",
+        "id": 189,
         "name": "Grovyle",
         "variant": "1",
         "nature": "Relaxed",
@@ -2837,7 +2838,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/117/72/105/85/103"
     },
     {
-        "id": "190",
+        "id": 190,
         "name": "Combusken",
         "variant": "1",
         "nature": "Docile",
@@ -2852,7 +2853,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/137/80/137/80/75"
     },
     {
-        "id": "191",
+        "id": 191,
         "name": "Marshtomp",
         "variant": "1",
         "nature": "Hardy",
@@ -2867,7 +2868,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/137/90/112/90/70"
     },
     {
-        "id": "192",
+        "id": 192,
         "name": "Ponyta",
         "variant": "1",
         "nature": "Hardy",
@@ -2882,7 +2883,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/137/75/85/85/110"
     },
     {
-        "id": "193",
+        "id": 193,
         "name": "Azumarill",
         "variant": "1",
         "nature": "Docile",
@@ -2897,7 +2898,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/70/132/70/132/70"
     },
     {
-        "id": "194",
+        "id": 194,
         "name": "Sudowoodo",
         "variant": "1",
         "nature": "Hardy",
@@ -2912,7 +2913,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/120/135/50/117/50"
     },
     {
-        "id": "195",
+        "id": 195,
         "name": "Magcargo",
         "variant": "1",
         "nature": "Gentle",
@@ -2927,7 +2928,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/70/126/100/145/50"
     },
     {
-        "id": "196",
+        "id": 196,
         "name": "Pupitar",
         "variant": "1",
         "nature": "Hardy",
@@ -2942,7 +2943,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/104/90/85/90/103"
     },
     {
-        "id": "197",
+        "id": 197,
         "name": "Sealeo",
         "variant": "1",
         "nature": "Quirky",
@@ -2957,7 +2958,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/80/111/95/111/65"
     },
     {
-        "id": "198",
+        "id": 198,
         "name": "Raticate",
         "variant": "1",
         "nature": "Naive",
@@ -2972,7 +2973,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/122/80/70/81/152"
     },
     {
-        "id": "199",
+        "id": 199,
         "name": "Masquerain",
         "variant": "1",
         "nature": "Relaxed",
@@ -2987,7 +2988,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/112/125/100/102/72"
     },
     {
-        "id": "200",
+        "id": 200,
         "name": "Furret",
         "variant": "1",
         "nature": "Serious",
@@ -3002,7 +3003,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/96/116/65/107/110"
     },
     {
-        "id": "201",
+        "id": 201,
         "name": "Dunsparce",
         "variant": "1",
         "nature": "Docile",
@@ -3017,7 +3018,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/122/90/85/85/65"
     },
     {
-        "id": "202",
+        "id": 202,
         "name": "Dragonair",
         "variant": "1",
         "nature": "Docile",
@@ -3032,7 +3033,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "168/104/85/90/122/90"
     },
     {
-        "id": "203",
+        "id": 203,
         "name": "Mightyena",
         "variant": "1",
         "nature": "Timid",
@@ -3047,7 +3048,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/127/90/112/80/99"
     },
     {
-        "id": "204",
+        "id": 204,
         "name": "Linoone",
         "variant": "1",
         "nature": "Adamant",
@@ -3062,7 +3063,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "185/134/81/63/81/120"
     },
     {
-        "id": "205",
+        "id": 205,
         "name": "Castform",
         "variant": "1",
         "nature": "Hasty",
@@ -3077,7 +3078,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/90/81/122/90/99"
     },
     {
-        "id": "206",
+        "id": 206,
         "name": "Shelgon",
         "variant": "1",
         "nature": "Hardy",
@@ -3092,7 +3093,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/136/120/80/91/70"
     },
     {
-        "id": "207",
+        "id": 207,
         "name": "Metang",
         "variant": "1",
         "nature": "Hardy",
@@ -3107,7 +3108,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/127/120/75/132/70"
     },
     {
-        "id": "208",
+        "id": 208,
         "name": "Wigglytuff",
         "variant": "1",
         "nature": "Relaxed",
@@ -3122,7 +3123,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "215/90/106/95/102/58"
     },
     {
-        "id": "209",
+        "id": 209,
         "name": "Sunflora",
         "variant": "1",
         "nature": "Quirky",
@@ -3137,7 +3138,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/95/107/125/105/50"
     },
     {
-        "id": "210",
+        "id": 210,
         "name": "Chimecho",
         "variant": "1",
         "nature": "Sassy",
@@ -3152,7 +3153,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/70/90/147/110/76"
     },
     {
-        "id": "211",
+        "id": 211,
         "name": "Gligar",
         "variant": "1",
         "nature": "Hasty",
@@ -3167,7 +3168,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/95/112/55/117/116"
     },
     {
-        "id": "212",
+        "id": 212,
         "name": "Qwilfish",
         "variant": "1",
         "nature": "Impish",
@@ -3182,7 +3183,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/115/105/96/107/105"
     },
     {
-        "id": "213",
+        "id": 213,
         "name": "Sneasel",
         "variant": "1",
         "nature": "Relaxed",
@@ -3197,7 +3198,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/115/106/55/116/121"
     },
     {
-        "id": "214",
+        "id": 214,
         "name": "Pelipper",
         "variant": "1",
         "nature": "Quiet",
@@ -3212,7 +3213,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/70/120/116/122/76"
     },
     {
-        "id": "215",
+        "id": 215,
         "name": "Swellow",
         "variant": "1",
         "nature": "Adamant",
@@ -3227,7 +3228,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/116/80/63/102/145"
     },
     {
-        "id": "216",
+        "id": 216,
         "name": "Lairon",
         "variant": "1",
         "nature": "Sassy",
@@ -3242,7 +3243,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/110/160/70/112/54"
     },
     {
-        "id": "217",
+        "id": 217,
         "name": "Tangela",
         "variant": "1",
         "nature": "Hardy",
@@ -3257,7 +3258,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/75/135/120/92/80"
     },
     {
-        "id": "218",
+        "id": 218,
         "name": "Arbok",
         "variant": "1",
         "nature": "Adamant",
@@ -3272,7 +3273,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/150/89/76/99/100"
     },
     {
-        "id": "219",
+        "id": 219,
         "name": "Persian",
         "variant": "1",
         "nature": "Quirky",
@@ -3287,7 +3288,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/90/101/85/106/135"
     },
     {
-        "id": "220",
+        "id": 220,
         "name": "Seadra",
         "variant": "1",
         "nature": "Sassy",
@@ -3302,7 +3303,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/85/115/147/72/94"
     },
     {
-        "id": "221",
+        "id": 221,
         "name": "Kecleon",
         "variant": "1",
         "nature": "Naive",
@@ -3317,7 +3318,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/131/111/80/126/66"
     },
     {
-        "id": "222",
+        "id": 222,
         "name": "Vigoroth",
         "variant": "1",
         "nature": "Lonely",
@@ -3332,7 +3333,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/145/90/75/75/110"
     },
     {
-        "id": "223",
+        "id": 223,
         "name": "Lunatone",
         "variant": "1",
         "nature": "Quiet",
@@ -3347,7 +3348,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/75/117/127/105/81"
     },
     {
-        "id": "224",
+        "id": 224,
         "name": "Solrock",
         "variant": "1",
         "nature": "Quiet",
@@ -3362,7 +3363,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/115/105/83/117/81"
     },
     {
-        "id": "225",
+        "id": 225,
         "name": "Noctowl",
         "variant": "1",
         "nature": "Relaxed",
@@ -3377,7 +3378,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/70/112/96/116/81"
     },
     {
-        "id": "226",
+        "id": 226,
         "name": "Sandslash",
         "variant": "1",
         "nature": "Adamant",
@@ -3392,7 +3393,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/132/130/58/107/85"
     },
     {
-        "id": "227",
+        "id": 227,
         "name": "Venomoth",
         "variant": "1",
         "nature": "Quirky",
@@ -3407,7 +3408,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/85/80/110/95/142"
     },
     {
-        "id": "228",
+        "id": 228,
         "name": "Chansey",
         "variant": "1",
         "nature": "Relaxed",
@@ -3422,7 +3423,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "325/25/62/55/157/63"
     },
     {
-        "id": "229",
+        "id": 229,
         "name": "Seaking",
         "variant": "1",
         "nature": "Docile",
@@ -3437,7 +3438,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/112/85/85/132/88"
     },
     {
-        "id": "230",
+        "id": 230,
         "name": "Jumpluff",
         "variant": "1",
         "nature": "Docile",
@@ -3452,7 +3453,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/75/90/75/105/162"
     },
     {
-        "id": "231",
+        "id": 231,
         "name": "Piloswine",
         "variant": "1",
         "nature": "Quirky",
@@ -3467,7 +3468,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/152/100/80/80/70"
     },
     {
-        "id": "232",
+        "id": 232,
         "name": "Golbat",
         "variant": "1",
         "nature": "Relaxed",
@@ -3482,7 +3483,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/132/99/85/95/99"
     },
     {
-        "id": "233",
+        "id": 233,
         "name": "Primeape",
         "variant": "1",
         "nature": "Quirky",
@@ -3497,7 +3498,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/125/101/80/111/115"
     },
     {
-        "id": "234",
+        "id": 234,
         "name": "Hitmonlee",
         "variant": "1",
         "nature": "Adamant",
@@ -3512,7 +3513,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/154/105/49/130/107"
     },
     {
-        "id": "235",
+        "id": 235,
         "name": "Hitmonchan",
         "variant": "1",
         "nature": "Adamant",
@@ -3527,7 +3528,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/138/131/49/130/96"
     },
     {
-        "id": "236",
+        "id": 236,
         "name": "Girafarig",
         "variant": "1",
         "nature": "Quiet",
@@ -3542,7 +3543,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/100/85/156/85/94"
     },
     {
-        "id": "237",
+        "id": 237,
         "name": "Hitmontop",
         "variant": "1",
         "nature": "Hardy",
@@ -3557,7 +3558,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/147/115/55/130/90"
     },
     {
-        "id": "238",
+        "id": 238,
         "name": "Banette",
         "variant": "1",
         "nature": "Sassy",
@@ -3572,7 +3573,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/135/106/103/114/76"
     },
     {
-        "id": "239",
+        "id": 239,
         "name": "Ninjask",
         "variant": "1",
         "nature": "Mild",
@@ -3587,7 +3588,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/110/77/77/91/180"
     },
     {
-        "id": "240",
+        "id": 240,
         "name": "Seviper",
         "variant": "1",
         "nature": "Hardy",
@@ -3602,7 +3603,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/152/80/120/80/85"
     },
     {
-        "id": "241",
+        "id": 241,
         "name": "Zangoose",
         "variant": "1",
         "nature": "Hardy",
@@ -3617,7 +3618,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/167/80/80/80/110"
     },
     {
-        "id": "242",
+        "id": 242,
         "name": "Camerupt",
         "variant": "1",
         "nature": "Quirky",
@@ -3632,7 +3633,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/152/90/125/95/60"
     },
     {
-        "id": "243",
+        "id": 243,
         "name": "Sharpedo",
         "variant": "1",
         "nature": "Adamant",
@@ -3647,7 +3648,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/189/60/103/92/115"
     },
     {
-        "id": "244",
+        "id": 244,
         "name": "Tropius",
         "variant": "1",
         "nature": "Hardy",
@@ -3662,7 +3663,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "206/120/103/92/107/71"
     },
     {
-        "id": "245",
+        "id": 245,
         "name": "Magneton",
         "variant": "1",
         "nature": "Lonely",
@@ -3677,7 +3678,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "125/88/103/172/90/122"
     },
     {
-        "id": "246",
+        "id": 246,
         "name": "Mantine",
         "variant": "1",
         "nature": "Docile",
@@ -3692,7 +3693,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/60/90/100/192/90"
     },
     {
-        "id": "247",
+        "id": 247,
         "name": "Stantler",
         "variant": "1",
         "nature": "Gentle",
@@ -3707,7 +3708,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/115/74/137/94/105"
     },
     {
-        "id": "248",
+        "id": 248,
         "name": "Absol",
         "variant": "1",
         "nature": "Adamant",
@@ -3722,7 +3723,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/200/80/85/80/95"
     },
     {
-        "id": "249",
+        "id": 249,
         "name": "Swalot",
         "variant": "1",
         "nature": "Quirky",
@@ -3737,7 +3738,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/93/135/93/135/75"
     },
     {
-        "id": "250",
+        "id": 250,
         "name": "Crawdaunt",
         "variant": "1",
         "nature": "Adamant",
@@ -3752,7 +3753,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "159/154/126/99/96/75"
     },
     {
-        "id": "251",
+        "id": 251,
         "name": "Pidgeot",
         "variant": "1",
         "nature": "Hardy",
@@ -3767,7 +3768,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/132/95/90/90/111"
     },
     {
-        "id": "252",
+        "id": 252,
         "name": "Grumpig",
         "variant": "1",
         "nature": "Relaxed",
@@ -3782,7 +3783,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/65/94/142/130/90"
     },
     {
-        "id": "253",
+        "id": 253,
         "name": "Torkoal",
         "variant": "1",
         "nature": "Relaxed",
@@ -3797,7 +3798,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/105/176/105/122/36"
     },
     {
-        "id": "254",
+        "id": 254,
         "name": "Kingler",
         "variant": "1",
         "nature": "Hardy",
@@ -3812,7 +3813,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/150/135/70/102/95"
     },
     {
-        "id": "255",
+        "id": 255,
         "name": "Cacturne",
         "variant": "1",
         "nature": "Hasty",
@@ -3827,7 +3828,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/135/72/135/80/117"
     },
     {
-        "id": "256",
+        "id": 256,
         "name": "Bellossom",
         "variant": "1",
         "nature": "Quiet",
@@ -3842,7 +3843,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/100/105/156/120/63"
     },
     {
-        "id": "257",
+        "id": 257,
         "name": "Octillery",
         "variant": "1",
         "nature": "Hardy",
@@ -3857,7 +3858,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/157/95/157/95/65"
     },
     {
-        "id": "258",
+        "id": 258,
         "name": "Huntail",
         "variant": "1",
         "nature": "Quiet",
@@ -3872,7 +3873,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/156/125/125/95/65"
     },
     {
-        "id": "259",
+        "id": 259,
         "name": "Gorebyss",
         "variant": "1",
         "nature": "Brave",
@@ -3887,7 +3888,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/114/125/166/95/65"
     },
     {
-        "id": "260",
+        "id": 260,
         "name": "Relicanth",
         "variant": "1",
         "nature": "Sassy",
@@ -3902,7 +3903,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/110/150/86/117/67"
     },
     {
-        "id": "261",
+        "id": 261,
         "name": "Omastar",
         "variant": "1",
         "nature": "Quirky",
@@ -3917,7 +3918,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/80/145/167/90/75"
     },
     {
-        "id": "262",
+        "id": 262,
         "name": "Kabutops",
         "variant": "1",
         "nature": "Adamant",
@@ -3932,7 +3933,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/183/125/76/90/100"
     },
     {
-        "id": "263",
+        "id": 263,
         "name": "Poliwrath",
         "variant": "1",
         "nature": "Adamant",
@@ -3947,7 +3948,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/150/115/81/110/90"
     },
     {
-        "id": "264",
+        "id": 264,
         "name": "Scyther",
         "variant": "1",
         "nature": "Relaxed",
@@ -3962,7 +3963,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/162/110/75/100/112"
     },
     {
-        "id": "265",
+        "id": 265,
         "name": "Pinsir",
         "variant": "1",
         "nature": "Naughty",
@@ -3977,7 +3978,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/194/120/75/81/105"
     },
     {
-        "id": "266",
+        "id": 266,
         "name": "Politoed",
         "variant": "1",
         "nature": "Relaxed",
@@ -3992,7 +3993,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/95/139/110/152/81"
     },
     {
-        "id": "267",
+        "id": 267,
         "name": "Cloyster",
         "variant": "1",
         "nature": "Sassy",
@@ -4007,7 +4008,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/115/200/105/106/81"
     },
     {
-        "id": "268",
+        "id": 268,
         "name": "Delcatty",
         "variant": "2",
         "nature": "Modest",
@@ -4022,7 +4023,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/76/85/117/75/122"
     },
     {
-        "id": "269",
+        "id": 269,
         "name": "Sableye",
         "variant": "2",
         "nature": "Quirky",
@@ -4037,7 +4038,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "146/116/95/106/85/70"
     },
     {
-        "id": "270",
+        "id": 270,
         "name": "Lickitung",
         "variant": "2",
         "nature": "Adamant",
@@ -4052,7 +4053,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/106/116/72/116/50"
     },
     {
-        "id": "271",
+        "id": 271,
         "name": "Weepinbell",
         "variant": "2",
         "nature": "Quirky",
@@ -4067,7 +4068,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/110/102/105/97/75"
     },
     {
-        "id": "272",
+        "id": 272,
         "name": "Graveler",
         "variant": "2",
         "nature": "Adamant",
@@ -4082,7 +4083,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/127/135/58/97/55"
     },
     {
-        "id": "273",
+        "id": 273,
         "name": "Gloom",
         "variant": "2",
         "nature": "Quirky",
@@ -4097,7 +4098,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/117/90/137/95/60"
     },
     {
-        "id": "274",
+        "id": 274,
         "name": "Porygon",
         "variant": "2",
         "nature": "Quiet",
@@ -4112,7 +4113,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/112/90/150/95/54"
     },
     {
-        "id": "275",
+        "id": 275,
         "name": "Kadabra",
         "variant": "2",
         "nature": "Modest",
@@ -4127,7 +4128,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/49/82/154/90/125"
     },
     {
-        "id": "276",
+        "id": 276,
         "name": "Wailmer",
         "variant": "2",
         "nature": "Docile",
@@ -4142,7 +4143,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "205/90/87/90/87/80"
     },
     {
-        "id": "277",
+        "id": 277,
         "name": "Roselia",
         "variant": "2",
         "nature": "Docile",
@@ -4157,7 +4158,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/80/97/120/100/85"
     },
     {
-        "id": "278",
+        "id": 278,
         "name": "Volbeat",
         "variant": "2",
         "nature": "Quirky",
@@ -4172,7 +4173,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/93/75/99/95/137"
     },
     {
-        "id": "279",
+        "id": 279,
         "name": "Illumise",
         "variant": "2",
         "nature": "Quirky",
@@ -4187,7 +4188,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/67/75/125/95/137"
     },
     {
-        "id": "280",
+        "id": 280,
         "name": "Ivysaur",
         "variant": "2",
         "nature": "Quirky",
@@ -4202,7 +4203,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/114/83/132/100/80"
     },
     {
-        "id": "281",
+        "id": 281,
         "name": "Charmeleon",
         "variant": "2",
         "nature": "Hardy",
@@ -4217,7 +4218,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "133/116/78/100/85/132"
     },
     {
-        "id": "282",
+        "id": 282,
         "name": "Wartortle",
         "variant": "2",
         "nature": "Docile",
@@ -4232,7 +4233,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/83/100/117/100/78"
     },
     {
-        "id": "283",
+        "id": 283,
         "name": "Parasect",
         "variant": "2",
         "nature": "Calm",
@@ -4247,7 +4248,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/103/121/80/133/50"
     },
     {
-        "id": "284",
+        "id": 284,
         "name": "Machoke",
         "variant": "2",
         "nature": "Adamant",
@@ -4262,7 +4263,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/167/90/63/80/65"
     },
     {
-        "id": "285",
+        "id": 285,
         "name": "Haunter",
         "variant": "2",
         "nature": "Relaxed",
@@ -4277,7 +4278,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "141/70/95/135/96/103"
     },
     {
-        "id": "286",
+        "id": 286,
         "name": "Bayleef",
         "variant": "2",
         "nature": "Docile",
@@ -4292,7 +4293,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/82/121/83/121/80"
     },
     {
-        "id": "287",
+        "id": 287,
         "name": "Quilava",
         "variant": "2",
         "nature": "Docile",
@@ -4307,7 +4308,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "133/116/78/132/85/100"
     },
     {
-        "id": "288",
+        "id": 288,
         "name": "Croconaw",
         "variant": "2",
         "nature": "Adamant",
@@ -4322,7 +4323,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/145/100/71/83/78"
     },
     {
-        "id": "289",
+        "id": 289,
         "name": "Togetic",
         "variant": "2",
         "nature": "Relaxed",
@@ -4337,7 +4338,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/60/150/100/125/54"
     },
     {
-        "id": "290",
+        "id": 290,
         "name": "Murkrow",
         "variant": "2",
         "nature": "Quirky",
@@ -4352,7 +4353,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/105/83/105/83/111"
     },
     {
-        "id": "291",
+        "id": 291,
         "name": "Wobbuffet",
         "variant": "2",
         "nature": "Careful",
@@ -4367,7 +4368,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "265/53/110/48/121/53"
     },
     {
-        "id": "292",
+        "id": 292,
         "name": "Plusle",
         "variant": "2",
         "nature": "Docile",
@@ -4382,7 +4383,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/70/60/137/95/147"
     },
     {
-        "id": "293",
+        "id": 293,
         "name": "Minun",
         "variant": "2",
         "nature": "Docile",
@@ -4397,7 +4398,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/60/70/127/105/147"
     },
     {
-        "id": "294",
+        "id": 294,
         "name": "Grovyle",
         "variant": "2",
         "nature": "Docile",
@@ -4412,7 +4413,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "125/117/65/105/85/147"
     },
     {
-        "id": "295",
+        "id": 295,
         "name": "Combusken",
         "variant": "2",
         "nature": "Docile",
@@ -4427,7 +4428,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/126/80/126/80/96"
     },
     {
-        "id": "296",
+        "id": 296,
         "name": "Marshtomp",
         "variant": "2",
         "nature": "Docile",
@@ -4442,7 +4443,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/137/90/112/90/70"
     },
     {
-        "id": "297",
+        "id": 297,
         "name": "Ponyta",
         "variant": "2",
         "nature": "Quirky",
@@ -4457,7 +4458,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "125/105/75/117/85/142"
     },
     {
-        "id": "298",
+        "id": 298,
         "name": "Azumarill",
         "variant": "2",
         "nature": "Adamant",
@@ -4472,7 +4473,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/77/100/63/132/70"
     },
     {
-        "id": "299",
+        "id": 299,
         "name": "Sudowoodo",
         "variant": "2",
         "nature": "Hardy",
@@ -4487,7 +4488,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/120/135/50/117/50"
     },
     {
-        "id": "300",
+        "id": 300,
         "name": "Magcargo",
         "variant": "2",
         "nature": "Quiet",
@@ -4502,7 +4503,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/70/140/110/132/45"
     },
     {
-        "id": "301",
+        "id": 301,
         "name": "Pupitar",
         "variant": "2",
         "nature": "Hardy",
@@ -4517,7 +4518,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/136/90/85/90/71"
     },
     {
-        "id": "302",
+        "id": 302,
         "name": "Sealeo",
         "variant": "2",
         "nature": "Quiet",
@@ -4532,7 +4533,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/80/90/139/90/58"
     },
     {
-        "id": "303",
+        "id": 303,
         "name": "Raticate",
         "variant": "2",
         "nature": "Adamant",
@@ -4547,7 +4548,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "130/146/80/63/90/149"
     },
     {
-        "id": "304",
+        "id": 304,
         "name": "Masquerain",
         "variant": "2",
         "nature": "Quiet",
@@ -4562,7 +4563,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/80/114/145/102/72"
     },
     {
-        "id": "305",
+        "id": 305,
         "name": "Furret",
         "variant": "2",
         "nature": "Adamant",
@@ -4577,7 +4578,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/140/84/58/75/142"
     },
     {
-        "id": "306",
+        "id": 306,
         "name": "Dunsparce",
         "variant": "2",
         "nature": "Quiet",
@@ -4592,7 +4593,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/90/122/94/117/58"
     },
     {
-        "id": "307",
+        "id": 307,
         "name": "Dragonair",
         "variant": "2",
         "nature": "Adamant",
@@ -4607,7 +4608,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "168/114/85/81/122/90"
     },
     {
-        "id": "308",
+        "id": 308,
         "name": "Mightyena",
         "variant": "2",
         "nature": "Quirky",
@@ -4622,7 +4623,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/110/122/112/80/90"
     },
     {
-        "id": "309",
+        "id": 309,
         "name": "Linoone",
         "variant": "2",
         "nature": "Jolly",
@@ -4637,7 +4638,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/122/81/63/81/167"
     },
     {
-        "id": "310",
+        "id": 310,
         "name": "Castform",
         "variant": "2",
         "nature": "Modest",
@@ -4652,7 +4653,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/81/90/134/90/90"
     },
     {
-        "id": "311",
+        "id": 311,
         "name": "Shelgon",
         "variant": "2",
         "nature": "Hardy",
@@ -4667,7 +4668,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/115/120/80/102/70"
     },
     {
-        "id": "312",
+        "id": 312,
         "name": "Metang",
         "variant": "2",
         "nature": "Quirky",
@@ -4682,7 +4683,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/95/120/107/100/70"
     },
     {
-        "id": "313",
+        "id": 313,
         "name": "Wigglytuff",
         "variant": "2",
         "nature": "Docile",
@@ -4697,7 +4698,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "215/90/97/95/102/65"
     },
     {
-        "id": "314",
+        "id": 314,
         "name": "Sunflora",
         "variant": "2",
         "nature": "Quiet",
@@ -4712,7 +4713,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/95/107/138/105/45"
     },
     {
-        "id": "315",
+        "id": 315,
         "name": "Chimecho",
         "variant": "2",
         "nature": "Quiet",
@@ -4727,7 +4728,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/70/111/127/121/76"
     },
     {
-        "id": "316",
+        "id": 316,
         "name": "Gligar",
         "variant": "2",
         "nature": "Adamant",
@@ -4742,7 +4743,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/105/125/49/117/105"
     },
     {
-        "id": "317",
+        "id": 317,
         "name": "Qwilfish",
         "variant": "2",
         "nature": "Adamant",
@@ -4757,7 +4758,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/127/95/67/107/105"
     },
     {
-        "id": "318",
+        "id": 318,
         "name": "Sneasel",
         "variant": "2",
         "nature": "Jolly",
@@ -4772,7 +4773,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "151/115/96/49/95/172"
     },
     {
-        "id": "319",
+        "id": 319,
         "name": "Pelipper",
         "variant": "2",
         "nature": "Quiet",
@@ -4787,7 +4788,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/70/120/116/122/76"
     },
     {
-        "id": "320",
+        "id": 320,
         "name": "Swellow",
         "variant": "2",
         "nature": "Adamant",
@@ -4802,7 +4803,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/116/80/63/102/145"
     },
     {
-        "id": "321",
+        "id": 321,
         "name": "Lairon",
         "variant": "2",
         "nature": "Sassy",
@@ -4817,7 +4818,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/110/160/70/112/54"
     },
     {
-        "id": "322",
+        "id": 322,
         "name": "Tangela",
         "variant": "2",
         "nature": "Calm",
@@ -4832,7 +4833,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/67/135/120/101/80"
     },
     {
-        "id": "323",
+        "id": 323,
         "name": "Arbok",
         "variant": "2",
         "nature": "Adamant",
@@ -4847,7 +4848,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/116/121/76/99/100"
     },
     {
-        "id": "324",
+        "id": 324,
         "name": "Persian",
         "variant": "2",
         "nature": "Quirky",
@@ -4862,7 +4863,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/90/101/85/106/135"
     },
     {
-        "id": "325",
+        "id": 325,
         "name": "Seadra",
         "variant": "2",
         "nature": "Docile",
@@ -4877,7 +4878,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/85/115/115/97/105"
     },
     {
-        "id": "326",
+        "id": 326,
         "name": "Kecleon",
         "variant": "2",
         "nature": "Docile",
@@ -4892,7 +4893,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/110/122/80/140/60"
     },
     {
-        "id": "327",
+        "id": 327,
         "name": "Vigoroth",
         "variant": "2",
         "nature": "Adamant",
@@ -4907,7 +4908,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/145/100/67/107/110"
     },
     {
-        "id": "328",
+        "id": 328,
         "name": "Lunatone",
         "variant": "2",
         "nature": "Quiet",
@@ -4922,7 +4923,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/75/117/127/105/81"
     },
     {
-        "id": "329",
+        "id": 329,
         "name": "Solrock",
         "variant": "2",
         "nature": "Hardy",
@@ -4937,7 +4938,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/115/105/75/117/90"
     },
     {
-        "id": "330",
+        "id": 330,
         "name": "Noctowl",
         "variant": "2",
         "nature": "Quiet",
@@ -4952,7 +4953,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/70/102/140/116/81"
     },
     {
-        "id": "331",
+        "id": 331,
         "name": "Sandslash",
         "variant": "2",
         "nature": "Adamant",
@@ -4967,7 +4968,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/132/130/58/107/85"
     },
     {
-        "id": "332",
+        "id": 332,
         "name": "Venomoth",
         "variant": "2",
         "nature": "Docile",
@@ -4982,7 +4983,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/85/80/110/95/142"
     },
     {
-        "id": "333",
+        "id": 333,
         "name": "Chansey",
         "variant": "2",
         "nature": "Relaxed",
@@ -4997,7 +4998,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "325/25/62/55/157/63"
     },
     {
-        "id": "334",
+        "id": 334,
         "name": "Seaking",
         "variant": "2",
         "nature": "Impish",
@@ -5012,7 +5013,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/112/117/76/121/88"
     },
     {
-        "id": "335",
+        "id": 335,
         "name": "Jumpluff",
         "variant": "2",
         "nature": "Bold",
@@ -5027,7 +5028,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/67/134/75/137/130"
     },
     {
-        "id": "336",
+        "id": 336,
         "name": "Piloswine",
         "variant": "2",
         "nature": "Adamant",
@@ -5042,7 +5043,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/132/132/72/112/70"
     },
     {
-        "id": "337",
+        "id": 337,
         "name": "Golbat",
         "variant": "2",
         "nature": "Adamant",
@@ -5057,7 +5058,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/145/90/76/95/110"
     },
     {
-        "id": "338",
+        "id": 338,
         "name": "Primeape",
         "variant": "2",
         "nature": "Quirky",
@@ -5072,7 +5073,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/125/101/80/111/115"
     },
     {
-        "id": "339",
+        "id": 339,
         "name": "Hitmonlee",
         "variant": "2",
         "nature": "Adamant",
@@ -5087,7 +5088,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/154/105/49/130/107"
     },
     {
-        "id": "340",
+        "id": 340,
         "name": "Hitmonchan",
         "variant": "2",
         "nature": "Adamant",
@@ -5102,7 +5103,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/138/131/49/130/96"
     },
     {
-        "id": "341",
+        "id": 341,
         "name": "Girafarig",
         "variant": "2",
         "nature": "Modest",
@@ -5117,7 +5118,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/90/117/121/117/105"
     },
     {
-        "id": "342",
+        "id": 342,
         "name": "Hitmontop",
         "variant": "2",
         "nature": "Adamant",
@@ -5132,7 +5133,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/127/147/49/130/90"
     },
     {
-        "id": "343",
+        "id": 343,
         "name": "Banette",
         "variant": "2",
         "nature": "Adamant",
@@ -5147,7 +5148,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "139/149/117/93/115/85"
     },
     {
-        "id": "344",
+        "id": 344,
         "name": "Ninjask",
         "variant": "2",
         "nature": "Quirky",
@@ -5162,7 +5163,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/110/86/70/91/180"
     },
     {
-        "id": "345",
+        "id": 345,
         "name": "Seviper",
         "variant": "2",
         "nature": "Quirky",
@@ -5177,7 +5178,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "169/120/101/120/101/85"
     },
     {
-        "id": "346",
+        "id": 346,
         "name": "Zangoose",
         "variant": "2",
         "nature": "Adamant",
@@ -5192,7 +5193,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/183/80/72/80/142"
     },
     {
-        "id": "347",
+        "id": 347,
         "name": "Camerupt",
         "variant": "2",
         "nature": "Quirky",
@@ -5207,7 +5208,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/152/90/157/95/60"
     },
     {
-        "id": "348",
+        "id": 348,
         "name": "Sharpedo",
         "variant": "2",
         "nature": "Quirky",
@@ -5222,7 +5223,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/161/60/136/60/136"
     },
     {
-        "id": "349",
+        "id": 349,
         "name": "Tropius",
         "variant": "2",
         "nature": "Quiet",
@@ -5237,7 +5238,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "174/120/103/136/107/64"
     },
     {
-        "id": "350",
+        "id": 350,
         "name": "Magneton",
         "variant": "2",
         "nature": "Hardy",
@@ -5252,7 +5253,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/80/115/140/122/90"
     },
     {
-        "id": "351",
+        "id": 351,
         "name": "Mantine",
         "variant": "2",
         "nature": "Modest",
@@ -5267,7 +5268,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/54/122/110/160/90"
     },
     {
-        "id": "352",
+        "id": 352,
         "name": "Stantler",
         "variant": "2",
         "nature": "Adamant",
@@ -5282,7 +5283,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/161/82/94/85/137"
     },
     {
-        "id": "353",
+        "id": 353,
         "name": "Absol",
         "variant": "2",
         "nature": "Adamant",
@@ -5297,7 +5298,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/200/80/85/80/127"
     },
     {
-        "id": "354",
+        "id": 354,
         "name": "Swalot",
         "variant": "2",
         "nature": "Adamant",
@@ -5312,7 +5313,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/137/103/84/103/75"
     },
     {
-        "id": "355",
+        "id": 355,
         "name": "Crawdaunt",
         "variant": "2",
         "nature": "Adamant",
@@ -5327,7 +5328,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/154/105/99/107/75"
     },
     {
-        "id": "356",
+        "id": 356,
         "name": "Pidgeot",
         "variant": "2",
         "nature": "Adamant",
@@ -5342,7 +5343,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "158/145/95/81/90/143"
     },
     {
-        "id": "357",
+        "id": 357,
         "name": "Grumpig",
         "variant": "2",
         "nature": "Modest",
@@ -5357,7 +5358,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/58/117/156/130/100"
     },
     {
-        "id": "358",
+        "id": 358,
         "name": "Torkoal",
         "variant": "2",
         "nature": "Sassy",
@@ -5372,7 +5373,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/105/160/105/134/36"
     },
     {
-        "id": "359",
+        "id": 359,
         "name": "Kingler",
         "variant": "2",
         "nature": "Adamant",
@@ -5387,7 +5388,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/165/135/63/102/95"
     },
     {
-        "id": "360",
+        "id": 360,
         "name": "Cacturne",
         "variant": "2",
         "nature": "Hardy",
@@ -5402,7 +5403,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/135/112/135/112/75"
     },
     {
-        "id": "361",
+        "id": 361,
         "name": "Bellossom",
         "variant": "2",
         "nature": "Modest",
@@ -5417,7 +5418,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/90/137/156/120/70"
     },
     {
-        "id": "362",
+        "id": 362,
         "name": "Octillery",
         "variant": "2",
         "nature": "Quirky",
@@ -5432,7 +5433,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/125/116/125/116/65"
     },
     {
-        "id": "363",
+        "id": 363,
         "name": "Huntail",
         "variant": "2",
         "nature": "Quiet",
@@ -5447,7 +5448,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/124/125/125/127/65"
     },
     {
-        "id": "364",
+        "id": 364,
         "name": "Gorebyss",
         "variant": "2",
         "nature": "Quiet",
@@ -5462,7 +5463,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "162/104/125/147/127/65"
     },
     {
-        "id": "365",
+        "id": 365,
         "name": "Relicanth",
         "variant": "2",
         "nature": "Sassy",
@@ -5477,7 +5478,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/110/150/65/128/67"
     },
     {
-        "id": "366",
+        "id": 366,
         "name": "Omastar",
         "variant": "2",
         "nature": "Modest",
@@ -5492,7 +5493,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/72/145/149/122/75"
     },
     {
-        "id": "367",
+        "id": 367,
         "name": "Kabutops",
         "variant": "2",
         "nature": "Adamant",
@@ -5507,7 +5508,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/183/125/76/122/100"
     },
     {
-        "id": "368",
+        "id": 368,
         "name": "Poliwrath",
         "variant": "2",
         "nature": "Adamant",
@@ -5522,7 +5523,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/150/115/81/110/90"
     },
     {
-        "id": "369",
+        "id": 369,
         "name": "Scyther",
         "variant": "2",
         "nature": "Adamant",
@@ -5537,7 +5538,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/178/100/67/100/157"
     },
     {
-        "id": "370",
+        "id": 370,
         "name": "Pinsir",
         "variant": "2",
         "nature": "Jolly",
@@ -5552,7 +5553,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/145/120/67/90/150"
     },
     {
-        "id": "371",
+        "id": 371,
         "name": "Politoed",
         "variant": "2",
         "nature": "Modest",
@@ -5567,7 +5568,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/85/127/156/120/90"
     },
     {
-        "id": "372",
+        "id": 372,
         "name": "Cloyster",
         "variant": "2",
         "nature": "Careful",
@@ -5582,7 +5583,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "157/115/200/94/106/90"
     },
     {
-        "id": "373",
+        "id": 373,
         "name": "Dugtrio",
         "variant": "1",
         "nature": "Adamant",
@@ -5597,7 +5598,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "110/145/70/63/90/172"
     },
     {
-        "id": "374",
+        "id": 374,
         "name": "Medicham",
         "variant": "1",
         "nature": "Docile",
@@ -5612,7 +5613,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/112/95/80/95/132"
     },
     {
-        "id": "375",
+        "id": 375,
         "name": "Misdreavus",
         "variant": "1",
         "nature": "Impish",
@@ -5627,7 +5628,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/80/123/94/105/105"
     },
     {
-        "id": "376",
+        "id": 376,
         "name": "Fearow",
         "variant": "1",
         "nature": "Adamant",
@@ -5642,7 +5643,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/156/85/73/81/152"
     },
     {
-        "id": "377",
+        "id": 377,
         "name": "Granbull",
         "variant": "1",
         "nature": "Adamant",
@@ -5657,7 +5658,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/189/95/72/80/65"
     },
     {
-        "id": "378",
+        "id": 378,
         "name": "Jynx",
         "variant": "1",
         "nature": "Modest",
@@ -5672,7 +5673,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/63/55/183/115/115"
     },
     {
-        "id": "379",
+        "id": 379,
         "name": "Dusclops",
         "variant": "1",
         "nature": "Impish",
@@ -5687,7 +5688,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/90/188/72/171/45"
     },
     {
-        "id": "380",
+        "id": 380,
         "name": "Dodrio",
         "variant": "1",
         "nature": "Adamant",
@@ -5702,7 +5703,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/178/90/72/80/152"
     },
     {
-        "id": "381",
+        "id": 381,
         "name": "Mr. Mime",
         "variant": "1",
         "nature": "Relaxed",
@@ -5717,7 +5718,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/65/128/120/140/99"
     },
     {
-        "id": "382",
+        "id": 382,
         "name": "Lanturn",
         "variant": "1",
         "nature": "Quiet",
@@ -5732,7 +5733,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "200/78/110/140/96/78"
     },
     {
-        "id": "383",
+        "id": 383,
         "name": "Breloom",
         "variant": "1",
         "nature": "Jolly",
@@ -5747,7 +5748,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/182/100/72/80/134"
     },
     {
-        "id": "384",
+        "id": 384,
         "name": "Forretress",
         "variant": "1",
         "nature": "Adamant",
@@ -5762,7 +5763,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/156/160/72/112/60"
     },
     {
-        "id": "385",
+        "id": 385,
         "name": "Whiscash",
         "variant": "1",
         "nature": "Adamant",
@@ -5777,7 +5778,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "217/143/93/86/91/80"
     },
     {
-        "id": "386",
+        "id": 386,
         "name": "Xatu",
         "variant": "1",
         "nature": "Hardy",
@@ -5792,7 +5793,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/116/90/136/90/115"
     },
     {
-        "id": "387",
+        "id": 387,
         "name": "Skarmory",
         "variant": "1",
         "nature": "Adamant",
@@ -5807,7 +5808,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/133/160/54/111/90"
     },
     {
-        "id": "388",
+        "id": 388,
         "name": "Marowak",
         "variant": "1",
         "nature": "Adamant",
@@ -5822,7 +5823,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/145/130/63/100/65"
     },
     {
-        "id": "389",
+        "id": 389,
         "name": "Quagsire",
         "variant": "1",
         "nature": "Adamant",
@@ -5837,7 +5838,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/150/105/76/117/55"
     },
     {
-        "id": "390",
+        "id": 390,
         "name": "Clefable",
         "variant": "1",
         "nature": "Brave",
@@ -5852,7 +5853,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/99/125/105/142/72"
     },
     {
-        "id": "391",
+        "id": 391,
         "name": "Hariyama",
         "variant": "1",
         "nature": "Adamant",
@@ -5867,7 +5868,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "240/154/101/54/101/70"
     },
     {
-        "id": "392",
+        "id": 392,
         "name": "Raichu",
         "variant": "1",
         "nature": "Modest",
@@ -5882,7 +5883,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/99/96/144/100/141"
     },
     {
-        "id": "393",
+        "id": 393,
         "name": "Dewgong",
         "variant": "1",
         "nature": "Quiet",
@@ -5897,7 +5898,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/90/100/134/115/81"
     },
     {
-        "id": "394",
+        "id": 394,
         "name": "Manectric",
         "variant": "1",
         "nature": "Modest",
@@ -5912,7 +5913,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/85/80/172/80/157"
     },
     {
-        "id": "395",
+        "id": 395,
         "name": "Vileplume",
         "variant": "1",
         "nature": "Impish",
@@ -5927,7 +5928,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/132/116/108/110/70"
     },
     {
-        "id": "396",
+        "id": 396,
         "name": "Victreebel",
         "variant": "1",
         "nature": "Quiet",
@@ -5942,7 +5943,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/125/117/132/112/81"
     },
     {
-        "id": "397",
+        "id": 397,
         "name": "Electrode",
         "variant": "1",
         "nature": "Quiet",
@@ -5957,7 +5958,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/70/90/145/100/144"
     },
     {
-        "id": "398",
+        "id": 398,
         "name": "Exploud",
         "variant": "1",
         "nature": "Impish",
@@ -5972,7 +5973,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "211/143/91/100/83/88"
     },
     {
-        "id": "399",
+        "id": 399,
         "name": "Shiftry",
         "variant": "1",
         "nature": "Quiet",
@@ -5987,7 +5988,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/120/101/144/101/90"
     },
     {
-        "id": "400",
+        "id": 400,
         "name": "Glalie",
         "variant": "1",
         "nature": "Modest",
@@ -6002,7 +6003,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/90/100/145/100/100"
     },
     {
-        "id": "401",
+        "id": 401,
         "name": "Ludicolo",
         "variant": "1",
         "nature": "Quiet",
@@ -6017,7 +6018,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/90/111/144/120/81"
     },
     {
-        "id": "402",
+        "id": 402,
         "name": "Hypno",
         "variant": "1",
         "nature": "Quiet",
@@ -6032,7 +6033,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/93/122/137/135/78"
     },
     {
-        "id": "403",
+        "id": 403,
         "name": "Golem",
         "variant": "1",
         "nature": "Adamant",
@@ -6047,7 +6048,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/178/150/67/117/65"
     },
     {
-        "id": "404",
+        "id": 404,
         "name": "Rhydon",
         "variant": "1",
         "nature": "Adamant",
@@ -6062,7 +6063,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "201/188/140/58/86/60"
     },
     {
-        "id": "405",
+        "id": 405,
         "name": "Alakazam",
         "variant": "1",
         "nature": "Modest",
@@ -6077,7 +6078,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "130/63/97/205/105/140"
     },
     {
-        "id": "406",
+        "id": 406,
         "name": "Weezing",
         "variant": "1",
         "nature": "Adamant",
@@ -6092,7 +6093,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/156/140/94/90/80"
     },
     {
-        "id": "407",
+        "id": 407,
         "name": "Kangaskhan",
         "variant": "1",
         "nature": "Adamant",
@@ -6107,7 +6108,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "212/161/100/54/100/110"
     },
     {
-        "id": "408",
+        "id": 408,
         "name": "Electabuzz",
         "variant": "1",
         "nature": "Relaxed",
@@ -6122,7 +6123,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/103/108/136/105/112"
     },
     {
-        "id": "409",
+        "id": 409,
         "name": "Tauros",
         "variant": "1",
         "nature": "Adamant",
@@ -6137,7 +6138,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/167/115/54/90/162"
     },
     {
-        "id": "410",
+        "id": 410,
         "name": "Slowbro",
         "variant": "1",
         "nature": "Quiet",
@@ -6152,7 +6153,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/95/130/132/132/45"
     },
     {
-        "id": "411",
+        "id": 411,
         "name": "Slowking",
         "variant": "1",
         "nature": "Quiet",
@@ -6167,7 +6168,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/95/132/132/130/45"
     },
     {
-        "id": "412",
+        "id": 412,
         "name": "Miltank",
         "variant": "1",
         "nature": "Careful",
@@ -6182,7 +6183,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/100/146/54/122/120"
     },
     {
-        "id": "413",
+        "id": 413,
         "name": "Altaria",
         "variant": "1",
         "nature": "Docile",
@@ -6197,7 +6198,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/122/110/90/125/100"
     },
     {
-        "id": "414",
+        "id": 414,
         "name": "Nidoqueen",
         "variant": "1",
         "nature": "Adamant",
@@ -6212,7 +6213,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/147/107/85/105/96"
     },
     {
-        "id": "415",
+        "id": 415,
         "name": "Nidoking",
         "variant": "1",
         "nature": "Adamant",
@@ -6227,7 +6228,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "188/158/97/94/95/105"
     },
     {
-        "id": "416",
+        "id": 416,
         "name": "Magmar",
         "variant": "1",
         "nature": "Relaxed",
@@ -6242,7 +6243,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/115/108/141/105/102"
     },
     {
-        "id": "417",
+        "id": 417,
         "name": "Cradily",
         "variant": "1",
         "nature": "Relaxed",
@@ -6257,7 +6258,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/101/152/101/148/57"
     },
     {
-        "id": "418",
+        "id": 418,
         "name": "Armaldo",
         "variant": "1",
         "nature": "Adamant",
@@ -6272,7 +6273,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/194/120/81/100/65"
     },
     {
-        "id": "419",
+        "id": 419,
         "name": "Golduck",
         "variant": "1",
         "nature": "Quiet",
@@ -6287,7 +6288,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/134/98/161/100/94"
     },
     {
-        "id": "420",
+        "id": 420,
         "name": "Rapidash",
         "variant": "1",
         "nature": "Quiet",
@@ -6302,7 +6303,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/120/90/145/100/141"
     },
     {
-        "id": "421",
+        "id": 421,
         "name": "Muk",
         "variant": "1",
         "nature": "Adamant",
@@ -6317,7 +6318,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "212/172/95/76/120/70"
     },
     {
-        "id": "422",
+        "id": 422,
         "name": "Gengar",
         "variant": "1",
         "nature": "Timid",
@@ -6332,7 +6333,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/76/80/171/95/166"
     },
     {
-        "id": "423",
+        "id": 423,
         "name": "Ampharos",
         "variant": "1",
         "nature": "Relaxed",
@@ -6347,7 +6348,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/95/105/167/110/67"
     },
     {
-        "id": "424",
+        "id": 424,
         "name": "Scizor",
         "variant": "1",
         "nature": "Adamant",
@@ -6362,7 +6363,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/200/120/67/132/85"
     },
     {
-        "id": "425",
+        "id": 425,
         "name": "Heracross",
         "variant": "1",
         "nature": "Adamant",
@@ -6377,7 +6378,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/194/127/54/115/105"
     },
     {
-        "id": "426",
+        "id": 426,
         "name": "Ursaring",
         "variant": "1",
         "nature": "Docile",
@@ -6392,7 +6393,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/171/95/116/95/75"
     },
     {
-        "id": "427",
+        "id": 427,
         "name": "Houndoom",
         "variant": "1",
         "nature": "Quirky",
@@ -6407,7 +6408,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/131/70/151/100/136"
     },
     {
-        "id": "428",
+        "id": 428,
         "name": "Donphan",
         "variant": "1",
         "nature": "Adamant",
@@ -6422,7 +6423,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/189/140/72/80/70"
     },
     {
-        "id": "429",
+        "id": 429,
         "name": "Claydol",
         "variant": "1",
         "nature": "Adamant",
@@ -6437,7 +6438,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/134/125/81/140/95"
     },
     {
-        "id": "430",
+        "id": 430,
         "name": "Wailord",
         "variant": "1",
         "nature": "Sassy",
@@ -6452,7 +6453,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "266/110/86/110/95/72"
     },
     {
-        "id": "431",
+        "id": 431,
         "name": "Ninetales",
         "variant": "1",
         "nature": "Modest",
@@ -6467,7 +6468,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/86/95/146/120/152"
     },
     {
-        "id": "432",
+        "id": 432,
         "name": "Machamp",
         "variant": "1",
         "nature": "Adamant",
@@ -6482,7 +6483,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/100/76/105/75"
     },
     {
-        "id": "433",
+        "id": 433,
         "name": "Shuckle",
         "variant": "1",
         "nature": "Brave",
@@ -6497,7 +6498,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "95/33/282/30/282/22"
     },
     {
-        "id": "434",
+        "id": 434,
         "name": "Steelix",
         "variant": "1",
         "nature": "Adamant",
@@ -6512,7 +6513,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/150/220/67/117/50"
     },
     {
-        "id": "435",
+        "id": 435,
         "name": "Tentacruel",
         "variant": "1",
         "nature": "Impish",
@@ -6527,7 +6528,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/122/128/90/140/120"
     },
     {
-        "id": "436",
+        "id": 436,
         "name": "Aerodactyl",
         "variant": "1",
         "nature": "Adamant",
@@ -6542,7 +6543,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/161/85/72/95/171"
     },
     {
-        "id": "437",
+        "id": 437,
         "name": "Porygon2",
         "variant": "1",
         "nature": "Adamant",
@@ -6557,7 +6558,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "192/145/110/112/115/80"
     },
     {
-        "id": "438",
+        "id": 438,
         "name": "Gardevoir",
         "variant": "1",
         "nature": "Timid",
@@ -6572,7 +6573,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "164/76/106/145/135/133"
     },
     {
-        "id": "439",
+        "id": 439,
         "name": "Exeggutor",
         "variant": "1",
         "nature": "Quiet",
@@ -6587,7 +6588,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/115/137/160/117/67"
     },
     {
-        "id": "440",
+        "id": 440,
         "name": "Starmie",
         "variant": "1",
         "nature": "Modest",
@@ -6602,7 +6603,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/85/105/167/105/135"
     },
     {
-        "id": "441",
+        "id": 441,
         "name": "Flygon",
         "variant": "1",
         "nature": "Adamant",
@@ -6617,7 +6618,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/167/100/90/100/152"
     },
     {
-        "id": "442",
+        "id": 442,
         "name": "Venusaur",
         "variant": "1",
         "nature": "Quiet",
@@ -6632,7 +6633,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/102/103/167/120/90"
     },
     {
-        "id": "443",
+        "id": 443,
         "name": "Vaporeon",
         "variant": "1",
         "nature": "Modest",
@@ -6647,7 +6648,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "205/76/101/166/136/85"
     },
     {
-        "id": "444",
+        "id": 444,
         "name": "Jolteon",
         "variant": "1",
         "nature": "Modest",
@@ -6662,7 +6663,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/76/80/178/115/182"
     },
     {
-        "id": "445",
+        "id": 445,
         "name": "Flareon",
         "variant": "1",
         "nature": "Modest",
@@ -6677,7 +6678,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/135/112/161/130/85"
     },
     {
-        "id": "446",
+        "id": 446,
         "name": "Meganium",
         "variant": "1",
         "nature": "Modest",
@@ -6692,7 +6693,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/92/120/148/120/100"
     },
     {
-        "id": "447",
+        "id": 447,
         "name": "Espeon",
         "variant": "1",
         "nature": "Modest",
@@ -6707,7 +6708,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/76/101/165/136/151"
     },
     {
-        "id": "448",
+        "id": 448,
         "name": "Umbreon",
         "variant": "1",
         "nature": "Bold",
@@ -6722,7 +6723,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/76/166/80/171/85"
     },
     {
-        "id": "449",
+        "id": 449,
         "name": "Blastoise",
         "variant": "1",
         "nature": "Modest",
@@ -6737,7 +6738,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/93/120/150/125/98"
     },
     {
-        "id": "450",
+        "id": 450,
         "name": "Feraligatr",
         "variant": "1",
         "nature": "Quiet",
@@ -6752,7 +6753,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "181/125/120/132/124/88"
     },
     {
-        "id": "451",
+        "id": 451,
         "name": "Aggron",
         "variant": "1",
         "nature": "Adamant",
@@ -6767,7 +6768,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/178/200/72/80/70"
     },
     {
-        "id": "452",
+        "id": 452,
         "name": "Blaziken",
         "variant": "1",
         "nature": "Docile",
@@ -6782,7 +6783,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/172/90/162/90/100"
     },
     {
-        "id": "453",
+        "id": 453,
         "name": "Walrein",
         "variant": "1",
         "nature": "Quiet",
@@ -6797,7 +6798,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "206/100/131/127/131/76"
     },
     {
-        "id": "454",
+        "id": 454,
         "name": "Sceptile",
         "variant": "1",
         "nature": "Modest",
@@ -6812,7 +6813,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/94/85/172/105/172"
     },
     {
-        "id": "455",
+        "id": 455,
         "name": "Charizard",
         "variant": "1",
         "nature": "Modest",
@@ -6827,7 +6828,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/94/98/177/105/152"
     },
     {
-        "id": "456",
+        "id": 456,
         "name": "Typhlosion",
         "variant": "1",
         "nature": "Modest",
@@ -6842,7 +6843,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/94/98/177/105/152"
     },
     {
-        "id": "457",
+        "id": 457,
         "name": "Lapras",
         "variant": "1",
         "nature": "Bold",
@@ -6857,7 +6858,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "205/94/145/105/147/80"
     },
     {
-        "id": "458",
+        "id": 458,
         "name": "Crobat",
         "variant": "1",
         "nature": "Quirky",
@@ -6872,7 +6873,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "181/131/100/111/100/150"
     },
     {
-        "id": "459",
+        "id": 459,
         "name": "Swampert",
         "variant": "1",
         "nature": "Adamant",
@@ -6887,7 +6888,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/143/131/94/131/80"
     },
     {
-        "id": "460",
+        "id": 460,
         "name": "Gyarados",
         "variant": "1",
         "nature": "Careful",
@@ -6902,7 +6903,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/145/99/72/167/101"
     },
     {
-        "id": "461",
+        "id": 461,
         "name": "Snorlax",
         "variant": "1",
         "nature": "Adamant",
@@ -6917,7 +6918,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "235/178/117/76/130/50"
     },
     {
-        "id": "462",
+        "id": 462,
         "name": "Kingdra",
         "variant": "1",
         "nature": "Modest",
@@ -6932,7 +6933,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/103/115/161/115/105"
     },
     {
-        "id": "463",
+        "id": 463,
         "name": "Blissey",
         "variant": "1",
         "nature": "Bold",
@@ -6947,7 +6948,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "330/27/68/95/187/75"
     },
     {
-        "id": "464",
+        "id": 464,
         "name": "Milotic",
         "variant": "1",
         "nature": "Modest",
@@ -6962,7 +6963,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/72/120/155/145/101"
     },
     {
-        "id": "465",
+        "id": 465,
         "name": "Arcanine",
         "variant": "1",
         "nature": "Adamant",
@@ -6977,7 +6978,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/178/100/108/100/147"
     },
     {
-        "id": "466",
+        "id": 466,
         "name": "Salamence",
         "variant": "1",
         "nature": "Hardy",
@@ -6992,7 +6993,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/187/100/130/100/152"
     },
     {
-        "id": "467",
+        "id": 467,
         "name": "Metagross",
         "variant": "1",
         "nature": "Adamant",
@@ -7007,7 +7008,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/194/150/103/131/111"
     },
     {
-        "id": "468",
+        "id": 468,
         "name": "Slaking",
         "variant": "1",
         "nature": "Adamant",
@@ -7022,7 +7023,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "246/198/141/103/106/120"
     },
     {
-        "id": "469",
+        "id": 469,
         "name": "Dugtrio",
         "variant": "2",
         "nature": "Adamant",
@@ -7037,7 +7038,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "110/145/70/63/90/172"
     },
     {
-        "id": "470",
+        "id": 470,
         "name": "Medicham",
         "variant": "2",
         "nature": "Hardy",
@@ -7052,7 +7053,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/112/95/80/95/132"
     },
     {
-        "id": "471",
+        "id": 471,
         "name": "Marowak",
         "variant": "2",
         "nature": "Adamant",
@@ -7067,7 +7068,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/145/130/63/100/97"
     },
     {
-        "id": "472",
+        "id": 472,
         "name": "Quagsire",
         "variant": "2",
         "nature": "Sassy",
@@ -7082,7 +7083,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/105/137/85/128/49"
     },
     {
-        "id": "473",
+        "id": 473,
         "name": "Misdreavus",
         "variant": "2",
         "nature": "Bold",
@@ -7097,7 +7098,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/72/123/137/105/105"
     },
     {
-        "id": "474",
+        "id": 474,
         "name": "Fearow",
         "variant": "2",
         "nature": "Adamant",
@@ -7112,7 +7113,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/156/85/73/81/152"
     },
     {
-        "id": "475",
+        "id": 475,
         "name": "Granbull",
         "variant": "2",
         "nature": "Quiet",
@@ -7127,7 +7128,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/140/95/123/112/58"
     },
     {
-        "id": "476",
+        "id": 476,
         "name": "Jynx",
         "variant": "2",
         "nature": "Impish",
@@ -7142,7 +7143,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/70/95/121/115/115"
     },
     {
-        "id": "477",
+        "id": 477,
         "name": "Dusclops",
         "variant": "2",
         "nature": "Impish",
@@ -7157,7 +7158,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/90/188/72/171/45"
     },
     {
-        "id": "478",
+        "id": 478,
         "name": "Dodrio",
         "variant": "2",
         "nature": "Adamant",
@@ -7172,7 +7173,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/178/90/72/80/152"
     },
     {
-        "id": "479",
+        "id": 479,
         "name": "Mr. Mime",
         "variant": "2",
         "nature": "Adamant",
@@ -7187,7 +7188,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/72/106/108/161/110"
     },
     {
-        "id": "480",
+        "id": 480,
         "name": "Lanturn",
         "variant": "2",
         "nature": "Docile",
@@ -7202,7 +7203,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "200/110/78/128/96/87"
     },
     {
-        "id": "481",
+        "id": 481,
         "name": "Breloom",
         "variant": "2",
         "nature": "Docile",
@@ -7217,7 +7218,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/150/100/112/80/122"
     },
     {
-        "id": "482",
+        "id": 482,
         "name": "Forretress",
         "variant": "2",
         "nature": "Adamant",
@@ -7232,7 +7233,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/156/160/72/112/60"
     },
     {
-        "id": "483",
+        "id": 483,
         "name": "Skarmory",
         "variant": "2",
         "nature": "Careful",
@@ -7247,7 +7248,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/121/160/54/122/90"
     },
     {
-        "id": "484",
+        "id": 484,
         "name": "Whiscash",
         "variant": "2",
         "nature": "Hardy",
@@ -7262,7 +7263,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "185/130/93/128/91/80"
     },
     {
-        "id": "485",
+        "id": 485,
         "name": "Xatu",
         "variant": "2",
         "nature": "Impish",
@@ -7277,7 +7278,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/95/122/103/111/115"
     },
     {
-        "id": "486",
+        "id": 486,
         "name": "Clefable",
         "variant": "2",
         "nature": "Adamant",
@@ -7292,7 +7293,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/134/125/94/110/80"
     },
     {
-        "id": "487",
+        "id": 487,
         "name": "Hariyama",
         "variant": "2",
         "nature": "Quiet",
@@ -7307,7 +7308,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "219/172/80/101/80/63"
     },
     {
-        "id": "488",
+        "id": 488,
         "name": "Raichu",
         "variant": "2",
         "nature": "Adamant",
@@ -7322,7 +7323,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/156/75/99/100/152"
     },
     {
-        "id": "489",
+        "id": 489,
         "name": "Dewgong",
         "variant": "2",
         "nature": "Docile",
@@ -7337,7 +7338,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/122/100/122/115/90"
     },
     {
-        "id": "490",
+        "id": 490,
         "name": "Manectric",
         "variant": "2",
         "nature": "Modest",
@@ -7352,7 +7353,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/85/80/172/80/157"
     },
     {
-        "id": "491",
+        "id": 491,
         "name": "Vileplume",
         "variant": "2",
         "nature": "Bold",
@@ -7367,7 +7368,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/90/139/120/131/70"
     },
     {
-        "id": "492",
+        "id": 492,
         "name": "Victreebel",
         "variant": "2",
         "nature": "Serious",
@@ -7382,7 +7383,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/157/85/152/80/90"
     },
     {
-        "id": "493",
+        "id": 493,
         "name": "Electrode",
         "variant": "2",
         "nature": "Modest",
@@ -7397,7 +7398,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/63/111/110/121/160"
     },
     {
-        "id": "494",
+        "id": 494,
         "name": "Exploud",
         "variant": "2",
         "nature": "Quirky",
@@ -7412,7 +7413,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "179/143/83/143/83/88"
     },
     {
-        "id": "495",
+        "id": 495,
         "name": "Shiftry",
         "variant": "2",
         "nature": "Impish",
@@ -7427,7 +7428,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/120/123/99/112/100"
     },
     {
-        "id": "496",
+        "id": 496,
         "name": "Glalie",
         "variant": "2",
         "nature": "Quirky",
@@ -7442,7 +7443,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/132/100/100/100/132"
     },
     {
-        "id": "497",
+        "id": 497,
         "name": "Ludicolo",
         "variant": "2",
         "nature": "Modest",
@@ -7457,7 +7458,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/81/90/156/120/90"
     },
     {
-        "id": "498",
+        "id": 498,
         "name": "Hypno",
         "variant": "2",
         "nature": "Modest",
@@ -7472,7 +7473,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/84/122/102/167/87"
     },
     {
-        "id": "499",
+        "id": 499,
         "name": "Golem",
         "variant": "2",
         "nature": "Adamant",
@@ -7487,7 +7488,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/178/150/67/85/65"
     },
     {
-        "id": "500",
+        "id": 500,
         "name": "Rhydon",
         "variant": "2",
         "nature": "Adamant",
@@ -7502,7 +7503,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/200/140/58/97/60"
     },
     {
-        "id": "501",
+        "id": 501,
         "name": "Alakazam",
         "variant": "2",
         "nature": "Modest",
@@ -7517,7 +7518,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "130/63/97/205/105/140"
     },
     {
-        "id": "502",
+        "id": 502,
         "name": "Weezing",
         "variant": "2",
         "nature": "Adamant",
@@ -7532,7 +7533,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/156/140/94/90/80"
     },
     {
-        "id": "503",
+        "id": 503,
         "name": "Kangaskhan",
         "variant": "2",
         "nature": "Adamant",
@@ -7547,7 +7548,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "212/161/100/54/100/110"
     },
     {
-        "id": "504",
+        "id": 504,
         "name": "Electabuzz",
         "variant": "2",
         "nature": "Quirky",
@@ -7562,7 +7563,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/124/77/136/105/146"
     },
     {
-        "id": "505",
+        "id": 505,
         "name": "Tauros",
         "variant": "2",
         "nature": "Adamant",
@@ -7577,7 +7578,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/167/115/54/90/130"
     },
     {
-        "id": "506",
+        "id": 506,
         "name": "Slowbro",
         "variant": "2",
         "nature": "Modest",
@@ -7592,7 +7593,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/114/130/132/132/50"
     },
     {
-        "id": "507",
+        "id": 507,
         "name": "Slowking",
         "variant": "2",
         "nature": "Modest",
@@ -7607,7 +7608,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/85/132/167/130/50"
     },
     {
-        "id": "508",
+        "id": 508,
         "name": "Miltank",
         "variant": "2",
         "nature": "Careful",
@@ -7622,7 +7623,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/121/125/54/122/120"
     },
     {
-        "id": "509",
+        "id": 509,
         "name": "Altaria",
         "variant": "2",
         "nature": "Bold",
@@ -7637,7 +7638,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/81/144/90/146/100"
     },
     {
-        "id": "510",
+        "id": 510,
         "name": "Nidoqueen",
         "variant": "2",
         "nature": "Adamant",
@@ -7652,7 +7653,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/147/107/85/105/96"
     },
     {
-        "id": "511",
+        "id": 511,
         "name": "Nidoking",
         "variant": "2",
         "nature": "Adamant",
@@ -7667,7 +7668,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "188/158/97/94/95/105"
     },
     {
-        "id": "512",
+        "id": 512,
         "name": "Magmar",
         "variant": "2",
         "nature": "Modest",
@@ -7682,7 +7683,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/103/77/167/105/145"
     },
     {
-        "id": "513",
+        "id": 513,
         "name": "Cradily",
         "variant": "2",
         "nature": "Adamant",
@@ -7697,7 +7698,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "193/146/117/91/127/63"
     },
     {
-        "id": "514",
+        "id": 514,
         "name": "Armaldo",
         "variant": "2",
         "nature": "Adamant",
@@ -7712,7 +7713,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/194/120/81/100/65"
     },
     {
-        "id": "515",
+        "id": 515,
         "name": "Golduck",
         "variant": "2",
         "nature": "Quirky",
@@ -7727,7 +7728,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/123/98/136/100/126"
     },
     {
-        "id": "516",
+        "id": 516,
         "name": "Rapidash",
         "variant": "2",
         "nature": "Docile",
@@ -7742,7 +7743,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/141/90/121/100/146"
     },
     {
-        "id": "517",
+        "id": 517,
         "name": "Muk",
         "variant": "2",
         "nature": "Hardy",
@@ -7757,7 +7758,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/157/127/85/120/70"
     },
     {
-        "id": "518",
+        "id": 518,
         "name": "Gengar",
         "variant": "2",
         "nature": "Adamant",
@@ -7772,7 +7773,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/128/80/135/95/162"
     },
     {
-        "id": "519",
+        "id": 519,
         "name": "Ampharos",
         "variant": "2",
         "nature": "Hardy",
@@ -7787,7 +7788,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/127/95/167/110/75"
     },
     {
-        "id": "520",
+        "id": 520,
         "name": "Scizor",
         "variant": "2",
         "nature": "Adamant",
@@ -7802,7 +7803,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/200/120/67/132/85"
     },
     {
-        "id": "521",
+        "id": 521,
         "name": "Heracross",
         "variant": "2",
         "nature": "Jolly",
@@ -7817,7 +7818,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/145/95/54/115/150"
     },
     {
-        "id": "522",
+        "id": 522,
         "name": "Ursaring",
         "variant": "2",
         "nature": "Adamant",
@@ -7832,7 +7833,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/95/85/95/75"
     },
     {
-        "id": "523",
+        "id": 523,
         "name": "Houndoom",
         "variant": "2",
         "nature": "Modest",
@@ -7847,7 +7848,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/99/70/178/100/147"
     },
     {
-        "id": "524",
+        "id": 524,
         "name": "Donphan",
         "variant": "2",
         "nature": "Jolly",
@@ -7862,7 +7863,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/172/140/72/80/112"
     },
     {
-        "id": "525",
+        "id": 525,
         "name": "Claydol",
         "variant": "2",
         "nature": "Calm",
@@ -7877,7 +7878,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/81/146/90/177/95"
     },
     {
-        "id": "526",
+        "id": 526,
         "name": "Wailord",
         "variant": "2",
         "nature": "Adamant",
@@ -7892,7 +7893,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "266/121/86/99/86/80"
     },
     {
-        "id": "527",
+        "id": 527,
         "name": "Ninetales",
         "variant": "2",
         "nature": "Quirky",
@@ -7907,7 +7908,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/96/95/133/120/152"
     },
     {
-        "id": "528",
+        "id": 528,
         "name": "Machamp",
         "variant": "2",
         "nature": "Adamant",
@@ -7922,7 +7923,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/165/121/76/126/75"
     },
     {
-        "id": "529",
+        "id": 529,
         "name": "Shuckle",
         "variant": "2",
         "nature": "Careful",
@@ -7937,7 +7938,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "95/30/282/27/310/25"
     },
     {
-        "id": "530",
+        "id": 530,
         "name": "Steelix",
         "variant": "2",
         "nature": "Hardy",
@@ -7952,7 +7953,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/137/220/75/117/50"
     },
     {
-        "id": "531",
+        "id": 531,
         "name": "Tentacruel",
         "variant": "2",
         "nature": "Hardy",
@@ -7967,7 +7968,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/90/106/121/140/120"
     },
     {
-        "id": "532",
+        "id": 532,
         "name": "Aerodactyl",
         "variant": "2",
         "nature": "Adamant",
@@ -7982,7 +7983,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/161/85/72/95/171"
     },
     {
-        "id": "533",
+        "id": 533,
         "name": "Porygon2",
         "variant": "2",
         "nature": "Modest",
@@ -7997,7 +7998,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "192/90/110/172/115/80"
     },
     {
-        "id": "534",
+        "id": 534,
         "name": "Gardevoir",
         "variant": "2",
         "nature": "Modest",
@@ -8012,7 +8013,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/76/117/160/135/100"
     },
     {
-        "id": "535",
+        "id": 535,
         "name": "Exeggutor",
         "variant": "2",
         "nature": "Hardy",
@@ -8027,7 +8028,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/147/105/145/117/75"
     },
     {
-        "id": "536",
+        "id": 536,
         "name": "Starmie",
         "variant": "2",
         "nature": "Modest",
@@ -8042,7 +8043,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/85/126/132/126/135"
     },
     {
-        "id": "537",
+        "id": 537,
         "name": "Flygon",
         "variant": "2",
         "nature": "Modest",
@@ -8057,7 +8058,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/108/100/145/100/152"
     },
     {
-        "id": "538",
+        "id": 538,
         "name": "Venusaur",
         "variant": "2",
         "nature": "Bold",
@@ -8072,7 +8073,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/92/136/120/141/100"
     },
     {
-        "id": "539",
+        "id": 539,
         "name": "Vaporeon",
         "variant": "2",
         "nature": "Docile",
@@ -8087,7 +8088,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/85/101/130/136/85"
     },
     {
-        "id": "540",
+        "id": 540,
         "name": "Jolteon",
         "variant": "2",
         "nature": "Hardy",
@@ -8102,7 +8103,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/117/80/162/115/150"
     },
     {
-        "id": "541",
+        "id": 541,
         "name": "Flareon",
         "variant": "2",
         "nature": "Relaxed",
@@ -8117,7 +8118,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/150/111/115/151/76"
     },
     {
-        "id": "542",
+        "id": 542,
         "name": "Meganium",
         "variant": "2",
         "nature": "Calm",
@@ -8132,7 +8133,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/92/141/103/155/100"
     },
     {
-        "id": "543",
+        "id": 543,
         "name": "Espeon",
         "variant": "2",
         "nature": "Docile",
@@ -8147,7 +8148,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/117/80/150/115/162"
     },
     {
-        "id": "544",
+        "id": 544,
         "name": "Umbreon",
         "variant": "2",
         "nature": "Adamant",
@@ -8162,7 +8163,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/117/130/72/171/85"
     },
     {
-        "id": "545",
+        "id": 545,
         "name": "Blastoise",
         "variant": "2",
         "nature": "Brave",
@@ -8177,7 +8178,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/136/120/126/125/88"
     },
     {
-        "id": "546",
+        "id": 546,
         "name": "Feraligatr",
         "variant": "2",
         "nature": "Sassy",
@@ -8192,7 +8193,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "181/125/120/120/136/88"
     },
     {
-        "id": "547",
+        "id": 547,
         "name": "Aggron",
         "variant": "2",
         "nature": "Adamant",
@@ -8207,7 +8208,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/178/200/72/80/70"
     },
     {
-        "id": "548",
+        "id": 548,
         "name": "Blaziken",
         "variant": "2",
         "nature": "Docile",
@@ -8222,7 +8223,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/172/90/162/90/100"
     },
     {
-        "id": "549",
+        "id": 549,
         "name": "Walrein",
         "variant": "2",
         "nature": "Quirky",
@@ -8237,7 +8238,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "206/100/131/115/131/85"
     },
     {
-        "id": "550",
+        "id": 550,
         "name": "Sceptile",
         "variant": "2",
         "nature": "Modest",
@@ -8252,7 +8253,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/94/85/172/105/172"
     },
     {
-        "id": "551",
+        "id": 551,
         "name": "Charizard",
         "variant": "2",
         "nature": "Adamant",
@@ -8267,7 +8268,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/149/98/116/105/152"
     },
     {
-        "id": "552",
+        "id": 552,
         "name": "Typhlosion",
         "variant": "2",
         "nature": "Hardy",
@@ -8282,7 +8283,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/125/98/150/105/141"
     },
     {
-        "id": "553",
+        "id": 553,
         "name": "Lapras",
         "variant": "2",
         "nature": "Timid",
@@ -8297,7 +8298,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "205/94/100/137/115/123"
     },
     {
-        "id": "554",
+        "id": 554,
         "name": "Crobat",
         "variant": "2",
         "nature": "Calm",
@@ -8312,7 +8313,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "181/99/121/90/133/150"
     },
     {
-        "id": "555",
+        "id": 555,
         "name": "Swampert",
         "variant": "2",
         "nature": "Docile",
@@ -8327,7 +8328,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/130/131/105/131/80"
     },
     {
-        "id": "556",
+        "id": 556,
         "name": "Gyarados",
         "variant": "2",
         "nature": "Modest",
@@ -8342,7 +8343,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/130/99/123/120/133"
     },
     {
-        "id": "557",
+        "id": 557,
         "name": "Snorlax",
         "variant": "2",
         "nature": "Adamant",
@@ -8357,7 +8358,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "256/143/106/76/151/50"
     },
     {
-        "id": "558",
+        "id": 558,
         "name": "Kingdra",
         "variant": "2",
         "nature": "Modest",
@@ -8372,7 +8373,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/103/136/127/136/105"
     },
     {
-        "id": "559",
+        "id": 559,
         "name": "Blissey",
         "variant": "2",
         "nature": "Bold",
@@ -8387,7 +8388,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "330/27/68/95/187/75"
     },
     {
-        "id": "560",
+        "id": 560,
         "name": "Milotic",
         "variant": "2",
         "nature": "Modest",
@@ -8402,7 +8403,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/72/99/167/145/101"
     },
     {
-        "id": "561",
+        "id": 561,
         "name": "Arcanine",
         "variant": "2",
         "nature": "Docile",
@@ -8417,7 +8418,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/130/100/152/100/147"
     },
     {
-        "id": "562",
+        "id": 562,
         "name": "Salamence",
         "variant": "2",
         "nature": "Hardy",
@@ -8432,7 +8433,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/176/100/151/100/141"
     },
     {
-        "id": "563",
+        "id": 563,
         "name": "Metagross",
         "variant": "2",
         "nature": "Adamant",
@@ -8447,7 +8448,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/171/150/103/131/111"
     },
     {
-        "id": "564",
+        "id": 564,
         "name": "Slaking",
         "variant": "2",
         "nature": "Adamant",
@@ -8462,7 +8463,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "225/198/152/103/117/120"
     },
     {
-        "id": "565",
+        "id": 565,
         "name": "Dugtrio",
         "variant": "3",
         "nature": "Adamant",
@@ -8477,7 +8478,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "110/145/70/63/90/172"
     },
     {
-        "id": "566",
+        "id": 566,
         "name": "Medicham",
         "variant": "3",
         "nature": "Hardy",
@@ -8492,7 +8493,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/80/95/112/95/132"
     },
     {
-        "id": "567",
+        "id": 567,
         "name": "Misdreavus",
         "variant": "3",
         "nature": "Bold",
@@ -8507,7 +8508,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/72/123/105/105/105"
     },
     {
-        "id": "568",
+        "id": 568,
         "name": "Fearow",
         "variant": "3",
         "nature": "Hardy",
@@ -8522,7 +8523,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/142/85/81/81/152"
     },
     {
-        "id": "569",
+        "id": 569,
         "name": "Granbull",
         "variant": "3",
         "nature": "Adamant",
@@ -8537,7 +8538,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/189/95/72/80/65"
     },
     {
-        "id": "570",
+        "id": 570,
         "name": "Jynx",
         "variant": "3",
         "nature": "Hardy",
@@ -8552,7 +8553,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/70/87/135/115/115"
     },
     {
-        "id": "571",
+        "id": 571,
         "name": "Dusclops",
         "variant": "3",
         "nature": "Adamant",
@@ -8567,7 +8568,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/99/171/72/171/45"
     },
     {
-        "id": "572",
+        "id": 572,
         "name": "Dodrio",
         "variant": "3",
         "nature": "Adamant",
@@ -8582,7 +8583,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/178/90/72/80/152"
     },
     {
-        "id": "573",
+        "id": 573,
         "name": "Mr. Mime",
         "variant": "3",
         "nature": "Modest",
@@ -8597,7 +8598,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/58/85/167/140/110"
     },
     {
-        "id": "574",
+        "id": 574,
         "name": "Lanturn",
         "variant": "3",
         "nature": "Modest",
@@ -8612,7 +8613,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "200/70/78/140/96/119"
     },
     {
-        "id": "575",
+        "id": 575,
         "name": "Breloom",
         "variant": "3",
         "nature": "Adamant",
@@ -8627,7 +8628,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/200/100/72/80/122"
     },
     {
-        "id": "576",
+        "id": 576,
         "name": "Forretress",
         "variant": "3",
         "nature": "Quiet",
@@ -8642,7 +8643,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/131/160/111/101/54"
     },
     {
-        "id": "577",
+        "id": 577,
         "name": "Whiscash",
         "variant": "3",
         "nature": "Hardy",
@@ -8657,7 +8658,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "185/98/125/96/123/80"
     },
     {
-        "id": "578",
+        "id": 578,
         "name": "Xatu",
         "variant": "3",
         "nature": "Jolly",
@@ -8672,7 +8673,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/116/90/122/90/150"
     },
     {
-        "id": "579",
+        "id": 579,
         "name": "Skarmory",
         "variant": "3",
         "nature": "Careful",
@@ -8687,7 +8688,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/100/160/54/134/90"
     },
     {
-        "id": "580",
+        "id": 580,
         "name": "Marowak",
         "variant": "3",
         "nature": "Adamant",
@@ -8702,7 +8703,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/145/130/63/100/97"
     },
     {
-        "id": "581",
+        "id": 581,
         "name": "Quagsire",
         "variant": "3",
         "nature": "Adamant",
@@ -8717,7 +8718,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/150/105/76/117/55"
     },
     {
-        "id": "582",
+        "id": 582,
         "name": "Clefable",
         "variant": "3",
         "nature": "Modest",
@@ -8732,7 +8733,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/81/125/150/110/80"
     },
     {
-        "id": "583",
+        "id": 583,
         "name": "Hariyama",
         "variant": "3",
         "nature": "Adamant",
@@ -8747,7 +8748,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "251/189/80/54/80/70"
     },
     {
-        "id": "584",
+        "id": 584,
         "name": "Raichu",
         "variant": "3",
         "nature": "Docile",
@@ -8762,7 +8763,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/110/75/142/100/152"
     },
     {
-        "id": "585",
+        "id": 585,
         "name": "Dewgong",
         "variant": "3",
         "nature": "Bold",
@@ -8777,7 +8778,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/81/145/90/115/90"
     },
     {
-        "id": "586",
+        "id": 586,
         "name": "Manectric",
         "variant": "3",
         "nature": "Quirky",
@@ -8792,7 +8793,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/95/80/157/80/157"
     },
     {
-        "id": "587",
+        "id": 587,
         "name": "Vileplume",
         "variant": "3",
         "nature": "Quirky",
@@ -8807,7 +8808,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/132/105/152/110/70"
     },
     {
-        "id": "588",
+        "id": 588,
         "name": "Victreebel",
         "variant": "3",
         "nature": "Quirky",
@@ -8822,7 +8823,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/157/85/152/80/90"
     },
     {
-        "id": "589",
+        "id": 589,
         "name": "Electrode",
         "variant": "3",
         "nature": "Naughty",
@@ -8837,7 +8838,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/112/90/132/90/160"
     },
     {
-        "id": "590",
+        "id": 590,
         "name": "Exploud",
         "variant": "3",
         "nature": "Modest",
@@ -8852,7 +8853,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "179/100/83/157/83/120"
     },
     {
-        "id": "591",
+        "id": 591,
         "name": "Shiftry",
         "variant": "3",
         "nature": "Quirky",
@@ -8867,7 +8868,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/152/80/142/80/100"
     },
     {
-        "id": "592",
+        "id": 592,
         "name": "Glalie",
         "variant": "3",
         "nature": "Hardy",
@@ -8882,7 +8883,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/121/100/121/100/121"
     },
     {
-        "id": "593",
+        "id": 593,
         "name": "Ludicolo",
         "variant": "3",
         "nature": "Bold",
@@ -8897,7 +8898,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/81/122/110/141/90"
     },
     {
-        "id": "594",
+        "id": 594,
         "name": "Hypno",
         "variant": "3",
         "nature": "Adamant",
@@ -8912,7 +8913,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "192/137/90/84/135/87"
     },
     {
-        "id": "595",
+        "id": 595,
         "name": "Golem",
         "variant": "3",
         "nature": "Adamant",
@@ -8927,7 +8928,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/178/150/67/117/65"
     },
     {
-        "id": "596",
+        "id": 596,
         "name": "Rhydon",
         "variant": "3",
         "nature": "Adamant",
@@ -8942,7 +8943,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "212/200/140/58/65/60"
     },
     {
-        "id": "597",
+        "id": 597,
         "name": "Alakazam",
         "variant": "3",
         "nature": "Modest",
@@ -8957,7 +8958,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "130/63/97/205/105/140"
     },
     {
-        "id": "598",
+        "id": 598,
         "name": "Weezing",
         "variant": "3",
         "nature": "Quirky",
@@ -8972,7 +8973,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/142/140/137/90/80"
     },
     {
-        "id": "599",
+        "id": 599,
         "name": "Kangaskhan",
         "variant": "3",
         "nature": "Jolly",
@@ -8987,7 +8988,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/147/100/54/100/156"
     },
     {
-        "id": "600",
+        "id": 600,
         "name": "Electabuzz",
         "variant": "3",
         "nature": "Quirky",
@@ -9002,7 +9003,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/103/77/147/105/157"
     },
     {
-        "id": "601",
+        "id": 601,
         "name": "Tauros",
         "variant": "3",
         "nature": "Docile",
@@ -9017,7 +9018,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/152/115/92/90/130"
     },
     {
-        "id": "602",
+        "id": 602,
         "name": "Slowbro",
         "variant": "3",
         "nature": "Quiet",
@@ -9032,7 +9033,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/95/130/167/132/45"
     },
     {
-        "id": "603",
+        "id": 603,
         "name": "Slowking",
         "variant": "3",
         "nature": "Quiet",
@@ -9047,7 +9048,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/116/121/155/130/45"
     },
     {
-        "id": "604",
+        "id": 604,
         "name": "Miltank",
         "variant": "3",
         "nature": "Adamant",
@@ -9062,7 +9063,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/145/125/54/122/120"
     },
     {
-        "id": "605",
+        "id": 605,
         "name": "Altaria",
         "variant": "3",
         "nature": "Adamant",
@@ -9077,7 +9078,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/134/110/81/125/100"
     },
     {
-        "id": "606",
+        "id": 606,
         "name": "Nidoqueen",
         "variant": "3",
         "nature": "Modest",
@@ -9092,7 +9093,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/92/107/139/105/96"
     },
     {
-        "id": "607",
+        "id": 607,
         "name": "Nidoking",
         "variant": "3",
         "nature": "Modest",
@@ -9107,7 +9108,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "188/101/97/150/95/105"
     },
     {
-        "id": "608",
+        "id": 608,
         "name": "Magmar",
         "variant": "3",
         "nature": "Impish",
@@ -9122,7 +9123,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/147/119/108/105/113"
     },
     {
-        "id": "609",
+        "id": 609,
         "name": "Cradily",
         "variant": "3",
         "nature": "Modest",
@@ -9137,7 +9138,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/91/138/134/148/63"
     },
     {
-        "id": "610",
+        "id": 610,
         "name": "Armaldo",
         "variant": "3",
         "nature": "Adamant",
@@ -9152,7 +9153,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/194/120/81/100/65"
     },
     {
-        "id": "611",
+        "id": 611,
         "name": "Golduck",
         "variant": "3",
         "nature": "Docile",
@@ -9167,7 +9168,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/134/98/147/100/105"
     },
     {
-        "id": "612",
+        "id": 612,
         "name": "Rapidash",
         "variant": "3",
         "nature": "Modest",
@@ -9182,7 +9183,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/108/90/133/100/146"
     },
     {
-        "id": "613",
+        "id": 613,
         "name": "Muk",
         "variant": "3",
         "nature": "Quiet",
@@ -9197,7 +9198,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/125/127/128/120/63"
     },
     {
-        "id": "614",
+        "id": 614,
         "name": "Gengar",
         "variant": "3",
         "nature": "Modest",
@@ -9212,7 +9213,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/76/80/200/95/162"
     },
     {
-        "id": "615",
+        "id": 615,
         "name": "Ampharos",
         "variant": "3",
         "nature": "Hardy",
@@ -9227,7 +9228,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/127/95/167/110/75"
     },
     {
-        "id": "616",
+        "id": 616,
         "name": "Scizor",
         "variant": "3",
         "nature": "Careful",
@@ -9242,7 +9243,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/182/120/67/145/85"
     },
     {
-        "id": "617",
+        "id": 617,
         "name": "Heracross",
         "variant": "3",
         "nature": "Adamant",
@@ -9257,7 +9258,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/194/95/54/115/137"
     },
     {
-        "id": "618",
+        "id": 618,
         "name": "Ursaring",
         "variant": "3",
         "nature": "Modest",
@@ -9272,7 +9273,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/135/95/128/95/96"
     },
     {
-        "id": "619",
+        "id": 619,
         "name": "Houndoom",
         "variant": "3",
         "nature": "Quirky",
@@ -9287,7 +9288,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/142/70/130/100/147"
     },
     {
-        "id": "620",
+        "id": 620,
         "name": "Donphan",
         "variant": "3",
         "nature": "Adamant",
@@ -9302,7 +9303,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/189/140/72/80/70"
     },
     {
-        "id": "621",
+        "id": 621,
         "name": "Claydol",
         "variant": "3",
         "nature": "Modest",
@@ -9317,7 +9318,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/81/125/134/140/95"
     },
     {
-        "id": "622",
+        "id": 622,
         "name": "Wailord",
         "variant": "3",
         "nature": "Modest",
@@ -9332,7 +9333,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "266/99/86/121/86/80"
     },
     {
-        "id": "623",
+        "id": 623,
         "name": "Ninetales",
         "variant": "3",
         "nature": "Quirky",
@@ -9347,7 +9348,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/96/95/133/120/152"
     },
     {
-        "id": "624",
+        "id": 624,
         "name": "Machamp",
         "variant": "3",
         "nature": "Hardy",
@@ -9362,7 +9363,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/182/100/117/105/75"
     },
     {
-        "id": "625",
+        "id": 625,
         "name": "Shuckle",
         "variant": "3",
         "nature": "Careful",
@@ -9377,7 +9378,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "95/30/282/27/310/25"
     },
     {
-        "id": "626",
+        "id": 626,
         "name": "Steelix",
         "variant": "3",
         "nature": "Adamant",
@@ -9392,7 +9393,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/150/220/67/117/50"
     },
     {
-        "id": "627",
+        "id": 627,
         "name": "Tentacruel",
         "variant": "3",
         "nature": "Modest",
@@ -9407,7 +9408,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/81/106/133/140/141"
     },
     {
-        "id": "628",
+        "id": 628,
         "name": "Aerodactyl",
         "variant": "3",
         "nature": "Hardy",
@@ -9422,7 +9423,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/157/85/112/95/150"
     },
     {
-        "id": "629",
+        "id": 629,
         "name": "Porygon2",
         "variant": "3",
         "nature": "Modest",
@@ -9437,7 +9438,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "192/90/110/172/115/80"
     },
     {
-        "id": "630",
+        "id": 630,
         "name": "Gardevoir",
         "variant": "3",
         "nature": "Modest",
@@ -9452,7 +9453,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "143/76/85/194/135/132"
     },
     {
-        "id": "631",
+        "id": 631,
         "name": "Exeggutor",
         "variant": "3",
         "nature": "Hardy",
@@ -9467,7 +9468,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/115/126/145/106/75"
     },
     {
-        "id": "632",
+        "id": 632,
         "name": "Starmie",
         "variant": "3",
         "nature": "Modest",
@@ -9482,7 +9483,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/85/105/167/105/167"
     },
     {
-        "id": "633",
+        "id": 633,
         "name": "Flygon",
         "variant": "3",
         "nature": "Hardy",
@@ -9497,7 +9498,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/141/100/121/100/141"
     },
     {
-        "id": "634",
+        "id": 634,
         "name": "Venusaur",
         "variant": "3",
         "nature": "Adamant",
@@ -9512,7 +9513,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/135/124/108/141/100"
     },
     {
-        "id": "635",
+        "id": 635,
         "name": "Vaporeon",
         "variant": "3",
         "nature": "Calm",
@@ -9527,7 +9528,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/76/101/130/150/85"
     },
     {
-        "id": "636",
+        "id": 636,
         "name": "Jolteon",
         "variant": "3",
         "nature": "Bold",
@@ -9542,7 +9543,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/76/111/130/136/150"
     },
     {
-        "id": "637",
+        "id": 637,
         "name": "Flareon",
         "variant": "3",
         "nature": "Jolly",
@@ -9557,7 +9558,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/182/80/103/130/128"
     },
     {
-        "id": "638",
+        "id": 638,
         "name": "Meganium",
         "variant": "3",
         "nature": "Jolly",
@@ -9572,7 +9573,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/134/120/93/120/145"
     },
     {
-        "id": "639",
+        "id": 639,
         "name": "Espeon",
         "variant": "3",
         "nature": "Modest",
@@ -9587,7 +9588,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/76/80/200/115/162"
     },
     {
-        "id": "640",
+        "id": 640,
         "name": "Umbreon",
         "variant": "3",
         "nature": "Bold",
@@ -9602,7 +9603,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/76/166/80/171/85"
     },
     {
-        "id": "641",
+        "id": 641,
         "name": "Blastoise",
         "variant": "3",
         "nature": "Docile",
@@ -9617,7 +9618,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/124/120/126/125/98"
     },
     {
-        "id": "642",
+        "id": 642,
         "name": "Feraligatr",
         "variant": "3",
         "nature": "Hardy",
@@ -9632,7 +9633,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "181/146/120/120/103/98"
     },
     {
-        "id": "643",
+        "id": 643,
         "name": "Aggron",
         "variant": "3",
         "nature": "Modest",
@@ -9647,7 +9648,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/117/200/123/80/70"
     },
     {
-        "id": "644",
+        "id": 644,
         "name": "Blaziken",
         "variant": "3",
         "nature": "Hardy",
@@ -9662,7 +9663,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/172/90/130/90/132"
     },
     {
-        "id": "645",
+        "id": 645,
         "name": "Walrein",
         "variant": "3",
         "nature": "Hardy",
@@ -9677,7 +9678,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "206/100/131/115/131/85"
     },
     {
-        "id": "646",
+        "id": 646,
         "name": "Sceptile",
         "variant": "3",
         "nature": "Docile",
@@ -9692,7 +9693,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/126/85/146/105/161"
     },
     {
-        "id": "647",
+        "id": 647,
         "name": "Charizard",
         "variant": "3",
         "nature": "Modest",
@@ -9707,7 +9708,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/94/98/177/105/152"
     },
     {
-        "id": "648",
+        "id": 648,
         "name": "Typhlosion",
         "variant": "3",
         "nature": "Adamant",
@@ -9722,7 +9723,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/149/98/116/105/152"
     },
     {
-        "id": "649",
+        "id": 649,
         "name": "Lapras",
         "variant": "3",
         "nature": "Docile",
@@ -9737,7 +9738,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/105/121/105/136/80"
     },
     {
-        "id": "650",
+        "id": 650,
         "name": "Crobat",
         "variant": "3",
         "nature": "Adamant",
@@ -9752,7 +9753,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/156/100/81/100/182"
     },
     {
-        "id": "651",
+        "id": 651,
         "name": "Swampert",
         "variant": "3",
         "nature": "Brave",
@@ -9767,7 +9768,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/178/110/137/110/72"
     },
     {
-        "id": "652",
+        "id": 652,
         "name": "Gyarados",
         "variant": "3",
         "nature": "Quirky",
@@ -9782,7 +9783,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/177/99/112/120/101"
     },
     {
-        "id": "653",
+        "id": 653,
         "name": "Snorlax",
         "variant": "3",
         "nature": "Adamant",
@@ -9797,7 +9798,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "235/143/117/76/162/50"
     },
     {
-        "id": "654",
+        "id": 654,
         "name": "Kingdra",
         "variant": "3",
         "nature": "Adamant",
@@ -9812,7 +9813,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/127/136/103/136/105"
     },
     {
-        "id": "655",
+        "id": 655,
         "name": "Blissey",
         "variant": "3",
         "nature": "Bold",
@@ -9827,7 +9828,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "330/27/68/95/187/75"
     },
     {
-        "id": "656",
+        "id": 656,
         "name": "Milotic",
         "variant": "3",
         "nature": "Bold",
@@ -9842,7 +9843,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/72/132/120/166/101"
     },
     {
-        "id": "657",
+        "id": 657,
         "name": "Arcanine",
         "variant": "3",
         "nature": "Modest",
@@ -9857,7 +9858,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/117/100/167/100/147"
     },
     {
-        "id": "658",
+        "id": 658,
         "name": "Salamence",
         "variant": "3",
         "nature": "Hardy",
@@ -9872,7 +9873,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/187/100/162/100/120"
     },
     {
-        "id": "659",
+        "id": 659,
         "name": "Metagross",
         "variant": "3",
         "nature": "Adamant",
@@ -9887,7 +9888,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/194/150/103/110/111"
     },
     {
-        "id": "660",
+        "id": 660,
         "name": "Slaking",
         "variant": "3",
         "nature": "Adamant",
@@ -9902,7 +9903,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "225/198/152/103/117/120"
     },
     {
-        "id": "661",
+        "id": 661,
         "name": "Dugtrio",
         "variant": "4",
         "nature": "Adamant",
@@ -9917,7 +9918,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "110/145/70/63/90/172"
     },
     {
-        "id": "662",
+        "id": 662,
         "name": "Medicham",
         "variant": "4",
         "nature": "Hardy",
@@ -9932,7 +9933,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/112/95/112/95/100"
     },
     {
-        "id": "663",
+        "id": 663,
         "name": "Misdreavus",
         "variant": "4",
         "nature": "Timid",
@@ -9947,7 +9948,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/72/80/137/105/150"
     },
     {
-        "id": "664",
+        "id": 664,
         "name": "Fearow",
         "variant": "4",
         "nature": "Hardy",
@@ -9962,7 +9963,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/142/85/113/81/120"
     },
     {
-        "id": "665",
+        "id": 665,
         "name": "Granbull",
         "variant": "4",
         "nature": "Brave",
@@ -9977,7 +9978,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/189/95/112/80/58"
     },
     {
-        "id": "666",
+        "id": 666,
         "name": "Jynx",
         "variant": "4",
         "nature": "Modest",
@@ -9992,7 +9993,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/63/55/183/115/115"
     },
     {
-        "id": "667",
+        "id": 667,
         "name": "Dusclops",
         "variant": "4",
         "nature": "Adamant",
@@ -10007,7 +10008,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/134/150/72/150/45"
     },
     {
-        "id": "668",
+        "id": 668,
         "name": "Dodrio",
         "variant": "4",
         "nature": "Adamant",
@@ -10022,7 +10023,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/178/90/72/80/152"
     },
     {
-        "id": "669",
+        "id": 669,
         "name": "Mr. Mime",
         "variant": "4",
         "nature": "Modest",
@@ -10037,7 +10038,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "147/58/85/167/140/110"
     },
     {
-        "id": "670",
+        "id": 670,
         "name": "Lanturn",
         "variant": "4",
         "nature": "Modest",
@@ -10052,7 +10053,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "200/70/78/140/96/119"
     },
     {
-        "id": "671",
+        "id": 671,
         "name": "Breloom",
         "variant": "4",
         "nature": "Adamant",
@@ -10067,7 +10068,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/200/100/72/80/122"
     },
     {
-        "id": "672",
+        "id": 672,
         "name": "Forretress",
         "variant": "4",
         "nature": "Adamant",
@@ -10082,7 +10083,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/156/160/72/112/60"
     },
     {
-        "id": "673",
+        "id": 673,
         "name": "Whiscash",
         "variant": "4",
         "nature": "Quiet",
@@ -10097,7 +10098,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "185/130/93/140/91/72"
     },
     {
-        "id": "674",
+        "id": 674,
         "name": "Xatu",
         "variant": "4",
         "nature": "Docile",
@@ -10112,7 +10113,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/127/90/147/90/115"
     },
     {
-        "id": "675",
+        "id": 675,
         "name": "Skarmory",
         "variant": "4",
         "nature": "Adamant",
@@ -10127,7 +10128,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/145/160/54/90/90"
     },
     {
-        "id": "676",
+        "id": 676,
         "name": "Marowak",
         "variant": "4",
         "nature": "Adamant",
@@ -10142,7 +10143,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/145/130/63/100/97"
     },
     {
-        "id": "677",
+        "id": 677,
         "name": "Quagsire",
         "variant": "4",
         "nature": "Sassy",
@@ -10157,7 +10158,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/126/105/106/117/49"
     },
     {
-        "id": "678",
+        "id": 678,
         "name": "Clefable",
         "variant": "4",
         "nature": "Docile",
@@ -10172,7 +10173,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/122/125/105/110/80"
     },
     {
-        "id": "679",
+        "id": 679,
         "name": "Hariyama",
         "variant": "4",
         "nature": "Adamant",
@@ -10187,7 +10188,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "251/189/80/54/80/70"
     },
     {
-        "id": "680",
+        "id": 680,
         "name": "Raichu",
         "variant": "4",
         "nature": "Docile",
@@ -10202,7 +10203,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/142/75/142/100/120"
     },
     {
-        "id": "681",
+        "id": 681,
         "name": "Dewgong",
         "variant": "4",
         "nature": "Docile",
@@ -10217,7 +10218,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/122/100/122/115/90"
     },
     {
-        "id": "682",
+        "id": 682,
         "name": "Manectric",
         "variant": "4",
         "nature": "Modest",
@@ -10232,7 +10233,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/85/80/172/80/157"
     },
     {
-        "id": "683",
+        "id": 683,
         "name": "Vileplume",
         "variant": "4",
         "nature": "Quiet",
@@ -10247,7 +10248,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/132/105/167/110/63"
     },
     {
-        "id": "684",
+        "id": 684,
         "name": "Victreebel",
         "variant": "4",
         "nature": "Quirky",
@@ -10262,7 +10263,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/157/85/152/80/90"
     },
     {
-        "id": "685",
+        "id": 685,
         "name": "Electrode",
         "variant": "4",
         "nature": "Naughty",
@@ -10277,7 +10278,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/112/90/132/90/160"
     },
     {
-        "id": "686",
+        "id": 686,
         "name": "Exploud",
         "variant": "4",
         "nature": "Hardy",
@@ -10292,7 +10293,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "179/143/83/143/83/88"
     },
     {
-        "id": "687",
+        "id": 687,
         "name": "Shiftry",
         "variant": "4",
         "nature": "Hardy",
@@ -10307,7 +10308,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/152/80/142/80/100"
     },
     {
-        "id": "688",
+        "id": 688,
         "name": "Glalie",
         "variant": "4",
         "nature": "Hardy",
@@ -10322,7 +10323,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/121/100/121/100/100"
     },
     {
-        "id": "689",
+        "id": 689,
         "name": "Ludicolo",
         "variant": "4",
         "nature": "Bold",
@@ -10337,7 +10338,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/81/122/110/141/90"
     },
     {
-        "id": "690",
+        "id": 690,
         "name": "Hypno",
         "variant": "4",
         "nature": "Modest",
@@ -10352,7 +10353,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "192/84/90/137/135/87"
     },
     {
-        "id": "691",
+        "id": 691,
         "name": "Golem",
         "variant": "4",
         "nature": "Adamant",
@@ -10367,7 +10368,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/178/150/67/117/65"
     },
     {
-        "id": "692",
+        "id": 692,
         "name": "Rhydon",
         "variant": "4",
         "nature": "Adamant",
@@ -10382,7 +10383,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "212/200/140/58/65/60"
     },
     {
-        "id": "693",
+        "id": 693,
         "name": "Alakazam",
         "variant": "4",
         "nature": "Modest",
@@ -10397,7 +10398,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "130/63/97/205/105/140"
     },
     {
-        "id": "694",
+        "id": 694,
         "name": "Weezing",
         "variant": "4",
         "nature": "Adamant",
@@ -10412,7 +10413,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/156/140/94/90/80"
     },
     {
-        "id": "695",
+        "id": 695,
         "name": "Kangaskhan",
         "variant": "4",
         "nature": "Adamant",
@@ -10427,7 +10428,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/161/100/54/100/142"
     },
     {
-        "id": "696",
+        "id": 696,
         "name": "Electabuzz",
         "variant": "4",
         "nature": "Docile",
@@ -10442,7 +10443,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/135/77/147/105/125"
     },
     {
-        "id": "697",
+        "id": 697,
         "name": "Tauros",
         "variant": "4",
         "nature": "Docile",
@@ -10457,7 +10458,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/152/115/92/90/130"
     },
     {
-        "id": "698",
+        "id": 698,
         "name": "Slowbro",
         "variant": "4",
         "nature": "Sassy",
@@ -10472,7 +10473,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/95/130/152/145/45"
     },
     {
-        "id": "699",
+        "id": 699,
         "name": "Slowking",
         "variant": "4",
         "nature": "Modest",
@@ -10487,7 +10488,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/85/132/167/130/50"
     },
     {
-        "id": "700",
+        "id": 700,
         "name": "Miltank",
         "variant": "4",
         "nature": "Adamant",
@@ -10502,7 +10503,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/145/125/54/122/120"
     },
     {
-        "id": "701",
+        "id": 701,
         "name": "Altaria",
         "variant": "4",
         "nature": "Docile",
@@ -10517,7 +10518,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/122/110/122/125/100"
     },
     {
-        "id": "702",
+        "id": 702,
         "name": "Nidoqueen",
         "variant": "4",
         "nature": "Adamant",
@@ -10532,7 +10533,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/147/107/85/105/96"
     },
     {
-        "id": "703",
+        "id": 703,
         "name": "Nidoking",
         "variant": "4",
         "nature": "Docile",
@@ -10547,7 +10548,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/144/97/137/95/105"
     },
     {
-        "id": "704",
+        "id": 704,
         "name": "Magmar",
         "variant": "4",
         "nature": "Docile",
@@ -10562,7 +10563,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/115/109/120/105/113"
     },
     {
-        "id": "705",
+        "id": 705,
         "name": "Cradily",
         "variant": "4",
         "nature": "Bold",
@@ -10577,7 +10578,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/91/152/101/148/63"
     },
     {
-        "id": "706",
+        "id": 706,
         "name": "Armaldo",
         "variant": "4",
         "nature": "Adamant",
@@ -10592,7 +10593,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/194/120/81/100/65"
     },
     {
-        "id": "707",
+        "id": 707,
         "name": "Golduck",
         "variant": "4",
         "nature": "Docile",
@@ -10607,7 +10608,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/134/98/115/100/137"
     },
     {
-        "id": "708",
+        "id": 708,
         "name": "Rapidash",
         "variant": "4",
         "nature": "Docile",
@@ -10622,7 +10623,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/141/90/121/100/146"
     },
     {
-        "id": "709",
+        "id": 709,
         "name": "Muk",
         "variant": "4",
         "nature": "Brave",
@@ -10637,7 +10638,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/172/127/85/120/63"
     },
     {
-        "id": "710",
+        "id": 710,
         "name": "Gengar",
         "variant": "4",
         "nature": "Modest",
@@ -10652,7 +10653,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/76/80/200/95/162"
     },
     {
-        "id": "711",
+        "id": 711,
         "name": "Ampharos",
         "variant": "4",
         "nature": "Modest",
@@ -10667,7 +10668,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/85/127/183/110/75"
     },
     {
-        "id": "712",
+        "id": 712,
         "name": "Scizor",
         "variant": "4",
         "nature": "Careful",
@@ -10682,7 +10683,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/150/120/67/145/85"
     },
     {
-        "id": "713",
+        "id": 713,
         "name": "Heracross",
         "variant": "4",
         "nature": "Adamant",
@@ -10697,7 +10698,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/194/95/54/115/137"
     },
     {
-        "id": "714",
+        "id": 714,
         "name": "Ursaring",
         "variant": "4",
         "nature": "Adamant",
@@ -10712,7 +10713,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/95/85/95/75"
     },
     {
-        "id": "715",
+        "id": 715,
         "name": "Houndoom",
         "variant": "4",
         "nature": "Modest",
@@ -10727,7 +10728,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/99/70/178/100/147"
     },
     {
-        "id": "716",
+        "id": 716,
         "name": "Donphan",
         "variant": "4",
         "nature": "Adamant",
@@ -10742,7 +10743,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/189/140/72/80/70"
     },
     {
-        "id": "717",
+        "id": 717,
         "name": "Claydol",
         "variant": "4",
         "nature": "Adamant",
@@ -10757,7 +10758,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/134/125/81/140/95"
     },
     {
-        "id": "718",
+        "id": 718,
         "name": "Wailord",
         "variant": "4",
         "nature": "Hardy",
@@ -10772,7 +10773,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "266/110/86/110/86/80"
     },
     {
-        "id": "719",
+        "id": 719,
         "name": "Ninetales",
         "variant": "4",
         "nature": "Quirky",
@@ -10787,7 +10788,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "148/96/95/133/120/152"
     },
     {
-        "id": "720",
+        "id": 720,
         "name": "Machamp",
         "variant": "4",
         "nature": "Hardy",
@@ -10802,7 +10803,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/182/100/117/105/75"
     },
     {
-        "id": "721",
+        "id": 721,
         "name": "Shuckle",
         "variant": "4",
         "nature": "Careful",
@@ -10817,7 +10818,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "95/30/282/27/310/25"
     },
     {
-        "id": "722",
+        "id": 722,
         "name": "Steelix",
         "variant": "4",
         "nature": "Adamant",
@@ -10832,7 +10833,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "150/150/220/67/117/50"
     },
     {
-        "id": "723",
+        "id": 723,
         "name": "Tentacruel",
         "variant": "4",
         "nature": "Quirky",
@@ -10847,7 +10848,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/111/106/121/140/120"
     },
     {
-        "id": "724",
+        "id": 724,
         "name": "Aerodactyl",
         "variant": "4",
         "nature": "Hardy",
@@ -10862,7 +10863,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/157/85/112/95/150"
     },
     {
-        "id": "725",
+        "id": 725,
         "name": "Porygon2",
         "variant": "4",
         "nature": "Modest",
@@ -10877,7 +10878,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "192/90/110/172/115/80"
     },
     {
-        "id": "726",
+        "id": 726,
         "name": "Gardevoir",
         "variant": "4",
         "nature": "Modest",
@@ -10892,7 +10893,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "143/76/85/194/135/132"
     },
     {
-        "id": "727",
+        "id": 727,
         "name": "Exeggutor",
         "variant": "4",
         "nature": "Hardy",
@@ -10907,7 +10908,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/147/105/177/85/75"
     },
     {
-        "id": "728",
+        "id": 728,
         "name": "Starmie",
         "variant": "4",
         "nature": "Modest",
@@ -10922,7 +10923,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/85/105/167/105/167"
     },
     {
-        "id": "729",
+        "id": 729,
         "name": "Flygon",
         "variant": "4",
         "nature": "Hardy",
@@ -10937,7 +10938,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/141/100/121/100/141"
     },
     {
-        "id": "730",
+        "id": 730,
         "name": "Venusaur",
         "variant": "4",
         "nature": "Docile",
@@ -10952,7 +10953,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/123/103/141/141/100"
     },
     {
-        "id": "731",
+        "id": 731,
         "name": "Vaporeon",
         "variant": "4",
         "nature": "Calm",
@@ -10967,7 +10968,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/76/80/151/150/85"
     },
     {
-        "id": "732",
+        "id": 732,
         "name": "Jolteon",
         "variant": "4",
         "nature": "Timid",
@@ -10982,7 +10983,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/76/80/162/115/200"
     },
     {
-        "id": "733",
+        "id": 733,
         "name": "Flareon",
         "variant": "4",
         "nature": "Quiet",
@@ -10997,7 +10998,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/182/80/161/130/76"
     },
     {
-        "id": "734",
+        "id": 734,
         "name": "Meganium",
         "variant": "4",
         "nature": "Hardy",
@@ -11012,7 +11013,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/123/120/124/120/100"
     },
     {
-        "id": "735",
+        "id": 735,
         "name": "Espeon",
         "variant": "4",
         "nature": "Modest",
@@ -11027,7 +11028,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/76/80/200/115/162"
     },
     {
-        "id": "736",
+        "id": 736,
         "name": "Umbreon",
         "variant": "4",
         "nature": "Bold",
@@ -11042,7 +11043,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/76/166/80/171/85"
     },
     {
-        "id": "737",
+        "id": 737,
         "name": "Blastoise",
         "variant": "4",
         "nature": "Docile",
@@ -11057,7 +11058,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/124/120/126/125/98"
     },
     {
-        "id": "738",
+        "id": 738,
         "name": "Feraligatr",
         "variant": "4",
         "nature": "Hardy",
@@ -11072,7 +11073,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "181/146/120/120/103/98"
     },
     {
-        "id": "739",
+        "id": 739,
         "name": "Aggron",
         "variant": "4",
         "nature": "Adamant",
@@ -11087,7 +11088,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "177/178/200/72/80/70"
     },
     {
-        "id": "740",
+        "id": 740,
         "name": "Blaziken",
         "variant": "4",
         "nature": "Hardy",
@@ -11102,7 +11103,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/172/90/162/90/100"
     },
     {
-        "id": "741",
+        "id": 741,
         "name": "Walrein",
         "variant": "4",
         "nature": "Quiet",
@@ -11117,7 +11118,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "185/132/110/161/110/76"
     },
     {
-        "id": "742",
+        "id": 742,
         "name": "Sceptile",
         "variant": "4",
         "nature": "Modest",
@@ -11132,7 +11133,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/94/85/172/105/172"
     },
     {
-        "id": "743",
+        "id": 743,
         "name": "Charizard",
         "variant": "4",
         "nature": "Hardy",
@@ -11147,7 +11148,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/125/98/150/105/141"
     },
     {
-        "id": "744",
+        "id": 744,
         "name": "Typhlosion",
         "variant": "4",
         "nature": "Hardy",
@@ -11162,7 +11163,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "153/125/98/150/105/141"
     },
     {
-        "id": "745",
+        "id": 745,
         "name": "Lapras",
         "variant": "4",
         "nature": "Modest",
@@ -11177,7 +11178,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "237/94/100/150/115/80"
     },
     {
-        "id": "746",
+        "id": 746,
         "name": "Crobat",
         "variant": "4",
         "nature": "Adamant",
@@ -11192,7 +11193,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/156/100/81/100/182"
     },
     {
-        "id": "747",
+        "id": 747,
         "name": "Swampert",
         "variant": "4",
         "nature": "Quiet",
@@ -11207,7 +11208,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/162/110/150/110/72"
     },
     {
-        "id": "748",
+        "id": 748,
         "name": "Gyarados",
         "variant": "4",
         "nature": "Adamant",
@@ -11222,7 +11223,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/160/120/72/141/101"
     },
     {
-        "id": "749",
+        "id": 749,
         "name": "Snorlax",
         "variant": "4",
         "nature": "Adamant",
@@ -11237,7 +11238,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "235/178/117/76/130/50"
     },
     {
-        "id": "750",
+        "id": 750,
         "name": "Kingdra",
         "variant": "4",
         "nature": "Hardy",
@@ -11252,7 +11253,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "171/115/136/115/136/105"
     },
     {
-        "id": "751",
+        "id": 751,
         "name": "Blissey",
         "variant": "4",
         "nature": "Bold",
@@ -11267,7 +11268,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "330/27/68/95/187/75"
     },
     {
-        "id": "752",
+        "id": 752,
         "name": "Milotic",
         "variant": "4",
         "nature": "Modest",
@@ -11282,7 +11283,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/72/120/155/166/101"
     },
     {
-        "id": "753",
+        "id": 753,
         "name": "Arcanine",
         "variant": "4",
         "nature": "Docile",
@@ -11297,7 +11298,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/130/100/152/100/147"
     },
     {
-        "id": "754",
+        "id": 754,
         "name": "Salamence",
         "variant": "4",
         "nature": "Adamant",
@@ -11312,7 +11313,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/205/100/117/100/120"
     },
     {
-        "id": "755",
+        "id": 755,
         "name": "Metagross",
         "variant": "4",
         "nature": "Hardy",
@@ -11327,7 +11328,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/187/150/147/110/90"
     },
     {
-        "id": "756",
+        "id": 756,
         "name": "Slaking",
         "variant": "4",
         "nature": "Modest",
@@ -11342,7 +11343,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "225/162/120/161/117/120"
     },
     {
-        "id": "757",
+        "id": 757,
         "name": "Articuno",
         "variant": "1",
         "nature": "Modest",
@@ -11357,7 +11358,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/94/120/161/145/137"
     },
     {
-        "id": "758",
+        "id": 758,
         "name": "Zapdos",
         "variant": "1",
         "nature": "Docile",
@@ -11372,7 +11373,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/110/105/177/110/152"
     },
     {
-        "id": "759",
+        "id": 759,
         "name": "Moltres",
         "variant": "1",
         "nature": "Docile",
@@ -11387,7 +11388,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/152/110/177/105/110"
     },
     {
-        "id": "760",
+        "id": 760,
         "name": "Raikou",
         "variant": "1",
         "nature": "Modest",
@@ -11402,7 +11403,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/94/95/183/120/167"
     },
     {
-        "id": "761",
+        "id": 761,
         "name": "Entei",
         "variant": "1",
         "nature": "Modest",
@@ -11417,7 +11418,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/121/105/156/95/152"
     },
     {
-        "id": "762",
+        "id": 762,
         "name": "Suicune",
         "variant": "1",
         "nature": "Modest",
@@ -11432,7 +11433,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/85/135/156/135/137"
     },
     {
-        "id": "763",
+        "id": 763,
         "name": "Regirock",
         "variant": "1",
         "nature": "Adamant",
@@ -11447,7 +11448,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/167/220/63/120/70"
     },
     {
-        "id": "764",
+        "id": 764,
         "name": "Regice",
         "variant": "1",
         "nature": "Modest",
@@ -11462,7 +11463,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/63/120/167/220/70"
     },
     {
-        "id": "765",
+        "id": 765,
         "name": "Registeel",
         "variant": "1",
         "nature": "Adamant",
@@ -11477,7 +11478,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/139/170/85/170/70"
     },
     {
-        "id": "766",
+        "id": 766,
         "name": "Latias",
         "variant": "1",
         "nature": "Modest",
@@ -11492,7 +11493,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/90/110/178/150/130"
     },
     {
-        "id": "767",
+        "id": 767,
         "name": "Latios",
         "variant": "1",
         "nature": "Modest",
@@ -11507,7 +11508,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/99/100/200/130/130"
     },
     {
-        "id": "768",
+        "id": 768,
         "name": "Articuno",
         "variant": "2",
         "nature": "Impish",
@@ -11522,7 +11523,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/105/155/103/166/105"
     },
     {
-        "id": "769",
+        "id": 769,
         "name": "Zapdos",
         "variant": "2",
         "nature": "Docile",
@@ -11537,7 +11538,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/142/105/145/110/152"
     },
     {
-        "id": "770",
+        "id": 770,
         "name": "Moltres",
         "variant": "2",
         "nature": "Hardy",
@@ -11552,7 +11553,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/152/110/177/105/110"
     },
     {
-        "id": "771",
+        "id": 771,
         "name": "Raikou",
         "variant": "2",
         "nature": "Modest",
@@ -11567,7 +11568,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/94/95/183/120/167"
     },
     {
-        "id": "772",
+        "id": 772,
         "name": "Entei",
         "variant": "2",
         "nature": "Modest",
@@ -11582,7 +11583,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/121/105/156/95/152"
     },
     {
-        "id": "773",
+        "id": 773,
         "name": "Suicune",
         "variant": "2",
         "nature": "Calm",
@@ -11597,7 +11598,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/85/156/110/172/105"
     },
     {
-        "id": "774",
+        "id": 774,
         "name": "Regirock",
         "variant": "2",
         "nature": "Adamant",
@@ -11612,7 +11613,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/167/220/63/120/70"
     },
     {
-        "id": "775",
+        "id": 775,
         "name": "Regice",
         "variant": "2",
         "nature": "Quiet",
@@ -11627,7 +11628,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/70/120/167/220/63"
     },
     {
-        "id": "776",
+        "id": 776,
         "name": "Registeel",
         "variant": "2",
         "nature": "Quiet",
@@ -11642,7 +11643,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/116/170/128/170/63"
     },
     {
-        "id": "777",
+        "id": 777,
         "name": "Latias",
         "variant": "2",
         "nature": "Docile",
@@ -11657,7 +11658,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/132/110/162/150/130"
     },
     {
-        "id": "778",
+        "id": 778,
         "name": "Latios",
         "variant": "2",
         "nature": "Docile",
@@ -11672,7 +11673,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/142/100/182/130/130"
     },
     {
-        "id": "779",
+        "id": 779,
         "name": "Articuno",
         "variant": "3",
         "nature": "Docile",
@@ -11687,7 +11688,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/137/120/147/145/105"
     },
     {
-        "id": "780",
+        "id": 780,
         "name": "Zapdos",
         "variant": "3",
         "nature": "Docile",
@@ -11702,7 +11703,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/131/105/166/110/141"
     },
     {
-        "id": "781",
+        "id": 781,
         "name": "Moltres",
         "variant": "3",
         "nature": "Modest",
@@ -11717,7 +11718,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/108/110/194/105/142"
     },
     {
-        "id": "782",
+        "id": 782,
         "name": "Raikou",
         "variant": "3",
         "nature": "Modest",
@@ -11732,7 +11733,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/94/95/183/120/167"
     },
     {
-        "id": "783",
+        "id": 783,
         "name": "Entei",
         "variant": "3",
         "nature": "Docile",
@@ -11747,7 +11748,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/167/105/110/95/152"
     },
     {
-        "id": "784",
+        "id": 784,
         "name": "Suicune",
         "variant": "3",
         "nature": "Modest",
@@ -11762,7 +11763,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/85/135/156/135/137"
     },
     {
-        "id": "785",
+        "id": 785,
         "name": "Regirock",
         "variant": "3",
         "nature": "Adamant",
@@ -11777,7 +11778,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/132/220/63/152/70"
     },
     {
-        "id": "786",
+        "id": 786,
         "name": "Regice",
         "variant": "3",
         "nature": "Quiet",
@@ -11792,7 +11793,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/70/120/167/220/63"
     },
     {
-        "id": "787",
+        "id": 787,
         "name": "Registeel",
         "variant": "3",
         "nature": "Adamant",
@@ -11807,7 +11808,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/105/191/85/191/70"
     },
     {
-        "id": "788",
+        "id": 788,
         "name": "Latias",
         "variant": "3",
         "nature": "Docile",
@@ -11822,7 +11823,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/132/110/162/150/130"
     },
     {
-        "id": "789",
+        "id": 789,
         "name": "Latios",
         "variant": "3",
         "nature": "Docile",
@@ -11837,7 +11838,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/142/100/182/130/130"
     },
     {
-        "id": "790",
+        "id": 790,
         "name": "Articuno",
         "variant": "4",
         "nature": "Docile",
@@ -11852,7 +11853,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/137/120/147/145/105"
     },
     {
-        "id": "791",
+        "id": 791,
         "name": "Zapdos",
         "variant": "4",
         "nature": "Docile",
@@ -11867,7 +11868,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/142/105/177/110/120"
     },
     {
-        "id": "792",
+        "id": 792,
         "name": "Moltres",
         "variant": "4",
         "nature": "Quiet",
@@ -11882,7 +11883,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/152/110/194/105/99"
     },
     {
-        "id": "793",
+        "id": 793,
         "name": "Raikou",
         "variant": "4",
         "nature": "Modest",
@@ -11897,7 +11898,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/94/95/183/120/167"
     },
     {
-        "id": "794",
+        "id": 794,
         "name": "Entei",
         "variant": "4",
         "nature": "Modest",
@@ -11912,7 +11913,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/121/105/156/95/152"
     },
     {
-        "id": "795",
+        "id": 795,
         "name": "Suicune",
         "variant": "4",
         "nature": "Modest",
@@ -11927,7 +11928,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/85/135/156/135/137"
     },
     {
-        "id": "796",
+        "id": 796,
         "name": "Regirock",
         "variant": "4",
         "nature": "Careful",
@@ -11942,7 +11943,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/141/220/63/155/70"
     },
     {
-        "id": "797",
+        "id": 797,
         "name": "Regice",
         "variant": "4",
         "nature": "Bold",
@@ -11957,7 +11958,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/63/167/120/220/70"
     },
     {
-        "id": "798",
+        "id": 798,
         "name": "Registeel",
         "variant": "4",
         "nature": "Impish",
@@ -11972,7 +11973,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/95/210/85/191/70"
     },
     {
-        "id": "799",
+        "id": 799,
         "name": "Latias",
         "variant": "4",
         "nature": "Docile",
@@ -11987,7 +11988,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/121/110/151/150/130"
     },
     {
-        "id": "800",
+        "id": 800,
         "name": "Latios",
         "variant": "4",
         "nature": "Modest",
@@ -12002,7 +12003,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/99/100/200/130/130"
     },
     {
-        "id": "801",
+        "id": 801,
         "name": "Gengar",
         "variant": "5",
         "nature": "Modest",
@@ -12017,7 +12018,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/76/80/200/95/162"
     },
     {
-        "id": "802",
+        "id": 802,
         "name": "Gengar",
         "variant": "6",
         "nature": "Modest",
@@ -12032,7 +12033,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/76/80/200/95/162"
     },
     {
-        "id": "803",
+        "id": 803,
         "name": "Gengar",
         "variant": "7",
         "nature": "Modest",
@@ -12047,7 +12048,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/76/80/200/95/162"
     },
     {
-        "id": "804",
+        "id": 804,
         "name": "Gengar",
         "variant": "8",
         "nature": "Modest",
@@ -12062,7 +12063,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/76/80/200/95/162"
     },
     {
-        "id": "805",
+        "id": 805,
         "name": "Ursaring",
         "variant": "5",
         "nature": "Adamant",
@@ -12077,7 +12078,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/95/85/95/75"
     },
     {
-        "id": "806",
+        "id": 806,
         "name": "Ursaring",
         "variant": "6",
         "nature": "Adamant",
@@ -12092,7 +12093,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/95/85/95/75"
     },
     {
-        "id": "807",
+        "id": 807,
         "name": "Ursaring",
         "variant": "7",
         "nature": "Docile",
@@ -12107,7 +12108,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/171/95/116/95/75"
     },
     {
-        "id": "808",
+        "id": 808,
         "name": "Ursaring",
         "variant": "8",
         "nature": "Docile",
@@ -12122,7 +12123,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "186/171/95/116/95/75"
     },
     {
-        "id": "809",
+        "id": 809,
         "name": "Machamp",
         "variant": "5",
         "nature": "Adamant",
@@ -12137,7 +12138,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/100/76/105/75"
     },
     {
-        "id": "810",
+        "id": 810,
         "name": "Machamp",
         "variant": "6",
         "nature": "Adamant",
@@ -12152,7 +12153,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/100/76/105/75"
     },
     {
-        "id": "811",
+        "id": 811,
         "name": "Machamp",
         "variant": "7",
         "nature": "Adamant",
@@ -12167,7 +12168,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/100/76/105/75"
     },
     {
-        "id": "812",
+        "id": 812,
         "name": "Machamp",
         "variant": "8",
         "nature": "Adamant",
@@ -12182,7 +12183,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/200/100/76/105/75"
     },
     {
-        "id": "813",
+        "id": 813,
         "name": "Gardevoir",
         "variant": "5",
         "nature": "Docile",
@@ -12197,7 +12198,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "164/85/106/145/135/121"
     },
     {
-        "id": "814",
+        "id": 814,
         "name": "Gardevoir",
         "variant": "6",
         "nature": "Timid",
@@ -12212,7 +12213,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/76/85/145/135/145"
     },
     {
-        "id": "815",
+        "id": 815,
         "name": "Gardevoir",
         "variant": "7",
         "nature": "Bold",
@@ -12227,7 +12228,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "164/76/117/145/156/100"
     },
     {
-        "id": "816",
+        "id": 816,
         "name": "Gardevoir",
         "variant": "8",
         "nature": "Modest",
@@ -12242,7 +12243,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "143/76/85/194/135/132"
     },
     {
-        "id": "817",
+        "id": 817,
         "name": "Starmie",
         "variant": "5",
         "nature": "Modest",
@@ -12257,7 +12258,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/85/105/167/105/167"
     },
     {
-        "id": "818",
+        "id": 818,
         "name": "Starmie",
         "variant": "6",
         "nature": "Calm",
@@ -12272,7 +12273,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "156/85/126/120/139/135"
     },
     {
-        "id": "819",
+        "id": 819,
         "name": "Starmie",
         "variant": "7",
         "nature": "Modest",
@@ -12287,7 +12288,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/85/105/167/105/167"
     },
     {
-        "id": "820",
+        "id": 820,
         "name": "Starmie",
         "variant": "8",
         "nature": "Modest",
@@ -12302,7 +12303,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/85/105/167/105/167"
     },
     {
-        "id": "821",
+        "id": 821,
         "name": "Lapras",
         "variant": "5",
         "nature": "Docile",
@@ -12317,7 +12318,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "205/137/100/137/115/80"
     },
     {
-        "id": "822",
+        "id": 822,
         "name": "Lapras",
         "variant": "6",
         "nature": "Modest",
@@ -12332,7 +12333,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "237/94/100/150/115/80"
     },
     {
-        "id": "823",
+        "id": 823,
         "name": "Lapras",
         "variant": "7",
         "nature": "Calm",
@@ -12347,7 +12348,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/94/121/105/150/80"
     },
     {
-        "id": "824",
+        "id": 824,
         "name": "Lapras",
         "variant": "8",
         "nature": "Calm",
@@ -12362,7 +12363,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/94/121/105/150/80"
     },
     {
-        "id": "825",
+        "id": 825,
         "name": "Snorlax",
         "variant": "5",
         "nature": "Adamant",
@@ -12377,7 +12378,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "235/178/117/76/130/50"
     },
     {
-        "id": "826",
+        "id": 826,
         "name": "Snorlax",
         "variant": "6",
         "nature": "Adamant",
@@ -12392,7 +12393,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "235/178/117/76/130/50"
     },
     {
-        "id": "827",
+        "id": 827,
         "name": "Snorlax",
         "variant": "7",
         "nature": "Adamant",
@@ -12407,7 +12408,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "256/143/106/76/151/50"
     },
     {
-        "id": "828",
+        "id": 828,
         "name": "Snorlax",
         "variant": "8",
         "nature": "Adamant",
@@ -12422,7 +12423,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "256/143/106/76/151/50"
     },
     {
-        "id": "829",
+        "id": 829,
         "name": "Salamence",
         "variant": "5",
         "nature": "Adamant",
@@ -12437,7 +12438,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/171/121/117/121/120"
     },
     {
-        "id": "830",
+        "id": 830,
         "name": "Salamence",
         "variant": "6",
         "nature": "Hardy",
@@ -12452,7 +12453,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "191/155/121/130/121/120"
     },
     {
-        "id": "831",
+        "id": 831,
         "name": "Salamence",
         "variant": "7",
         "nature": "Modest",
@@ -12467,7 +12468,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/139/100/178/100/152"
     },
     {
-        "id": "832",
+        "id": 832,
         "name": "Salamence",
         "variant": "8",
         "nature": "Modest",
@@ -12482,7 +12483,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "170/139/100/178/100/152"
     },
     {
-        "id": "833",
+        "id": 833,
         "name": "Metagross",
         "variant": "5",
         "nature": "Jolly",
@@ -12497,7 +12498,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/176/150/103/110/122"
     },
     {
-        "id": "834",
+        "id": 834,
         "name": "Metagross",
         "variant": "6",
         "nature": "Hardy",
@@ -12512,7 +12513,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/187/150/147/110/90"
     },
     {
-        "id": "835",
+        "id": 835,
         "name": "Metagross",
         "variant": "7",
         "nature": "Hardy",
@@ -12527,7 +12528,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/187/150/147/110/90"
     },
     {
-        "id": "836",
+        "id": 836,
         "name": "Metagross",
         "variant": "8",
         "nature": "Adamant",
@@ -12542,7 +12543,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/194/150/103/110/111"
     },
     {
-        "id": "837",
+        "id": 837,
         "name": "Regirock",
         "variant": "5",
         "nature": "Adamant",
@@ -12557,7 +12558,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/167/220/63/120/70"
     },
     {
-        "id": "838",
+        "id": 838,
         "name": "Regirock",
         "variant": "6",
         "nature": "Adamant",
@@ -12572,7 +12573,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/132/220/63/152/70"
     },
     {
-        "id": "839",
+        "id": 839,
         "name": "Regice",
         "variant": "5",
         "nature": "Brave",
@@ -12587,7 +12588,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/77/141/141/220/63"
     },
     {
-        "id": "840",
+        "id": 840,
         "name": "Regice",
         "variant": "6",
         "nature": "Modest",
@@ -12602,7 +12603,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/63/120/167/220/70"
     },
     {
-        "id": "841",
+        "id": 841,
         "name": "Registeel",
         "variant": "5",
         "nature": "Adamant",
@@ -12617,7 +12618,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/105/191/85/191/70"
     },
     {
-        "id": "842",
+        "id": 842,
         "name": "Registeel",
         "variant": "6",
         "nature": "Adamant",
@@ -12632,7 +12633,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/105/191/85/191/70"
     },
     {
-        "id": "843",
+        "id": 843,
         "name": "Latias",
         "variant": "5",
         "nature": "Modest",
@@ -12647,7 +12648,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/90/131/143/171/130"
     },
     {
-        "id": "844",
+        "id": 844,
         "name": "Latias",
         "variant": "6",
         "nature": "Modest",
@@ -12662,7 +12663,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/90/110/178/150/130"
     },
     {
-        "id": "845",
+        "id": 845,
         "name": "Latias",
         "variant": "7",
         "nature": "Adamant",
@@ -12677,7 +12678,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/110/142/117/150/130"
     },
     {
-        "id": "846",
+        "id": 846,
         "name": "Latias",
         "variant": "8",
         "nature": "Docile",
@@ -12692,7 +12693,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/121/110/151/150/151"
     },
     {
-        "id": "847",
+        "id": 847,
         "name": "Latios",
         "variant": "5",
         "nature": "Modest",
@@ -12707,7 +12708,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "176/99/121/165/151/130"
     },
     {
-        "id": "848",
+        "id": 848,
         "name": "Latios",
         "variant": "6",
         "nature": "Docile",
@@ -12722,7 +12723,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/142/100/182/130/130"
     },
     {
-        "id": "849",
+        "id": 849,
         "name": "Latios",
         "variant": "7",
         "nature": "Adamant",
@@ -12737,7 +12738,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/121/132/135/130/130"
     },
     {
-        "id": "850",
+        "id": 850,
         "name": "Latios",
         "variant": "8",
         "nature": "Docile",
@@ -12752,7 +12753,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "155/131/100/171/130/151"
     },
     {
-        "id": "851",
+        "id": 851,
         "name": "Dragonite",
         "variant": "1",
         "nature": "Adamant",
@@ -12767,7 +12768,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/169/136/108/141/100"
     },
     {
-        "id": "852",
+        "id": 852,
         "name": "Dragonite",
         "variant": "2",
         "nature": "Adamant",
@@ -12782,7 +12783,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/169/136/108/141/100"
     },
     {
-        "id": "853",
+        "id": 853,
         "name": "Dragonite",
         "variant": "3",
         "nature": "Adamant",
@@ -12797,7 +12798,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/193/136/108/141/100"
     },
     {
-        "id": "854",
+        "id": 854,
         "name": "Dragonite",
         "variant": "4",
         "nature": "Adamant",
@@ -12812,7 +12813,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/169/136/108/141/100"
     },
     {
-        "id": "855",
+        "id": 855,
         "name": "Dragonite",
         "variant": "5",
         "nature": "Docile",
@@ -12827,7 +12828,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/186/115/152/120/100"
     },
     {
-        "id": "856",
+        "id": 856,
         "name": "Dragonite",
         "variant": "6",
         "nature": "Modest",
@@ -12842,7 +12843,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/139/115/167/120/132"
     },
     {
-        "id": "857",
+        "id": 857,
         "name": "Dragonite",
         "variant": "7",
         "nature": "Modest",
@@ -12857,7 +12858,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/139/115/167/120/132"
     },
     {
-        "id": "858",
+        "id": 858,
         "name": "Dragonite",
         "variant": "8",
         "nature": "Modest",
@@ -12872,7 +12873,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/139/115/167/120/132"
     },
     {
-        "id": "859",
+        "id": 859,
         "name": "Dragonite",
         "variant": "9",
         "nature": "Docile",
@@ -12887,7 +12888,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "198/154/115/152/120/100"
     },
     {
-        "id": "860",
+        "id": 860,
         "name": "Dragonite",
         "variant": "10",
         "nature": "Docile",
@@ -12902,7 +12903,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "198/154/115/152/120/100"
     },
     {
-        "id": "861",
+        "id": 861,
         "name": "Tyranitar",
         "variant": "1",
         "nature": "Hardy",
@@ -12917,7 +12918,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/186/130/147/120/81"
     },
     {
-        "id": "862",
+        "id": 862,
         "name": "Tyranitar",
         "variant": "2",
         "nature": "Hardy",
@@ -12932,7 +12933,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/186/130/147/120/81"
     },
     {
-        "id": "863",
+        "id": 863,
         "name": "Tyranitar",
         "variant": "3",
         "nature": "Adamant",
@@ -12947,7 +12948,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/169/151/103/141/81"
     },
     {
-        "id": "864",
+        "id": 864,
         "name": "Tyranitar",
         "variant": "4",
         "nature": "Modest",
@@ -12962,7 +12963,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/139/130/161/120/81"
     },
     {
-        "id": "865",
+        "id": 865,
         "name": "Tyranitar",
         "variant": "5",
         "nature": "Adamant",
@@ -12977,7 +12978,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/169/151/103/141/81"
     },
     {
-        "id": "866",
+        "id": 866,
         "name": "Tyranitar",
         "variant": "6",
         "nature": "Adamant",
@@ -12992,7 +12993,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/169/151/103/141/81"
     },
     {
-        "id": "867",
+        "id": 867,
         "name": "Tyranitar",
         "variant": "7",
         "nature": "Adamant",
@@ -13007,7 +13008,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/204/130/103/120/81"
     },
     {
-        "id": "868",
+        "id": 868,
         "name": "Tyranitar",
         "variant": "8",
         "nature": "Adamant",
@@ -13022,7 +13023,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/169/151/103/141/81"
     },
     {
-        "id": "869",
+        "id": 869,
         "name": "Tyranitar",
         "variant": "9",
         "nature": "Hardy",
@@ -13037,7 +13038,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "175/186/130/147/120/81"
     },
     {
-        "id": "870",
+        "id": 870,
         "name": "Tyranitar",
         "variant": "10",
         "nature": "Adamant",
@@ -13052,7 +13053,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/169/151/103/141/81"
     },
     {
-        "id": "871",
+        "id": 871,
         "name": "Articuno",
         "variant": "5",
         "nature": "Docile",
@@ -13067,7 +13068,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/137/120/147/145/105"
     },
     {
-        "id": "872",
+        "id": 872,
         "name": "Articuno",
         "variant": "6",
         "nature": "Docile",
@@ -13082,7 +13083,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/137/120/147/145/105"
     },
     {
-        "id": "873",
+        "id": 873,
         "name": "Zapdos",
         "variant": "5",
         "nature": "Docile",
@@ -13097,7 +13098,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/142/105/177/110/120"
     },
     {
-        "id": "874",
+        "id": 874,
         "name": "Zapdos",
         "variant": "6",
         "nature": "Docile",
@@ -13112,7 +13113,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/131/105/166/110/141"
     },
     {
-        "id": "875",
+        "id": 875,
         "name": "Moltres",
         "variant": "5",
         "nature": "Docile",
@@ -13127,7 +13128,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/120/110/177/105/142"
     },
     {
-        "id": "876",
+        "id": 876,
         "name": "Moltres",
         "variant": "6",
         "nature": "Docile",
@@ -13142,7 +13143,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/152/110/177/105/110"
     },
     {
-        "id": "877",
+        "id": 877,
         "name": "Raikou",
         "variant": "5",
         "nature": "Modest",
@@ -13157,7 +13158,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "165/94/95/183/120/167"
     },
     {
-        "id": "878",
+        "id": 878,
         "name": "Raikou",
         "variant": "6",
         "nature": "Modest",
@@ -13172,7 +13173,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "197/94/127/149/120/135"
     },
     {
-        "id": "879",
+        "id": 879,
         "name": "Entei",
         "variant": "5",
         "nature": "Docile",
@@ -13187,7 +13188,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/135/137/110/127/120"
     },
     {
-        "id": "880",
+        "id": 880,
         "name": "Entei",
         "variant": "6",
         "nature": "Modest",
@@ -13202,7 +13203,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "190/121/137/121/127/120"
     },
     {
-        "id": "881",
+        "id": 881,
         "name": "Suicune",
         "variant": "5",
         "nature": "Modest",
@@ -13217,7 +13218,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/85/135/156/135/105"
     },
     {
-        "id": "882",
+        "id": 882,
         "name": "Suicune",
         "variant": "6",
         "nature": "Modest",
@@ -13232,7 +13233,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "196/85/156/121/156/105"
     },
     {
-        "id": "Anabel Silver",
+        "id": 8055,
         "name": "Alakazam",
         "variant": "Anabel Silver",
         "nature": "Modest",
@@ -13247,7 +13248,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "140/60/81/180/102/156",
     },
     {
-        "id": "Anabel Silver",
+        "id": 8055,
         "name": "Entei",
         "variant": "Anabel Silver",
         "nature": "Lonely",
@@ -13262,7 +13263,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "199/166/108/119/92/117",
     },
     {
-        "id": "Anabel Silver",
+        "id": 8055,
         "name": "Snorlax",
         "variant": "Anabel Silver",
         "nature": "Adamant",
@@ -13277,7 +13278,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "251/160/82/85/139/47",
     },
     {
-        "id": "Anabel Gold",
+        "id": 8055,
         "name": "Raikou",
         "variant": "Anabel Gold",
         "nature": "Modest",
@@ -13292,7 +13293,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "185/94/127/149/120/148",
     },
     {
-        "id": "Anabel Gold",
+        "id": 8055,
         "name": "Latios",
         "variant": "Anabel Gold",
         "nature": "Modest",
@@ -13307,7 +13308,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/99/132/165/130/131",
     },
     {
-        "id": "Anabel Gold",
+        "id": 8055,
         "name": "Snorlax",
         "variant": "Anabel Gold",
         "nature": "Adamant",
@@ -13322,7 +13323,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "267/178/85/77/130/50",
     },
     {
-        "id": "Tucker Silver",
+        "id": 8055,
         "name": "Swampert",
         "variant": "Tucker Silver",
         "nature": "Brave",
@@ -13337,7 +13338,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "189/158/118/112/105/67",
     },
     {
-        "id": "Tucker Silver",
+        "id": 8055,
         "name": "Salamence",
         "variant": "Tucker Silver",
         "nature": "Adamant",
@@ -13352,7 +13353,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "184/185/108/112/95/127",
     },
     {
-        "id": "Tucker Silver",
+        "id": 8055,
         "name": "Charizard",
         "variant": "Tucker Silver",
         "nature": "Quiet",
@@ -13367,7 +13368,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "160/118/106/136/100/120",
     },
     {
-        "id": "Tucker Gold",
+        "id": 8055,
         "name": "Swampert",
         "variant": "Tucker Gold",
         "nature": "Brave",
@@ -13382,7 +13383,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/178/111/105/110/72",
     },
     {
-        "id": "Tucker Gold",
+        "id": 8055,
         "name": "Metagross",
         "variant": "Tucker Gold",
         "nature": "Brave",
@@ -13397,7 +13398,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/205/151/115/110/81",
     },
     {
-        "id": "Tucker Gold",
+        "id": 8055,
         "name": "Latias",
         "variant": "Tucker Gold",
         "nature": "Modest",
@@ -13412,7 +13413,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "187/90/142/143/150/131",
     },
     {
-        "id": "Spenser Silver",
+        "id": 8055,
         "name": "Crobat",
         "variant": "Spenser Silver",
         "nature": "Adamant",
@@ -13427,7 +13428,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/113/93/85/106/162",
     },
     {
-        "id": "Spenser Silver",
+        "id": 8055,
         "name": "Slaking",
         "variant": "Spenser Silver",
         "nature": "Hardy",
@@ -13442,7 +13443,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "237/192/113/120/78/126",
     },
     {
-        "id": "Spenser Silver",
+        "id": 8055,
         "name": "Lapras",
         "variant": "Spenser Silver",
         "nature": "Quiet",
@@ -13457,7 +13458,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "198/98/124/122/127/65",
     },
     {
-        "id": "Spenser Gold",
+        "id": 8055,
         "name": "Arcanine",
         "variant": "Spenser Gold",
         "nature": "Hasty",
@@ -13472,7 +13473,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/162/118/120/100/127",
     },
     {
-        "id": "Spenser Gold",
+        "id": 8055,
         "name": "Slaking",
         "variant": "Spenser Gold",
         "nature": "Hardy",
@@ -13487,7 +13488,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "226/212/120/115/85/152",
     },
     {
-        "id": "Spenser Gold",
+        "id": 8055,
         "name": "Suicune",
         "variant": "Spenser Gold",
         "nature": "Hasty",
@@ -13502,7 +13503,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "207/95/150/110/135/116",
     },
     {
-        "id": "Greta Silver",
+        "id": 8055,
         "name": "Heracross",
         "variant": "Greta Silver",
         "nature": "Jolly",
@@ -13517,7 +13518,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "163/159/90/49/122/130",
     },
     {
-        "id": "Greta Silver",
+        "id": 8055,
         "name": "Umbreon",
         "variant": "Greta Silver",
         "nature": "Calm",
@@ -13532,7 +13533,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "184/72/137/94/173/80",
     },
     {
-        "id": "Greta Silver",
+        "id": 8055,
         "name": "Shedinja",
         "variant": "Greta Silver",
         "nature": "Adamant",
@@ -13547,7 +13548,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "71/150/60/40/45/86",
     },
     {
-        "id": "Greta Gold",
+        "id": 8055,
         "name": "Umbreon",
         "variant": "Greta Gold",
         "nature": "Calm",
@@ -13562,7 +13563,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/76/130/112/166/85",
     },
     {
-        "id": "Greta Gold",
+        "id": 8055,
         "name": "Gengar",
         "variant": "Greta Gold",
         "nature": "Modest",
@@ -13577,7 +13578,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/76/112/166/95/130",
     },
     {
-        "id": "Greta Gold",
+        "id": 8055,
         "name": "Breloom",
         "variant": "Greta Gold",
         "nature": "Jolly",
@@ -13592,7 +13593,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "136/182/100/72/80/134",
     },
     {
-        "id": "Noland Silver†",
+        "id": 8055,
         "name": "Metang",
         "variant": "Noland Silver†",
         "nature": "Brave",
@@ -13607,7 +13608,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/139/152/76/100/63",
     },
     {
-        "id": "Noland Silver†",
+        "id": 8055,
         "name": "Skarmory",
         "variant": "Noland Silver†",
         "nature": "Impish",
@@ -13622,7 +13623,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/100/176/54/122/90",
     },
     {
-        "id": "Noland Silver†",
+        "id": 8055,
         "name": "Aggron",
         "variant": "Noland Silver†",
         "nature": "Adamant",
@@ -13637,7 +13638,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/178/200/100/81/70",
     },
     {
-        "id": "Noland Gold†",
+        "id": 8055,
         "name": "Metang",
         "variant": "Noland Gold†",
         "nature": "Brave",
@@ -13652,7 +13653,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "135/139/152/76/100/63",
     },
     {
-        "id": "Noland Gold†",
+        "id": 8055,
         "name": "Skarmory",
         "variant": "Noland Gold†",
         "nature": "Impish",
@@ -13667,7 +13668,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/100/176/54/122/90",
     },
     {
-        "id": "Noland Gold†",
+        "id": 8055,
         "name": "Aggron",
         "variant": "Noland Gold†",
         "nature": "Adamant",
@@ -13682,7 +13683,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "145/178/200/100/81/70",
     },
     {
-        "id": "Lucy Silver",
+        "id": 8055,
         "name": "Seviper",
         "variant": "Lucy Silver",
         "nature": "Brave",
@@ -13697,7 +13698,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "172/124/104/113/73/70",
     },
     {
-        "id": "Lucy Silver",
+        "id": 8055,
         "name": "Shuckle",
         "variant": "Lucy Silver",
         "nature": "Bold",
@@ -13712,7 +13713,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "119/20/267/36/274/18",
     },
     {
-        "id": "Lucy Silver",
+        "id": 8055,
         "name": "Milotic",
         "variant": "Lucy Silver",
         "nature": "Modest",
@@ -13727,7 +13728,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/65/104/145/151/94",
     },
     {
-        "id": "Lucy Gold",
+        "id": 8055,
         "name": "Seviper",
         "variant": "Lucy Gold",
         "nature": "Bold",
@@ -13742,7 +13743,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "180/108/88/152/81/85",
     },
     {
-        "id": "Lucy Gold",
+        "id": 8055,
         "name": "Steelix",
         "variant": "Lucy Gold",
         "nature": "Brave",
@@ -13757,7 +13758,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "182/116/220/76/117/45",
     },
     {
-        "id": "Lucy Gold",
+        "id": 8055,
         "name": "Gyarados",
         "variant": "Lucy Gold",
         "nature": "Adamant",
@@ -13772,7 +13773,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "202/160/99/72/152/101",
     },
     {
-        "id": "Brandon Silver",
+        "id": 8055,
         "name": "Regirock",
         "variant": "Brandon Silver",
         "nature": "Adamant",
@@ -13787,7 +13788,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/145/213/68/125/63",
     },
     {
-        "id": "Brandon Silver",
+        "id": 8055,
         "name": "Registeel",
         "variant": "Brandon Silver",
         "nature": "Adamant",
@@ -13802,7 +13803,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "167/117/163/79/188/63",
     },
     {
-        "id": "Brandon Silver",
+        "id": 8055,
         "name": "Regice",
         "variant": "Brandon Silver",
         "nature": "Modest",
@@ -13817,7 +13818,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "161/56/132/138/232/63",
     },
     {
-        "id": "Brandon Gold",
+        "id": 8055,
         "name": "Articuno",
         "variant": "Brandon Gold",
         "nature": "Mild",
@@ -13832,7 +13833,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/105/136/127/145/137",
     },
     {
-        "id": "Brandon Gold",
+        "id": 8055,
         "name": "Zapdos",
         "variant": "Brandon Gold",
         "nature": "Mild",
@@ -13847,7 +13848,7 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/110/123/160/110/152",
     },
     {
-        "id": "Brandon Gold",
+        "id": 8055,
         "name": "Moltres",
         "variant": "Brandon Gold",
         "nature": "Mild",
@@ -13862,5 +13863,3 @@ const factoryPokemonList: FactoryPokemon[] = [
         "lv50Stats": "166/120/127/160/105/142",
     },
 ];
-
-export default factoryPokemonList;

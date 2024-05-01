@@ -4,7 +4,7 @@
 	import TypesCoverageEvaluator from '$lib/components/features/tools/TypesCoverageEvaluator.svelte';
 	import { generation } from '$lib/store/generation';
 
-	type ToolName = 'none' | 'catch-rate' | 'types-coverage' | 'emerald-battle-frontier';
+	type ToolName = 'none' | 'catch-rate' | 'types-coverage' | 'emerald-battle-factory';
 
 	type ToolComponent =
 		| typeof CatchRateEvaluator
@@ -19,7 +19,7 @@
 	const tools: Tool[] = [
 		{ name: 'catch-rate', component: CatchRateEvaluator },
 		{ name: 'types-coverage', component: TypesCoverageEvaluator },
-		{ name: 'emerald-battle-frontier', component: BattleFactoryHelper }
+		{ name: 'emerald-battle-factory', component: BattleFactoryHelper }
 	];
 
 	const defaultTool = {

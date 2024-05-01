@@ -1,5 +1,5 @@
 export type FactoryPokemon = {
-    "id": string,
+    "id": number,
     "name": string,
     "variant": string,
     "nature": string,
