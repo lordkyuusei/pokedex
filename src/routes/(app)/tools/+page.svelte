@@ -1,11 +1,16 @@
 <script lang="ts">
+	import BattleFactoryHelper from '$lib/components/features/tools/BattleFactoryHelper.svelte';
 	import CatchRateEvaluator from '$lib/components/features/tools/CatchRateEvaluator.svelte';
 	import TypesCoverageEvaluator from '$lib/components/features/tools/TypesCoverageEvaluator.svelte';
 	import { generation } from '$lib/store/generation';
 
-	type ToolName = 'none' | 'catch-rate' | 'types-coverage';
+	type ToolName = 'none' | 'catch-rate' | 'types-coverage' | 'emerald-battle-frontier';
 
-	type ToolComponent = typeof CatchRateEvaluator | typeof TypesCoverageEvaluator;
+	type ToolComponent =
+		| typeof CatchRateEvaluator
+		| typeof TypesCoverageEvaluator
+		| typeof BattleFactoryHelper;
+
 	type Tool = {
 		name: ToolName;
 		component: ToolComponent | null;
@@ -13,8 +18,10 @@
 
 	const tools: Tool[] = [
 		{ name: 'catch-rate', component: CatchRateEvaluator },
-		{ name: 'types-coverage', component: TypesCoverageEvaluator }
+		{ name: 'types-coverage', component: TypesCoverageEvaluator },
+		{ name: 'emerald-battle-frontier', component: BattleFactoryHelper }
 	];
+
 	const defaultTool = {
 		name: 'none' as const,
 		component: null
@@ -47,7 +54,7 @@
 	section#pokedex-tools {
 		display: grid;
 		height: 100%;
-		grid-template: 10% 90% / 100%;
+		grid-template: auto 1fr / 100%;
 
 		padding: var(--small-gap);
 
@@ -56,21 +63,8 @@
 
 		& > div#tools-list {
 			display: grid;
-			grid-auto-rows: 1fr;
+			grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
 			gap: var(--small-gap);
-
-			@media (max-width: 640px) {
-				grid-template-columns: 100%;
-			}
-
-			@media (min-width: 640px) {
-				grid-template-columns: 1fr 1fr;
-			}
-
-			& > button {
-				max-width: 100%;
-				aspect-ratio: 2 / 1;
-			}
 		}
 	}
 </style>

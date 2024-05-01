@@ -94,6 +94,7 @@
 				align-items: center;
 				list-style-type: none;
 				padding-inline-start: 0;
+				overflow-x: hidden;
 
 				& > li {
 					width: 100%;
