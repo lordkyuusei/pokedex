@@ -113,6 +113,7 @@
 		align-items: center;
 		justify-items: flex-end;
 		text-transform: capitalize;
+		padding-inline-start: 1rem;
 	}
 
 	.pokemon-info .info-data li > span {

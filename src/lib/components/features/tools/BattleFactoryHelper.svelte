@@ -14,6 +14,11 @@
 	$: possibleMoves = onMovesChange(matchingResult);
 	$: possibleItems = onItemsChange(matchingResult);
 
+	const resetSearch = () => {
+		movesFilter = [];
+		itemFilter = null;
+	};
+
 	const onSearchChange = async (
 		input: string,
 		movesFilter: string[],
@@ -35,14 +40,14 @@
 				});
 				res(result);
 			} else {
-				movesFilter = [];
-				itemFilter = null;
+				resetSearch();
 				res([]);
 			}
 		});
 
 	const onMovesChange = async (result: Promise<FactoryPokemon[]>): Promise<string[]> => {
 		const list = await result;
+		console.log(list);
 		return [
 			...new Set(
 				list.flatMap((pokemon) => [
@@ -78,7 +83,7 @@
 	<header>
 		<div>
 			<input type="search" bind:value={searchInput} placeholder="Nom du pokémon" />
-			<label for="isLvl100Mode">Niveau 50 / Niveau 100</label>
+			<label for="isLvl100Mode">Nv. 50 / 100</label>
 			<Switch
 				event="isLvl100Mode"
 				icon="pokedex"
