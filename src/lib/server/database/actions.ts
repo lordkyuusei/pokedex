@@ -1,4 +1,4 @@
-import { lightabilities, lightgenerations, lightkedex, lightmoves } from "./schemas";
+import { lightabilities, lightgenerations, lightkedex, lightlocations, lightmoves } from "./schemas";
 
 export const getPokemonList = async (from: number, to: number) => {
     const pokemonList = await lightkedex.find().bulkById(from, to).exec();
@@ -50,6 +50,11 @@ export const getMove = async (id: number) => {
 export const getAbilitiesLteGen = async (id: number = 10) => {
     const abilities = await lightabilities.find().getAbilitiesLteGen(id).exec();
     return JSON.stringify(abilities);
+}
+
+export const getLocationsFromVersion = async (version: string) => {
+    const locations = await lightlocations.find().getByVersionGroup(version);
+    return JSON.stringify(locations);
 }
 
 export const getMovesTypes = async (type: string) => {

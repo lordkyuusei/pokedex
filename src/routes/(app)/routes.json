@@ -20,6 +20,11 @@
         "name": "menu.items"
     },
     {
+        "id": "locations",
+        "alt_id": "locations",
+        "name": "menu.locations"
+    },
+    {
         "id": "tools",
         "alt_id": "tools",
         "name": "menu.tools"

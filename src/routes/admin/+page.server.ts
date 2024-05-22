@@ -1,5 +1,5 @@
 import type { Actions } from "./$types";
-import { syncAbilitiesList, syncGenerationList, syncMovesList, syncPokemonList } from "$lib/server/database/reducers";
+import { syncAbilitiesList, syncGenerationList, syncLocationsList, syncMovesList, syncPokemonList } from "$lib/server/database/reducers";
 
 export const actions = {
     syncPokemonList: async (event) => {
@@ -31,6 +31,14 @@ export const actions = {
 
         return {
             name: "Abilities",
+            items: result,
+        }
+    },
+    syncLocationsList: async (event) => {
+        const result = await syncLocationsList();
+
+        return {
+            name: "Locations",
             items: result,
         }
     }

@@ -18,6 +18,9 @@
 		<form method="POST" action="?/syncAbilitiesList">
 			<button type="submit">Sync Abilities List</button>
 		</form>
+		<form method="POST" action="?/syncLocationsList">
+			<button type="submit">Sync Locations List</button>
+		</form>
 	</header>
 
 	{#if form?.name}
