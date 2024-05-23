@@ -9,13 +9,14 @@ type Region = {
     locations: LocationNode[]
 }
 
-type LocationNode = {
+export type LocationNode = {
     id: string,
-    areas: Area[]
+    areas: LocationArea[]
 }
 
-type Area = {
+export type LocationArea = {
     id: number,
     name: string,
+    coords: number[],
     i18nName: { fr: string, en: string }
 }

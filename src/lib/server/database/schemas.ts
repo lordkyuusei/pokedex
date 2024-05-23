@@ -108,6 +108,7 @@ const lightlocationsSchema = new Schema<Location>({
             areas: [{
                 id: Number,
                 name: String,
+                coords: Array<Number>,
                 i18nName: { fr: String, en: String }
             }]
         }]

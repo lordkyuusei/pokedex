@@ -1,3 +1,4 @@
+import type { LocationArea, LocationNode } from "$lib/types/location";
 import { lightabilities, lightgenerations, lightkedex, lightlocations, lightmoves } from "./schemas";
 
 export const getPokemonList = async (from: number, to: number) => {
@@ -55,6 +56,20 @@ export const getAbilitiesLteGen = async (id: number = 10) => {
 export const getLocationsFromVersion = async (version: string) => {
     const locations = await lightlocations.find().getByVersionGroup(version);
     return JSON.stringify(locations);
+}
+
+export const setCoordsForLocation = async (locationId: string, area: LocationArea) => {
+    try {
+        const result = await lightlocations.updateOne(
+            { 'regions.locations._id': locationId, 'regions.locations.areas.name': area.name },
+            { $set: { 'regions.$[].locations.$[].areas.$[area].coords': area.coords } },
+            { arrayFilters: [{ 'area.name': area.name }] }
+        );
+
+        console.log('Update result:', result);
+    } catch (error) {
+        console.error('Error updating coords:', error);
+    }
 }
 
 export const getMovesTypes = async (type: string) => {
