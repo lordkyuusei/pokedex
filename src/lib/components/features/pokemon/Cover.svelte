@@ -118,12 +118,11 @@
 		}
 
 		& .main-illustration {
-			position: absolute;
-			right: -10%;
-			bottom: 0%;
 			height: 100%;
 			filter: opacity(0.2) grayscale(0.9);
 			pointer-events: none;
+			grid-area: 1 / 1 / 4 / 1;
+			transform: translateX(45%);
 		}
 
 		& .main-image {
@@ -152,6 +151,7 @@
 
 		& > #prev-next-nav {
 			grid-area: 2 / 1;
+			width: 100%;
 		}
 
 		& > #main-types {
