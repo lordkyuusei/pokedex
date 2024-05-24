@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { getGamesMaps } from '$lib/functions/getGamesMaps';
-	const MAPS_NAMES = getGamesMaps();
+	import MAPS_CONFIG from '$lib/constants/mapsConfig';
 
 	export let topRightX: number = 75;
 	export let topRightY: number = 75;
@@ -12,14 +12,61 @@
 	export let botRightX: number = 75;
 	export let botRightY: number = 225;
 	export let version: string = 'red-blue-yellow-green';
+	
+	let copyButton: HTMLButtonElement;
+	let pasteButton: HTMLButtonElement;
+	let forceRectangle: boolean = true;
 
-	$: mapName = MAPS_NAMES.find((map) => map.includes(version));
+	const MAPS_NAMES = getGamesMaps();
+	$: mapName = MAPS_NAMES.find((map) => map.includes(version)) || version;
+	$: mapConfig = MAPS_CONFIG[mapName];
 
 	let dispatch = createEventDispatcher();
+
+	const copyCoordsToClipboard = async (event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) => {
+		navigator.clipboard.writeText(`${topLeftX},${topLeftY} ${topRightX},${topRightY} ${botRightX},${botRightY} ${botLeftX},${botLeftY}`)
+			.then(() => {
+				copyButton.textContent = "Copied 🗺️";
+				setTimeout(() => copyButton.textContent = "Copy coords", 3000);
+			})
+	}
+
+	const pasteCoordsFromClipboard = async (event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) => {
+		navigator.clipboard.readText()
+		.then((coordsFromClipBoard) => {
+				const coords = coordsFromClipBoard.split(' ').flatMap(pair => pair.split(','));
+				topLeftX = parseInt(coords[0]);
+				topLeftY = parseInt(coords[1]);
+				topRightX = parseInt(coords[2]);
+				topRightY = parseInt(coords[3]);
+				botRightX = parseInt(coords[4]);
+				botRightY = parseInt(coords[5]);
+				botLeftX = parseInt(coords[6]);
+				botLeftY = parseInt(coords[7]);
+				pasteButton.textContent = "Pasted 🗺️";
+				setTimeout(() => pasteButton.textContent = "Paste coords", 3000);
+			})
+	}
+
+
+	const updatePair = (event: Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
+		if (!forceRectangle) return;
+
+		const { id } = event.currentTarget;
+		console.log(id);
+		if (id === 'top-left-x') botLeftX = topLeftX;
+		if (id === 'top-left-y') topRightY = topLeftY;
+		if (id === 'top-right-x') botRightX = topRightX;
+		if (id === 'top-right-y') topLeftY = topRightY;
+		if (id === 'bot-right-x') topRightX = botRightX;
+		if (id === 'bot-right-y') botLeftY = botRightY;
+		if (id === 'bot-left-x') topLeftX = botLeftX;
+		if (id === 'bot-left-y') botRightY = botLeftY;
+	}
 </script>
 
 <section>
-	<svg viewBox="0 0 500 500">
+	<svg viewBox="0 0 {mapConfig.viewBoxX} {mapConfig.viewBoxY}">
 		<image href="/maps/{mapName}.png"></image>
 		<polygon
 			id="victory-road"
@@ -30,24 +77,30 @@
 		<h1>Top Left</h1>
 		<h1>Top Right</h1>
 		<label for="top-left-x">X: {topLeftX}</label>
-		<input name="top-left-x" type="range" step="5" min="0" max="500" bind:value={topLeftX} />
-		<label for="top-left-y">Y: {topLeftY}</label>
-		<input name="top-left-y" type="range" step="5" min="0" max="500" bind:value={topLeftY} />
+		<input id="top-left-x" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxX} bind:value={topLeftX} on:input={updatePair}/>
 		<label for="top-right-x">X: {topRightX}</label>
-		<input name="top-right-x" type="range" step="5" min="0" max="500" bind:value={topRightX} />
+		<input id="top-right-x" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxX} bind:value={topRightX} on:input={updatePair}/>
+		<label for="top-left-y">Y: {topLeftY}</label>
+		<input id="top-left-y" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxY} bind:value={topLeftY} on:input={updatePair}/>
 		<label for="top-right-y">Y: {topRightY}</label>
-		<input name="top-right-y" type="range" step="5" min="0" max="500" bind:value={topRightY} />
+		<input id="top-right-y" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxY} bind:value={topRightY} on:input={updatePair}/>
 		<h1>Bot Left</h1>
 		<h1>Bot Right</h1>
 		<label for="bot-left-x">X: {botLeftX}</label>
-		<input name="bot-left-x" type="range" step="5" min="0" max="500" bind:value={botLeftX} />
-		<label for="bot-left-y">Y: {botLeftY}</label>
-		<input name="bot-left-y" type="range" step="5" min="0" max="500" bind:value={botLeftY} />
+		<input id="bot-left-x" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxX} bind:value={botLeftX} on:input={updatePair}/>
 		<label for="bot-right-x">X: {botRightX}</label>
-		<input name="bot-right-x" type="range" step="5" min="0" max="500" bind:value={botRightX} />
+		<input id="bot-right-x" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxX} bind:value={botRightX} on:input={updatePair}/>
+		<label for="bot-left-y">Y: {botLeftY}</label>
+		<input id="bot-left-y" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxY} bind:value={botLeftY} on:input={updatePair}/>
 		<label for="bot-right-y">Y: {botRightY}</label>
-		<input name="bot-right-y" type="range" step="5" min="0" max="500" bind:value={botRightY} />
+		<input id="bot-right-y" type="range" step={mapConfig.step} min="0" max={mapConfig.viewBoxY} bind:value={botRightY} on:input={updatePair}/>
 	</div>
+	<div>
+		<input type="checkbox" id="forceRectangle" bind:checked={forceRectangle}>
+		<label for="forceRectangle">Force rectangle</label>
+	</div>
+	<button bind:this={copyButton} on:click={copyCoordsToClipboard}>Copy coords</button>
+	<button bind:this={pasteButton} on:click={pasteCoordsFromClipboard}>Paste coords</button>
 	<button
 		on:click={() =>
 			dispatch('coords', [
@@ -66,23 +119,24 @@
 <style>
 	section {
 		display: grid;
-		grid-template: auto auto / 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: repeat(10, auto);
 		gap: 1rem;
 		padding: var(--small-gap);
 
 		& > svg {
-			grid-area: span 2 / 1;
+			grid-area: 1 / 1 / -1 / 1;
 		}
 
 		& > button {
-			grid-area: 2 / 2;
+			grid-column: 2;
 		}
 	}
 
 	.range-grid {
 		display: grid;
 		align-items: center;
-		grid-template-columns: auto 1fr auto 1fr;
+		grid-template-columns: 3rem 1fr 3rem 1fr;
 		grid-auto-rows: 2rem;
 		column-gap: var(--smallest-gap);
 
@@ -103,9 +157,10 @@
 	}
 
 	polygon {
-		fill: rgba(151, 0, 0, 0.3);
+		fill: var(--secondary-color);
+		opacity: 0.75;
 		cursor: pointer;
-		animation: blink 1s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+		animation: blink 0.75s cubic-bezier(1, 0, 0, 1) infinite;
 	}
 
 	@keyframes blink {

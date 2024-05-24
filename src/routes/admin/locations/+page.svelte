@@ -13,13 +13,12 @@
 			)
 		: new Array<Location>();
 
-	$: selectedLocation = locations?.length > 0 ? locations[0].regions[0].locations[0] : null;
-
 	const setLocation = (
 		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement },
 		location: LocationNode
 	) => {
 		selectedLocation = location;
+		selectedArea = selectedLocation.areas[0];
 	};
 
 	const setArea = (
@@ -31,15 +30,16 @@
 
 	const saveCoords = async (event: CustomEvent<number[]>) => {
 		if (selectedArea) {
-			console.log(event);
 			selectedArea.coords = event.detail;
-			await fetch(`/api/location/version/${$version}`, {
+			const result = await fetch(`/api/location/version/${$version}`, {
 				method: 'POST',
 				body: JSON.stringify({
 					locationId: selectedLocation?._id,
 					area: selectedArea
 				})
 			});
+
+			console.log(result);
 		}
 	};
 </script>
@@ -53,7 +53,7 @@
 					<ul>
 						{#each region.locations as location (location.id)}
 							<li>
-								<button on:click={(event) => setLocation(event, location)}>{location.id}</button>
+								<button class:completed={location.areas.every(a => a.coords.length)} class:selected={selectedLocation?.id === location.id} on:click={(event) => setLocation(event, location)}>{location.id}</button>
 							</li>
 						{/each}
 					</ul>
@@ -67,7 +67,7 @@
 			<ul>
 				{#each selectedLocation.areas as area}
 					<li>
-						<button on:click={(event) => setArea(event, area)}
+						<button class:completed={area.coords.length} class:selected={selectedArea?.id === area.id} on:click={(event) => setArea(event, area)}
 							>{area.name} ({area.i18nName?.fr})</button
 						>
 					</li>
@@ -77,14 +77,14 @@
 				<Map
 					version={$version}
 					on:coords={async (event) => await saveCoords(event)}
-					topLeftX={selectedArea.coords[0] ?? 0}
-					topLeftY={selectedArea.coords[1] ?? 0}
-					topRightX={selectedArea.coords[2] ?? 0}
-					topRightY={selectedArea.coords[3] ?? 0}
-					botRightX={selectedArea.coords[4] ?? 0}
-					botRightY={selectedArea.coords[5] ?? 0}
-					botLeftX={selectedArea.coords[6] ?? 0}
-					botLeftY={selectedArea.coords[7] ?? 0}
+					topLeftX={selectedArea.coords[0] ?? 80}
+					topLeftY={selectedArea.coords[1] ?? 50}
+					topRightX={selectedArea.coords[2] ?? 90}
+					topRightY={selectedArea.coords[3] ?? 50}
+					botRightX={selectedArea.coords[4] ?? 90}
+					botRightY={selectedArea.coords[5] ?? 70}
+					botLeftX={selectedArea.coords[6] ?? 80}
+					botLeftY={selectedArea.coords[7] ?? 70}
 				></Map>
 			{/if}
 		{/if}
@@ -125,6 +125,7 @@
 	}
 
 	aside#areas {
+		padding-inline: var(--small-gap);
 		& > ul {
 			display: flex;
 			gap: var(--small-gap);
@@ -135,5 +136,13 @@
 		grid-row: 1;
 		text-align: center;
 		text-transform: uppercase;
+	}
+
+	.completed {
+		filter: hue-rotate(250deg);
+	}
+
+	.selected {
+		background-color: var(--third-color);
 	}
 </style>
