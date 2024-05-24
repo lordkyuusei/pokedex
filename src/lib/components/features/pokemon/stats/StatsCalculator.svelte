@@ -287,7 +287,8 @@
 		aspect-ratio: 1;
 
 		display: grid;
-		grid-template: 'modifiers calculator' 100% / 150px auto;
+		align-items: center;
+		grid-template: 'modifiers calculator' 100% / min-content auto;
 
 		& > #stats-modifiers {
 			grid-area: modifiers;
@@ -295,139 +296,116 @@
 			height: 100%;
 			display: grid;
 			align-content: center;
-			justify-items: center;
-			gap: 0.5em;
+			gap: var(--small-gap);
+			padding-inline: var(--small-gap);
 		}
 
 		& > #calculator-ui {
 			grid-area: calculator;
-			position: relative;
 
-			height: 100%;
 			display: grid;
+			grid-template:
+				". pv-text ." 25%
+				"def-text graph atk-text" 25%
+				"spd-text graph spa-text" 25%
+				". spe-text ." 25% / 1fr 3fr 1fr;
+
 			place-items: center;
 
 			& > svg {
-				position: relative;
+				grid-area: graph;
 
-				&[id$='-poly'] {
+				& > [id$='-poly'] {
 					stroke-width: 1;
 					stroke: var(--text-color);
 				}
 
-				&#big-poly {
+				& > #big-poly {
 					fill: var(--background-color-_);
 				}
 
-				&#small-poly {
+				& > #small-poly {
 					fill: var(--primary-color);
 				}
 			}
 
-			& > [id^='slider'] {
-				position: absolute;
-				top: 50%;
-				left: 50%;
+			& > input[id^='slider'] {
+				grid-area: graph;
 				height: 1px;
-				width: calc(50% - 1px);
+				width: 50%;
 				margin: 0;
 				padding: 0;
-				outline: none;
-				appearance: none;
+				z-index: 4;
+				transform-origin: center;
 				background: var(--text-color);
-				transform-origin: left;
 
-				&::-webkit-slider-thumb {
-					appearance: none;
-					background-color: var(--background-color-___);
-					height: 0.75em;
-					cursor: pointer;
-					border-radius: var(--border-r-50);
-					aspect-ratio: 1;
+				&#slider-ev-pv {
+					transform: rotate(270deg) translateX(50%);
 				}
 
-				&::before {
-					content: attr(data-value);
-					position: absolute;
-					left: calc(50%);
+				&#slider-ev-atk {
+					transform: rotate(-29deg) translateX(50%);
+				}
+
+				&#slider-ev-speatk {
+					transform: rotate(29deg) translateX(50%);
+				}
+
+				&#slider-ev-spe {
+					transform: rotate(90deg) translateX(50%);
+				}
+
+				&#slider-ev-spedef {
+					transform: rotate(151deg) translateX(50%);
+				}
+
+				&#slider-ev-def {
+					transform: rotate(209deg) translateX(50%);
 				}
 			}
 
-			& > #slider-ev-pv {
-				transform: rotate(270deg);
-			}
-
-			& > #slider-ev-atk {
-				transform: rotate(-29deg);
-			}
-
-			& > #slider-ev-speatk {
-				transform: rotate(29deg);
-			}
-
-			& > #slider-ev-spe {
-				transform: rotate(90deg);
-			}
-
-			& > :is(#slider-ev-spe, #slider-ev-spedef, #slider-ev-def)::before {
-				transform: rotate(-180deg);
-			}
-
-			& > #slider-ev-spedef {
-				transform: rotate(151deg);
-			}
-
-			& > #slider-ev-def {
-				transform: rotate(209deg);
-			}
-
-			& > [id^='value'] {
+			& > button[id^='value'] {
 				appearance: none;
-				border: none;
-				background: none;
-				position: absolute;
 				display: grid;
-				grid-template-rows: 1fr 1fr;
 				align-items: center;
 				cursor: pointer;
 
 				& > *:not(span) {
 					color: var(--primary-color);
 				}
-			}
-			& > #value-ev-pv,
-			& > #value-ev-spe {
-				justify-content: items;
-			}
 
-			& > #value-ev-atk,
-			& > #value-ev-atkspe {
-				right: 0;
-				justify-items: left;
-			}
+				&[id$="-ev-pv"] {
+					grid-area: pv-text;
+					justify-content: center;
+					color: red;
+				}
 
-			& > #value-ev-def,
-			& > #value-ev-defspe {
-				left: 0;
-				justify-items: right;
-			}
+				&[id$="-ev-atk"] {
+					grid-area: atk-text;
+					justify-items: left;
+				}
 
-			& > #value-ev-pv {
-				top: 0.75em;
-			}
+				&[id$="-ev-atkspe"] {
+					grid-area: spa-text;
+					justify-items: left;
+				}
 
-			& > #value-ev-atk,
-			& > #value-ev-def {
-				top: 25%;
-			}
+				&[id$="-ev-spe"] {
+					grid-area: spe-text;
+					justify-content: center;
+				}
 
-			& > #value-ev-atkspe,
-			& > #value-ev-defspe {
-				bottom: 25%;
-			}
+				&[id$="-ev-defspe"] {
+					grid-area: spd-text;
+					justify-items: right;
+				}
 
-			& > #value-ev-spe {
-				bottom: 0.75em;
+				&[id$="-ev-def"] {
+					grid-area: def-text;
+					justify-items: right;
+				}
+
+
 			}
 		}
 	}

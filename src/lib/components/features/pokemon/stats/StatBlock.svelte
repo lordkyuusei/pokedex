@@ -19,14 +19,14 @@
 		}))
 		.sort((a, z) => mapKeyToStat[a.code].order - mapKeyToStat[z.code].order);
 
-	let statsCoordinates: number[][] = [];
-	let bigPoly: SVGPolygonElement;
-	let smallPoly: SVGPolygonElement;
-
 	$: totalStat = baseStats.reduce((prev, next) => prev + next.value, 0);
 
+	let bigPoly: SVGPolygonElement;
+	let smallPoly: SVGPolygonElement;
+	let maxStatsCoordinates: number[][] = [];
+
 	const updatePolygonPoint = (value: number, angle: number, isReset = false) => {
-		const [maxX, maxY] = [...statsCoordinates[angle]];
+		const [maxX, maxY] = [...maxStatsCoordinates[angle]];
 
 		const newValue = value / 2;
 		const newAngle = Math.atan2(maxY - MAX_STAT / 2, maxX - MAX_STAT / 2);
@@ -41,7 +41,7 @@
 
 	afterUpdate(() => {
 		const statsOrder = baseStats.map((stat, i) => ({ index: i, stat }));
-		statsCoordinates = statsOrder.map((n) => [
+		maxStatsCoordinates = statsOrder.map((n) => [
 			bigPoly.points[n.index].x,
 			bigPoly.points[n.index].y
 		]);
@@ -75,7 +75,6 @@
 
 	#stat-block {
 		position: relative;
-		height: 100%;
 		display: grid;
 		grid-area: graph;
 		place-content: center;
@@ -98,6 +97,7 @@
 
 				&#small-poly {
 					fill: var(--primary-color);
+					transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 				}
 			}
 		}
