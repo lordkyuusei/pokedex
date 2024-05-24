@@ -106,7 +106,7 @@
 		z-index: 2;
 		background-color: var(--background-color-__);
 		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
-		transition: all var(--transition-duration) var(--transition);
+		transition: all var(--transition-duration) var(--transition-function);
 
 		&:not(.show) {
 			box-shadow: none;

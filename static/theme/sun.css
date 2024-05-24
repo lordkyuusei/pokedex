@@ -1,16 +1,15 @@
 :root {
-    --text-color: hsl(0, 0%, 33%);
+    --text-color: hsl(150, 7%, 10%); /* Dark Gray, counterpart to light text */
 
-    --background-color-_: hsl(310, 100%, 95%);
-    --background-color-__: hsl(302, 100%, 90%);
-    --background-color-___: hsl(294, 100%, 85%);
-    --background-color-____: hsl(286, 100%, 80%);
-    --background-color-_____: hsl(278, 58%, 70%);
+    --background-color-_: hsl(264, 20%, 90%); /* Light Gray */
+    --background-color-__: hsl(263, 20%, 80%); /* Lighter Gray */
+    --background-color-___: hsl(262, 24%, 70%); /* Even Lighter Gray */
+    --background-color-____: hsl(261, 33%, 60%); /* Lightest Gray */
 
-    --box-shadow: 4px 4px 16px var(--background-color-_____),
-        -4px -4px 16px var(--background-color-_____);
+    --box-shadow: 0.125rem 0.125rem 0.5rem rgba(46, 35, 62, 0.2), /* Adjusted Shadow Color */
+        -0.125rem -0.125rem 0.5rem rgba(26, 20, 36, 0.2); /* Adjusted Light Shadow Color */
 
-    --primary-color: hsl(280, 90%, 69%);
-    --secondary-color: #2980ef;
-    --third-color: hsl(323, 53%, 76%);
+    --primary-color: hsl(264, 30%, 50%); /* Darker Purple for contrast */
+    --secondary-color: #2970df; /* Slightly adjusted Blue for light theme */
+    --third-color: hsl(264, 28%, 40%); /* Darker Medium Purple */
 }

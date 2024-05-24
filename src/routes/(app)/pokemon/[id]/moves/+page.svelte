@@ -192,7 +192,7 @@
 					overflow-y: auto;
 					border-collapse: collapse;
 					table-layout: fixed;
-					transition: all var(--transition-duration) var(--transition);
+					transition: all var(--transition-duration) var(--transition-function);
 
 					& > #table-head {
 						position: sticky;
@@ -207,7 +207,7 @@
 							padding: 0.5em;
 							font-weight: bolder;
 							text-transform: capitalize;
-							transition: all var(--transition-duration) var(--transition);
+							transition: all var(--transition-duration) var(--transition-function);
 							width: 100%;
 
 							&:hover {
@@ -232,7 +232,7 @@
 
 						& > tr:has(td[id^='move-']:not([id$='-description'])):hover > td {
 							background-color: var(--background-alt-color);
-							transition: all 0.05s var(--transition);
+							transition: all 0.05s var(--transition-function);
 						}
 
 						& td[id^='move-'] {

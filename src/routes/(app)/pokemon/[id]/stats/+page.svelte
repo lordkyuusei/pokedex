@@ -57,7 +57,7 @@
 		#data-stats {
 			overflow-y: auto;
 			padding: var(--small-gap);
-			gap: var(--normal-gap);
+			gap: calc(var(--small-gap) + var(--smaller-gap));
 		}
 
 		:global(#stats-main) {

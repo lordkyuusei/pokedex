@@ -34,10 +34,10 @@
 
 			& > .score-icon {
 				text-shadow:
-					-1px 0 black,
-					0 1px black,
-					1px 0 black,
-					0 -1px black;
+					-1px 0 var(--background-color-____),
+					0 1px var(--background-color-____),
+					1px 0 var(--background-color-____),
+					0 -1px var(--background-color-____);
 			}
 			& > .score-unit {
 				font-size: small;
@@ -46,12 +46,6 @@
 		& > .score-value {
 			font-size: x-large;
 			font-weight: bold;
-
-			text-shadow:
-				-1px 0 black,
-				0 1px black,
-				1px 0 black,
-				0 -1px black;
 		}
 	}
 </style>

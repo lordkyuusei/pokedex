@@ -163,7 +163,7 @@
 				list-style: none;
 				border-radius: var(--border-r-200);
 				background-color: var(--background-color-__);
-				transition: transform var(--transition-duration) var(--transition);
+				transition: transform var(--transition-duration) var(--transition-function);
 
 				& > a {
 					display: flex;
@@ -271,7 +271,7 @@
 					width: 100%;
 					position: relative;
 					background-color: var(--background-color-_);
-					transition: all var(--transition-duration) var(--transition);
+					transition: all var(--transition-duration) var(--transition-function);
 
 					& > a {
 						background-color: var(--background-color-_);

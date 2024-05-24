@@ -66,7 +66,7 @@
 		cursor: pointer;
 
 		background-color: var(--background-color-_);
-		transition: padding var(--transition-duration) var(--transition);
+		transition: padding var(--transition-duration) var(--transition-function);
 	}
 
 	[id^='ability']:hover {
@@ -92,7 +92,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		transition: padding var(--transition-duration) var(--transition);
+		transition: padding var(--transition-duration) var(--transition-function);
 	}
 
 	.chosen > span.flavor {

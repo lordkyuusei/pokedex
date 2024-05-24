@@ -47,7 +47,7 @@
 	}
 
 	[id^='album'] > [id$='cover'] {
-		transition: all var(--transition-duration) var(--transition);
+		transition: all var(--transition-duration) var(--transition-function);
 		position: relative;
 		grid-area: header;
 		display: grid;
@@ -69,7 +69,7 @@
 	[id^='album'] > [id$='cover']:hover {
 		transform: scale(1.05);
 		box-shadow: var(--box-shadow);
-		transition: all var(--transition-duration) var(--transition);
+		transition: all var(--transition-duration) var(--transition-function);
 	}
 
 	[id^='album'] > [id$='cover'] img {

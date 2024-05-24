@@ -32,7 +32,7 @@
 
 		border-radius: var(--border-r-50) var(--border-r-50) 0 0;
 		padding-block: 0.5em;
-		transition: transform var(--transition-duration) var(--transition);
+		transition: transform var(--transition-duration) var(--transition-function);
 		cursor: pointer;
 	}
 
