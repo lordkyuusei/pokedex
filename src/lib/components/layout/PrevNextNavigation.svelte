@@ -22,8 +22,10 @@
 				class="navigation-button prev"
 				title={`${pkmnPrevId}`}
 			>
-				<img class="navigation-prev" src="/arrow.svg" alt="pokemon {pkmnPrevId}" />
-				<img
+			<svg class="navigation-prev">
+				<use href="#icon-arrow"></use>
+			</svg>
+			<img
 					class="pokemon-sprite"
 					src={fetchPokemonSpriteURL(pkmnPrevId, 'icons', 'generation-viii')}
 					alt="pokemon {pkmnPrevId}"
@@ -44,38 +46,45 @@
 					alt="pokemon {pkmnNextId}"
 					on:error={onImgError}
 				/>
-				<img src="/arrow.svg" class="navigation-next" alt="pokemon {pkmnNextId}" />
+				<svg class="navigation-next">
+					<use href="#icon-arrow"></use>
+				</svg>
 			</a>
 		{/if}
 	</div>
+{:else}
+<span></span>
 {/if}
 
 <style>
 	#dex-pokemon-header {
-		display: grid;
+		height: 100%;
+		display: flex;
 		gap: var(--small-gap);
-		place-items: center;
+		align-items: center;
 
 		@media (min-width: 640px) {
-			padding-inline: 1rem;
-			grid-template: 100% / 1fr auto 1fr;
+			padding-inline: var(--small-gap);
 		}
 
 		@media (max-width: 640px) {
-			grid-template: 100% / 1fr 9fr 1fr;
+			justify-content: space-between;
+		}
+
+		& > .header-name, & > .navigation-button {
+			display: grid;
+			place-items: center;
+			border-radius: var(--border-r-50);
+			padding-inline: var(--smallest-gap);
+			height: 100%;
 		}
 
 		& > .header-name {
-			font-size: x-large;
-			text-align: center;
 			text-transform: uppercase;
-			min-width: 5em;
-			border-radius: var(--border-r-200);
-			margin-block: 0;
 			letter-spacing: 2px;
 
 			@media (min-width: 640px) {
-				padding: 0.75em 1em;
+				padding-inline: var(--small-gap);
 				background-color: var(--background-color-__);
 			}
 
@@ -88,12 +97,12 @@
 		}
 
 		& > .navigation-button {
-			display: grid;
 			grid-template: 100% / 1fr 1fr;
-			place-items: center;
 
-			border-radius: var(--border-r-200);
-			padding: 0;
+			& svg {
+				height: 100%;
+				aspect-ratio: 1;
+			}
 
 			&.prev {
 				grid-column: 1;
@@ -108,7 +117,7 @@
 				object-position: 0px -5px;
 			}
 
-			& > .navigation-next {
+			& > .navigation-prev {
 				transform: rotate(180deg);
 			}
 		}

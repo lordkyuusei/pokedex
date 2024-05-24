@@ -48,10 +48,8 @@
 	<main id="dex-main">
 		<header id="main-header">
 			<PrevNextNavigation />
-			<span>
-				<GameSwitch {generationsList} />
-				<Search />
-			</span>
+			<GameSwitch {generationsList} />
+			<Search />
 		</header>
 		<section id="main-content">
 			<slot />
@@ -144,19 +142,13 @@
 				'content' var(--layout-content-size) / 100%;
 
 			& > #main-header {
-				height: 100%;
-				display: flex;
-				gap: var(--normal-gap);
+				display: grid;
+				grid-template: 100% / 1fr auto auto;
 				justify-content: space-between;
+				gap: var(--small-gap);
 				align-items: center;
 				padding-inline-end: 1em;
-				border-bottom-right-radius: 1em;
-
-				& > span {
-					display: flex;
-					gap: 1rem;
-					align-items: center;
-				}
+				padding-block: var(--smaller-gap);
 			}
 
 			& > #main-content {

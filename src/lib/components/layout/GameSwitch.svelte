@@ -9,36 +9,36 @@
 
 	export let generationsList: Generation[];
 
-	let selectGen: Generation;
-	let selectGroup: VersionGroup;
+	let selectedGen: Generation;
+	let selectedGroup: VersionGroup;
 
 	$: genOfSelectPokemon = filterGenerationsFromPokemon(generationsList, $pokemon);
 	$: updateGenOnPokemonChange(genOfSelectPokemon);
-	$: versionsOfSelectGen = selectGen?.versionsGroup ?? [];
+	$: versionsOfSelectedGen = selectedGen?.versionsGroup ?? [];
 
 	const updateGenOnPokemonChange = (generations: Generation[] = []) => {
 		if (
 			generations.length &&
 			(!$generation ||
-				!selectGen ||
-				!selectGroup ||
+				!selectedGen ||
+				!selectedGroup ||
 				!generations.find((g) => g.id === $generation.id))
 		) {
-			selectGen = generations[0];
-			selectGroup = selectGen.versionsGroup[0];
-			generation.set(selectGen);
-			version.set(selectGroup.name);
+			selectedGen = generations[0];
+			selectedGroup = selectedGen.versionsGroup[0];
+			generation.set(selectedGen);
+			version.set(selectedGroup.name);
 		}
 	};
 
 	const onGenerationUpdate = () => {
-		generation.set(selectGen);
-		selectGroup = versionsOfSelectGen[0];
-		version.set(selectGroup.name);
+		generation.set(selectedGen);
+		selectedGroup = selectedGen?.versionsGroup[0];
+		version.set(selectedGroup.name);
 	};
 
 	const onVersionUpdate = () => {
-		version.set(selectGroup.name);
+		version.set(selectedGroup.name);
 	};
 
 	const getTranslation = (versionGroup: VersionGroup, lang: Lang) => {
@@ -48,28 +48,60 @@
 	};
 </script>
 
-<section id="generations" class="generations">
-	<select class="generations-gen" bind:value={selectGen} on:change={onGenerationUpdate}>
+<div id="generations" class="generations">
+	<select class="generations-gen" bind:value={selectedGen} on:change={onGenerationUpdate}>
 		{#each genOfSelectPokemon as gen}
 			<option value={gen}>{gen.i18n.fr}</option>
 		{/each}
 	</select>
-
-	<select class="generations-game" bind:value={selectGroup} on:change={onVersionUpdate}>
-		{#each versionsOfSelectGen as version}
+	<select class="generations-game" bind:value={selectedGroup} on:change={onVersionUpdate}>
+		{#each versionsOfSelectedGen as version}
 			<option value={version}>{getTranslation(version, $lang)}</option>
 		{/each}
 	</select>
-</section>
+</div>
 
 <style>
 	#generations {
+		--border-size: 0px;
+
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		overflow: hidden;
-		border: 1px solid var(--text-color);
-		border-radius: var(--border-r-100);
+		border: var(--border-size) solid var(--background-color-_);
+		border-radius: var(--border-r-50);
 		position: relative;
+		height: 100%;
+
+		& > [class^="generations"] {
+			cursor: pointer;
+			padding-inline: var(--small-gap);
+			appearance: none;
+			border: none;
+			text-transform: uppercase;
+			text-align: center;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		& > .generations-gen {
+			border-radius: calc(var(--border-r-50) - var(--border-size)) 0 0 calc(var(--border-r-50) - var(--border-size));
+
+			&, & > option {
+				background-color: var(--background-color-_);
+				color: var(--background-color-____);
+			}
+		}
+
+		& > .generations-game {
+			border-radius: 0 calc(var(--border-r-50) - var(--border-size)) calc(var(--border-r-50) - var(--border-size)) 0;
+
+			&, & > option {
+				background: var(--background-color-___);
+				color: var(--text-color);
+			}
+		}
 
 		&::after {
 			content: '';
@@ -79,44 +111,19 @@
 			transform: translate(-100%, -50%);
 			height: 0;
 			width: 0;
-			border: 15px solid transparent;
-			border-right: 15px solid var(--background-color-___);
+			border: 1rem solid transparent;
+			border-right: 1rem solid var(--background-color-___);
 		}
 	}
 
-	.generations-gen,
-	.generations-game {
-		cursor: pointer;
-		appearance: none;
-		padding: 1em 1.5em;
-		border: none;
-		text-transform: uppercase;
-		text-align: center;
-		width: 100%;
-	}
-
-	.generations-gen:focus,
-	.generations-game:focus {
-		outline: none;
-	}
-
-	.generations-gen,
-	.generations-gen option {
-		background-color: var(--background-color-_);
-		color: var(--background-color-____);
-	}
-
-	.generations-game,
-	.generations-game option {
-		background: var(--background-color-___);
-		color: var(--text-color);
-	}
-
-	@media (max-width: 640px) {
-		#generations {
+	@media (max-width: 640px) {		
+		#generations, #generations > [class^="generations"] {
 			border-radius: 0;
 			border: 0;
-			border-bottom: 1px solid white;
+		}
+
+		#generations {
+			border-bottom: var(--border-size) solid var(--background-color-_);
 		}
 	}
 </style>
