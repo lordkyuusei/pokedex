@@ -45,7 +45,7 @@ body {
 
 @font-face {
     font-family: "Pokemon";
-    src: url("./fonts/ThraexSansRegular-v1000.ttf");
+    src: url("/fonts/ThraexSansRegular-v1000.ttf");
 }
 
 *,
