@@ -15,7 +15,6 @@
 			)
 		: null;
 
-	$: console.log(gameLocations);
 	const setLocation = (
 		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement },
 		location: LocationNode

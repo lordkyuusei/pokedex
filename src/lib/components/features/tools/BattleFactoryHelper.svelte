@@ -47,7 +47,6 @@
 
 	const onMovesChange = async (result: Promise<FactoryPokemon[]>): Promise<string[]> => {
 		const list = await result;
-		console.log(list);
 		return [
 			...new Set(
 				list.flatMap((pokemon) => [

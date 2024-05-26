@@ -8,8 +8,6 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			handleHttpError: ({ path, referrer, message, ...rest }) => {
-				console.log(path, message, rest);
-
 				// otherwise fail the build
 				throw new Error(message);
 			}

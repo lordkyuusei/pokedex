@@ -65,8 +65,6 @@ export const setCoordsForLocation = async (locationId: string, area: LocationAre
             { $set: { 'regions.$[].locations.$[].areas.$[area].coords': area.coords } },
             { arrayFilters: [{ 'area.name': area.name }] }
         );
-
-        console.log('Update result:', result);
     } catch (error) {
         console.error('Error updating coords:', error);
     }
