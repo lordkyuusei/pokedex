@@ -22,10 +22,10 @@
 				class="navigation-button prev"
 				title={`${pkmnPrevId}`}
 			>
-			<svg class="navigation-prev">
-				<use href="#icon-arrow"></use>
-			</svg>
-			<img
+				<svg class="navigation-prev">
+					<use href="#icon-arrow"></use>
+				</svg>
+				<img
 					class="pokemon-sprite"
 					src={fetchPokemonSpriteURL(pkmnPrevId, 'icons', 'generation-viii')}
 					alt="pokemon {pkmnPrevId}"
@@ -53,7 +53,7 @@
 		{/if}
 	</div>
 {:else}
-<span></span>
+	<span></span>
 {/if}
 
 <style>
@@ -71,7 +71,8 @@
 			justify-content: space-between;
 		}
 
-		& > .header-name, & > .navigation-button {
+		& > .header-name,
+		& > .navigation-button {
 			display: grid;
 			place-items: center;
 			border-radius: var(--border-r-50);
@@ -138,10 +139,6 @@
 
 		a.navigation-button:first-child > img {
 			grid-column: 2;
-		}
-
-		img[class^='navigation'] {
-			display: none;
 		}
 	}
 </style>

@@ -14,27 +14,25 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.32.3",
-		"@sveltejs/adapter-node": "^3.0.0",
-		"@sveltejs/kit": "^2.3.2",
+		"@sveltejs/adapter-node": "^5.0.1",
+		"@sveltejs/kit": "^2.5.10",
 		"@typescript-eslint/eslint-plugin": "^6.18.1",
 		"@typescript-eslint/parser": "^6.18.1",
-		"@vite-pwa/sveltekit": "^0.3.0",
+		"@vite-pwa/sveltekit": "^0.5.0",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"prettier": "^3.2.2",
 		"prettier-plugin-svelte": "^3.1.2",
-		"svelte": "^4.2.8",
-		"svelte-check": "^3.6.3",
+		"svelte": "^4.2.17",
+		"svelte-check": "^3.7.1",
 		"tslib": "^2.6.2",
-		"typescript": "^5.3.3",
-		"vite": "^5.0.11",
-		"vitest": "^1.2.0"
+		"typescript": "^5.4.5",
+		"vite": "^5.2.11",
+		"vitest": "^1.6.0"
 	},
 	"type": "module",
 	"dependencies": {
-		"kolorist": "1.8.0",
 		"mongoose": "^7.0.0"
 	}
 }

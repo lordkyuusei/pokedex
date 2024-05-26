@@ -13,6 +13,7 @@
 	import MobileLayout from '$lib/components/interface/MobileLayout.svelte';
 
 	import routes from './routes.json';
+	import '../app.css';
 
 	export let data: LayoutServerData;
 </script>

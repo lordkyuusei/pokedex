@@ -11,6 +11,7 @@
 	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
 
 	import routes from './routes.json';
+	import '../app.css';
 
 	export let data: LayoutServerData;
 </script>
