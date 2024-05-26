@@ -15,7 +15,6 @@ export const POST = (async ({ params, request }) => {
     const body = await request.json();
 
     setCoordsForLocation(body.locationId, body.area);
-    console.log(body);
 
     return json(body);
 }) satisfies RequestHandler;
