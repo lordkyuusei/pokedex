@@ -54,7 +54,7 @@ export const getAbilitiesLteGen = async (id: number = 10) => {
 }
 
 export const getLocationsFromVersion = async (version: string) => {
-    const locations = await lightlocations.find().getByVersionGroup(version);
+    const locations = await lightlocations.findOne().getByVersionGroup(version);
     return JSON.stringify(locations);
 }
 

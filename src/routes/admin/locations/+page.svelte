@@ -1,18 +1,21 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import Map from '$lib/components/features/Map.svelte';
+	import Map from '$lib/components/admin/Map.svelte';
+	import MapOperations from '$lib/components/admin/MapOperations.svelte';
 	import { version } from '$lib/store/generation';
+	import { saveStatus } from '$lib/store/save';
 	import type { Location, LocationArea, LocationNode } from '$lib/types/location';
 
 	let selectedLocation: LocationNode | null = null;
 	let selectedArea: LocationArea | null = null;
 
-	$: locations = browser
+	$: gameLocations = browser
 		? fetch(`/api/location/version/${$version}`).then(
-				async (x): Promise<Location[]> => await x.json()
+				async (x): Promise<Location> => await x.json()
 			)
-		: new Array<Location>();
+		: null;
 
+	$: console.log(gameLocations);
 	const setLocation = (
 		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement },
 		location: LocationNode
@@ -39,26 +42,37 @@
 				})
 			});
 
-			console.log(result);
+			if (result.ok) {
+				$saveStatus = {
+					status: 'Saved ✅',
+					isSuccess: true
+				};
+
+				setTimeout(() => ($saveStatus = { status: 'Save', isSuccess: true }), 2500);
+			}
 		}
 	};
 </script>
 
 <section>
 	<aside id="locations">
-		{#await locations then lieux}
-			{#each lieux as lieu (lieu.name)}
+		{#await gameLocations then lieu}
+			{#if lieu}
 				{#each lieu.regions as region (region.name)}
 					<h1>{region.name}</h1>
 					<ul>
 						{#each region.locations as location (location.id)}
 							<li>
-								<button class:completed={location.areas.every(a => a.coords.length)} class:selected={selectedLocation?.id === location.id} on:click={(event) => setLocation(event, location)}>{location.id}</button>
+								<button
+									class:completed={location.areas.every((a) => a.coords.length)}
+									class:selected={selectedLocation?.id === location.id}
+									on:click={(event) => setLocation(event, location)}>{location.id}</button
+								>
 							</li>
 						{/each}
 					</ul>
 				{/each}
-			{/each}
+			{/if}
 		{/await}
 	</aside>
 	<aside id="areas">
@@ -67,8 +81,10 @@
 			<ul>
 				{#each selectedLocation.areas as area}
 					<li>
-						<button class:completed={area.coords.length} class:selected={selectedArea?.id === area.id} on:click={(event) => setArea(event, area)}
-							>{area.name} ({area.i18nName?.fr})</button
+						<button
+							class:completed={area.coords.length}
+							class:selected={selectedArea?.id === area.id}
+							on:click={(event) => setArea(event, area)}>{area.name} ({area.i18nName?.fr})</button
 						>
 					</li>
 				{/each}
@@ -77,16 +93,19 @@
 				<Map
 					version={$version}
 					on:coords={async (event) => await saveCoords(event)}
-					topLeftX={selectedArea.coords[0] ?? 80}
-					topLeftY={selectedArea.coords[1] ?? 50}
-					topRightX={selectedArea.coords[2] ?? 90}
-					topRightY={selectedArea.coords[3] ?? 50}
-					botRightX={selectedArea.coords[4] ?? 90}
-					botRightY={selectedArea.coords[5] ?? 70}
-					botLeftX={selectedArea.coords[6] ?? 80}
-					botLeftY={selectedArea.coords[7] ?? 70}
+					topLeftX={selectedArea.coords[0] ?? 72}
+					topLeftY={selectedArea.coords[1] ?? 48}
+					topRightX={selectedArea.coords[2] ?? 80}
+					topRightY={selectedArea.coords[3] ?? 48}
+					botRightX={selectedArea.coords[4] ?? 80}
+					botRightY={selectedArea.coords[5] ?? 56}
+					botLeftX={selectedArea.coords[6] ?? 72}
+					botLeftY={selectedArea.coords[7] ?? 56}
 				></Map>
 			{/if}
+		{:else}
+			<h1>Select a location on the left or choose an operation</h1>
+			<MapOperations></MapOperations>
 		{/if}
 	</aside>
 </section>
@@ -126,9 +145,20 @@
 
 	aside#areas {
 		padding-inline: var(--small-gap);
+		&,
 		& > ul {
-			display: flex;
-			gap: var(--small-gap);
+			overflow-x: auto;
+		}
+
+		& > ul {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: min-content;
+			gap: var(--smaller-gap);
+
+			& > li button {
+				text-wrap: nowrap;
+			}
 		}
 	}
 

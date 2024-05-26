@@ -119,7 +119,7 @@ const lightlocationsSchema = new Schema<Location>({
             return this;
         },
         getByVersionGroup(versionGroup: string) {
-            return this.where("name").equals(versionGroup);
+            return this.where("name").equals(versionGroup)
         }
     }
 })
