@@ -2,7 +2,7 @@ import type { Location } from "$lib/types/location";
 import { saveStatus } from "$lib/store/save";
 import ENDPOINTS from '$lib/constants/api.json';
 
-const syncLocationsToVersion = async (from: string | null, to: string | null) => {
+export const syncLocationsToVersion = async (from: string | null, to: string | null) => {
     if (!from || !to) return;
 
     const fromGameResponse = await fetch(`${ENDPOINTS.DEXAPI_LOCATION}/${from}`);
@@ -59,4 +59,45 @@ const syncLocationsToVersion = async (from: string | null, to: string | null) =>
     })
 }
 
-export default syncLocationsToVersion;
+// export const fixLocations = async (from: string | null) => {
+//     const fromGameResponse = await fetch(`${ENDPOINTS.DEXAPI_LOCATION}/${from}`);
+
+//     if (!fromGameResponse.ok) {
+//         console.log(`Request failed for version ${from} (${fromGameResponse.ok})`);
+//         return;
+//     }
+
+//     const fromGame: Location = await fromGameResponse.json();
+
+//     fromGame.regions.forEach(async region => {
+//         region.locations.forEach(async location => {
+//             location.areas.forEach(async area => {
+//                 if (area.coords.length === 0) return;
+//                 const [tlX, tlY, trX, trY, blX, blY, brX, brY] = area.coords
+//                 area.coords = [tlX, tlY, trX, trY, brX, brY, blX, blY];
+
+//                 const result = await fetch(`/api/location/version/${from}`, {
+//                     method: 'POST',
+//                     body: JSON.stringify({
+//                         locationId: location?._id,
+//                         area: area
+//                     })
+//                 });
+
+//                 if (!result.ok) {
+//                     console.error(`area ${area.id} (${area.name}) in ${from} (${region}) was not saved.`);
+//                 } else {
+//                     saveStatus.set({
+//                         isSuccess: true,
+//                         status: `Saved ${area.name}!`
+//                     })
+//                 }
+//             })
+//         })
+//     });
+
+//     saveStatus.set({
+//         'isSuccess': true,
+//         'status': 'Save'
+//     })
+// }

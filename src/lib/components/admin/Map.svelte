@@ -3,72 +3,83 @@
 	import { getGamesMaps } from '$lib/functions/getGamesMaps';
 	import { saveStatus } from '$lib/store/save';
 
-	import MAPS_CONFIG from '$lib/constants/mapsConfig';
+	import { DEFAULT_MAP_COORDINATES, MAPS_CONFIG } from '$lib/constants/mapsConfig';
 
-	export let topRightX: number = 72;
-	export let topRightY: number = 72;
-	export let topLeftX: number = 52;
-	export let topLeftY: number = 72;
-	export let botLeftX: number = 52;
-	export let botLeftY: number = 224;
-	export let botRightX: number = 72;
-	export let botRightY: number = 224;
+	export let coordinates: number[] = [];
 	export let version: string = 'red-blue-yellow-green';
+
+	const MAPS_NAMES = getGamesMaps();
 
 	let copyButton: HTMLButtonElement;
 	let pasteButton: HTMLButtonElement;
 	let forceRectangle: boolean = true;
+	let circleHintRef: SVGCircleElement;
+	let dispatch = createEventDispatcher();
 
-	const MAPS_NAMES = getGamesMaps();
+	$: coordinates = coordinates.length > 0 ? coordinates : DEFAULT_MAP_COORDINATES;
 	$: mapName = MAPS_NAMES.find((map) => map.includes(version)) || version;
 	$: mapConfig = MAPS_CONFIG[mapName];
 
-	let dispatch = createEventDispatcher();
+	$: coordsAsPoints = coordinates
+		.reduce((acc, coord, index) => {
+			return `${acc}${index % 2 === 0 ? `${coord},` : `${coord} `}`;
+		}, '')
+		.slice(0, -1);
 
-	const copyCoordsToClipboard = async (
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) => {
-		navigator.clipboard
-			.writeText(
-				`${topLeftX},${topLeftY} ${topRightX},${topRightY} ${botRightX},${botRightY} ${botLeftX},${botLeftY}`
-			)
-			.then(() => {
-				copyButton.textContent = 'Copied 🗺️';
-				setTimeout(() => (copyButton.textContent = 'Copy coords'), 3000);
-			});
-	};
-
-	const pasteCoordsFromClipboard = async (
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) => {
-		navigator.clipboard.readText().then((coordsFromClipBoard) => {
-			const coords = coordsFromClipBoard.split(' ').flatMap((pair) => pair.split(','));
-			topLeftX = parseInt(coords[0]);
-			topLeftY = parseInt(coords[1]);
-			topRightX = parseInt(coords[2]);
-			topRightY = parseInt(coords[3]);
-			botRightX = parseInt(coords[4]);
-			botRightY = parseInt(coords[5]);
-			botLeftX = parseInt(coords[6]);
-			botLeftY = parseInt(coords[7]);
-			pasteButton.textContent = 'Pasted 🗺️';
-			setTimeout(() => (pasteButton.textContent = 'Paste coords'), 3000);
+	const copyCoordsToClipboard = async () => {
+		navigator.clipboard.writeText(coordsAsPoints).then(() => {
+			copyButton.textContent = 'Copied 🗺️';
+			setTimeout(() => (copyButton.textContent = 'Copy coords'), 1500);
 		});
 	};
+
+	const pasteCoordsFromClipboard = async () => {
+		navigator.clipboard.readText().then((coordsFromClipBoard) => {
+			const coords = coordsFromClipBoard
+				.split(' ')
+				.flatMap((pair) => pair.split(','))
+				.map((coord) => parseInt(coord));
+			coordinates = coords;
+
+			pasteButton.textContent = 'Pasted 🗺️';
+			setTimeout(() => (pasteButton.textContent = 'Paste coords'), 1500);
+		});
+	};
+
+	/* 0   1   2   3   4   5   6   7
+	 * TLX TLY TRX TRY BRX BRY BLX BLY
+	 * Top left => Top right => Bot right => Bot left
+	 * X => Y
+	 *
+	 * Mapping in square shape
+	 * 0 => 6; 1 => 3; 2 => 4; 3 => 1; 4 => 2; 5 => 7; 6 => 0; 7 => 5;
+	 */
+	const getMatchingPairsFromIndex = (index: number) =>
+		[
+			[0, 6],
+			[1, 3],
+			[2, 4],
+			[3, 1],
+			[4, 2],
+			[5, 7],
+			[6, 0],
+			[7, 5]
+		].find((pair) => pair[0] === index) || [0, 0];
 
 	const updatePair = (event: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
 		if (!forceRectangle) return;
 
 		const { id } = event.currentTarget;
+		const index = parseInt(id.split('_')[1]);
+		const [updated, toUpdate] = getMatchingPairsFromIndex(index);
+		coordinates[toUpdate] = coordinates[updated];
 
-		if (id === 'top-left-x') botLeftX = topLeftX;
-		if (id === 'top-left-y') topRightY = topLeftY;
-		if (id === 'top-right-x') botRightX = topRightX;
-		if (id === 'top-right-y') topLeftY = topRightY;
-		if (id === 'bot-right-x') topRightX = botRightX;
-		if (id === 'bot-right-y') botLeftY = botRightY;
-		if (id === 'bot-left-x') topLeftX = botLeftX;
-		if (id === 'bot-left-y') botRightY = botLeftY;
+		const circleHintX = index % 2 === 0 ? index : index - 1;
+		const circleHintY = circleHintX + 1;
+		circleHintRef.setAttribute('cx', coordinates[circleHintX].toString());
+		circleHintRef.setAttribute('cy', coordinates[circleHintY].toString());
+
+		coordinates = coordinates;
 	};
 
 	const triggerUpdate = (event: WheelEvent & { currentTarget: EventTarget & HTMLInputElement }) => {
@@ -113,131 +124,49 @@
 		on:wheel={changeZoom}
 	>
 		<image href="/maps/{mapName}.png"></image>
-		<polygon
-			id="victory-road"
-			points="{topLeftX},{topLeftY} {topRightX},{topRightY} {botRightX},{botRightY} {botLeftX},{botLeftY}"
-		></polygon>
+		<polygon id="victory-road" points={coordsAsPoints}></polygon>
+		<circle bind:this={circleHintRef} r="2"></circle>
 	</svg>
 	<div class="range-grid">
-		<h1>Top Left</h1>
-		<h1>Top Right</h1>
+		{#each coordinates as coord, i}
+			{@const isX = i % 2 === 0}
+			{@const point = Math.floor((i / 4) * 2 + 1)}
+			{@const column = ((point - 1) % 2) + 1}
+			{@const headingRow = Math.floor(i / 4) * 3 + 1}
+			{@const row = isX ? headingRow + 1 : headingRow + 2}
 
-		<label for="top-left-x">X: {topLeftX}</label>
-		<input
-			id="top-left-x"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxX}
-			bind:value={topLeftX}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<label for="top-right-x">X: {topRightX}</label>
-		<input
-			id="top-right-x"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxX}
-			bind:value={topRightX}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<label for="top-left-y">Y: {topLeftY}</label>
-		<input
-			id="top-left-y"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxY}
-			bind:value={topLeftY}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<label for="top-right-y">Y: {topRightY}</label>
-		<input
-			id="top-right-y"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxY}
-			bind:value={topRightY}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<h1>Bot Left</h1>
-		<h1>Bot Right</h1>
-
-		<label for="bot-left-x">X: {botLeftX}</label>
-		<input
-			id="bot-left-x"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxX}
-			bind:value={botLeftX}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<label for="bot-right-x">X: {botRightX}</label>
-		<input
-			id="bot-right-x"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxX}
-			bind:value={botRightX}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<label for="bot-left-y">Y: {botLeftY}</label>
-		<input
-			id="bot-left-y"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxY}
-			bind:value={botLeftY}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
-
-		<label for="bot-right-y">Y: {botRightY}</label>
-		<input
-			id="bot-right-y"
-			type="range"
-			step={mapConfig.step}
-			min="0"
-			max={mapConfig.viewBoxY}
-			bind:value={botRightY}
-			on:input={updatePair}
-			on:wheel|preventDefault|stopPropagation={triggerUpdate}
-		/>
+			{#if i % 4 === 0}
+				<div class="heading" style="grid-area: {headingRow} / 1 / {headingRow} / span 2">
+					<h1>Point N°{point}</h1>
+					<h1>Point N°{point + 1}</h1>
+				</div>
+			{/if}
+			<div class="values" style="grid-area: {row} / {column}">
+				<label for="point_{i}">{isX ? 'X:' : 'Y:'}{coord}</label>
+				<input
+					id="point_{i}"
+					type="range"
+					step={mapConfig.step}
+					min="0"
+					max={isX ? mapConfig.viewBoxX : mapConfig.viewBoxY}
+					bind:value={coord}
+					on:input={updatePair}
+					on:wheel|stopPropagation|preventDefault={triggerUpdate}
+				/>
+			</div>
+		{/each}
 	</div>
 	<div class="actions-grid">
 		<input type="checkbox" id="forceRectangle" bind:checked={forceRectangle} />
 		<label for="forceRectangle">Force rectangle</label>
+		<div class="grid-coords">
+			<button on:click={() => (coordinates = [...coordinates, 100, 100])}>Add a corner</button>
+			<button on:click={() => (coordinates = coordinates.slice(0, -2))}>Remove last corner</button>
+		</div>
 		<button bind:this={copyButton} on:click={copyCoordsToClipboard}>Copy coords</button>
 		<button bind:this={pasteButton} on:click={pasteCoordsFromClipboard}>Paste coords</button>
-		<button
-			on:click={() =>
-				dispatch('coords', [
-					topLeftX,
-					topLeftY,
-					topRightX,
-					topRightY,
-					botRightX,
-					botRightY,
-					botLeftX,
-					botLeftY
-				])}>{$saveStatus.status} coordinates</button
+		<button on:click={() => dispatch('coords', coordinates)}
+			>{$saveStatus.status} coordinates</button
 		>
 	</div>
 </section>
@@ -279,9 +208,19 @@
 	.range-grid {
 		display: grid;
 		align-items: center;
-		grid-template-columns: 3rem 1fr 3rem 1fr;
+		grid-template-columns: 1fr 1fr;
 		grid-auto-rows: 2rem;
-		column-gap: var(--smallest-gap);
+		column-gap: var(--small-gap);
+
+		& > .heading {
+			display: flex;
+			justify-content: space-around;
+		}
+
+		& > .values {
+			display: grid;
+			grid-template-columns: minmax(auto, 3rem) 1fr;
+		}
 
 		& > h1 {
 			text-align: center;
@@ -300,6 +239,12 @@
 		align-items: center;
 		row-gap: var(--small-gap);
 
+		& > .grid-coords {
+			display: grid;
+			grid-column: span 2;
+			grid-template-columns: 1fr 1fr;
+			gap: var(--small-gap);
+		}
 		& > button {
 			grid-column: span 2;
 			&:last-of-type {
@@ -313,11 +258,16 @@
 		image-rendering: pixelated;
 	}
 
-	polygon {
+	polygon,
+	circle {
 		fill: var(--secondary-color);
 		opacity: 0.75;
 		cursor: pointer;
 		animation: blink 0.75s cubic-bezier(1, 0, 0, 1) infinite;
+	}
+
+	circle {
+		fill: var(--primary-color);
 	}
 
 	@keyframes blink {

@@ -6,12 +6,12 @@
     },
     {
         "id": "admin/sync",
-        "alt_id": "admin/sync",
+        "alt_id": "sync",
         "name": "menu.admin.sync"
     },
     {
         "id": "admin/locations",
-        "alt_id": "admin/locations",
+        "alt_id": "locations",
         "name": "menu.admin.locations"
     }
 ]

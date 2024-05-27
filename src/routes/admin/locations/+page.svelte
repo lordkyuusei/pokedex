@@ -15,18 +15,12 @@
 			)
 		: null;
 
-	const setLocation = (
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement },
-		location: LocationNode
-	) => {
+	const setLocation = (location: LocationNode) => {
 		selectedLocation = location;
 		selectedArea = selectedLocation.areas[0];
 	};
 
-	const setArea = (
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement },
-		location: LocationArea
-	) => {
+	const setArea = (location: LocationArea) => {
 		selectedArea = location;
 	};
 
@@ -65,7 +59,7 @@
 								<button
 									class:completed={location.areas.every((a) => a.coords.length)}
 									class:selected={selectedLocation?.id === location.id}
-									on:click={(event) => setLocation(event, location)}>{location.id}</button
+									on:click={() => setLocation(location)}>{location.id}</button
 								>
 							</li>
 						{/each}
@@ -83,7 +77,7 @@
 						<button
 							class:completed={area.coords.length}
 							class:selected={selectedArea?.id === area.id}
-							on:click={(event) => setArea(event, area)}>{area.name} ({area.i18nName?.fr})</button
+							on:click={() => setArea(area)}>{area.name} ({area.i18nName?.fr})</button
 						>
 					</li>
 				{/each}
@@ -92,14 +86,7 @@
 				<Map
 					version={$version}
 					on:coords={async (event) => await saveCoords(event)}
-					topLeftX={selectedArea.coords[0] ?? 72}
-					topLeftY={selectedArea.coords[1] ?? 48}
-					topRightX={selectedArea.coords[2] ?? 80}
-					topRightY={selectedArea.coords[3] ?? 48}
-					botRightX={selectedArea.coords[4] ?? 80}
-					botRightY={selectedArea.coords[5] ?? 56}
-					botLeftX={selectedArea.coords[6] ?? 72}
-					botLeftY={selectedArea.coords[7] ?? 56}
+					coordinates={selectedArea.coords}
 				></Map>
 			{/if}
 		{:else}
