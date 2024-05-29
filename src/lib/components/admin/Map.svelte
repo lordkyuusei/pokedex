@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { getGamesMaps } from '$lib/functions/getGamesMaps';
-	import { saveStatus } from '$lib/store/save';
 
+	import { saveStatus } from '$lib/store/save';
+	import { getGamesMaps } from '$lib/functions/getGamesMaps';
 	import { DEFAULT_MAP_COORDINATES, MAPS_CONFIG } from '$lib/constants/mapsConfig';
 
 	export let coordinates: number[] = [];
@@ -13,17 +13,13 @@
 	let copyButton: HTMLButtonElement;
 	let pasteButton: HTMLButtonElement;
 	let forceRectangle: boolean = true;
-	let circleHintRef: SVGCircleElement;
 	let dispatch = createEventDispatcher();
 
-	$: coordinates = coordinates.length > 0 ? coordinates : DEFAULT_MAP_COORDINATES;
-	$: mapName = MAPS_NAMES.find((map) => map.includes(version)) || version;
 	$: mapConfig = MAPS_CONFIG[mapName];
-
+	$: mapName = MAPS_NAMES.find((map) => map.includes(version)) || version;
+	$: coordinates = coordinates.length > 0 ? coordinates : DEFAULT_MAP_COORDINATES;
 	$: coordsAsPoints = coordinates
-		.reduce((acc, coord, index) => {
-			return `${acc}${index % 2 === 0 ? `${coord},` : `${coord} `}`;
-		}, '')
+		.reduce((acc, coord, index) => `${acc}${index % 2 === 0 ? `${coord},` : `${coord} `}`, '')
 		.slice(0, -1);
 
 	const copyCoordsToClipboard = async () => {
@@ -46,14 +42,6 @@
 		});
 	};
 
-	/* 0   1   2   3   4   5   6   7
-	 * TLX TLY TRX TRY BRX BRY BLX BLY
-	 * Top left => Top right => Bot right => Bot left
-	 * X => Y
-	 *
-	 * Mapping in square shape
-	 * 0 => 6; 1 => 3; 2 => 4; 3 => 1; 4 => 2; 5 => 7; 6 => 0; 7 => 5;
-	 */
 	const getMatchingPairsFromIndex = (index: number) =>
 		[
 			[0, 6],
@@ -73,11 +61,6 @@
 		const index = parseInt(id.split('_')[1]);
 		const [updated, toUpdate] = getMatchingPairsFromIndex(index);
 		coordinates[toUpdate] = coordinates[updated];
-
-		const circleHintX = index % 2 === 0 ? index : index - 1;
-		const circleHintY = circleHintX + 1;
-		circleHintRef.setAttribute('cx', coordinates[circleHintX].toString());
-		circleHintRef.setAttribute('cy', coordinates[circleHintY].toString());
 
 		coordinates = coordinates;
 	};
@@ -102,17 +85,31 @@
 
 	const changeZoom = (event: WheelEvent & { currentTarget: EventTarget & SVGSVGElement }) => {
 		const [MAX_ZOOM, MIN_ZOOM] = [10, 1];
+		const { style } = event.currentTarget;
 
 		const isZoomingIn = event.deltaY < 0;
-		const currentZoomLevel = parseInt(
-			event.currentTarget.style.getPropertyValue('--zoom') || MIN_ZOOM
-		);
+		const currentZoomLevel = parseInt(style.getPropertyValue('--zoom') || MIN_ZOOM.toString());
 		const nextZoomLevel = (
 			isZoomingIn
 				? Math.min(MAX_ZOOM, currentZoomLevel + 1)
 				: Math.max(currentZoomLevel - 1, MIN_ZOOM)
 		).toString();
-		event.currentTarget.style.setProperty('--zoom', nextZoomLevel);
+		style.setProperty('--zoom', nextZoomLevel);
+	};
+
+	const getDetails = (index: number) => {
+		const isAbscissa = index % 2 === 0;
+		const pointNbr = Math.floor((index / 4) * 2) + 1;
+		const gridColumn = ((pointNbr - 1) % 2) + 1;
+		const headerGridRow = Math.floor(index / 4) * 3 + 1;
+		const valuesGridRow = headerGridRow + (isAbscissa ? 1 : 2);
+		return {
+			isAbscissa,
+			pointNbr,
+			gridColumn,
+			headerGridRow,
+			valuesGridRow
+		};
 	};
 </script>
 
@@ -125,30 +122,28 @@
 	>
 		<image href="/maps/{mapName}.png"></image>
 		<polygon id="victory-road" points={coordsAsPoints}></polygon>
-		<circle bind:this={circleHintRef} r="2"></circle>
 	</svg>
 	<div class="range-grid">
 		{#each coordinates as coord, i}
-			{@const isX = i % 2 === 0}
-			{@const point = Math.floor((i / 4) * 2 + 1)}
-			{@const column = ((point - 1) % 2) + 1}
-			{@const headingRow = Math.floor(i / 4) * 3 + 1}
-			{@const row = isX ? headingRow + 1 : headingRow + 2}
+			{@const helper = getDetails(i)}
 
 			{#if i % 4 === 0}
-				<div class="heading" style="grid-area: {headingRow} / 1 / {headingRow} / span 2">
-					<h1>Point N°{point}</h1>
-					<h1>Point N°{point + 1}</h1>
+				<div
+					class="heading"
+					style="grid-area: {helper.headerGridRow} / 1 / {helper.headerGridRow} / span 2"
+				>
+					<h1>Point N°{helper.pointNbr}</h1>
+					<h1>Point N°{helper.pointNbr + 1}</h1>
 				</div>
 			{/if}
-			<div class="values" style="grid-area: {row} / {column}">
-				<label for="point_{i}">{isX ? 'X:' : 'Y:'}{coord}</label>
+			<div class="values" style="grid-area: {helper.valuesGridRow} / {helper.gridColumn}">
+				<label for="point_{i}">{helper.isAbscissa ? 'X' : 'Y'}: {coord}</label>
 				<input
 					id="point_{i}"
 					type="range"
 					step={mapConfig.step}
 					min="0"
-					max={isX ? mapConfig.viewBoxX : mapConfig.viewBoxY}
+					max={helper.isAbscissa ? mapConfig.viewBoxX : mapConfig.viewBoxY}
 					bind:value={coord}
 					on:input={updatePair}
 					on:wheel|stopPropagation|preventDefault={triggerUpdate}
@@ -175,7 +170,7 @@
 	section {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		grid-template-rows: repeat(10, auto);
+		grid-template-rows: repeat(5, auto);
 		gap: 1rem;
 		padding: var(--small-gap);
 
@@ -211,6 +206,8 @@
 		grid-template-columns: 1fr 1fr;
 		grid-auto-rows: 2rem;
 		column-gap: var(--small-gap);
+		max-height: calc(50svh - var(--small-gap));
+		overflow-y: auto;
 
 		& > .heading {
 			display: flex;
@@ -258,16 +255,11 @@
 		image-rendering: pixelated;
 	}
 
-	polygon,
-	circle {
-		fill: var(--secondary-color);
+	polygon {
+		fill: red;
 		opacity: 0.75;
 		cursor: pointer;
 		animation: blink 0.75s cubic-bezier(1, 0, 0, 1) infinite;
-	}
-
-	circle {
-		fill: var(--primary-color);
 	}
 
 	@keyframes blink {
