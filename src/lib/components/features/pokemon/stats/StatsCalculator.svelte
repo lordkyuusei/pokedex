@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { beforeUpdate, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	import {
 		MAX_CUMULATIVE_EVS,
@@ -55,8 +55,8 @@
 			id === 1
 				? MAX_CUMULATIVE_STATS_POINTS_GEN1
 				: id === 2
-				? MAX_CUMULATIVE_STATS_POINTS_GEN2
-				: MAX_CUMULATIVE_EVS
+					? MAX_CUMULATIVE_STATS_POINTS_GEN2
+					: MAX_CUMULATIVE_EVS
 	});
 
 	$: config$ = updateConfigOnGenerationChange($generation.id);
@@ -95,8 +95,8 @@
 		const newValue = value / 2;
 		const newAngle = Math.atan2(maxY - config$.defaultSize / 2, maxX - config$.defaultSize / 2);
 
-		const newX = config$.defaultSize / 2 + newValue * Math.cos(newAngle);
-		const newY = config$.defaultSize / 2 + newValue * Math.sin(newAngle);
+		const newX = (config$.defaultSize - 2) / 2 + newValue * Math.cos(newAngle);
+		const newY = (config$.defaultSize - 2) / 2 + newValue * Math.sin(newAngle);
 
 		smallPolygon.points[angle].x = newX;
 		smallPolygon.points[angle].y = newY;
@@ -110,13 +110,13 @@
 	});
 </script>
 
-<aside id="stats-modifiers">
-	<label for="lvl">Niveau</label>
-	<input style="width: 100%" type="number" bind:value={lvl} min="1" max="100" />
-	<label for="ivs">{config$.isOldGen ? 'DV à 15' : 'IV à 31'}</label>
-	<Switch event="ivs" icon="training" on:ivs={(e) => (ivs = e.detail.ivs)} />
-</aside>
 <section id="stats-calculator" style="grid-area: graph">
+	<aside id="stats-modifiers">
+		<label for="lvl">Niveau</label>
+		<input style="width: 100%" type="number" bind:value={lvl} min="1" max="100" />
+		<label for="ivs">{config$.isOldGen ? 'DV à 15' : 'IV à 31'}</label>
+		<Switch event="ivs" icon="training" on:ivs={(e) => (ivs = e.detail.ivs)} />
+	</aside>
 	<div id="calculator-ui">
 		<svg id="polygon-holder" viewBox="0 0 {config$.defaultSize} {config$.defaultSize}">
 			<polygon
@@ -234,40 +234,39 @@
 				updatePolygonPoint(evDef, 5);
 			}}
 		/>
+		<button id="value-ev-pv"><span>P.V.</span><em>{HP}</em></button>
+		<button
+			id="value-ev-atk"
+			class:minus={natures[0] === 0.9}
+			class:major={natures[0] === 1.1}
+			on:click={() => setNature(0)}><span>Attaque</span><em>{ATK}</em></button
+		>
+		<button
+			id="value-ev-atkspe"
+			class:minus={natures[1] === 0.9}
+			class:major={natures[1] === 1.1}
+			on:click={() => setNature(1)}><span>Att. Spé.</span><em>{ATKSPE}</em></button
+		>
+		<button
+			id="value-ev-spe"
+			class:minus={natures[2] === 0.9}
+			class:major={natures[2] === 1.1}
+			on:click={() => setNature(2)}><span>Vitesse</span><em>{SPE}</em></button
+		>
+		<button
+			id="value-ev-defspe"
+			class:minus={natures[3] === 0.9}
+			class:major={natures[3] === 1.1}
+			on:click={() => setNature(3)}><span>Déf. Spé.</span><em>{DEFSPE}</em></button
+		>
+		<button
+			id="value-ev-def"
+			class:minus={natures[4] === 0.9}
+			class:major={natures[4] === 1.1}
+			on:click={() => setNature(4)}><span>Défense</span><em>{DEF}</em></button
+		>
 	</div>
-	<button id="value-ev-pv"><span>P.V.</span><em>{HP}</em></button>
-	<button
-		id="value-ev-atk"
-		class:minus={natures[0] === 0.9}
-		class:major={natures[0] === 1.1}
-		on:click={() => setNature(0)}><span>Attaque</span><em>{ATK}</em></button
-	>
-	<button
-		id="value-ev-atkspe"
-		class:minus={natures[1] === 0.9}
-		class:major={natures[1] === 1.1}
-		on:click={() => setNature(1)}><span>Att. Spé.</span><em>{ATKSPE}</em></button
-	>
-	<button
-		id="value-ev-spe"
-		class:minus={natures[2] === 0.9}
-		class:major={natures[2] === 1.1}
-		on:click={() => setNature(2)}><span>Vitesse</span><em>{SPE}</em></button
-	>
-	<button
-		id="value-ev-defspe"
-		class:minus={natures[3] === 0.9}
-		class:major={natures[3] === 1.1}
-		on:click={() => setNature(3)}><span>Déf. Spé.</span><em>{DEFSPE}</em></button
-	>
-	<button
-		id="value-ev-def"
-		class:minus={natures[4] === 0.9}
-		class:major={natures[4] === 1.1}
-		on:click={() => setNature(4)}><span>Défense</span><em>{DEF}</em></button
-	>
 </section>
-<div id="statistics-switch" />
 
 <style>
 	.basic-stroke {
@@ -282,149 +281,132 @@
 		color: var(--third-color);
 	}
 
-	#stats-modifiers {
-		grid-area: modifiers;
-		height: 100%;
-		display: grid;
-		align-content: center;
-		justify-items: center;
-		gap: 0.5em;
-	}
-
 	#stats-calculator {
 		position: relative;
 		width: 100%;
 		aspect-ratio: 1;
 
 		display: grid;
-		place-content: center;
-		place-items: center;
-	}
-
-	#stats-calculator #calculator-ui,
-	#stats-calculator #calculator-ui > svg {
-		position: relative;
-		height: 100%;
-		width: 100%;
-	}
-
-	#stats-calculator > #calculator-ui > svg [id$='-poly'] {
-		stroke-width: 1;
-		stroke: var(--text-color);
-	}
-
-	#stats-calculator > #calculator-ui > svg #big-poly {
-		fill: var(--background-accent);
-	}
-
-	#stats-calculator > #calculator-ui > svg #small-poly {
-		fill: var(--primary-color);
-	}
-
-	#stats-calculator > #calculator-ui [id^='slider'] {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		height: 1px;
-		width: calc(50% - 1px);
-		margin: 0;
-		padding: 0;
-		outline: none;
-		appearance: none;
-		background: var(--text-color);
-		transform-origin: left;
-	}
-
-	#stats-calculator > #calculator-ui [id^='slider']::-webkit-slider-thumb {
-		appearance: none;
-		background-color: var(--background-secondary);
-		height: 0.75em;
-		cursor: pointer;
-		border-radius: var(--border-r-50);
-		aspect-ratio: 1;
-	}
-
-	#stats-calculator > #calculator-ui [id^='slider']::before {
-		content: attr(data-value);
-		position: absolute;
-		left: calc(50%);
-	}
-
-	#stats-calculator [id^='value'] {
-		appearance: none;
-		border: none;
-		background: none;
-		position: absolute;
-		display: grid;
-		grid-template-rows: 1fr 1fr;
 		align-items: center;
-		cursor: pointer;
-	}
+		grid-template: 'modifiers calculator' 100% / min-content auto;
 
-	#stats-calculator [id^='value'] > *:not(span) {
-		color: var(--primary-color);
-	}
+		& > #stats-modifiers {
+			grid-area: modifiers;
 
-	#stats-calculator #value-ev-pv,
-	#stats-calculator #value-ev-spe {
-		justify-content: items;
-	}
+			height: 100%;
+			display: grid;
+			align-content: center;
+			gap: var(--small-gap);
+			padding-inline: var(--small-gap);
+		}
 
-	#stats-calculator #value-ev-atk,
-	#stats-calculator #value-ev-atkspe {
-		right: 0;
-		justify-items: left;
-	}
+		& > #calculator-ui {
+			grid-area: calculator;
 
-	#stats-calculator #value-ev-def,
-	#stats-calculator #value-ev-defspe {
-		left: 0;
-		justify-items: right;
-	}
+			display: grid;
+			grid-template:
+				". pv-text ." 25%
+				"def-text graph atk-text" 25%
+				"spd-text graph spa-text" 25%
+				". spe-text ." 25% / 1fr 3fr 1fr;
 
-	#stats-calculator #value-ev-pv {
-		top: 0.75em;
-	}
+			place-items: center;
 
-	#stats-calculator #value-ev-atk,
-	#stats-calculator #value-ev-def {
-		top: 25%;
-	}
+			& > svg {
+				grid-area: graph;
 
-	#stats-calculator #value-ev-atkspe,
-	#stats-calculator #value-ev-defspe {
-		bottom: 25%;
-	}
+				& > [id$='-poly'] {
+					stroke-width: 1;
+					stroke: var(--text-color);
+				}
 
-	#stats-calculator #value-ev-spe {
-		bottom: 0.75em;
-	}
+				& > #big-poly {
+					fill: var(--background-color-_);
+				}
 
-	#slider-ev-pv {
-		transform: rotate(270deg);
-	}
+				& > #small-poly {
+					fill: var(--primary-color);
+				}
+			}
 
-	#slider-ev-atk {
-		transform: rotate(-29deg);
-	}
+			& > input[id^='slider'] {
+				grid-area: graph;
+				height: 1px;
+				width: 50%;
+				margin: 0;
+				padding: 0;
+				z-index: 4;
+				transform-origin: center;
+				background: var(--text-color);
 
-	#slider-ev-speatk {
-		transform: rotate(29deg);
-	}
+				&#slider-ev-pv {
+					transform: rotate(270deg) translateX(50%);
+				}
 
-	#slider-ev-spe {
-		transform: rotate(90deg);
-	}
+				&#slider-ev-atk {
+					transform: rotate(-29deg) translateX(50%);
+				}
 
-	:is(#slider-ev-spe, #slider-ev-spedef, #slider-ev-def)::before {
-		transform: rotate(-180deg);
-	}
+				&#slider-ev-speatk {
+					transform: rotate(29deg) translateX(50%);
+				}
 
-	#slider-ev-spedef {
-		transform: rotate(151deg);
-	}
+				&#slider-ev-spe {
+					transform: rotate(90deg) translateX(50%);
+				}
 
-	#slider-ev-def {
-		transform: rotate(209deg);
+				&#slider-ev-spedef {
+					transform: rotate(151deg) translateX(50%);
+				}
+
+				&#slider-ev-def {
+					transform: rotate(209deg) translateX(50%);
+				}
+			}
+
+			& > button[id^='value'] {
+				appearance: none;
+				display: grid;
+				align-items: center;
+				cursor: pointer;
+
+				& > *:not(span) {
+					color: var(--primary-color);
+				}
+
+				&[id$="-ev-pv"] {
+					grid-area: pv-text;
+					justify-content: center;
+					color: red;
+				}
+
+				&[id$="-ev-atk"] {
+					grid-area: atk-text;
+					justify-items: left;
+				}
+
+				&[id$="-ev-atkspe"] {
+					grid-area: spa-text;
+					justify-items: left;
+				}
+
+				&[id$="-ev-spe"] {
+					grid-area: spe-text;
+					justify-content: center;
+				}
+
+				&[id$="-ev-defspe"] {
+					grid-area: spd-text;
+					justify-items: right;
+				}
+
+				&[id$="-ev-def"] {
+					grid-area: def-text;
+					justify-items: right;
+				}
+
+
+			}
+		}
 	}
 </style>

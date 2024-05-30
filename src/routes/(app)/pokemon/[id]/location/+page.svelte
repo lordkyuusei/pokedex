@@ -4,11 +4,15 @@
 	import type { PageData } from './$types';
 	import { version } from '$lib/store/generation';
 	import type { PokemonLocationArea } from '$lib/types/pokeapi/location-area';
+	import { getGamesMaps } from '$lib/functions/getGamesMaps';
 
 	export let data: PageData;
 
+	const MAPS_NAMES = getGamesMaps();
+
 	$: rawLocations = extractLocations(data.location);
 	$: locations = rawLocations.filter((l) => $version.includes(l.version));
+	$: mapName = MAPS_NAMES.find((map) => map.includes($version));
 
 	const extractLocations = (locations: PokemonLocationArea[]) => {
 		const versions = [
@@ -49,65 +53,86 @@
 </script>
 
 <section id="data-location">
-	<section id="location">
-		<section id="location-map">
-			<img src="/maps/{$version}.png" alt={$version} />
-		</section>
-		<section id="location-details">
-			{#if locations.length}
-				{#each locations as locationGroup}
-					<h1>{locationGroup.version}</h1>
-					{#each locationGroup.locations as location}
-						<li>{location.location} - {location.chances}%</li>
-						<ul>
-							{#each location.conditions as condition}
-								<li>
-									{condition.method.name} | {condition.chance}% chances, lvl[{condition.min_level} /
-									{condition.max_level}]
-								</li>
-								{#if condition.condition_values.length}
-									<ul>
-										<li>only if {condition.condition_values.map((val) => val.name)}</li>
-									</ul>
+	<div
+		id="location"
+		style={`background-image: url("/maps/${mapName}.png"); background-size: cover; background-blend-mode: overlay`}
+	>
+		{#if locations.length}
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="3">Lieu</th>
+						<th colspan="14">Détails(%,méthode,niveau)</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each locations as locationGroup}
+						{#each locationGroup.locations as location, i}
+							<tr>
+								{#if i === 0}
+									<td colspan="3" rowspan={locationGroup.locations.length}>
+										{locationGroup.version}
+									</td>
 								{/if}
-							{/each}
-						</ul>
+								<td colspan="3">
+									{location.location}
+								</td>
+								<td colspan="12">
+									{#each location.conditions as condition}
+										{condition.chance}% {condition.method.name} lvl[{condition.min_level ===
+										condition.max_level
+											? condition.max_level
+											: `${condition.min_level}/${condition.max_level}`}]
+										{#if condition.condition_values.length}
+											({condition.condition_values.map((val) => val.name)})
+										{:else}
+											(all-the-time)
+										{/if}
+										<br />
+									{/each}
+								</td>
+							</tr>
+						{/each}
 					{/each}
-				{/each}
-			{:else}
-				<li>no location / (trade/import) only.</li>
-			{/if}
-		</section>
-	</section>
+				</tbody>
+			</table>
+		{:else}
+			<li>no location / (trade/import/evolve) only.</li>
+		{/if}
+	</div>
 </section>
 
 <style>
 	#data-location {
-		padding: 2em;
-		height: 100%;
-		overflow: auto;
+		padding: var(--small-gap);
+
+		& > #location {
+			display: grid;
+			place-items: center;
+			overflow: auto;
+
+			height: 100%;
+			border-radius: var(--border-r-200);
+			background-color: var(--background-color-___);
+			box-shadow: var(--box-shadow);
+
+			& > table thead {
+				text-align: center;
+			}
+			& > table td {
+				text-align-last: justify;
+			}
+		}
 	}
 
-	#data-location > #location {
-		display: grid;
-		grid-template: 'location-map location-details' 100% / 2fr 1fr;
+	@media (max-width: 640px) {
+		#data-location {
+			padding: 0;
+		}
 
-		height: 100%;
-		width: 100%;
-		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 5px var(--background-secondary);
-		overflow: auto;
-	}
-
-	#data-location > #location > #location-map {
-		height: 100%;
-		width: 100%;
-		overflow: auto;
-	}
-
-	#data-location > #location > #location-map img {
-		height: 100%;
-		image-rendering: pixelated;
+		#data-location > #location {
+			border-radius: 0;
+		}
 	}
 </style>

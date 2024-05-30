@@ -17,8 +17,8 @@
 		place-items: center;
 		place-content: center;
 		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 2px var(--background-alt-color);
+		background-color: var(--background-color-___);
+		box-shadow: var(--box-shadow);
 		width: 100%;
 	}
 
@@ -27,7 +27,6 @@
 
 		width: 3rem;
 		border-radius: var(--border-r-200);
-		box-shadow: 0 0 5px 2px var(--background-color);
 	}
 
 	p {

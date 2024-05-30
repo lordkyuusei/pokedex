@@ -47,7 +47,7 @@
 	}
 
 	.section-1-rows {
-		height: 12%;
+		height: 25%;
 	}
 
 	.section-2-rows {
@@ -75,8 +75,7 @@
 	}
 
 	.trigger-separator {
-		border: 1px solid var(--text-color);
-		background-color: var(--text-color);
+		background-color: var(--background-color-___);
 	}
 
 	.trigger-list {
@@ -92,7 +91,7 @@
 	}
 
 	.selected {
-		background-color: var(--text-color);
-		color: var(--background-accent);
+		background-color: var(--background-color-___);
+		color: var(--background-color-__);
 	}
 </style>

@@ -1,8 +1,8 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { afterUpdate, onDestroy, onMount } from 'svelte';
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -13,53 +13,65 @@
 	import { generation } from '$lib/store/generation';
 
 	import Book from '$lib/components/common/Book.svelte';
-	import { device } from '$lib/store/device';
+	import { deviceWidth } from '$lib/store/device';
+	import { DEFAULT_LEFT_BOUNDARY } from '$lib/constants/global';
 
 	export let data: PageServerData;
 
+	let ref: Element;
 	let target: Element;
 	let observer: IntersectionObserver;
 
-	$: interval = $device === 'desktop' ? 10 : $device === 'tablet' ? 5 : 3;
+	$: interval = Math.ceil($deviceWidth / 125);
 
 	$: leftBoundary = $generation?.boundaries.from;
 	$: rightBoundary = $generation?.boundaries.to;
 
-	$: if (browser) {
-		goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + 42}`);
-	}
+	$: navigateOnGenerationChange(leftBoundary);
+
+	const navigateOnGenerationChange = async (leftBoundary: number) =>
+		browser && (await goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + interval}`));
 
 	onMount(() => {
-		observer = new IntersectionObserver(async (entries, observers) => {
+		observer = new IntersectionObserver(async (entries, _) => {
 			const { intersectionRatio, target } = entries[0];
 			if (intersectionRatio > 0) {
 				observer.unobserve(target);
-				const currentTo = parseInt($page.url.searchParams.get('to'));
-				if (currentTo < rightBoundary) {
-					const nextTo = Math.min(parseInt(currentTo) + interval, rightBoundary + interval);
+
+				const currentTo = parseInt($page.url.searchParams.get('to') ?? DEFAULT_LEFT_BOUNDARY);
+				if (leftBoundary >= currentTo) {
+					await goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + interval}`);
+				} else if (currentTo + interval <= rightBoundary) {
+					const nextTo = Math.min(currentTo + interval, rightBoundary + interval);
 					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
-				} else if (currentTo > rightBoundary) {
-					const nextTo = leftBoundary + 42;
-					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
+				} else {
+					await goto(`/pokedex?from=${leftBoundary}&to=${rightBoundary}`);
 				}
 			}
 		});
 	});
 
-	afterUpdate(() => {
-		if (data.pokemonList.length) {
-			const { id } = data.pokemonList[data.pokemonList.length - 1];
-			target = document.querySelector(`#book-${id}`);
+	afterUpdate(async () => {
+		if (data.pokemonList.length && ref) {
+			target = ref;
 			observer.observe(target);
 		}
+	});
+
+	onDestroy(() => {
+		observer?.disconnect();
 	});
 </script>
 
 <section id="pokedex">
-	{#each data.pokemonList as pokemon (pokemon._id)}
-		<a href="/pokemon/{pokemon.id}" transition:fly|local>
+	{#each data.pokemonList as pokemon, index (pokemon._id)}
+		<a href="/pokemon/{pokemon.id}/stats" transition:fly|local>
 			<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
-			<span id="{pokemon.id}-shelf" />
+			{#if index + 1 === data.pokemonList.length}
+				<span bind:this={ref} id="{pokemon.id}-shelf" />
+			{:else}
+				<span id="{pokemon.id}-shelf" />
+			{/if}
 		</a>
 	{/each}
 </section>
@@ -74,11 +86,14 @@
 		align-items: flex-end;
 		width: 100%;
 		height: 100%;
-		padding-block: 1em;
-		padding-inline: 4em;
+		padding: 1em 1.5rem;
 
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
+
+		& > a {
+			padding: 0;
+		}
 	}
 
 	[id$='-shelf'] {
@@ -86,7 +101,7 @@
 		width: calc(100% + 0.5em);
 		transform: translateX(-0.25em);
 		height: 1em;
-		background-color: var(--background-accent);
+		background-color: var(--background-color-__);
 	}
 
 	@media (max-width: 640px) {

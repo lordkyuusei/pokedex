@@ -11,7 +11,16 @@
 
 <style>
 	#data-evolution {
-		padding: 2em;
-		height: 100%;
+		padding: var(--small-gap);
+	}
+
+	@media (max-width: 640px) {
+		#data-evolution {
+			padding: 0;
+		}
+
+		#data-evolution > #evolution {
+			border-radius: 0;
+		}
 	}
 </style>

@@ -1,13 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/store/theme';
+	import { browser } from '$app/environment';
 
 	const prefersDark = '(prefers-color-scheme: dark)';
 	const prefersLight = '(prefers-color-scheme: light)';
 
 	$: isChecked = $theme === 'moon';
 
-	const setTheme = () => ($theme = $theme === 'moon' ? 'sun' : 'moon');
+	const setTheme = () => {
+		$theme = $theme === 'moon' ? 'sun' : 'moon';
+		if (browser) {
+			localStorage.setItem('themePreference', $theme);
+		}
+	};
 
 	onMount(() => {
 		const mapColorSchemeToTheme: Array<{ match: boolean; theme: Theme }> = [
@@ -15,83 +21,91 @@
 			{ match: window.matchMedia(prefersLight).matches, theme: 'sun' }
 		];
 
-		const match = mapColorSchemeToTheme.find((x) => x.match === true);
-		if (match) {
-			$theme = match.theme;
-		}
+		const themePreference = mapColorSchemeToTheme.find((x) => x.match === true);
+		const setThemePreference: Theme =
+			(localStorage.getItem('themePreference') as Theme) ?? themePreference?.theme ?? 'moon';
+
+		$theme = setThemePreference;
 	});
 </script>
 
 <label for="pokedex-theme-toggle" class="pokedex-theme">
 	<input
+		type="checkbox"
 		id="pokedex-theme-toggle"
 		title="Toggle dark / light mode"
 		aria-label="Toggle dark / light mode"
-		type="checkbox"
-		class="theme-switch"
-		bind:checked={isChecked}
+		class="theme-input"
 		on:click={setTheme}
+		bind:checked={isChecked}
 	/>
-	<section class="theme-visual">
-		<span class="theme-toggle" class:toggle-check={isChecked} />
-		<span class="theme-image" class:image-check={isChecked} />
-	</section>
+	<span class="theme-toggle" class:toggle-check={isChecked} />
+	<span class="theme-image" class:image-check={isChecked} />
 </label>
 
 <style>
 	.pokedex-theme {
-		position: relative;
-		display: block;
-		height: 2em;
-		width: 4em;
+		height: 2rem;
+		aspect-ratio: 2 / 1;
 		border-radius: var(--border-r-50);
-		background-color: var(--background-alt-color);
+		background-color: var(--background-color-__);
+		display: grid;
+		grid-template: 100% / 1fr;
+		padding: calc(var(--smallest-gap) / 2);
+
+		& > .theme-input {
+			grid-area: 1 / 1;
+			appearance: none;
+			border: 0;
+		}
+
+		& > .theme-toggle, & > .theme-image {
+			grid-area: 1 / 1;
+			height: 100%;
+			aspect-ratio: 1;
+			transition: all var(--transition-duration) var(--transition-function);
+		}
+
+		& > .theme-toggle {
+			cursor: pointer;
+			border-radius: var(--border-r-50);
+			background-color: var(--background-color-_);
+
+			&.toggle-check {
+				transform: translateX(calc(100% + var(--smallest-gap)));
+			}
+
+			&:hover {
+				scale: 0.9;
+			}
+		}
+
+		& > .theme-image {
+			background: url('/moon.png') no-repeat center/90%;
+
+			&:not(.image-check) {
+				background: url('/sun.png') no-repeat center/90%;
+				transform: translateX(calc(100% + var(--smallest-gap)));
+			}
+		}
 	}
-	.theme-switch {
-		position: absolute;
-		opacity: 0;
-		top: 0;
-		left: 0;
-		width: calc(100% - 0.5em);
-	}
-	.theme-visual {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-	.theme-visual > .theme-toggle {
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		height: calc(2em - 4px);
-		width: calc(2em - 4px);
-		background-color: var(--background-color);
-		border-radius: var(--border-r-50);
-		transition: all 0.2s ease-out;
-		z-index: 2;
-		cursor: pointer;
-	}
-	.theme-visual > .theme-toggle:hover {
-		transform: scale(0.9);
-	}
-	.theme-visual > .theme-toggle.toggle-check {
-		transform: translateX(2em);
-		transition: all 0.2s ease-out;
-	}
-	.theme-visual > .theme-image {
-		position: absolute;
-		top: 1px;
-		right: 2px;
-		height: calc(2em - 4px);
-		width: calc(2em - 4px);
-		background: url('/sun.png') no-repeat center/90%;
-		transition: all 0.2s ease-out;
-	}
-	.theme-visual > .theme-image.image-check {
-		background: url('/moon.png') no-repeat center/90%;
-		transform: translateX(-2em);
-		transition: all 0.2s ease-out;
+
+	@media (max-width: 640px) {
+		.pokedex-theme {
+			aspect-ratio: 1;
+			overflow: hidden;
+		}
+
+		.theme-toggle {
+			display: none;
+		}
+
+		.theme-image {
+			cursor: pointer;
+		}
+
+		.theme-image:not(.image-check) {
+			transform: translateX(0) !important;
+		}
 	}
 </style>

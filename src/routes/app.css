@@ -1,0 +1,158 @@
+:root {
+    --border-r-50: 0.75rem;
+    --border-r-100: 1.5rem;
+    --border-r-200: 3rem;
+
+    --smallest-gap: 0.25em;
+    --smaller-gap: 0.5em;
+    --small-gap: 1em;
+    --normal-gap: 2em;
+    --large-gap: 4em;
+
+    --app-width: 100svw;
+    --width-unit: calc(var(--app-width) / 12);
+    --app-navigation-width: calc(var(--width-unit) * 1);
+    --app-content-width: calc(var(--app-width) - var(--app-navigation-width));
+
+    --app-height: 100svh;
+    --layout-header-size: 10svh;
+    --layout-nav-size: calc(var(--app-height) - calc(var(--layout-header-size) * 2));
+    --layout-content-size: calc(var(--app-height) - var(--layout-header-size));
+
+    --layout-id-size: calc(var(--layout-header-size) - 2svh);
+    --layout-pokemon-with-forms-size: calc(var(--layout-content-size) - var(--layout-header-size) - var(--layout-id-size));
+    --layout-pokemon-solo-size: calc(var(--layout-content-size) - var(--layout-id-size));
+
+    --transition-duration: 0.2s;
+    --transition-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Arial;
+    font-size: clamp(0.75rem, 0.75rem + 0.225vw, 1.25rem);
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    min-height: 100svh;
+    overflow: hidden;
+}
+
+@media (max-width: 640px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@font-face {
+    font-family: "Pokemon";
+    src: url("/fonts/ThraexSansRegular-v1000.ttf");
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    border: 1px solid var(--background-color-_);
+    background-color: var(--background-color-__);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a,
+button {
+    cursor: pointer;
+    color: var(--text-color);
+    border-radius: var(--border-r-50);
+    border: 1px solid var(--background-secondary);
+    background-color: var(--background-color-__);
+    transition: all var(--transition-duration) var(--transition-function);
+}
+
+a.round,
+button.round {
+    border-radius: var(--border-r-200);
+}
+
+button {
+    padding: var(--smaller-gap) var(--small-gap);
+}
+
+a:hover,
+button:hover {
+    background-color: var(--background-color-_);
+}
+
+menu,
+ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table th {
+    font-weight: lighter;
+}
+
+table td {
+    border: none;
+}
+
+table tr:hover td {
+    font-weight: bolder;
+    background-color: var(--background-color-_);
+    cursor: pointer;
+}
+
+table thead tr {
+    background-color: var(--background-color-_);
+}
+
+table tr:nth-child(2n) td {
+    background-color: var(--background-color-__);
+}
+
+table tr:nth-child(2n + 1) td {
+    background-color: var(--background-color-___);
+}
+
+em {
+    font-weight: bold;
+    color: var(--primary-color)
+}
+
+img.img-error {
+    height: 100%;
+    aspect-ratio: 1;
+    object-position: 0 !important;
+}
+
+::-webkit-scrollbar {
+    margin-left: 1.5rem;
+    float: left;
+    height: 0.25rem;
+    width: 0.25rem;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+    border-radius: var(--border-r-50);
+}

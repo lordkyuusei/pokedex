@@ -4,6 +4,8 @@ import type { Generation } from "$lib/types/generation";
 import type { Lightkemon } from "$lib/types/lightkemon";
 import type { LightMove } from "$lib/types/lightmove";
 import type { Ability } from "$lib/types/abilitiy";
+import type { Location } from "$lib/types/location";
+import type { Model } from "mongoose";
 
 const { Schema } = db;
 
@@ -96,7 +98,34 @@ const lightabilitiesSchema = new Schema<Ability>({
     }
 })
 
-export const lightkedex = db.model('lightkedex', lightkemonSchema);
-export const lightmoves = db.model('lightmoves', lightmovesSchema);
-export const lightgenerations = db.model('lightgenerations', lightgenerationsSchema);
-export const lightabilities = db.model('lightabilities', lightabilitiesSchema);
+const lightlocationsSchema = new Schema<Location>({
+    name: String,
+    generation: Number,
+    regions: [{
+        name: String,
+        locations: [{
+            id: String,
+            areas: [{
+                id: Number,
+                name: String,
+                coords: Array<Number>,
+                i18nName: { fr: String, en: String }
+            }]
+        }]
+    }]
+}, {
+    query: {
+        getAll() {
+            return this;
+        },
+        getByVersionGroup(versionGroup: string) {
+            return this.where("name").equals(versionGroup)
+        }
+    }
+})
+
+export const lightkedex = db.models.lightkedex || db.model('lightkedex', lightkemonSchema);
+export const lightmoves = db.models.lightmoves || db.model('lightmoves', lightmovesSchema);
+export const lightgenerations = db.models.lightgenerations || db.model('lightgenerations', lightgenerationsSchema);
+export const lightabilities = db.models.lightabilities || db.model('lightabilities', lightabilitiesSchema);
+export const lightlocations = db.models.lightlocations || db.model('lightlocations', lightlocationsSchema);

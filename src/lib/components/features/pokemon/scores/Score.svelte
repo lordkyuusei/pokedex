@@ -1,38 +1,51 @@
 <script lang="ts">
+	import _ from '$lib/store/i18n';
+
 	export let icon: string = '';
 	export let unit: string = '';
 </script>
 
 <div class="score-card">
-	<div class="score-icon">{icon}</div>
+	<header>
+		<span class="score-unit">{$_(`scores.${unit}`)}</span>
+		<span class="score-icon">{icon}</span>
+	</header>
 	<div class="score-value"><slot /></div>
-	<div class="score-unit">{unit}</div>
 </div>
 
 <style>
 	.score-card {
 		height: 100%;
-		padding-left: 1.5em;
 		display: flex;
-		gap: var(--small-gap);
-		align-content: center;
 		flex-direction: column;
-		align-items: flex-start;
+		align-content: center;
 		justify-content: space-evenly;
+		align-items: flex-start;
+		gap: var(--small-gap);
+		padding-inline: var(--small-gap);
+		padding-block: var(--smallest-gap);
+		background: var(--background-color-_);
 		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
-		background: var(--background-accent);
-	}
 
-	.score-icon {
-		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-	}
+		& > header {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
 
-	.score-value {
-		font-size: 1.25em;
-		font-weight: bold;
-	}
-
-	.score-unit {
-		font-size: 0.8em;
+			& > .score-icon {
+				text-shadow:
+					-1px 0 var(--background-color-____),
+					0 1px var(--background-color-____),
+					1px 0 var(--background-color-____),
+					0 -1px var(--background-color-____);
+			}
+			& > .score-unit {
+				font-size: small;
+			}
+		}
+		& > .score-value {
+			font-size: x-large;
+			font-weight: bold;
+		}
 	}
 </style>

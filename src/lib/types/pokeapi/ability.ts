@@ -1,4 +1,4 @@
-import type { EntityRef } from './Pokemon';
+import type { EntityRef } from './pokemon';
 
 export type PokemonAbility = {
     id: string;

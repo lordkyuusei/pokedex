@@ -17,11 +17,11 @@
 	onMount(() => {});
 </script>
 
-<label for="{event}-switch" class="label" class:label-check={checked}>
+<label for="{event}-switch" class="label" class:label-check={checked} title="Toggle {event}">
 	<input
 		id="{event}-switch"
-		title="Toggle {event} mode"
-		aria-label="Toggle {event}- mode"
+		title="Toggle {event}"
+		aria-label="Toggle {event}"
 		type="checkbox"
 		class="switch"
 		class:checked
@@ -44,7 +44,7 @@
 		height: 2em;
 		width: 4em;
 		border-radius: var(--border-r-50);
-		background-color: var(--background-alt-color);
+		background-color: var(--background-color-___);
 	}
 
 	.label.label-check {
@@ -73,15 +73,15 @@
 		left: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		background-color: var(--background-accent);
+		background-color: var(--background-color-_);
 		border-radius: var(--border-r-50);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition-function);
 		z-index: 2;
 		cursor: pointer;
 	}
 
 	.label.label-check > .toggle-visual > .toggle-block {
-		background-color: var(--text-color);
+		background-color: var(--background-color-___);
 	}
 
 	.label > .toggle-visual > .toggle-block:hover {
@@ -90,7 +90,7 @@
 
 	.label > .toggle-visual > .toggle-block.toggle-check {
 		transform: translateX(2em);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition-function);
 	}
 
 	.label > .toggle-visual > .toggle-image {
@@ -99,13 +99,13 @@
 		right: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		transition: all 0.2s ease-out;
-		filter: brightness(0.3) grayscale(1);
+		transition: all var(--transition-duration) var(--transition-function);
+		filter: brightness(0.4);
 	}
 
 	.label > .toggle-visual > .toggle-image.image-check {
 		transform: translateX(-2em);
-		transition: all 0.2s ease-out;
+		transition: all var(--transition-duration) var(--transition-function);
 		filter: none;
 	}
 </style>

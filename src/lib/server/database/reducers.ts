@@ -1,10 +1,11 @@
-import { fetchAbilitiesList, fetchGenerationsList, fetchMovesList, fetchPokemonList } from "$lib/server/api/pokeapiql";
+import { fetchAbilitiesList, fetchGenerationsList, fetchLocationsList, fetchMovesList, fetchPokemonList } from "$lib/server/api/pokeapiql";
 import type { Generation } from "$lib/types/generation";
 import type { LightAbilitiesResults } from "$lib/types/graphql/lightabilities";
 import type { LightGenerationResults } from "$lib/types/graphql/lightgenerations";
+import type { LightLocationsResults } from "$lib/types/graphql/lightlocations";
 import type { LightMoveResults } from "$lib/types/graphql/lightmove";
 import type { LightPokemonResults } from "$lib/types/graphql/lightpokemon";
-import { lightabilities, lightgenerations, lightkedex, lightmoves } from "./schemas";
+import { lightabilities, lightgenerations, lightkedex, lightlocations, lightmoves } from "./schemas";
 
 const parseGenerationsList = (rawGenerationsList: LightGenerationResults): Generation[] => {
     const result: Generation[] = rawGenerationsList.data.pokemon_v2_generation.map(g => ({
@@ -89,6 +90,27 @@ const parseAbilitiesList = (rawAbilitiesList: LightAbilitiesResults) =>
         }, {}),
     }))
 
+const parseLocationsList = (rawLocationsList: LightLocationsResults) =>
+    rawLocationsList.data.pokemon_v2_versiongroup.map(vg => ({
+        name: vg.name,
+        generation: vg.generation_id,
+        regions: vg.pokemon_v2_versiongroupregions.map(r => ({
+            name: r.pokemon_v2_region.name,
+            locations: r.pokemon_v2_region.pokemon_v2_locations.map(l => ({
+                id: l.name,
+                areas: l.pokemon_v2_locationareas.map(a => ({
+                    id: a.id,
+                    name: a.name,
+                    coords: [],
+                    i18nName: a.pokemon_v2_locationareanames.reduce((prev, next) => {
+                        prev[next.pokemon_v2_language.name] = next.name ?? "";
+                        return prev;
+                    }, {}),
+                }))
+            }))
+        }))
+    }));
+
 export const syncGenerationList = async () => {
     try {
         const rawGenerationsList: LightGenerationResults = await fetchGenerationsList();
@@ -147,6 +169,21 @@ export const syncAbilitiesList = async () => {
             .forEach(async (ability) => await ability.save());
 
         return abilitiesList.length;
+    } catch (err) {
+        return false;
+    }
+}
+
+export const syncLocationsList = async () => {
+    try {
+        const rawLocationsList: LightLocationsResults = await fetchLocationsList();
+        const locationsList = parseLocationsList(rawLocationsList);
+        await lightlocations.deleteMany().exec();
+        locationsList
+            .map(location => new lightlocations(location))
+            .forEach(async (location) => await location.save());
+
+        return locationsList.length;
     } catch (err) {
         return false;
     }

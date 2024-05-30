@@ -154,7 +154,7 @@
 
 <style>
 	#data-sprites {
-		padding: 2em;
+		padding: var(--small-gap);
 		height: 100%;
 	}
 
@@ -165,8 +165,8 @@
 		height: 100%;
 		width: 100%;
 		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 5px var(--background-secondary);
+		background-color: var(--background-color-__);
+		box-shadow: var(--box-shadow);
 	}
 
 	#data-sprites > #sprites > #sprites-options {
@@ -176,7 +176,7 @@
 
 		padding-inline: 1em;
 		padding-block: 1em;
-		border-bottom: 1px solid var(--background-accent);
+		border-bottom: 1px solid var(--background-color-_);
 	}
 
 	#data-sprites > #sprites > #sprites-pictures {
@@ -187,12 +187,15 @@
 	#data-sprites > #sprites > #sprites-pictures [id^='pictures'] {
 		display: flex;
 		align-items: center;
+		gap: var(--small-gap);
 		overflow-x: auto;
 		overflow-y: hidden;
 		scroll-snap-type: x mandatory;
 	}
 
 	#data-sprites > #sprites > #sprites-pictures [id^='pictures'] .picture {
+		margin: 0 var(--small-gap);
+
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -203,13 +206,24 @@
 	}
 
 	#data-sprites > #sprites > #sprites-pictures [id^='pictures'] .picture > img {
-		height: 125px;
+		height: 200px;
 		aspect-ratio: 1 / 1;
 		border: 1px solid var(--text-color);
 		border-radius: var(--border-r-100);
+		image-rendering: pixelated;
 	}
 
 	#data-sprites > #sprites > #sprites-pictures > :is(#pictures-forms, #pictures-gallery-version) {
 		border-bottom: 1px solid var(--background-alt-color);
+	}
+
+	@media (max-width: 640px) {
+		#data-sprites {
+			padding: 0;
+		}
+
+		#data-sprites > #sprites {
+			border-radius: 0;
+		}
 	}
 </style>

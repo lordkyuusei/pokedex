@@ -1,5 +1,6 @@
 <script lang="ts">
 	import drawBookBackground from '$lib/functions/drawBackgroundFromTypes';
+	import onImgError from '$lib/functions/fixImgLoadingError';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	export let name: string;
@@ -13,7 +14,7 @@
 		<img
 			src={fetchPokemonSpriteURL(id, 'icons', 'generation-viii')}
 			alt={name}
-			on:error={({ target }) => (target.src = fetchPokemonSpriteURL(0))}
+			on:error={onImgError}
 		/>
 	</header>
 	<p class="book-name">{name}</p>
@@ -31,12 +32,12 @@
 
 		border-radius: var(--border-r-50) var(--border-r-50) 0 0;
 		padding-block: 0.5em;
-		transition: transform 0.2s ease-in-out;
+		transition: transform var(--transition-duration) var(--transition-function);
 		cursor: pointer;
 	}
 
 	[id^='book']:hover {
-		animation: float 0.2s ease-in-out infinite alternate;
+		animation: float var(--transition-duration) var(--transition) infinite alternate;
 	}
 
 	[id^='book'] .book-picture {

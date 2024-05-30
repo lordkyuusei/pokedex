@@ -13,6 +13,8 @@
 	import TwoWays from './evolution/TwoWays.svelte';
 	import ThreeWays from './evolution/ThreeWays.svelte';
 	import EeveeWays from './evolution/EeveeWays.svelte';
+	import { navigatePokemon } from '$lib/functions/navigate';
+	import { page } from '$app/stores';
 
 	export let evolution: PokemonEvolution;
 
@@ -24,9 +26,14 @@
 	};
 
 	let pokemonStages = new Map<number, EvolutionUnit[]>();
-	let pokemonId: string;
 
-	$: extractEvolutionChain(evolution.chain);
+	$: ({ id: pokemonId } = evolution);
+	$: updateOnIdChange(pokemonId);
+
+	const updateOnIdChange = (_: number) => {
+		pokemonStages.clear();
+		extractEvolutionChain(evolution.chain);
+	};
 
 	const extractEvolutionChain = (chain: EvolutionChain, level: number = 1) => {
 		if (!chain) return;
@@ -72,7 +79,7 @@
 			{/if}
 			<section id="{level}-stage-pokemon" in:fade={{ delay: i * 100 }}>
 				{#each evolutionUnits as unit, i (unit.name)}
-					<a href="/pokemon/{unit.name}">
+					<a href={navigatePokemon(unit.name, $page)}>
 						<img src={fetchPokemonSpriteURL(Number(unit.name))} alt={unit.name} />
 					</a>
 				{/each}
@@ -94,11 +101,12 @@
 		height: 100%;
 		width: 100%;
 
+		overflow-y: auto;
 		grid-auto-flow: column;
 		grid-auto-columns: minmax(1em, 1fr);
 
 		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -111,6 +119,7 @@
 		align-items: center;
 		grid-template-columns: repeat(3, 1fr);
 		grid-auto-rows: minmax(0, 1fr);
+		gap: var(--small-gap);
 	}
 
 	[id$='-evolution-triggers'] {
@@ -122,9 +131,8 @@
 
 	[id$='-evolution-stage'] [id$='-stage-prev'] {
 		height: 1em;
-		color: var(--background-color);
-		border: 1px solid var(--text-color);
-		background-color: var(--text-color);
+		color: var(--background-color-___);
+		background-color: var(--background-color-___);
 	}
 
 	[id$='-evolution-stage'] [id$='-stage-prev'] {
@@ -166,5 +174,13 @@
 		place-content: center;
 		place-items: center;
 		width: 100%;
+	}
+
+	@media (max-width: 640px) {
+		[id^='evolution'] {
+			grid-auto-rows: 1fr;
+			grid-auto-columns: 40%;
+			border-radius: 0;
+		}
 	}
 </style>

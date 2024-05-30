@@ -5,6 +5,7 @@
 		computeCoverage,
 		fetchFullTypes
 	} from '$lib/functions/computeTypesRelationship';
+	import t from '$lib/store/i18n';
 
 	export let types: string[] = [];
 	export let show: boolean = false;
@@ -18,11 +19,13 @@
 <section class="affinities" class:show={!show}>
 	{#each cumulativeAffinities as affinityType}
 		{#if affinityType.value.length}
-			{affinityType.name}
+			<p>
+				{$t(`pokemon.type.${affinityType.name}`)}
+			</p>
 			<ul class="affinity-type">
 				{#each affinityType.value as affinity (affinity.name)}
 					<li class="type-elem">
-						<Type type={affinity.name} color="" />
+						<Type type={affinity.name} />
 					</li>
 				{/each}
 			</ul>
@@ -32,11 +35,13 @@
 <section class="coverage" class:show>
 	{#each cumulativeCoverage as coverageType}
 		{#if coverageType.value.length}
-			{coverageType.name}
+			<p>
+				{$t(`pokemon.type.${coverageType.name}`)}
+			</p>
 			<ul class="coverage-type">
 				{#each coverageType.value as affinity (affinity.name)}
 					<li class="type-elem">
-						<Type type={affinity.name} color="" />
+						<Type type={affinity.name} />
 					</li>
 				{/each}
 			</ul>
@@ -45,28 +50,28 @@
 </section>
 
 <style>
-	.affinities,
-	.coverage {
+	:is(.affinities, .coverage) {
 		display: none;
 		width: 100%;
-	}
 
-	.affinities.show,
-	.coverage.show {
-		display: grid;
-		gap: var(--small-gap);
-	}
+		&.show {
+			display: grid;
+			gap: var(--small-gap);
+		}
 
-	.affinities > .affinity-type,
-	.coverage > .coverage-type {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--normal-gap);
-		padding-inline: 1em;
-	}
+		& > p {
+			padding-inline-start: 0.5em;
+		}
+		& > :is(.affinity-type, .coverage-type) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: var(--normal-gap);
+			padding-inline: 0.5em;
 
-	.affinities > .affinity-type > .type-elem,
-	.coverage > .coverage-type {
-		list-style: none;
+			&,
+			& > .type-elem {
+				list-style: none;
+			}
+		}
 	}
 </style>

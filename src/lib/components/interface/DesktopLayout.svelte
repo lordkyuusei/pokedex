@@ -1,33 +1,36 @@
 <script lang="ts">
-	import GameSwitch from '../layout/GameSwitch.svelte';
-	import LangSwitch from '../layout/LangSwitch.svelte';
-	import PokemonDynamicHeader from '../layout/PokemonDynamicHeader.svelte';
-	import Search from '../layout/Search.svelte';
-	import ThemeSwitch from '../layout/ThemeSwitch.svelte';
 	import _ from '$lib/store/i18n';
+	import type { Route } from '$lib/types/meta';
 
-	type Route = {
-		id: string;
-		alt_id: string;
-		name: string;
-	};
+	import GameSwitch from '$lib/components/layout/GameSwitch.svelte';
+	import LangSwitch from '$lib/components/layout/LangSwitch.svelte';
+	import Search from '$lib/components/layout/Search.svelte';
+	import ThemeSwitch from '$lib/components/layout/ThemeSwitch.svelte';
+	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
 
 	export let routes: Route[];
 	export let routeId: string | null = '';
 	export let isDev: boolean;
 	export let generationsList: any[];
+
+	const controlIfSelected = (routeId: string | null, route: Route) => {
+		if (!routeId) return false;
+
+		const [_, group, path = '', ...rest] = routeId.split('/');
+		return path.includes(route.id) || path.includes(route.alt_id);
+	};
 </script>
 
 <section id="dex-layout">
-	<sidebar id="dex-navigation">
+	<aside id="dex-navigation">
 		<header id="navigation-logo">
 			<img src="/dex-logo.svg" alt="logo" />
 		</header>
 		<nav id="navigation-links">
 			<menu class="links-texts">
 				{#each routes as route (route.id)}
-					<li class:selected={routeId?.startsWith(route.id) || routeId?.startsWith(route.alt_id)}>
-						<a href={route.id}>{$_(route.name)}</a>
+					<li class:selected={controlIfSelected(routeId, route)}>
+						<a href={'/' + route.id}>{$_(route.name)}</a>
 					</li>
 				{/each}
 				{#if isDev}
@@ -41,10 +44,10 @@
 			<ThemeSwitch />
 			<LangSwitch />
 		</footer>
-	</sidebar>
+	</aside>
 	<main id="dex-main">
 		<header id="main-header">
-			<PokemonDynamicHeader />
+			<PrevNextNavigation />
 			<GameSwitch {generationsList} />
 			<Search />
 		</header>
@@ -57,122 +60,100 @@
 <style>
 	#dex-layout {
 		display: grid;
-		background-color: var(--background-color);
+		background-color: var(--background-color-____);
 		color: var(--text-color);
-		grid-template: 'sidebar main' 100svh / 1fr 5fr;
-	}
+		grid-template: 'aside main' var(--app-height) / var(--app-navigation-width) var(
+				--app-content-width
+			);
 
-	#dex-navigation {
-		grid-area: sidebar;
-		display: grid;
-		grid-template:
-			'sidebar-logo' 1fr
-			'sidebar-links' 1fr
-			'sidebar-settings' 1fr / auto;
+		& > #dex-navigation {
+			grid-area: aside;
+			display: grid;
+			grid-template:
+				'aside-logo' var(--layout-header-size)
+				'aside-links' var(--layout-nav-size)
+				'aside-settings' var(--layout-header-size) / 100%;
 
-		padding-block: 1em;
-	}
+			& > :is(#navigation-logo, #navigation-settings) {
+				display: flex;
+				place-content: center;
+				place-items: center;
+			}
 
-	#dex-navigation > #navigation-logo,
-	#dex-navigation > #navigation-settings {
-		display: flex;
-		place-content: center;
-	}
+			& > #navigation-logo {
+				& > img {
+					inline-size: 75%;
+				}
+			}
 
-	#dex-navigation > #navigation-logo {
-		place-items: start;
-	}
+			& > nav#navigation-links menu[class^='links'] {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				list-style-type: none;
+				padding-inline-start: 0;
+				overflow-x: hidden;
 
-	#dex-navigation > #navigation-settings {
-		place-items: end;
-		gap: var(--normal-gap);
-	}
+				& > li {
+					width: 100%;
+					display: grid;
+					align-items: center;
+					border-block: 1px solid var(--background-color-_);
+					transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
 
-	#dex-navigation > #navigation-logo > img {
-		inline-size: 75%;
-	}
+					&:not(:first-child) {
+						border-top: 0;
+					}
 
-	#dex-navigation > #navigation-links [class^='links'] {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		font-size: 1.75rem;
-		gap: var(--small-gap);
-		list-style-type: none;
-		padding-inline-start: 0;
-	}
+					&.selected {
+						font-weight: bold;
+						background-color: var(--background-color-__);
+					}
 
-	#dex-navigation > #navigation-links [class^='links'] > li {
-		display: grid;
-		align-items: center;
-		padding: var(--small-gap);
-	}
+					&:not(.selected) {
+						opacity: 0.75;
+						&:hover {
+							opacity: initial;
+							background-color: var(--background-color-___);
+						}
+					}
 
-	#dex-navigation > #navigation-links [class^='links'] > li > a {
-		display: block;
-		width: 100%;
-		text-align: end;
-		text-transform: uppercase;
-		letter-spacing: 0.2em;
-	}
+					& > a {
+						text-align: center;
+						text-transform: uppercase;
+						letter-spacing: 0.1em;
+						padding: var(--normal-gap) var(--small-gap);
+						border-radius: 0;
+					}
+				}
+			}
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected {
-		position: relative;
-		font-weight: bold;
-		color: var(--primary-color);
-		background-color: var(--background-alt-color);
-		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
-		transition: display 0.3s ease-in-out;
-	}
+			& > #navigation-settings {
+				gap: var(--smaller-gap);
+			}
+		}
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected::before,
-	#dex-navigation > #navigation-links [class^='links'] > .selected::after {
-		position: absolute;
-		content: '';
-		right: 0;
-		height: 1em;
-		width: 1em;
-		background-color: var(--background-alt-color);
-	}
+		& > #dex-main {
+			grid-area: main;
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected::before {
-		bottom: 100%;
-		background-image: radial-gradient(
-			farthest-side at 0% 0%,
-			var(--background-color) 100%,
-			var(--background-alt-color)
-		);
-	}
+			display: grid;
+			grid-template:
+				'header' var(--layout-header-size)
+				'content' var(--layout-content-size) / 100%;
 
-	#dex-navigation > #navigation-links [class^='links'] > .selected::after {
-		top: 100%;
-		background-image: radial-gradient(
-			farthest-side at 0% 100%,
-			var(--background-color) 100%,
-			var(--background-alt-color)
-		);
-	}
+			& > #main-header {
+				display: grid;
+				grid-template: 100% / 1fr auto auto;
+				justify-content: space-between;
+				gap: var(--small-gap);
+				align-items: center;
+				padding-inline-end: 1em;
+				padding-block: var(--smaller-gap);
+			}
 
-	#dex-main {
-		display: grid;
-		grid-template:
-			'header' var(--layout-header-size)
-			'content' var(--layout-content-size) / 100%;
-		grid-area: main;
-	}
-
-	#dex-main > #main-header {
-		height: 100%;
-		display: flex;
-		gap: var(--normal-gap);
-		justify-content: space-between;
-		align-items: center;
-		padding-inline-end: 1em;
-		border-bottom-right-radius: 1em;
-	}
-
-	#dex-main > #main-content {
-		border-radius: var(--border-r-100) 0 0 0;
-		background-color: var(--background-alt-color);
+			& > #main-content {
+				background-color: var(--background-color-___);
+			}
+		}
 	}
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { lang } from '$lib/store/lang';
-
+	import { isMobile } from '$lib/store/device';
 	const setLang = () => ($lang = $lang === 'en' ? 'fr' : 'en');
 
 	onMount(() => {
@@ -18,19 +18,16 @@
 	});
 </script>
 
-<button id="lang-switch" on:click={setLang}>{$lang}</button>
+<button id="lang-switch" class:round={$isMobile} on:click={setLang}>{$lang}</button>
 
 <style>
 	#lang-switch {
-		inset: all;
-		color: var(--primary-color);
-		background-color: var(--background-alt-color);
 		text-transform: capitalize;
-		border: none;
-		border-radius: var(--border-r-50);
-		cursor: pointer;
 
-		height: 2em;
-		width: 2em;
+		aspect-ratio: 1;
+
+		@media (max-width: 640px) {
+			height: calc(100% - var(--smallest-gap));
+		}
 	}
 </style>

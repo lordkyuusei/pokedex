@@ -1,5 +1,5 @@
 import { POKEAPI_GRAPHQL } from "$lib/constants/api.json";
-import { FETCH_ALL_POKEMON, FETCH_ALL_GENERATIONS, FETCH_MOVES_COUNT_PER_GEN, FETCH_ALL_ABILITIES } from "$lib/constants/queries.json";
+import { FETCH_ALL_POKEMON, FETCH_ALL_GENERATIONS, FETCH_MOVES_COUNT_PER_GEN, FETCH_ALL_ABILITIES, FETCH_ALL_LOCATIONS_PER_VERSIONS } from "$lib/constants/queries.json";
 
 const fetchPokeapiGraph = async (name: string, query: string) => {
     const result = await fetch(POKEAPI_GRAPHQL, {
@@ -30,4 +30,5 @@ export const fetchPokemonList = async () => fetchPokeapiGraph("FetchAllPokemon",
 export const fetchGenerationsList = async () => fetchPokeapiGraph("FetchAllGenerations", FETCH_ALL_GENERATIONS);
 export const fetchMovesList = async () => fetchPokeapiGraph("FetchAllMoves", FETCH_MOVES_COUNT_PER_GEN);
 export const fetchAbilitiesList = async () => fetchPokeapiGraph("FetchAllAbilities", FETCH_ALL_ABILITIES);
+export const fetchLocationsList = async () => fetchPokeapiGraph("FetchAllLocations", FETCH_ALL_LOCATIONS_PER_VERSIONS)
 

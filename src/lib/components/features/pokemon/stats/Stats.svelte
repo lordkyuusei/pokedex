@@ -3,7 +3,7 @@
 	import Switch from '$lib/components/common/Switch.svelte';
 	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import StatsCalculator from './StatsCalculator.svelte';
-	import StatsLines from './StatsLines.svelte';
+	import StatBlock from './StatBlock.svelte';
 
 	export let stats: StatRef[];
 
@@ -15,7 +15,7 @@
 		<Switch event="strat" icon="training" on:strat={(e) => (toggleStrat = e.detail.strat)} />
 	</div>
 	{#if !toggleStrat}
-		<StatsLines {stats} />
+		<StatBlock {stats} />
 	{:else}
 		<StatsCalculator {stats} />
 	{/if}
@@ -23,11 +23,12 @@
 
 <style>
 	#stats-statistics {
+		position: relative;
 		display: grid;
 		place-items: center;
 		padding: 1em;
 		border-radius: var(--border-r-200) var(--border-r-50) var(--border-r-200) 0;
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -38,17 +39,14 @@
 		}
 	}
 
-	#stats-statistics:not(.toggled) {
-		grid-template:
-			'switch scale total' 1fr
-			'name graph base' 5fr / 1fr 4fr 1fr;
+	#statistics-switch {
+		position: absolute;
+		top: 1.5rem;
+		left: var(--normal-gap);
 	}
 
-	.toggled {
-		grid-template:
-			'switch graph' 1fr
-			'modifiers graph' 5fr
-			'help graph' 1fr / 1fr 5fr;
+	#stats-statistics {
+		grid-template: 'graph' 100% / 100%;
 	}
 
 	#statistics-switch {

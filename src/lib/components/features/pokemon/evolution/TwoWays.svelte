@@ -7,8 +7,7 @@
 		place-items: center;
 		width: 100%;
 
-		color: var(--background-color);
-		border: 1em solid var(--text-color);
+		color: var(--background-color-___);
 		border-radius: var(--border-r-200) 0 0 var(--border-r-200);
 		height: calc(50% + 1em);
 		border-right: none;

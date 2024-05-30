@@ -164,6 +164,11 @@
 				<line x1="42" x2="58" y1="94" y2="94" class="side-stroke" />
 			</g>
 		</symbol>
+		<symbol id="icon-arrow" viewBox="10 0 40 50">
+			<line class="main-stroke" id="body" x1="10" y1="25" x2="47" y2="25"  />
+			<line class="main-stroke" id="top"  x1="35" y1="12" x2="48" y2="26"  />
+			<line class="main-stroke" id="bot"  x1="35" y1="38" x2="48" y2="24"  />
+		</symbol>
 	</defs>
 </svg>
 
@@ -172,7 +177,7 @@
 	.main-stroke,
 	.side-stroke {
 		fill: none;
-		stroke: var(--background-color);
+		stroke: var(--background-color-____);
 		stroke-opacity: 1;
 	}
 

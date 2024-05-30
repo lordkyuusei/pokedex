@@ -11,11 +11,7 @@
 			? fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => await x.json())
 			: [];
 
-	$: header = $generation
-		? $generation.id === 0
-			? $_('moves.title-all')
-			: $_('moves.title') + ` ${$generation.id}`
-		: '';
+	$: header = $_('moves.title') + ` ${$generation?.id}`;
 </script>
 
 <section id="moves">
@@ -38,34 +34,47 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--small-gap);
-		padding-block: 1em;
-		padding-inline: 4em;
 		height: 100%;
 		width: 100%;
-	}
+		padding-inline: var(--small-gap);
 
-	#moves > #moves-list {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
-		row-gap: 2em;
-		column-gap: var(--normal-gap);
+		@media (min-width: 640px) {
+			padding-block: 1em;
+			padding-inline: 4em;
+		}
 
-		align-items: center;
-		width: 100%;
-		height: 100%;
+		& > #moves-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+			row-gap: 2em;
+			column-gap: var(--normal-gap);
 
-		overflow-x: scroll;
-	}
+			align-items: center;
+			width: 100%;
+			height: 100%;
 
-	#moves > .header-name {
-		font-size: 1.8em;
-		text-align: center;
-		background-color: var(--background-accent);
-		text-transform: uppercase;
-		padding: 0.7em 1em;
-		margin: 0;
-		min-width: 5em;
-		letter-spacing: 2px;
-		border-radius: var(--border-r-200);
+			overflow-x: scroll;
+
+			& > a {
+				padding: 0;
+				background: none;
+			}
+
+			@media (max-width: 640px) {
+				grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+			}
+		}
+
+		& > .header-name {
+			font-size: x-large;
+			text-align: center;
+			background-color: var(--background-color-__);
+			text-transform: uppercase;
+			padding: var(--smaller-gap) var(--small-gap);
+			margin: 0;
+			min-width: 5em;
+			letter-spacing: 2px;
+			border-radius: var(--border-r-200);
+		}
 	}
 </style>

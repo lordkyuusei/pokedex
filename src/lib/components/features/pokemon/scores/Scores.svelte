@@ -2,21 +2,27 @@
 	import PokemonScore from './Score.svelte';
 	import EGG_GROUPS from '$lib/constants/egg_groups.json';
 	import { fade } from 'svelte/transition';
+	import t from '$lib/store/i18n';
 
 	export let height: number = 0;
 	export let weight: number = 0;
 	export let steps: number = 0;
 	export let gender: number = 0;
 	export let rate: number = 0;
-	export let genus: string = 'Pokemon ???';
-	export let description: string = '';
-
 	export let egg: string[] = [];
+	export let genus: string = 'Pokemon ???';
+	export let description: string = $t('scores.no-desc');
 
 	const drawBackground = () => {
 		const femaleRatio = gender === -1 ? 0 : (gender / 8) * 360;
 		const maleRatio = gender === -1 ? 0 : 360;
 		return `conic-gradient(darkorchid 0deg ${femaleRatio}deg, dodgerblue ${femaleRatio}deg ${maleRatio}deg, slategray ${maleRatio}deg 360deg)`;
+	};
+
+	const getGenderCircle = (gender: number) => {
+		const femaleMod = gender === -1 ? 0 : (gender / 8) * 100;
+		const maleMod = gender === -1 ? 0 : 100 - (gender / 8) * 100;
+		return `<div title="♀️${femaleMod}% ; ♂${maleMod}%" style="height: 2rem; aspect-ratio: 1; border-radius: 1rem; background: ${drawBackground()}"></div>`;
 	};
 
 	const egg_group = (): string =>
@@ -25,16 +31,11 @@
 	$: units = ['height', 'weight', 'steps', 'gender', 'rate', 'egg'].map((unit) => unit);
 
 	$: scores = [
-		{ score: (height / 10).toPrecision(2), unit: units[0], icon: '📏' },
-		{ score: weight / 10, unit: units[1], icon: '⚖️' },
-		{ score: steps * 255 + 1, unit: units[2], icon: '🥚🦶' },
+		{ score: `${(height / 10).toPrecision(2)} m`, unit: units[0], icon: '📏' },
+		{ score: `${weight / 10} kg`, unit: units[1], icon: '⚖️' },
+		{ score: steps * 255 + 1, unit: units[2], icon: '🦶' },
 		{
-			score: `<div
-						title="♀️${gender === -1 ? 0 : (gender / 8) * 100}% ; ♂${
-				gender === -1 ? 0 : 100 - (gender / 8) * 100
-			}%"
-						style="height: 2em;width: 2em;border-radius: 1em;background: ${drawBackground()}">
-					</div>`,
+			score: getGenderCircle(gender),
 			unit: units[3],
 			icon: '⚧️%'
 		},
@@ -44,7 +45,11 @@
 </script>
 
 <section in:fade={{ delay: 150 }} id="pokemon-scores">
-	<p data-genus={genus}>{description}</p>
+	<blockquote data-genus={genus}>
+		<cite>
+			« {description} »
+		</cite>
+	</blockquote>
 	{#each scores as { score, unit, icon }}
 		<PokemonScore {unit} {icon}>{@html score}</PokemonScore>
 	{/each}
@@ -61,7 +66,7 @@
 		gap: var(--small-gap);
 		padding: 1em;
 		border-radius: var(--border-r-200) 0 var(--border-r-200) var(--border-r-50);
-		background-color: var(--background-color);
+		background-color: var(--background-color-__);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -72,7 +77,7 @@
 		}
 	}
 
-	p {
+	blockquote {
 		height: 100%;
 		grid-area: desc;
 		display: flex;
@@ -83,11 +88,11 @@
 		padding-inline: 1em;
 		line-height: 1.5em;
 		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
-		background: var(--background-accent);
+		background: var(--background-color-_);
 		position: relative;
 	}
 
-	p::before {
+	blockquote::before {
 		content: attr(data-genus);
 		position: absolute;
 		top: -0.75em;
@@ -97,7 +102,7 @@
 		align-items: center;
 		width: fit-content;
 		padding: 0 0.5em;
-		background-color: var(--background-color);
+		background-color: var(--background-color-___);
 		border: 1px solid var(--text-color);
 		border-radius: var(--border-r-50);
 	}

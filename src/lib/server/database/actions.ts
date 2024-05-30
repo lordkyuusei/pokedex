@@ -1,4 +1,5 @@
-import { lightabilities, lightgenerations, lightkedex, lightmoves } from "./schemas";
+import type { LocationArea, LocationNode } from "$lib/types/location";
+import { lightabilities, lightgenerations, lightkedex, lightlocations, lightmoves } from "./schemas";
 
 export const getPokemonList = async (from: number, to: number) => {
     const pokemonList = await lightkedex.find().bulkById(from, to).exec();
@@ -11,7 +12,7 @@ export const searchPokemonByName = async (pokemon: string) => {
             { "name": { $regex: pokemon, $options: 'i' } },
             { "i18n.fr": { $regex: pokemon, $options: 'i' } },
             { "i18n.en": { $regex: pokemon, $options: 'i' } },
-        ]).exec();
+        ]).sort("id").exec();
 
     return JSON.stringify(pokemonList);
 }
@@ -23,8 +24,12 @@ export const searchPokemonById = async (id: number) => {
 }
 
 export const getGenerationsList = async (from: number = 0, to: number = 10) => {
-    const generationList = await lightgenerations.find().bulkByGen(from, to).exec();
-    return JSON.stringify(generationList);
+    try {
+        const generationList = await lightgenerations.find().bulkByGen(from, to).exec();
+        return JSON.stringify(generationList);
+    } catch (error) {
+        return "[]";
+    }
 }
 
 export const getMoveTypesGeneration = async (id: number = 9) => {
@@ -46,6 +51,23 @@ export const getMove = async (id: number) => {
 export const getAbilitiesLteGen = async (id: number = 10) => {
     const abilities = await lightabilities.find().getAbilitiesLteGen(id).exec();
     return JSON.stringify(abilities);
+}
+
+export const getLocationsFromVersion = async (version: string) => {
+    const locations = await lightlocations.findOne().getByVersionGroup(version);
+    return JSON.stringify(locations);
+}
+
+export const setCoordsForLocation = async (locationId: string, area: LocationArea) => {
+    try {
+        const result = await lightlocations.updateOne(
+            { 'regions.locations._id': locationId, 'regions.locations.areas.name': area.name },
+            { $set: { 'regions.$[].locations.$[].areas.$[area].coords': area.coords } },
+            { arrayFilters: [{ 'area.name': area.name }] }
+        );
+    } catch (error) {
+        console.error('Error updating coords:', error);
+    }
 }
 
 export const getMovesTypes = async (type: string) => {
