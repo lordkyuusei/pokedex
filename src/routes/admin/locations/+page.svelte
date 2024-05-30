@@ -6,7 +6,7 @@
 	import { DEXAPI_LOCATION } from '$lib/constants/api.json';
 	import type { Location, LocationArea, LocationNode } from '$lib/types/location';
 
-	import Map from '$lib/components/admin/Map.svelte';
+	import MapEditor from '$lib/components/admin/MapEditor.svelte';
 	import MapOperations from '$lib/components/admin/MapOperations.svelte';
 
 	let gameLocation: Promise<Location> | null = null;
@@ -88,11 +88,11 @@
 					{/each}
 				</ul>
 				{#if selectedArea}
-					<Map
+					<MapEditor
 						version={$version}
 						on:coords={async (event) => await saveCoords(event)}
 						coordinates={selectedArea.coords}
-					></Map>
+					></MapEditor>
 				{/if}
 			{:else}
 				<h1>Select a location on the left or choose an operation</h1>

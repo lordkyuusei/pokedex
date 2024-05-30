@@ -256,16 +256,17 @@
 	}
 
 	polygon {
-		fill: red;
-		opacity: 0.75;
+		stroke-linejoin: round;
+		stroke: hsl(0, 75%, 85%);
+		fill: hsl(0, 75%, 65%);
+		opacity: 1;
 		cursor: pointer;
-		animation: blink 0.75s cubic-bezier(1, 0, 0, 1) infinite;
+		animation: blink 1s cubic-bezier(1, 0, 0, 1) infinite;
 	}
 
 	@keyframes blink {
 		50% {
-			fill: var(--secondary-color);
-			opacity: 0.6;
+			opacity: 0;
 		}
 	}
 </style>
