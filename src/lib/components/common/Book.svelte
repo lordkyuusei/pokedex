@@ -9,7 +9,7 @@
 	export let landscape: boolean = false;
 </script>
 
-<section id="book-{id}" class:landscape style:background={drawBookBackground(types)}>
+<div id="book-{id}" class:landscape style:background={drawBookBackground(types)}>
 	<header class="book-picture">
 		<img
 			src={fetchPokemonSpriteURL(id, 'icons', 'generation-viii')}
@@ -19,75 +19,84 @@
 	</header>
 	<p class="book-name">{name}</p>
 	<footer class="book-number">{id.toString().padStart(4, '0')}</footer>
-</section>
+</div>
 
 <style>
 	[id^='book'] {
-		color: white;
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		place-items: center;
 		place-content: space-between;
+		color: var(--text-color);
 		gap: var(--normal-gap);
 
-		border-radius: var(--border-r-50) var(--border-r-50) 0 0;
-		padding-block: 0.5em;
-		transition: transform var(--transition-duration) var(--transition-function);
 		cursor: pointer;
-	}
+		padding-block: var(--smaller-gap);
+		border-radius: var(--border-r-50) var(--border-r-50) 0 0;
+		transition: transform var(--transition-duration) var(--transition-function);
 
-	[id^='book']:hover {
-		animation: float var(--transition-duration) var(--transition) infinite alternate;
-	}
+		&:not(.landscape) {
+			box-shadow: var(--box-shadow);
+			&:hover {
+				perspective: 100px;
+				transform-style: preserve-3d;
+				transform: translateY(42px) translateZ(120px) rotateX(-45deg);
+				border-radius: 0;
 
-	[id^='book'] .book-picture {
-		background-color: hsla(0, 0%, 100%, 20%);
-		border-radius: var(--border-r-50);
-	}
-
-	[id^='book'] .book-name {
-		writing-mode: vertical-lr;
-		transform: rotate(180deg);
-		letter-spacing: 5px;
-		text-transform: uppercase;
-		font-weight: bold;
-		text-shadow: 0 0 5px hsl(0, 0%, 20%);
-	}
-
-	[id^='book'] .book-number {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		font-weight: bold;
-		letter-spacing: 3px;
-		text-shadow: 0px 1px 2px black;
-		height: 2em;
-		width: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-	}
-
-	[id^='book'].landscape {
-		flex-direction: row;
-		border-radius: var(--border-r-50);
-		padding-inline: 0.5em;
-	}
-
-	[id^='book'].landscape .book-name {
-		writing-mode: initial;
-		transform: rotate(0);
-	}
-
-	[id^='book'].landscape .book-number {
-		background: none;
-		justify-content: flex-end;
-	}
-
-	@keyframes float {
-		0% {
-			transform: translateY(-4px);
+				&::before {
+					content: '';
+					position: absolute;
+					top: -4rem;
+					height: 4rem;
+					width: 100%;
+					background: var(--book-pages-background);
+					border: 0.25rem solid var(--background-color-__);
+					border-top: none;
+					transform: translateY(4px) translateZ(-15px) rotateX(30deg);
+				}
+			}
 		}
-		100% {
-			transform: translateY(-8px);
+
+		&.landscape {
+			flex-direction: row;
+			border-radius: var(--border-r-50);
+			padding-inline: var(--smaller-gap);
+
+			& > .book-name {
+				writing-mode: initial;
+				transform: rotate(0);
+			}
+			& > .book-number {
+				background: none;
+				justify-content: flex-end;
+			}
+		}
+
+		& > .book-picture {
+			background-color: hsla(0, 0%, 100%, 20%);
+			border-radius: var(--border-r-50);
+		}
+
+		& > .book-name {
+			writing-mode: vertical-lr;
+			transform: rotate(180deg);
+			letter-spacing: 5px;
+			text-transform: uppercase;
+			font-weight: bold;
+			text-shadow: 0 0 5px var(--background-color-_);
+		}
+
+		& > .book-number {
+			display: grid;
+			place-content: center;
+			font-weight: bold;
+			letter-spacing: 3px;
+			text-shadow: 0px 1px 2px var(--background-color-_);
+			height: 2em;
+			width: 100%;
+			color: white;
+			background-color: rgb(0 0 0 / 0.5);
 		}
 	}
 </style>

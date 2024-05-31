@@ -93,6 +93,13 @@
 
 		& > a {
 			padding: 0;
+			perspective: 1000px;
+			transform-style: preserve-3d;
+			z-index: 1;
+
+			&:hover {
+				background: none;
+			}
 		}
 	}
 
@@ -106,7 +113,7 @@
 
 	@media (max-width: 640px) {
 		#pokedex {
-			padding-inline: 1em;
+			padding-inline: var(--small-gap);
 		}
 	}
 </style>
