@@ -33,7 +33,7 @@
 
 		cursor: pointer;
 		padding-block: var(--smaller-gap);
-		border-radius: var(--border-r-50) var(--border-r-50) 0 0;
+		border-radius: var(--border-r-25) var(--border-r-25) 0 0;
 		transition: transform var(--transition-duration) var(--transition-function);
 
 		&:not(.landscape) {
@@ -75,7 +75,7 @@
 
 		& > .book-picture {
 			background-color: hsla(0, 0%, 100%, 20%);
-			border-radius: var(--border-r-50);
+			border-radius: var(--border-r-25);
 		}
 
 		& > .book-name {
