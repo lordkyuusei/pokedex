@@ -16,13 +16,11 @@
     --app-content-width: calc(var(--app-width) - var(--app-navigation-width));
 
     --app-height: 100svh;
-    --layout-header-size: 10svh;
-    --layout-nav-size: calc(var(--app-height) - calc(var(--layout-header-size) * 2));
+    --layout-header-size: 9svh;
+    --layout-settings-size: 11svh;
+    --layout-nav-size: calc(var(--app-height) - calc(var(--layout-header-size) + var(--layout-settings-size)));
     --layout-content-size: calc(var(--app-height) - var(--layout-header-size));
-
     --layout-id-size: calc(var(--layout-header-size) - 2svh);
-    --layout-pokemon-with-forms-size: calc(var(--layout-content-size) - var(--layout-header-size) - var(--layout-id-size));
-    --layout-pokemon-solo-size: calc(var(--layout-content-size) - var(--layout-id-size));
 
     --transition-duration: 0.2s;
     --transition-long-duration: 0.5s;
@@ -75,14 +73,8 @@ body {
     line-height: 1;
     margin: 0;
     padding: 0;
-    min-height: 100svh;
+    min-height: var(--app-height);
     overflow: hidden;
-}
-
-@media (max-width: 640px) {
-    body {
-        font-size: 14px;
-    }
 }
 
 @font-face {
@@ -113,25 +105,35 @@ a {
 a,
 button {
     cursor: pointer;
-    color: var(--text-color);
-    border-radius: var(--border-r-50);
-    border: 1px solid var(--background-secondary);
-    background-color: var(--background-color-__);
     transition: all var(--transition-duration) var(--transition-function);
+}
+
+a.squircle,
+button.squircle {
+    border-radius: var(--border-r-100);
+    aspect-ratio: 1;
 }
 
 a.round,
 button.round {
     border-radius: var(--border-r-200);
+    aspect-ratio: 1;
 }
 
 button {
     padding: var(--smaller-gap) var(--small-gap);
 }
 
+a,
+button {
+    backdrop-filter: brightness(1.2);
+    -webkit-backdrop-filter: brightness(1.2);
+}
+
 a:hover,
 button:hover {
-    background-color: var(--background-color-_);
+    backdrop-filter: brightness(1.4);
+    -webkit-backdrop-filter: brightness(1.4);
 }
 
 menu,
@@ -197,4 +199,10 @@ img.img-error {
 ::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-track {
     border-radius: var(--border-r-50);
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
 }

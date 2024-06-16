@@ -22,9 +22,8 @@
 		justify-content: space-evenly;
 		align-items: flex-start;
 		gap: var(--small-gap);
-		padding-inline: var(--small-gap);
-		padding-block: var(--smallest-gap);
-		background: var(--background-color-_);
+		padding: var(--smallest-gap) var(--small-gap);
+		background: var(--background-color);
 		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
 
 		& > header {
@@ -32,13 +31,6 @@
 			justify-content: space-between;
 			width: 100%;
 
-			& > .score-icon {
-				text-shadow:
-					-1px 0 var(--background-color-____),
-					0 1px var(--background-color-____),
-					1px 0 var(--background-color-____),
-					0 -1px var(--background-color-____);
-			}
 			& > .score-unit {
 				font-size: small;
 			}

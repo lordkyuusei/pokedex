@@ -161,8 +161,7 @@
 				height: 4rem;
 				width: 4rem;
 				list-style: none;
-				border-radius: var(--border-r-200);
-				background-color: var(--background-color-__);
+				background-color: var(--background-color);
 				transition: transform var(--transition-duration) var(--transition-function);
 
 				& > a {
@@ -170,7 +169,8 @@
 					justify-content: center;
 					height: 100%;
 					width: 100%;
-					padding: 0.25em;
+					padding: var(--smallest-gap);
+					border-radius: var(--border-r-50);
 
 					& > svg {
 						height: 100%;
@@ -226,13 +226,13 @@
 				height: 0.5rem;
 				width: 100%;
 				border: none;
-				border-radius: 0 var(--small-gap) var(--small-gap) 0;
-				background-color: var(--primary-color);
+				border-radius: 0 var(--border-r-50) var(--border-r-50) 0;
+				background-color: var(--second-color);
 			}
 
 			& > span#data-pokemon-id {
 				grid-area: id;
-				color: var(--primary-color);
+				color: var(--second-color);
 				font-weight: bolder;
 				text-align: center;
 				font-size: 1.5rem;
@@ -240,14 +240,16 @@
 
 			& > nav#data-navigation menu {
 				& > li:not(.selected) {
-					margin-inline-end: 1rem;
+					margin-inline-end: var(--small-gap);
 				}
 
 				& > li.selected {
-					border-radius: var(--border-r-50) 0 0 var(--border-r-50);
+					& > a {
+						border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 
-					& > a > svg {
-						transform: translateX(-1.5em);
+						& > svg {
+							transform: translateX(-1.5em);
+						}
 					}
 				}
 			}
@@ -257,10 +259,12 @@
 				}
 
 				& > li.selected {
-					border-radius: 0 var(--border-r-50) var(--border-r-50) 0;
+					& > a {
+						border-radius: 0 var(--border-r-50) var(--border-r-50) 0;
 
-					& > a > img {
-						transform: translateX(1.5rem);
+						& > svg {
+							transform: translateX(-1.5rem);
+						}
 					}
 				}
 			}
@@ -270,39 +274,11 @@
 				& > li.selected {
 					width: 100%;
 					position: relative;
-					background-color: var(--background-color-_);
+					background-color: var(--background-color);
 					transition: all var(--transition-duration) var(--transition-function);
 
 					& > a {
-						background-color: var(--background-color-_);
-					}
-
-					&::before,
-					&::after {
-						content: '';
-						position: absolute;
-						background-color: var(--background-alt-color);
-						right: 0;
-						height: 1em;
-						width: 1em;
-					}
-
-					&::before {
-						bottom: 4em;
-						background-image: radial-gradient(
-							farthest-side at 0% 0%,
-							var(--background-alt-color) 100%,
-							var(--text-color)
-						);
-					}
-
-					&::after {
-						top: 4em;
-						background-image: radial-gradient(
-							farthest-side at 0% 100%,
-							var(--background-alt-color) 100%,
-							var(--text-color)
-						);
+						background-color: var(--background-second-color);
 					}
 				}
 			}

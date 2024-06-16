@@ -10,10 +10,9 @@
 
 <div class="pokemon-info">
 	<div class="figure">
-		<img src="" />
 		<span class="figcaption"
 			>{pokemon.name} ({pokemon['variant']})
-			<div>Lv. {isLvl100Mode ? '100' : '50'}</div></span
+			<div>id {pokemon.id} • Lv. {isLvl100Mode ? '100' : '50'}</div></span
 		>
 	</div>
 	<ul class="info-data">
@@ -45,16 +44,19 @@
 			'figure data stats' 2fr
 			'moves moves moves' 1fr / 1fr 3fr 1fr;
 
-		background: hsl(232, 28%, 16%);
-		gap: 0.5rem;
+		background: var(--background-second-color);
+		gap: var(--smaller-gap);
+		padding: var(--smaller-gap);
+		border-radius: var(--border-r-50);
+		box-shadow: var(--box-shadow);
 	}
 
 	.pokemon-info > .figure,
 	.pokemon-info > ul {
-		background: hsl(232, 28%, 20%);
-		border-radius: 0.5rem;
+		background: var(--background-color);
+		border-radius: var(--border-r-50);
 
-		padding: 0.5rem;
+		padding: var(--smaller-gap);
 	}
 
 	.pokemon-info .figure {
@@ -67,13 +69,8 @@
 		text-align: center;
 	}
 
-	.pokemon-info .figure pre {
-		all: initial;
-	}
-
 	.pokemon-info .figure .figcaption {
-		background: hsla(232, 28%, 16%, 50%);
-		border-radius: 0.5rem;
+		border-radius: var(--border-r-50);
 		width: auto;
 	}
 
@@ -86,7 +83,7 @@
 
 		display: grid;
 		grid-template: 1fr 1fr / 1fr 1fr;
-		gap: 0.25rem;
+		gap: var(--smallest-gap);
 	}
 
 	.pokemon-info .info-moves img {
@@ -109,7 +106,7 @@
 	.pokemon-info .info-stats li {
 		display: grid;
 		grid-template-columns: 1fr 5fr;
-		gap: 0.5rem;
+		gap: var(--smaller-gap);
 		align-items: center;
 		justify-items: flex-end;
 		text-transform: capitalize;
@@ -135,41 +132,11 @@
 		grid-template-columns: auto auto;
 	}
 
-	.pokemon-info .info-data li.double span > span:first-of-type {
-		border-radius: 0.25rem 0 0 0.25rem;
-	}
-
-	.pokemon-info .info-data li.double span > span:last-of-type {
-		border-radius: 0 0.25rem 0.25rem 0;
-	}
-
 	.pokemon-info .info-moves li {
-		background: hsl(232, 28%, 36%);
-		border-radius: 1rem;
+		background: var(--background-second-color);
+		border-radius: var(--border-r-50);
 		justify-items: flex-start;
-
-		background-repeat: no-repeat;
-		background-size: 2rem;
-		background-position-x: calc(100% - 0.5rem);
-		background-position-y: center;
-		background-blend-mode: soft-light;
-	}
-
-	.pokemon-info .info-moves li.physical {
-		background-image: url(https://archives.bulbagarden.net/media/upload/b/b4/PhysicalIC_SV.png);
-	}
-
-	.pokemon-info .info-moves li.special {
-		background-image: url(https://archives.bulbagarden.net/media/upload/5/5b/SpecialIC_SV.png);
-	}
-
-	.pokemon-info .info-moves li.status {
-		background-image: url(https://archives.bulbagarden.net/media/upload/e/e0/StatusIC_SV.png);
-	}
-
-	.pokemon-info ul {
-		list-style: none !important;
-		margin: 0 !important;
+		padding: var(--smaller-gap);
 	}
 
 	.pokemon-info li {

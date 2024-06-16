@@ -94,8 +94,8 @@
 		& > a {
 			padding: 0;
 			perspective: 1000px;
-			transform-style: preserve-3d;
 			z-index: 1;
+			backdrop-filter: none;
 
 			&:hover {
 				background: none;
@@ -108,7 +108,7 @@
 		width: calc(100% + 0.5em);
 		transform: translateX(-0.25em);
 		height: 1em;
-		background-color: var(--background-color-__);
+		background-color: var(--background-second-color);
 	}
 
 	@media (max-width: 640px) {

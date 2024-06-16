@@ -1,5 +1,10 @@
-import type { LocationArea, LocationNode } from "$lib/types/location";
-import { lightabilities, lightgenerations, lightkedex, lightlocations, lightmoves } from "./schemas";
+import { lightkedex } from "./schemas/lightkemon";
+import { lightmoves } from "./schemas/lightmoves";
+import { lightabilities } from "./schemas/lightabilities";
+import { lightlocations } from "./schemas/lightlocations";
+import { lightgenerations } from "./schemas/lightgenerations";
+import type { LocationArea } from "$lib/types/location";
+import type { LightMove } from "$lib/types/lightmove";
 
 export const getPokemonList = async (from: number, to: number) => {
     const pokemonList = await lightkedex.find().bulkById(from, to).exec();
@@ -47,6 +52,27 @@ export const getMoveTypesGeneration = async (id: number = 9) => {
 export const getMove = async (id: number) => {
     return JSON.stringify(await lightmoves.find().getMoveById(id).exec())
 }
+
+export const getMoves = async (generationId: number, moveNames: string[]) => {
+    try {
+        const results: LightMove[] = await lightmoves.aggregate([
+            { $match: { id: { $lte: generationId } } },
+            { $unwind: '$moves' },
+            { $match: { 'moves.name': { $in: moveNames } } },
+            {
+                $group: {
+                    _id: '$_id',
+                    moves: { $push: '$moves' }
+                }
+            },
+        ]).exec();
+
+        return results.flatMap(result => result.moves);
+    } catch (error) {
+        console.error('Error fetching moves:', error);
+        throw error;
+    }
+};
 
 export const getAbilitiesLteGen = async (id: number = 10) => {
     const abilities = await lightabilities.find().getAbilitiesLteGen(id).exec();

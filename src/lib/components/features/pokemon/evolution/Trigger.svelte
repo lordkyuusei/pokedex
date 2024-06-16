@@ -75,7 +75,7 @@
 	}
 
 	.trigger-separator {
-		background-color: var(--background-color-___);
+		background-color: var(--text-color);
 	}
 
 	.trigger-list {
@@ -91,7 +91,7 @@
 	}
 
 	.selected {
-		background-color: var(--background-color-___);
-		color: var(--background-color-__);
+		background-color: var(--text-color);
+		color: var(--background-color);
 	}
 </style>

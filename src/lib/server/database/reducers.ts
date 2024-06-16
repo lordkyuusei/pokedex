@@ -5,7 +5,11 @@ import type { LightGenerationResults } from "$lib/types/graphql/lightgenerations
 import type { LightLocationsResults } from "$lib/types/graphql/lightlocations";
 import type { LightMoveResults } from "$lib/types/graphql/lightmove";
 import type { LightPokemonResults } from "$lib/types/graphql/lightpokemon";
-import { lightabilities, lightgenerations, lightkedex, lightlocations, lightmoves } from "./schemas";
+import { lightkedex } from "./schemas/lightkemon";
+import { lightmoves } from "./schemas/lightmoves";
+import { lightabilities } from "./schemas/lightabilities";
+import { lightlocations } from "./schemas/lightlocations";
+import { lightgenerations } from "./schemas/lightgenerations";
 
 const parseGenerationsList = (rawGenerationsList: LightGenerationResults): Generation[] => {
     const result: Generation[] = rawGenerationsList.data.pokemon_v2_generation.map(g => ({

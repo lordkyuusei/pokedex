@@ -1,4 +1,18 @@
 {
+    "condition.time-day": "uniquement de jour",
+    "condition.time-night": "uniquement de nuit",
+    "condition.time-morning": "uniquement en matinée",
+    "condition.swarm-yes": "avec essaim",
+    "condition.swarm-no": "sans essaim",
+    "method.old-rod": "Canne",
+    "method.good-rod": "Super canne",
+    "method.super-rod": "Méga canne",
+    "method.gift-egg": "Don d'Oeuf",
+    "method.walk": "Marche",
+    "method.squirt-bottle": "Carapuce à O",
+    "method.headbutt-low": "Coup d'boule (autre)",
+    "method.headbutt-normal": "Coup d'boule (commun)",
+    "method.headbutt-high": "Coup d'boule (rare)",
     "home.welcome": "Bienvenue !",
     "home.speech1": "« Mon devoir en tant que développeur est d'affûter mes compétences. En les améliorant, j'ai pu créer des fonctionnalités surpuissantes ! J'ai ainsi créé le pokédex ultime, efficace dans toutes les situations !",
     "home.speech2": "Ca t'épate, hein ? Je suis le meilleur ! Ecoute ça, minable ! J'ai créé le pokédex le plus puissant du monde !'»",
@@ -31,5 +45,8 @@
     "scores.egg": "Groupe Œuf",
     "scores.gender": "Sexe",
     "scores.rate": "Taux Capture",
-    "scores.steps": "Nb. pas Éclosion"
+    "scores.steps": "Nb. pas Éclosion",
+    "tools.catch-rate": "Calculateur de taux de capture",
+    "tools.types-coverage": "Schéma de couverture des types",
+    "tools.emerald-battle-factory": "Usine de combat (émeraude)"
 }

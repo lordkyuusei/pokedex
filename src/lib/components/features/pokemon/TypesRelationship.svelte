@@ -19,9 +19,9 @@
 <section class="affinities" class:show={!show}>
 	{#each cumulativeAffinities as affinityType}
 		{#if affinityType.value.length}
-			<p>
+			<span>
 				{$t(`pokemon.type.${affinityType.name}`)}
-			</p>
+			</span>
 			<ul class="affinity-type">
 				{#each affinityType.value as affinity (affinity.name)}
 					<li class="type-elem">
@@ -35,9 +35,9 @@
 <section class="coverage" class:show>
 	{#each cumulativeCoverage as coverageType}
 		{#if coverageType.value.length}
-			<p>
+			<span>
 				{$t(`pokemon.type.${coverageType.name}`)}
-			</p>
+			</span>
 			<ul class="coverage-type">
 				{#each coverageType.value as affinity (affinity.name)}
 					<li class="type-elem">
@@ -59,14 +59,15 @@
 			gap: var(--small-gap);
 		}
 
-		& > p {
-			padding-inline-start: 0.5em;
+		& > span {
+			padding-inline-start: var(--smaller-gap);
 		}
+
 		& > :is(.affinity-type, .coverage-type) {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: var(--normal-gap);
-			padding-inline: 0.5em;
+			gap: var(--smaller-gap);
+			padding-inline: var(--smaller-gap);
 
 			&,
 			& > .type-elem {

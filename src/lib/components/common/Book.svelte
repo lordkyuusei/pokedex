@@ -34,26 +34,29 @@
 		cursor: pointer;
 		padding-block: var(--smaller-gap);
 		border-radius: var(--border-r-25) var(--border-r-25) 0 0;
-		transition: transform var(--transition-duration) var(--transition-function);
+		transform-origin: bottom;
+		transition: all var(--transition-duration) linear;
 
 		&:not(.landscape) {
+			perspective: 100px;
+			transform-style: preserve-3d;
 			box-shadow: var(--box-shadow);
+
 			&:hover {
-				perspective: 100px;
-				transform-style: preserve-3d;
-				transform: translateY(42px) translateZ(120px) rotateX(-45deg);
+				transform: rotateX(-50deg);
 				border-radius: 0;
 
 				&::before {
 					content: '';
 					position: absolute;
-					top: -4rem;
-					height: 4rem;
+					top: -5rem;
+					height: 5rem;
 					width: 100%;
 					background: var(--book-pages-background);
 					border: 0.25rem solid var(--background-color-__);
 					border-top: none;
-					transform: translateY(4px) translateZ(-15px) rotateX(30deg);
+					transform: rotateX(30deg);
+					transform-origin: bottom;
 				}
 			}
 		}

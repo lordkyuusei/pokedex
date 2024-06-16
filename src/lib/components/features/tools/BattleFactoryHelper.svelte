@@ -29,8 +29,8 @@
 				const result: FactoryPokemon[] = factoryPokemonList.filter((elem) => {
 					const isNameMatching = elem.name?.toLowerCase().includes(input.toLowerCase());
 					const isLvlMatching = isLvl100Mode
-						? elem.id < openLevelPokemonStart
-						: elem.id >= openLevelPokemonStart;
+						? elem.id >= openLevelPokemonStart
+						: elem.id < openLevelPokemonStart;
 					const areMovesMatching = checkAreMovesMatching(
 						[elem['1stMove'], elem['2ndMove'], elem['3rdMove'], elem['4thMove']],
 						movesFilter
@@ -143,18 +143,24 @@
 		grid-auto-rows: auto;
 		gap: var(--small-gap);
 		position: sticky;
-		top: 0svh;
+		top: 0;
 		padding: var(--small-gap);
-		background: var(--background-color-__);
-		border-radius: var(--smaller-gap) var(--smaller-gap) 0 0;
+		background: var(--background-color);
+		border-radius: var(--smaller-gap);
+		box-shadow: var(--box-shadow);
+		margin-bottom: 1rem;
 
 		& > div {
 			display: flex;
 			align-items: center;
 			gap: var(--small-gap);
 
+			& > input {
+				background-color: var(--background-second-color);
+			}
 			& .selected {
-				background-color: var(--background-color-____);
+				color: var(--background-color);
+				background-color: var(--accent-color);
 			}
 		}
 
@@ -171,11 +177,7 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
 
-		background: var(--background-color-____);
-		gap: var(--small-gap);
-		padding: var(--small-gap);
-		margin-block: var(--small-gap);
-		border-radius: var(--smaller-gap) var(--smaller-gap) 0 0;
+		gap: var(--smaller-gap);
 		overflow-y: auto;
 
 		@media (max-width: 640px) {

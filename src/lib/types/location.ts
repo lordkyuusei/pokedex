@@ -1,4 +1,5 @@
 import { Types } from 'mongoose'
+import type { EncounterDetailRef } from './pokeapi/location-area'
 
 export type Location = {
     _id: Types.ObjectId,
@@ -25,4 +26,20 @@ export type LocationArea = {
     name: string,
     coords: number[],
     i18nName: { fr: string, en: string }
+}
+
+export type LocationWithCoords = {
+    name: string;
+    i18nName: { fr: string, en: string }
+    coords: number[];
+    conditions: EncounterDetailRef[];
+};
+
+export type SimplifiedLocation = {
+    version: string;
+    locations: {
+        location: string;
+        chances: any;
+        conditions: any;
+    }[]
 }

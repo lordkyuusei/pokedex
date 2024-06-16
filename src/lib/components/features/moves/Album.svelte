@@ -9,12 +9,13 @@
 
 	export let type: string;
 	export let count: number;
+	export let showFooter: boolean = true;
 
 	$: shadow = drawBoxShadow(type);
 	$: color = getPkmnTypeColor(type);
 </script>
 
-<section id="album-{type}">
+<div id="album-{type}" class:show-footer={showFooter}>
 	<header id="{type}-cover" style:background={color}>
 		<img style:box-shadow={shadow} src="/icons/{type}.png" alt={type} />
 		<span class="code-{type}" style:text-shadow={shadow}>
@@ -29,83 +30,87 @@
 			</svg>
 		</span>
 	</header>
-	<footer id="{type}-info">
-		<span>{getPkmnTypeLang(type, $lang)}</span>
-		<span><em>{count}</em> capacités </span>
-	</footer>
-</section>
+	{#if showFooter}
+		<footer id="{type}-info">
+			<span>{getPkmnTypeLang(type, $lang)}</span>
+			<span><em>{count}</em> capacités </span>
+		</footer>
+	{/if}
+</div>
 
 <style>
-	[id^='album'] {
+	div[id^='album'] {
 		display: grid;
-		grid-template:
-			'header' 4fr
-			'footer' 1fr / 100%;
+
+		grid-template: 'header' 100% / 100%;
+
+		&.show-footer {
+			grid-template:
+				'header' 4fr
+				'footer' 1fr / 100%;
+		}
 
 		align-items: center;
 		border: none;
-	}
 
-	[id^='album'] > [id$='cover'] {
-		transition: all var(--transition-duration) var(--transition-function);
-		position: relative;
-		grid-area: header;
-		display: grid;
-		grid-template:
-			'icon' 1fr
-			'name' 4fr / 100%;
+		& > header[id$='cover'] {
+			grid-area: header;
+			position: relative;
+			display: grid;
+			grid-template:
+				'icon' 1fr
+				'name' 4fr / 100%;
+			align-items: center;
+			justify-items: flex-end;
 
-		aspect-ratio: 1 / 1.2;
+			font-family: 'Pokemon';
+			aspect-ratio: 1 / 1.2;
 
-		padding: 0.5em;
-		height: 100%;
-		width: 100%;
-		align-items: center;
-		justify-items: flex-end;
-		font-family: 'Pokemon';
-		border-radius: var(--border-r-100);
-	}
+			padding: var(--smaller-gap);
+			box-shadow: var(--box-shadow);
+			border-radius: var(--border-r-100);
+			transition: all var(--transition-duration) var(--transition-function);
 
-	[id^='album'] > [id$='cover']:hover {
-		transform: scale(1.05);
-		box-shadow: var(--box-shadow);
-		transition: all var(--transition-duration) var(--transition-function);
-	}
+			&:hover {
+				filter: brightness(1.2);
+				transition: filter var(--transition-duration) var(--transition-function);
+			}
 
-	[id^='album'] > [id$='cover'] img {
-		inline-size: 20%;
-		border-radius: var(--border-r-50);
-	}
+			& > img {
+				inline-size: 20%;
+				border-radius: var(--border-r-50);
+			}
 
-	[id^='album'] > [id$='cover'] [class^='code'] {
-		width: 100%;
-		text-align: center;
-		font-size: 2.5em;
-		color: hsla(0, 100%, 100%, 50%);
-		letter-spacing: 3px;
-	}
+			& > span[class^='code'] {
+				width: 100%;
+				text-align: center;
+				font-size: 2.5rem;
+				color: var(--text-color);
+				letter-spacing: calc(var(--smallest-gap) / 2);
+			}
+			& > span[class^='button'] {
+				position: absolute;
+				display: grid;
+				place-content: center;
+				bottom: 0;
+				right: 0;
+				height: 3em;
+				aspect-ratio: 1;
+				border-radius: var(--border-r-100);
+				background-color: hsla(0, 100%, 0%, 50%);
+				transform: translate(-25%, 50%);
+			}
+		}
 
-	[id^='album'] > [id$='cover'] [class^='button'] {
-		position: absolute;
-		display: grid;
-		place-content: center;
-		bottom: 0;
-		right: 0;
-		height: 3em;
-		aspect-ratio: 1;
-		border-radius: var(--border-r-100);
-		background-color: hsla(0, 100%, 0%, 50%);
-		transform: translate(-25%, 50%);
-	}
+		& > [id$='info'] {
+			grid-area: footer;
+			display: grid;
+			grid-template:
+				'type' 1fr
+				'info' 1fr / 100%;
 
-	[id^='album'] > [id$='info'] {
-		grid-area: footer;
-		display: grid;
-		grid-template:
-			'type' 1fr
-			'info' 1fr / 100%;
-
-		text-transform: uppercase;
-		padding-inline: var(--smaller-gap);
+			text-transform: uppercase;
+			padding-inline: var(--small-gap);
+		}
 	}
 </style>

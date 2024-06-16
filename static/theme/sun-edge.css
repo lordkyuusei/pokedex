@@ -1,0 +1,7 @@
+:root {
+    --accent-color: hsl(355, 66%, 39%);
+    --second-color: hsl(28, 85%, 46%);
+    --text-color: hsl(220, 4%, 14%);
+    --background-color: hsl(293, 100%, 95%);
+    --background-second-color: hsl(295, 31%, 85%);
+}

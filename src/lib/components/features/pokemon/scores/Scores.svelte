@@ -66,7 +66,7 @@
 		gap: var(--small-gap);
 		padding: 1em;
 		border-radius: var(--border-r-200) 0 var(--border-r-200) var(--border-r-50);
-		background-color: var(--background-color-__);
+		background-color: var(--background-second-color);
 		box-shadow: var(--box-shadow);
 	}
 
@@ -88,7 +88,7 @@
 		padding-inline: 1em;
 		line-height: 1.5em;
 		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
-		background: var(--background-color-_);
+		background: var(--background-color);
 		position: relative;
 	}
 
@@ -101,8 +101,11 @@
 		justify-content: center;
 		align-items: center;
 		width: fit-content;
-		padding: 0 0.5em;
-		background-color: var(--background-color-___);
+		padding: 0 var(--smaller-gap);
+
+		backdrop-filter: brightness(1.2);
+		-webkit-backdrop-filter: brightness(1.2);
+
 		border: 1px solid var(--text-color);
 		border-radius: var(--border-r-50);
 	}

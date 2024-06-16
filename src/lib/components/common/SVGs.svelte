@@ -9,14 +9,14 @@
 				<ellipse ry="1" rx="1" cy="97" cx="50" />
 			</g>
 			<g class="main-stroke" id="line-top-right-bottom-left" transform="rotate(60 50 50)">
-				<line id="svg_24" y2="99" x2="50" y1="1" x1="50" />
-				<ellipse ry="1" rx="1" id="svg_25" cy="3" cx="50" />
-				<ellipse ry="1" rx="1" id="svg_26" cy="97" cx="50" />
+				<line y2="99" x2="50" y1="1" x1="50" />
+				<ellipse ry="1" rx="1" cy="3" cx="50" />
+				<ellipse ry="1" rx="1" cy="97" cx="50" />
 			</g>
 			<g class="main-stroke" id="line-top-left-bottom-right" transform="rotate(-60 50 50)">
-				<line id="svg_28" y2="99" x2="50" y1="1" x1="50" />
-				<ellipse ry="1" rx="1" id="svg_29" cy="3" cx="50" />
-				<ellipse ry="1" rx="1" id="svg_30" cy="97" cx="50" />
+				<line y2="99" x2="50" y1="1" x1="50" />
+				<ellipse ry="1" rx="1" cy="3" cx="50" />
+				<ellipse ry="1" rx="1" cy="97" cx="50" />
 			</g>
 			<g class="main-stroke" id="border">
 				<line transform="rotate(30 69.9615 15)" y2="15" x2="94.96153" y1="15" x1="44.96153" />
@@ -57,34 +57,27 @@
 			/>
 		</symbol>
 		<symbol id="icon-moves" viewBox="0 0 100 100">
-			<g transform="rotate(25 50 50)" id="svg_1">
-				<ellipse id="svg_144" class="main-fill main-stroke" ry="11" rx="9" cy="50" cx="50" />
+			<g transform="rotate(25 50 50)">
+				<ellipse class="main-fill main-stroke" ry="11" rx="9" cy="50" cx="50" />
 				<path
-					id="svg_143"
 					class="main-stroke"
 					d="m50,98c-19.8895,0 -36,-21.48066 -36,-48c0,-26.51934 16.1105,-48 36,-48c19.8895,0 36,21.48066 36,48c0,26.51934 -16.1105,48 -36,48z"
 				/>
-				<path id="svg_3" class="main-stroke" d="m63.25088,70.55359" />
+				<path class="main-stroke" d="m63.25088,70.55359" />
 				<path
-					id="svg_8"
 					class="main-stroke"
 					d="m34.72878,71.50123c0,0 3.16192,11.2659 15.07315,11.00249c11.91123,-0.26341 15.29813,-10.31483 15.29813,-10.31483"
 				/>
-				<path
-					id="svg_9"
-					class="main-stroke"
-					d="m66.70416,67.24374c0,0 1.12486,-2.81216 1.87084,-4.91876"
-				/>
+				<path class="main-stroke" d="m66.70416,67.24374c0,0 1.12486,-2.81216 1.87084,-4.91876" />
 			</g>
 		</symbol>
 		<symbol id="icon-map" viewBox="0 0 100 100">
 			<path
-				id="svg_16"
 				class="main-stroke"
 				d="m78.38518,21.44659c0,0 -37.93103,18.92346 -38.01513,18.83936c0.0841,0.0841 -18.83936,38.01513 -18.83936,38.01513c0.18893,0.03495 38.09924,-18.83936 38.09924,-18.83936c0,0 18.75525,-38.01513 18.75525,-38.01513z"
 			/>
 			<ellipse ry="48" rx="48" cy="50" cx="50" class="main-stroke" />
-			<ellipse ry="14" rx="14" id="svg_9" cy="50" cx="50" class="main-stroke main-fill" />
+			<ellipse ry="14" rx="14" cy="50" cx="50" class="main-stroke main-fill" />
 		</symbol>
 		<symbol id="icon-sprites" viewBox="0 0 100 100">
 			<g id="face-group">
@@ -165,9 +158,17 @@
 			</g>
 		</symbol>
 		<symbol id="icon-arrow" viewBox="10 0 40 50">
-			<line class="main-stroke" id="body" x1="10" y1="25" x2="47" y2="25"  />
-			<line class="main-stroke" id="top"  x1="35" y1="12" x2="48" y2="26"  />
-			<line class="main-stroke" id="bot"  x1="35" y1="38" x2="48" y2="24"  />
+			<line class="main-stroke" id="body" x1="10" y1="25" x2="47" y2="25" />
+			<line class="main-stroke" id="top" x1="35" y1="12" x2="48" y2="26" />
+			<line class="main-stroke" id="bot" x1="35" y1="38" x2="48" y2="24" />
+		</symbol>
+		<symbol id="icon-magnifier" viewBox="0 0 100 100">
+			<ellipse class="side-stroke" ry="25" rx="25" cy="40" cx="33" />
+			<line class="main-stroke" y2="100" x2="93" y1="57" x1="50" />
+			<ellipse ry="16" rx="8.5" cy="18" cx="20" class="side-stroke" />
+			<ellipse ry="16" rx="8.5" cy="18" cx="46" class="side-stroke" />
+			<ellipse ry="9.5" rx="5" cy="18" cx="42" class="main-stroke" />
+			<ellipse ry="9.5" rx="5" cy="18" cx="16" class="main-stroke" />
 		</symbol>
 	</defs>
 </svg>
@@ -177,7 +178,7 @@
 	.main-stroke,
 	.side-stroke {
 		fill: none;
-		stroke: var(--background-color-____);
+		stroke: var(--text-color);
 		stroke-opacity: 1;
 	}
 
@@ -190,11 +191,11 @@
 	}
 
 	.side-fill {
-		stroke: var(--primary-color);
+		stroke: var(--background-color);
 	}
 
 	.main-fill {
-		fill: var(--primary-color);
+		fill: var(--background-color);
 		fill-opacity: 1;
 	}
 </style>

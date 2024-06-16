@@ -92,11 +92,11 @@
 				stroke: var(--text-color);
 
 				&#big-poly {
-					fill: var(--background-color-_);
+					fill: var(--background-color);
 				}
 
 				&#small-poly {
-					fill: var(--primary-color);
+					fill: var(--background-second-color);
 					transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 				}
 			}
@@ -104,7 +104,7 @@
 
 		& > #stat-cumulative {
 			grid-area: 2 / 2 / 4 / 2;
-			color: var(--background-color-____);
+			color: var(--second-color);
 			z-index: 1;
 			font-size: x-large;
 		}
@@ -116,11 +116,11 @@
 			align-items: center;
 
 			& > span {
-				color: var(--primary-color);
+				color: var(--text-color);
 			}
 
 			& > em {
-				color: var(--text-color);
+				color: var(--accent-color);
 				font-size: larger;
 			}
 		}

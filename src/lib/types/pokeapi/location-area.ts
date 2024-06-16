@@ -11,7 +11,7 @@ type VersionEncounterDetailRef = {
     encounter_details: EncounterDetailRef[];
 }
 
-type EncounterDetailRef = {
+export type EncounterDetailRef = {
     min_level: number;
     max_level: number;
     condition_values: EntityRef[];

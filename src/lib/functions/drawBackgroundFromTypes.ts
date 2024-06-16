@@ -10,8 +10,8 @@ export const drawDiscCover = (type: string): string => {
 export const drawMoveCover = (type: string): string => {
     const [h, s, l] = TYPES.find(t => t.name === type)?.color || [];
 
-    const [fHsl, sHsl] = [`hsl(${h}, ${s}%, ${l}%)`, `hsl(${h}, ${s}%, ${l - 20}%)`];
-    return `linear-gradient(90deg, ${fHsl}, ${sHsl})`;
+    const [fHsl, sHsl] = [`hsl(${h}, ${s}%, ${l}%)`, `hsl(${h}, ${s}%, ${l - 10}%)`];
+    return `linear-gradient(to bottom, ${fHsl} 50%, ${sHsl} 100%)`;
 }
 
 const drawBookBackground = (types: string[] = [], portrait: boolean = false): string => {
@@ -35,7 +35,7 @@ export const drawBoxShadow = (type: string): string => {
     return `3px 3px 6px hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2] - 15}%), -3px -3px 6px hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2] + 15}%)`
 }
 
-export const getPkmnTypeTranslation = (type: string) => TYPES.find(t => t.name === type)?.code;
+export const getPkmnTypeTranslation = (type: string) => TYPES.find(t => t.name === type)?.code ?? '';
 export const getPkmnTypeColor = (type: string) => {
     const [h, s, l] = TYPES.find(t => t.name === type)?.color || [];
     return `hsl(${h}, ${s}%, ${l}%)`;
