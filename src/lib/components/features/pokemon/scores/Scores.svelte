@@ -31,16 +31,16 @@
 	$: units = ['height', 'weight', 'steps', 'gender', 'rate', 'egg'].map((unit) => unit);
 
 	$: scores = [
-		{ score: `${(height / 10).toPrecision(2)} m`, unit: units[0], icon: '📏' },
+		{ score: `${rate}`, unit: units[4], icon: '🔴' },
 		{ score: `${weight / 10} kg`, unit: units[1], icon: '⚖️' },
-		{ score: steps * 255 + 1, unit: units[2], icon: '🦶' },
+		{ score: `${(height / 10).toPrecision(2)} m`, unit: units[0], icon: '📏' },
 		{
 			score: getGenderCircle(gender),
 			unit: units[3],
 			icon: '⚧️%'
 		},
-		{ score: `${rate}`, unit: units[4], icon: '🔴' },
-		{ score: egg_group(), unit: units[5], icon: '🥚🗂️' }
+		{ score: egg_group(), unit: units[5], icon: '🥚🗂️' },
+		{ score: steps * 255 + 1, unit: units[2], icon: '🦶' },
 	];
 </script>
 
@@ -50,8 +50,8 @@
 			« {description} »
 		</cite>
 	</blockquote>
-	{#each scores as { score, unit, icon }}
-		<PokemonScore {unit} {icon}>{@html score}</PokemonScore>
+	{#each scores as { score, unit, icon }, index}
+		<PokemonScore {unit} {icon} {index}>{@html score}</PokemonScore>
 	{/each}
 </section>
 
@@ -64,10 +64,10 @@
 			'score score score' 1fr / 1fr 1fr 1fr;
 
 		gap: var(--small-gap);
-		padding: 1em;
+		padding: var(--small-gap);
+		box-shadow: var(--box-shadow);
 		border-radius: var(--border-r-200) 0 var(--border-r-200) var(--border-r-50);
 		background-color: var(--background-second-color);
-		box-shadow: var(--box-shadow);
 	}
 
 	@media (max-width: 640px) {
@@ -87,26 +87,25 @@
 		margin: 0;
 		padding-inline: 1em;
 		line-height: 1.5em;
-		border-radius: var(--border-r-100) 0 var(--border-r-100) 0;
+		border-radius: var(--border-r-100) 0 var(--border-r-50) 0;
 		background: var(--background-color);
 		position: relative;
+
+		&::before {
+			content: attr(data-genus);
+			position: absolute;
+			top: calc(var(--small-gap) * -0.75);
+			left: var(--small-gap);
+			padding: 0 var(--small-gap);
+		
+			backdrop-filter: brightness(1.2);
+			-webkit-backdrop-filter: brightness(1.2);
+		
+			color: var(--background-color);
+			background-color: var(--text-color);
+			border: 1px solid var(--text-color);
+			border-radius: var(--border-r-50);
+		}
 	}
 
-	blockquote::before {
-		content: attr(data-genus);
-		position: absolute;
-		top: -0.75em;
-		left: 1em;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: fit-content;
-		padding: 0 var(--smaller-gap);
-
-		backdrop-filter: brightness(1.2);
-		-webkit-backdrop-filter: brightness(1.2);
-
-		border: 1px solid var(--text-color);
-		border-radius: var(--border-r-50);
-	}
 </style>
