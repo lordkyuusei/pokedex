@@ -42,13 +42,13 @@
 		position: relative;
 		display: block;
 		height: 2em;
-		width: 4em;
+		aspect-ratio: 2 / 1;
 		border-radius: var(--border-r-50);
-		background-color: var(--background-color-___);
+		background-color: var(--background-color);
 	}
 
 	.label.label-check {
-		background-color: var(--primary-color);
+		background-color: var(--second-color);
 	}
 
 	.label > .switch {
@@ -73,7 +73,7 @@
 		left: 2px;
 		height: calc(2em - 4px);
 		width: calc(2em - 4px);
-		background-color: var(--background-color-_);
+		background-color: var(--text-color);
 		border-radius: var(--border-r-50);
 		transition: all var(--transition-duration) var(--transition-function);
 		z-index: 2;
@@ -81,7 +81,7 @@
 	}
 
 	.label.label-check > .toggle-visual > .toggle-block {
-		background-color: var(--background-color-___);
+		background-color: var(--background-color);
 	}
 
 	.label > .toggle-visual > .toggle-block:hover {

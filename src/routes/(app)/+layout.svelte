@@ -3,9 +3,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
-	import type { LayoutServerData } from '../$types';
+	import type { LayoutServerData } from './$types';
 
-	import { theme } from '$lib/store/theme';
+	import { theme, variant } from '$lib/store/theme';
 	import { deviceWidth, isMobile, isRendered } from '$lib/store/device';
 
 	import SVGs from '$lib/components/common/SVGs.svelte';
@@ -20,8 +20,8 @@
 
 <svelte:head>
 	<meta name="color-scheme" content={$theme === 'moon' ? 'dark' : 'light'} />
-	{#if $theme}
-		<link rel="stylesheet" href={`/theme/${$theme}.css`} />
+	{#if $theme && $variant}
+		<link rel="stylesheet" href={`/theme/${$theme}-${$variant}.css`} />
 	{/if}
 </svelte:head>
 
@@ -54,6 +54,6 @@
 	div {
 		height: 100svh;
 		width: 100svw;
-		background-color: var(--background-color-____);
+		background-color: var(--background-color);
 	}
 </style>

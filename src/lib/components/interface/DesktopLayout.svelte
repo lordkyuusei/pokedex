@@ -7,6 +7,7 @@
 	import Search from '$lib/components/layout/Search.svelte';
 	import ThemeSwitch from '$lib/components/layout/ThemeSwitch.svelte';
 	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
+	import ThemeVariantSwitch from '../layout/ThemeVariantSwitch.svelte';
 
 	export let routes: Route[];
 	export let routeId: string | null = '';
@@ -41,6 +42,7 @@
 			</menu>
 		</nav>
 		<footer id="navigation-settings">
+			<ThemeVariantSwitch />
 			<ThemeSwitch />
 			<LangSwitch />
 		</footer>
@@ -60,11 +62,16 @@
 <style>
 	#dex-layout {
 		display: grid;
-		background-color: var(--background-color-____);
+		background-color: var(--background-color);
 		color: var(--text-color);
 		grid-template: 'aside main' var(--app-height) / var(--app-navigation-width) var(
 				--app-content-width
 			);
+
+		& > #dex-navigation,
+		& > #dex-main > #main-header {
+			background-color: var(--background-second-color);
+		}
 
 		& > #dex-navigation {
 			grid-area: aside;
@@ -74,16 +81,14 @@
 				'aside-links' var(--layout-nav-size)
 				'aside-settings' var(--layout-header-size) / 100%;
 
-			& > :is(#navigation-logo, #navigation-settings) {
+			& > #navigation-logo {
 				display: flex;
 				place-content: center;
 				place-items: center;
 			}
 
-			& > #navigation-logo {
-				& > img {
-					inline-size: 75%;
-				}
+			& > #navigation-logo img {
+				inline-size: 75%;
 			}
 
 			& > nav#navigation-links menu[class^='links'] {
@@ -98,24 +103,12 @@
 					width: 100%;
 					display: grid;
 					align-items: center;
-					border-block: 1px solid var(--background-color-_);
 					transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
-
-					&:not(:first-child) {
-						border-top: 0;
-					}
 
 					&.selected {
 						font-weight: bold;
-						background-color: var(--background-color-__);
-					}
-
-					&:not(.selected) {
-						opacity: 0.75;
-						&:hover {
-							opacity: initial;
-							background-color: var(--background-color-___);
-						}
+						backdrop-filter: brightness(1.4);
+						-webkit-backdrop-filter: brightness(1.4);
 					}
 
 					& > a {
@@ -129,7 +122,15 @@
 			}
 
 			& > #navigation-settings {
+				display: grid;
+				grid-template: auto 1fr / 1fr auto;
+				place-items: center;
 				gap: var(--smaller-gap);
+				padding-inline: var(--smallest-gap);
+
+				& > *:first-child {
+					grid-area: 1 / 1 / 1 / span 2;
+				}
 			}
 		}
 
@@ -147,12 +148,13 @@
 				justify-content: space-between;
 				gap: var(--small-gap);
 				align-items: center;
-				padding-inline-end: 1em;
+				padding-inline-end: var(--small-gap);
 				padding-block: var(--smaller-gap);
 			}
 
 			& > #main-content {
-				background-color: var(--background-color-___);
+				height: 100%;
+				background-color: var(--background-color);
 			}
 		}
 	}

@@ -73,20 +73,21 @@
 
 		& > .header-name,
 		& > .navigation-button {
+			height: 100%;
 			display: grid;
 			place-items: center;
 			border-radius: var(--border-r-50);
 			padding-inline: var(--smallest-gap);
-			height: 100%;
+			color: var(--second-color);
 		}
 
 		& > .header-name {
 			text-transform: uppercase;
 			letter-spacing: 2px;
+			background-color: var(--background-color);
 
 			@media (min-width: 640px) {
 				padding-inline: var(--small-gap);
-				background-color: var(--background-color-__);
 			}
 
 			@media (max-width: 640px) {
@@ -128,6 +129,7 @@
 		a.navigation-button {
 			background-color: rgba(255, 255, 255, 0.5) !important;
 		}
+
 		a.navigation-button:first-child {
 			grid-template-columns: 50% 50%;
 			border-radius: 0 var(--border-r-200) var(--border-r-200) 0 !important;

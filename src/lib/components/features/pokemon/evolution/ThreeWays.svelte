@@ -20,6 +20,6 @@
 
 	div {
 		height: 1em;
-		background-color: var(--background-color-___);
+		background-color: var(--text-color);
 	}
 </style>

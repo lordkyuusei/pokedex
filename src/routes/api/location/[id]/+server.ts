@@ -5,8 +5,7 @@ export const GET = (async ({ params }) => {
     const id = Number(params.id);
 
     const locationArea = await fetchPokemonLocationArea(id);
-
-    const move = JSON.stringify(locationArea)
-    return new Response(move);
+    const locations = JSON.stringify(locationArea)
+    return new Response(locations);
 
 }) satisfies RequestHandler;

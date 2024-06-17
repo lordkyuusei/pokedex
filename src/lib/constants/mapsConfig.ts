@@ -26,6 +26,16 @@ export const MAPS_CONFIG: MapConfiguration = {
     }
 }
 
+export type MapOptions = {
+    blinkEnabled: boolean,
+    forceMeasure: 'width' | 'height',
+}
+
+export const DEFAULT_MAP_OPTIONS: MapOptions = {
+    blinkEnabled: true,
+    forceMeasure: 'height',
+}
+
 type MapConfiguration = {
     [key: string]: {
         viewBoxX: number,

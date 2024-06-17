@@ -1,18 +1,69 @@
 <svelte:options immutable />
 
 <script lang="ts">
-	import type { PageData } from './$types';
+	import { browser } from '$app/environment';
 	import { version } from '$lib/store/generation';
+	import { lang } from '$lib/store/lang';
+	import t from '$lib/store/i18n';
+	import { DEXAPI_LOCATION } from '$lib/constants/api.json';
 	import type { PokemonLocationArea } from '$lib/types/pokeapi/location-area';
-	import { getGamesMaps } from '$lib/functions/getGamesMaps';
+	import type { Location, LocationWithCoords, SimplifiedLocation } from '$lib/types/location';
+
+	import type { PageData } from './$types';
+	import Map from '$lib/components/features/Map.svelte';
 
 	export let data: PageData;
 
-	const MAPS_NAMES = getGamesMaps();
+	let selectedGame: string | null;
+	let selectedArea: LocationWithCoords | null = null;
+	let selectedCondition: number | null = null;
+	let locationsPerGame: SimplifiedLocation[] = [];
+	let locationsWithCoords: LocationWithCoords[] = [];
 
-	$: rawLocations = extractLocations(data.location);
-	$: locations = rawLocations.filter((l) => $version.includes(l.version));
-	$: mapName = MAPS_NAMES.find((map) => map.includes($version));
+	$: if (browser && $version && data) loadLocations(data.location);
+	$: hasLocationsCoords = locationsWithCoords.every((loc) => loc.coords.length !== 0);
+
+	const loadLocations = (locations: PokemonLocationArea[]) => {
+		if (locations.length === 0) {
+			locationsPerGame = [];
+			locationsWithCoords = [];
+			return;
+		}
+
+		const rawLocations = extractLocations(locations);
+		locationsPerGame = rawLocations.filter((game) => $version.includes(game.version));
+		if (locationsPerGame.length === 0) {
+			locationsWithCoords = [];
+			return;
+		}
+
+		selectedArea = null;
+		setSelectedGame(locationsPerGame[0]);
+
+		fetch(`${DEXAPI_LOCATION}/${$version}`).then(async (response) => {
+			const gameLocations: Location = await response.json();
+			const flatLocations = gameLocations.regions.flatMap(({ locations }) =>
+				locations.flatMap(({ areas }) => areas)
+			);
+
+			const mapLocationToCoordinates = locationsPerGame.flatMap(({ locations }) =>
+				locations.map((loc) => {
+					const name = loc.location;
+					const locationCoordinates = flatLocations.find((loc) => loc.name === name);
+					if (!locationCoordinates) return null;
+
+					return {
+						name,
+						i18nName: locationCoordinates.i18nName,
+						coords: locationCoordinates.coords,
+						conditions: loc.conditions
+					};
+				})
+			);
+
+			locationsWithCoords = mapLocationToCoordinates.filter((loc) => loc !== null);
+		});
+	};
 
 	const extractLocations = (locations: PokemonLocationArea[]) => {
 		const versions = [
@@ -50,14 +101,81 @@
 
 		return locationsPerVersion;
 	};
+
+	const setSelectedGame = (game: SimplifiedLocation) => {
+		selectedGame = game.version;
+	};
+
+	const showArea = (e: CustomEvent<string>) => {
+		const area = locationsWithCoords.find((loc) => loc.name === e.detail);
+		if (!area) return;
+
+		selectedArea = area;
+	};
 </script>
 
 <section id="data-location">
-	<div
-		id="location"
-		style={`background-image: url("/maps/${mapName}.png"); background-size: cover; background-blend-mode: overlay`}
-	>
-		{#if locations.length}
+	<div id="locations" class:with-map={hasLocationsCoords}>
+		{#if hasLocationsCoords}
+			<Map pkmnCoordinates={locationsWithCoords} version={$version} on:onAreaSelected={showArea}
+			></Map>
+			{#if selectedArea}
+				<aside id="location-details">
+					<header id="details-header">
+						<span>{selectedArea.i18nName[$lang]}</span>
+						<button class="round" on:click={() => (selectedArea = null)}>✖️</button>
+					</header>
+					<div id="details-game">
+						{#each locationsPerGame as game}
+							<button
+								class:selected={selectedGame === game.version}
+								on:click={() => setSelectedGame(game)}>{game.version}</button
+							>
+						{/each}
+					</div>
+					<div id="details-area">
+						<table>
+							<thead>
+								<tr>
+									<th>Chances</th>
+									<th>Niveaux</th>
+									<th>Méthode</th>
+									<th>Conditions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each selectedArea.conditions as condition, i}
+									<tr>
+										<td class="chance">{condition.chance}%</td>
+										<td class="level">Lv. [{condition.min_level} - {condition.max_level}]</td>
+										<td class="method">{condition.method.name}</td>
+										<td>
+											{#if condition.condition_values.length > 0}
+												<button class="round condition" on:click={() => (selectedCondition = i)}
+													>?</button
+												>
+											{:else}
+												✖️
+											{/if}
+										</td>
+									</tr>
+									{#if condition.condition_values.length > 0 && selectedCondition === i}
+										<!-- {@debug condition} -->
+										<tr>
+											<td style="text-transform: capitalize" colspan="4">
+												{condition.condition_values
+													.map((c) => $t(`condition.${c.name}`))
+													.join(', ')}
+											</td>
+										</tr>
+									{/if}
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				</aside>
+			{/if}
+		{:else if locationsPerGame.length}
 			<table>
 				<thead>
 					<tr>
@@ -67,7 +185,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each locations as locationGroup}
+					{#each locationsPerGame as locationGroup}
 						{#each locationGroup.locations as location, i}
 							<tr>
 								{#if i === 0}
@@ -106,16 +224,76 @@
 <style>
 	#data-location {
 		padding: var(--small-gap);
+		width: 100%;
+		overflow-y: hidden;
 
-		& > #location {
+		& > div#locations {
 			display: grid;
-			place-items: center;
-			overflow: auto;
-
 			height: 100%;
-			border-radius: var(--border-r-200);
-			background-color: var(--background-color-___);
+			width: 100%;
+			border-radius: var(--border-r-50);
+			background-color: var(--background-second-color);
 			box-shadow: var(--box-shadow);
+
+			&.with-map {
+				--margin: var(--small-gap);
+
+				grid-template: 100% / 1fr 0.75fr;
+				position: relative;
+
+				& > *:first-child {
+					grid-area: 1 / 1 / 1 / span 2;
+				}
+
+				& > aside#location-details {
+					grid-area: 1 / 2 / 1 / 2;
+					display: grid;
+					grid-template: var(--layout-header-size) calc(var(--layout-header-size) / 1.5) 1fr / 100%;
+					height: min-content;
+					max-height: calc(100% - calc(var(--margin) / 0.5));
+					width: calc(100% - var(--margin));
+					margin: calc(var(--margin)) var(--margin) 0 0;
+					border-radius: var(--border-r-50);
+					background-color: var(--background-color);
+					z-index: 1;
+
+					& > header#details-header {
+						display: grid;
+						grid-template: 100% / 1fr auto;
+						place-items: center;
+						padding-inline: var(--small-gap);
+						background-color: var(--text-color);
+						border-radius: var(--border-r-50) var(--border-r-50) 0 0;
+
+						& > span {
+							grid-area: 1 / 1 / 1 / span 2;
+							color: var(--background-color);
+						}
+
+						& > button {
+							grid-area: 1 / 2 / 1 / 2;
+						}
+					}
+
+					& > div#details-game {
+						display: grid;
+						grid-auto-flow: column;
+						grid-auto-columns: 1fr;
+
+						& > button.selected {
+							background-color: var(--second-color);
+						}
+					}
+
+					& > div#details-area {
+						padding: var(--smaller-gap);
+
+						& > table :is(th, td) {
+							text-align: center;
+						}
+					}
+				}
+			}
 
 			& > table thead {
 				text-align: center;

@@ -16,17 +16,17 @@
 		grid-template: 'icon text' auto / 1fr 5fr;
 		place-items: center;
 		place-content: center;
-		border-radius: var(--border-r-200);
-		background-color: var(--background-color-___);
+		padding: var(--smallest-gap);
+		border-radius: var(--border-r-50);
+		background-color: var(--background-color);
 		box-shadow: var(--box-shadow);
-		width: 100%;
 	}
 
 	img {
 		grid-area: icon;
 
-		width: 3rem;
-		border-radius: var(--border-r-200);
+		width: 2.5rem;
+		border-radius: calc(var(--border-r-50) - var(--smallest-gap));
 	}
 
 	p {
@@ -34,6 +34,6 @@
 
 		margin: 0;
 		text-transform: uppercase;
-		letter-spacing: 3px;
+		letter-spacing: 4px;
 	}
 </style>

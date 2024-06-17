@@ -6,11 +6,11 @@
 	import { generation } from '$lib/store/generation';
 	import Album from '$lib/components/features/moves/Album.svelte';
 
-	$: movesList =
-		$generation && browser
-			? fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => await x.json())
-			: [];
+	let movesList: any;
 
+	$: if ($generation && browser) {
+		movesList = fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => await x.json());
+	}
 	$: header = $_('moves.title') + ` ${$generation?.id}`;
 </script>
 
@@ -18,19 +18,21 @@
 	<h1 class="header-name">
 		{header}
 	</h1>
-	<section id="moves-list">
-		{#await movesList then moves}
-			{#each [...moves] as [type, count], i}
-				<a href="/moves/{type}" in:fade={{ delay: 25 * i }} out:fade>
-					<Album {type} {count} />
-				</a>
-			{/each}
-		{/await}
-	</section>
+	<div id="moves-list">
+		{#if movesList}
+			{#await movesList then moves}
+				{#each [...moves] as [type, count], i}
+					<a href="/moves/{type}" in:fade={{ delay: 25 * i }} out:fade>
+						<Album {type} {count} />
+					</a>
+				{/each}
+			{/await}
+		{/if}
+	</div>
 </section>
 
 <style>
-	#moves {
+	section#moves {
 		display: flex;
 		flex-direction: column;
 		gap: var(--small-gap);
@@ -43,7 +45,7 @@
 			padding-inline: 4em;
 		}
 
-		& > #moves-list {
+		& > div#moves-list {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
 			row-gap: 2em;
@@ -56,8 +58,7 @@
 			overflow-x: scroll;
 
 			& > a {
-				padding: 0;
-				background: none;
+				border-radius: var(--border-r-100);
 			}
 
 			@media (max-width: 640px) {

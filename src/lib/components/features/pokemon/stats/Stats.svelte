@@ -26,10 +26,10 @@
 		position: relative;
 		display: grid;
 		place-items: center;
-		padding: 1em;
-		border-radius: var(--border-r-200) var(--border-r-50) var(--border-r-200) 0;
-		background-color: var(--background-color-__);
+		padding: var(--small-gap);
 		box-shadow: var(--box-shadow);
+		background-color: var(--background-second-color);
+		border-radius: var(--border-r-200) var(--border-r-50) var(--border-r-200) 0;
 	}
 
 	@media (max-width: 640px) {

@@ -24,7 +24,7 @@
 	#lang-switch {
 		text-transform: capitalize;
 
-		aspect-ratio: 1;
+		border-radius: var(--border-r-50);
 
 		@media (max-width: 640px) {
 			height: calc(100% - var(--smallest-gap));

@@ -8,9 +8,12 @@ declare global {
 		// interface Platform {}
 	}
 
-	type Theme = 'moon' | 'sun';
 	type Lang = 'fr' | 'en';
+	type Theme = 'moon' | 'sun';
+	type Variant<T extends Theme> =
+		T extends 'moon' ? 'greink' | 'piey' :
+		T extends 'sun' ? 'edge' | 'maglet' :
+		never;
 }
-
 
 export { };

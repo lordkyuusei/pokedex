@@ -61,7 +61,9 @@
 </script>
 
 <button id="dex-search" class="search-button" on:click={showPane}>
-	<img class="search-icon" src="/dex-search.svg" alt="Search" />
+	<svg class="search-icon">
+		<use href="#icon-magnifier"></use>
+	</svg>
 </button>
 
 <aside id="dex-pan" class:show use:useDismiss on:dismiss={hidePane}>
@@ -75,7 +77,9 @@
 				bind:value={searchText}
 				on:keyup={debounce}
 			/>
-			<img class="search-icon" src="/dex-search.svg" alt="logo" />
+			<svg class="search-icon">
+				<use href="#icon-magnifier"></use>
+			</svg>
 		</search>
 	</header>
 	<output id="pan-results">
@@ -103,8 +107,8 @@
 		width: 40svw;
 		right: -40svw;
 		padding-inline: var(--small-gap);
-		z-index: 2;
-		background-color: var(--background-color-__);
+		z-index: 5;
+		background-color: var(--background-color);
 		border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 		transition: all var(--transition-duration) var(--transition-function);
 
@@ -138,12 +142,13 @@
 		width: 100%;
 		padding-inline: var(--normal-gap);
 		border-radius: var(--border-r-100);
-		background-color: var(--background-color-_);
+		background-color: var(--background-second-color);
 	}
 
 	#pan-header > #header-search .search-icon,
 	.search-button > .search-icon {
-		transform: scale(0.85);
+		height: 2rem;
+		width: 2rem;
 	}
 
 	#pan-header > #header-search .search-icon {

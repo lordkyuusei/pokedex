@@ -67,39 +67,38 @@
 
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		border: var(--border-size) solid var(--background-color-_);
 		border-radius: var(--border-r-50);
 		position: relative;
 		height: 100%;
 
-		& > [class^="generations"] {
+		& > [class^='generations'] {
 			cursor: pointer;
 			padding-inline: var(--small-gap);
 			appearance: none;
 			border: none;
 			text-transform: uppercase;
 			text-align: center;
-
-			&:focus {
-				outline: none;
-			}
 		}
 
 		& > .generations-gen {
-			border-radius: calc(var(--border-r-50) - var(--border-size)) 0 0 calc(var(--border-r-50) - var(--border-size));
+			border-radius: calc(var(--border-r-50) - var(--border-size)) 0 0
+				calc(var(--border-r-50) - var(--border-size));
 
-			&, & > option {
-				background-color: var(--background-color-_);
-				color: var(--background-color-____);
+			&,
+			& > option {
+				background: var(--background-color);
+				color: var(--text-color);
 			}
 		}
 
 		& > .generations-game {
-			border-radius: 0 calc(var(--border-r-50) - var(--border-size)) calc(var(--border-r-50) - var(--border-size)) 0;
+			border-radius: 0 calc(var(--border-r-50) - var(--border-size))
+				calc(var(--border-r-50) - var(--border-size)) 0;
 
-			&, & > option {
-				background: var(--background-color-___);
-				color: var(--text-color);
+			&,
+			& > option {
+				background-color: var(--text-color);
+				color: var(--background-color);
 			}
 		}
 
@@ -112,18 +111,19 @@
 			height: 0;
 			width: 0;
 			border: 1rem solid transparent;
-			border-right: 1rem solid var(--background-color-___);
+			border-right: 1rem solid var(--background-color);
 		}
 	}
 
-	@media (max-width: 640px) {		
-		#generations, #generations > [class^="generations"] {
+	@media (max-width: 640px) {
+		#generations,
+		#generations > [class^='generations'] {
 			border-radius: 0;
 			border: 0;
 		}
 
 		#generations {
-			border-bottom: var(--border-size) solid var(--background-color-_);
+			border-bottom: var(--border-size) solid var(--background-color);
 		}
 	}
 </style>

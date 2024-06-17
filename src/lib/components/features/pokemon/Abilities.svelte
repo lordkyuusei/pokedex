@@ -12,7 +12,7 @@
 	};
 </script>
 
-<section in:fade={{ delay: 200 }} id="stats-abilities">
+<div in:fade={{ delay: 200 }} id="stats-abilities">
 	{#each abilities as ability, i (i)}
 		<button
 			type="button"
@@ -30,73 +30,70 @@
 			{/if}
 		</button>
 	{/each}
-</section>
+</div>
 
 <style>
-	#stats-abilities {
+	div#stats-abilities {
 		display: grid;
 		place-items: center;
 		gap: var(--small-gap);
-		padding: 1em;
+		padding: var(--small-gap);
 		border-radius: 0 var(--border-r-200) var(--border-r-50) var(--border-r-200);
-		background-color: var(--background-color-__);
+		background-color: var(--background-second-color);
 		box-shadow: var(--box-shadow);
-	}
 
-	@media (max-width: 640px) {
-		#stats-abilities {
-			border-radius: 0;
-			box-shadow: none;
+		& > button[id^='ability'] {
+			height: 100%;
+			width: 100%;
+			font-size: x-large;
+			cursor: pointer;
+
+			color: var(--text-color);
+			background-color: var(--background-color);
+			transition: padding-block var(--transition-duration) var(--transition-function);
+		}
+
+		& > button[id^='ability']:first-child {
+			border-radius: 0 var(--border-r-100) 0 0;
+		}
+
+		& > button[id^='ability']:last-child {
+			border-radius: 0 0 0 var(--border-r-100);
+
+			& > span {
+				position: relative;
+				font-style: italic;
+
+				& > ::before {
+					content: '* ';
+				}
+			}
+		}
+
+		& > button[id^='ability']:only-child {
+			border-radius: var(--border-r-100);
+		}
+
+		& > button.chosen {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: var(--small-gap);
+			padding-block: var(--smaller-gap);
+			transition: padding var(--transition-duration) var(--transition-function);
+		}
+
+		& > button.chosen > span.flavor {
+			font-size: large;
+			line-height: 1em;
 		}
 	}
 
-	#stats-abilities > button:last-child span {
-		position: relative;
-		font-style: italic;
-	}
-
-	#stats-abilities button:last-child span::before {
-		content: '* ';
-	}
-
-	[id^='ability'] {
-		height: 100%;
-		width: 100%;
-		font-size: x-large;
-		cursor: pointer;
-
-		background-color: var(--background-color-_);
-		transition: padding var(--transition-duration) var(--transition-function);
-	}
-
-	[id^='ability']:hover {
-		filter: brightness(1.2);
-	}
-
-	[id^='ability']:first-child {
-		border-radius: 0 var(--border-r-100) 0 0;
-	}
-
-	[id^='ability']:last-child {
-		border-radius: 0 0 0 var(--border-r-100);
-	}
-
-	[id^='ability']:only-child {
-		border-radius: var(--border-r-100);
-	}
-
-	.chosen {
-		padding-block: 0.5em;
-		display: flex;
-		gap: var(--small-gap);
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		transition: padding var(--transition-duration) var(--transition-function);
-	}
-
-	.chosen > span.flavor {
-		font-size: large;
-		line-height: 1em;
+	@media (max-width: 640px) {
+		div#stats-abilities {
+			border-radius: 0;
+			box-shadow: none;
+		}
 	}
 </style>

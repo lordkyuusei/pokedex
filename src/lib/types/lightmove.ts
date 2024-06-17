@@ -4,7 +4,7 @@ export type LightMove = {
     moves: LightMoveDetails[]
 }
 
-type LightMoveDetails = {
+export type LightMoveDetails = {
     id: number;
     name: string;
     power: number;
