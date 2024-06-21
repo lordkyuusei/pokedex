@@ -18,6 +18,7 @@ const lightlocationsSchema = new Schema<Location, LocationModelType, {}, Locatio
         name: String,
         locations: [{
             id: String,
+            mapName: String,
             areas: [{
                 id: Number,
                 name: String,

@@ -45,7 +45,7 @@
 		text-align: left;
 		box-shadow: var(--box-shadow);
 		color: var(--text-color);
-		background-color: var(--background-color-__);
+		background-color: var(--background-color);
 	}
 
 	@media (max-width: 640px) {
@@ -59,7 +59,7 @@
 	}
 
 	.pwa-toast button {
-		border: 1px solid var(--background-color-_);
+		border: 1px solid var(--text-color);
 		outline: none;
 		margin-right: 5px;
 		border-radius: 2px;

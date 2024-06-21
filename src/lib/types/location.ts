@@ -17,6 +17,7 @@ type Region = {
 export type LocationNode = {
     _id: Types.ObjectId,
     id: string,
+    mapName: String,
     areas: LocationArea[]
 }
 

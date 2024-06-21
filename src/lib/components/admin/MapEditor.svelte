@@ -1,22 +1,36 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
+	import { version } from '$lib/store/generation';
 	import { saveStatus } from '$lib/store/save';
-	import { getGamesMaps } from '$lib/functions/getGamesMaps';
-	import { DEFAULT_MAP_COORDINATES, MAPS_CONFIG } from '$lib/constants/mapsConfig';
+	import { findMatchingMaps } from '$lib/functions/getGamesMaps';
+	import {
+		DEFAULT_MAP_CONFIG,
+		DEFAULT_MAP_COORDINATES,
+		getMapConfig,
+		getMapName,
+		type MapConfiguration
+	} from '$lib/constants/mapsConfig';
 
 	export let coordinates: number[] = [];
-	export let version: string = 'red-blue-yellow-green';
 
-	const MAPS_NAMES = getGamesMaps();
+	let maps: string[] = [];
+	let selectedMap: string | null = null;
+	let selectedMapConfig: MapConfiguration = DEFAULT_MAP_CONFIG;
 
 	let copyButton: HTMLButtonElement;
 	let pasteButton: HTMLButtonElement;
 	let forceRectangle: boolean = true;
 	let dispatch = createEventDispatcher();
 
-	$: mapConfig = MAPS_CONFIG[mapName];
-	$: mapName = MAPS_NAMES.find((map) => map.includes(version)) || version;
+	$: if ($version) loadMaps();
+	$: if (selectedMap) selectedMapConfig = getMapConfig(selectedMap);
+
+	const loadMaps = () => {
+		maps = findMatchingMaps($version);
+		selectedMap = maps[0] ?? $version;
+	};
+
 	$: coordinates = coordinates.length > 0 ? coordinates : DEFAULT_MAP_COORDINATES;
 	$: coordsAsPoints = coordinates
 		.reduce((acc, coord, index) => `${acc}${index % 2 === 0 ? `${coord},` : `${coord} `}`, '')
@@ -103,6 +117,7 @@
 		const gridColumn = ((pointNbr - 1) % 2) + 1;
 		const headerGridRow = Math.floor(index / 4) * 3 + 1;
 		const valuesGridRow = headerGridRow + (isAbscissa ? 1 : 2);
+
 		return {
 			isAbscissa,
 			pointNbr,
@@ -113,16 +128,25 @@
 	};
 </script>
 
-<section class:span-map={mapName === 'gold-silver-crystal'}>
+<section class:span-map={selectedMap === 'gold-silver-crystal'}>
 	<svg
 		role="img"
-		viewBox="0 0 {mapConfig.viewBoxX} {mapConfig.viewBoxY}"
+		viewBox="0 0 {selectedMapConfig.viewBoxX} {selectedMapConfig.viewBoxY}"
 		on:mousemove={panZoom}
 		on:wheel={changeZoom}
 	>
-		<image href="/maps/{mapName}.png"></image>
+		<image href="/maps/{selectedMap}.png"></image>
 		<polygon id="victory-road" points={coordsAsPoints}></polygon>
 	</svg>
+	{#if maps.length > 1}
+		<aside class="maps-list">
+			<ul>
+				{#each maps as map, i (map)}
+					<li><button on:click={() => (selectedMap = map)}>{getMapName(map)}</button></li>
+				{/each}
+			</ul>
+		</aside>
+	{/if}
 	<div class="range-grid">
 		{#each coordinates as coord, i}
 			{@const helper = getDetails(i)}
@@ -141,9 +165,9 @@
 				<input
 					id="point_{i}"
 					type="range"
-					step={mapConfig.step}
+					step={selectedMapConfig.step}
 					min="0"
-					max={helper.isAbscissa ? mapConfig.viewBoxX : mapConfig.viewBoxY}
+					max={helper.isAbscissa ? selectedMapConfig.viewBoxX : selectedMapConfig.viewBoxY}
 					bind:value={coord}
 					on:input={updatePair}
 					on:wheel|stopPropagation|preventDefault={triggerUpdate}
@@ -176,6 +200,15 @@
 
 		&.span-map {
 			grid-template-rows: repeat(2, auto);
+		}
+
+		& > aside {
+			margin-top: auto;
+			grid-area: 2 / 1 / -1 / 1;
+			& > ul {
+				display: flex;
+				gap: var(--small-gap);
+			}
 		}
 
 		& > svg {

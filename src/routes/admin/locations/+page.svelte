@@ -89,9 +89,8 @@
 				</ul>
 				{#if selectedArea}
 					<MapEditor
-						version={$version}
-						on:coords={async (event) => await saveCoords(event)}
 						coordinates={selectedArea.coords}
+						on:coords={async (event) => await saveCoords(event)}
 					></MapEditor>
 				{/if}
 			{:else}
@@ -121,12 +120,13 @@
 			gap: var(--smallest-gap);
 			place-items: center;
 			overflow-y: auto;
-			border-right: 1px solid var(--background-color-_);
+			border-right: 1px solid var(--background-color);
 
 			& > li {
 				width: 100%;
 
 				& > button {
+					color: var(--text-color);
 					border-radius: 0;
 					display: grid;
 					width: 100%;
@@ -150,6 +150,7 @@
 			gap: var(--small-gap);
 
 			& > li button {
+				color: var(--text-color);
 				text-wrap: nowrap;
 			}
 		}
@@ -166,6 +167,6 @@
 	}
 
 	.selected {
-		background-color: var(--third-color);
+		background-color: var(--second-color);
 	}
 </style>

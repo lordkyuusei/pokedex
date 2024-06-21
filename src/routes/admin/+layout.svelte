@@ -5,7 +5,7 @@
 	import { dev } from '$app/environment';
 	import type { LayoutServerData } from '../$types';
 
-	import { theme } from '$lib/store/theme';
+	import { theme, variant } from '$lib/store/theme';
 
 	import SVGs from '$lib/components/common/SVGs.svelte';
 	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
@@ -18,8 +18,8 @@
 
 <svelte:head>
 	<meta name="color-scheme" content={$theme === 'moon' ? 'dark' : 'light'} />
-	{#if $theme}
-		<link rel="stylesheet" href={`/theme/${$theme}.css`} />
+	{#if $theme && $variant}
+		<link rel="stylesheet" href={`/theme/${$theme}-${$variant}.css`} />
 	{/if}
 </svelte:head>
 

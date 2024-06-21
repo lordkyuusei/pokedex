@@ -102,6 +102,7 @@ const parseLocationsList = (rawLocationsList: LightLocationsResults) =>
             name: r.pokemon_v2_region.name,
             locations: r.pokemon_v2_region.pokemon_v2_locations.map(l => ({
                 id: l.name,
+                mapName: l.name,
                 areas: l.pokemon_v2_locationareas.map(a => ({
                     id: a.id,
                     name: a.name,
