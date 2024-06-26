@@ -23,7 +23,6 @@
 <style>
 	#lang-switch {
 		text-transform: capitalize;
-
 		border-radius: var(--border-r-50);
 
 		@media (max-width: 640px) {

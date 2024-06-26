@@ -60,7 +60,7 @@
 </label>
 
 <style>
-	.pokedex-theme {
+	label.pokedex-theme {
 		height: 2rem;
 		aspect-ratio: 2 / 1;
 		border-radius: var(--border-r-50);
@@ -69,10 +69,11 @@
 		grid-template: 100% / 1fr;
 		padding: calc(var(--smallest-gap) / 2);
 
-		& > .theme-input {
+		& > input.theme-input {
 			grid-area: 1 / 1;
 			appearance: none;
 			border: 0;
+			background-color: var(--background-color);
 		}
 
 		& > .theme-toggle,

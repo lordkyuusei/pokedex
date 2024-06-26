@@ -93,8 +93,10 @@ button,
 textarea,
 select {
     font: inherit;
-    border: 1px solid var(--background-color-_);
-    background-color: var(--background-color-__);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: var(--smaller-gap) var(--small-gap);
+    background-color: var(--background-second-color);
 }
 
 a {

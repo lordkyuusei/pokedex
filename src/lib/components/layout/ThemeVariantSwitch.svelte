@@ -55,6 +55,7 @@
 				border: 0.25rem solid var(--background-color);
 				outline: 0.125rem solid var(--color);
 
+				padding: 0;
 				transition: all var(--transition-duration) var(--transition-function);
 
 				&:not(:checked):hover {
@@ -66,6 +67,15 @@
 					background-color: var(--color);
 				}
 			}
+		}
+	}
+
+	@media (max-width: 1024px) {
+		ul {
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: var(--smaller-gap);
 		}
 	}
 </style>

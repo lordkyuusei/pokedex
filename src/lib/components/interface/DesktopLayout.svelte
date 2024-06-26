@@ -68,18 +68,27 @@
 				--app-content-width
 			);
 
-		& > #dex-navigation,
+		& > aside#dex-navigation,
 		& > #dex-main > #main-header {
 			background-color: var(--background-second-color);
 		}
 
-		& > #dex-navigation {
+		& > aside#dex-navigation {
 			grid-area: aside;
 			display: grid;
 			grid-template:
 				'aside-logo' var(--layout-header-size)
 				'aside-links' var(--layout-nav-size)
 				'aside-settings' var(--layout-header-size) / 100%;
+
+			justify-items: center;
+
+			@media (max-width: 1024px) {
+				grid-template:
+				'aside-logo' var(--layout-header-size)
+				'aside-links' calc(var(--layout-nav-size) - var(--layout-header-size))
+				'aside-settings' calc(var(--layout-header-size) * 2) / 100%;
+			}
 
 			& > #navigation-logo {
 				display: flex;
@@ -91,35 +100,40 @@
 				inline-size: 75%;
 			}
 
-			& > nav#navigation-links menu[class^='links'] {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				list-style-type: none;
-				padding-inline-start: 0;
-				overflow-x: hidden;
+			& > nav#navigation-links {
+				width: 100%;
 
-				& > li {
-					width: 100%;
-					display: grid;
+				& menu[class^='links'] {
+					display: flex;
+					flex-direction: column;
 					align-items: center;
-					transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
-
-					&.selected {
-						font-weight: bold;
-						backdrop-filter: brightness(1.4);
-						-webkit-backdrop-filter: brightness(1.4);
-					}
-
-					& > a {
-						text-align: center;
-						text-transform: uppercase;
-						letter-spacing: 0.1em;
-						padding: var(--normal-gap) var(--small-gap);
-						border-radius: 0;
+					list-style-type: none;
+					padding-inline-start: 0;
+					overflow-x: hidden;
+	
+					& > li {
+						width: 100%;
+						display: grid;
+						align-items: center;
+						transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
+	
+						&.selected {
+							font-weight: bold;
+							backdrop-filter: brightness(1.4);
+							-webkit-backdrop-filter: brightness(1.4);
+						}
+	
+						& > a {
+							text-align: center;
+							text-transform: uppercase;
+							letter-spacing: 0.1em;
+							padding: var(--normal-gap) var(--small-gap);
+							border-radius: 0;
+						}
 					}
 				}
 			}
+			
 
 			& > #navigation-settings {
 				display: grid;
@@ -128,8 +142,14 @@
 				gap: var(--smaller-gap);
 				padding-inline: var(--smallest-gap);
 
-				& > *:first-child {
-					grid-area: 1 / 1 / 1 / span 2;
+				@media (min-width: 1024px) {
+					& > *:first-child {
+						grid-area: 1 / 1 / 1 / span 2;
+					}
+				}
+
+				@media (max-width: 1024px) {
+					grid-template: 1fr 1fr 1fr / 100%;
 				}
 			}
 		}
