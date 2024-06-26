@@ -12,9 +12,9 @@ export const GET = (async ({ params }) => {
 
 export const POST = (async ({ params, request }) => {
     const { version } = params;
-    const body = await request.json();
+    const { locationId, area, mapName } = await request.json();
 
-    setCoordsForLocation(body.locationId, body.area);
+    setCoordsForLocation(locationId, area, mapName);
 
-    return json(body);
+    return json({ locationId, area, mapName });
 }) satisfies RequestHandler;

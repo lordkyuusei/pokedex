@@ -59,6 +59,49 @@ export const syncLocationsToVersion = async (from: string | null, to: string | n
     })
 }
 
+export const applyDefaultLocationsToVersion = async (from: string | null) => {
+    if (!from) return;
+
+    const fromGameResponse = await fetch(`${ENDPOINTS.DEXAPI_LOCATION}/${from}`);
+
+    if (!fromGameResponse.ok) {
+        console.log(`Request failed for version ${from} (${fromGameResponse.ok}))`);
+        return;
+    }
+
+    const fromGame: Location = await fromGameResponse.json();
+
+    fromGame.regions.forEach(async region => {
+        const fromRegion = fromGame.regions.find(reg => reg.name === region.name);
+        if (!fromRegion) return;
+
+        region.locations.forEach(async location => {
+            if (location.areas.every(area => area.coords.length === 0)) return;
+
+            location.mapName = 'base';
+
+            const result = await fetch(`/api/location/version/${from}/map`, {
+                method: 'POST',
+                body: JSON.stringify({ ...location })
+            });
+
+            if (!result.ok) {
+                console.error(`location ${location.id} in ${from} (${region}) was not saved.`);
+            } else {
+                saveStatus.set({
+                    isSuccess: true,
+                    status: `Saved ${location.id}!`
+                })
+            }
+        })
+    });
+
+    saveStatus.set({
+        'isSuccess': true,
+        'status': 'Save'
+    })
+}
+
 // export const fixLocations = async (from: string | null) => {
 //     const fromGameResponse = await fetch(`${ENDPOINTS.DEXAPI_LOCATION}/${from}`);
 

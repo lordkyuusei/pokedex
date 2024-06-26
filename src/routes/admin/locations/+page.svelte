@@ -13,9 +13,13 @@
 	let selectedLocation: LocationNode | null = null;
 	let selectedArea: LocationArea | null = null;
 
-	$: if (browser) {
-		fetch(`${DEXAPI_LOCATION}/${$version}`).then((response) => {
-			gameLocation = response.json();
+	$: if (browser) fetchLocations($version);
+	
+	const fetchLocations = (version: string) => {
+		fetch(`${DEXAPI_LOCATION}/${version}`).then(async (response) => {
+			const location: Promise<Location> = response.json();
+			gameLocation = location;
+			setLocation((await gameLocation).regions[0].locations[0]);
 		});
 	}
 
@@ -28,13 +32,18 @@
 		selectedArea = location;
 	};
 
-	const saveCoords = async (event: CustomEvent<number[]>) => {
+	const saveCoords = async (event: CustomEvent<{ coordinates: number[], selectedMap: string}>) => {
 		if (selectedArea) {
-			selectedArea.coords = event.detail;
+			const { coordinates, selectedMap } = event.detail;
+
+			selectedArea.coords = coordinates;
+
+			console.log(selectedMap)
 			const result = await fetch(`${DEXAPI_LOCATION}/${$version}`, {
 				method: 'POST',
 				body: JSON.stringify({
 					locationId: selectedLocation?._id,
+					mapName: selectedMap,
 					area: selectedArea
 				})
 			});
@@ -89,6 +98,7 @@
 				</ul>
 				{#if selectedArea}
 					<MapEditor
+						coordMap={selectedLocation.mapName}
 						coordinates={selectedArea.coords}
 						on:coords={async (event) => await saveCoords(event)}
 					></MapEditor>

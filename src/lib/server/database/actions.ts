@@ -3,7 +3,7 @@ import { lightmoves } from "./schemas/lightmoves";
 import { lightabilities } from "./schemas/lightabilities";
 import { lightlocations } from "./schemas/lightlocations";
 import { lightgenerations } from "./schemas/lightgenerations";
-import type { LocationArea } from "$lib/types/location";
+import type { LocationArea, LocationNode } from "$lib/types/location";
 import type { LightMove } from "$lib/types/lightmove";
 
 export const getPokemonList = async (from: number, to: number) => {
@@ -84,16 +84,37 @@ export const getLocationsFromVersion = async (version: string) => {
     return JSON.stringify(locations);
 }
 
-export const setCoordsForLocation = async (locationId: string, area: LocationArea) => {
+export const setCoordsForLocation = async (locationId: string, area: LocationArea, mapName: string) => {
     try {
-        const result = await lightlocations.updateOne(
+        await lightlocations.updateOne(
             { 'regions.locations._id': locationId, 'regions.locations.areas.name': area.name },
-            { $set: { 'regions.$[].locations.$[].areas.$[area].coords': area.coords } },
-            { arrayFilters: [{ 'area.name': area.name }] }
+            {
+                $set: {
+                    'regions.$[region].locations.$[location].mapName': mapName,
+                    'regions.$[region].locations.$[location].areas.$[area].coords': area.coords
+                },
+            },
+            { arrayFilters: [
+                { 'region.locations': { $elemMatch: { _id: locationId } } },
+                { 'location._id': locationId },
+                { 'area.name': area.name },
+            ] }
         );
     } catch (error) {
         console.error('Error updating coords:', error);
     }
+}
+
+export const setDefaultMapNameForLocation = async (location: LocationNode) => {
+    try {
+        await lightlocations.updateOne(
+            { 'regions.locations._id': location._id },
+            { $set: { 'regions.$[region].locations.$[location].mapName': location.mapName } },
+        );
+    } catch (error) {
+        console.error('Error updating coords:', error);
+    }
+
 }
 
 export const getMovesTypes = async (type: string) => {

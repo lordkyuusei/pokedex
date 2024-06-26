@@ -12,16 +12,19 @@
 		type MapConfiguration
 	} from '$lib/constants/mapsConfig';
 
+	export let coordMap: string | null = null;
 	export let coordinates: number[] = [];
 
 	let maps: string[] = [];
-	let selectedMap: string | null = null;
+	let selectedMap: string | null = coordMap;
+	let selectedMapName: string | null = null;
 	let selectedMapConfig: MapConfiguration = DEFAULT_MAP_CONFIG;
 
 	let copyButton: HTMLButtonElement;
 	let pasteButton: HTMLButtonElement;
 	let forceRectangle: boolean = true;
-	let dispatch = createEventDispatcher();
+
+	const dispatch = createEventDispatcher();
 
 	$: if ($version) loadMaps();
 	$: if (selectedMap) selectedMapConfig = getMapConfig(selectedMap);
@@ -29,11 +32,12 @@
 	const loadMaps = () => {
 		maps = findMatchingMaps($version);
 		selectedMap = maps[0] ?? $version;
+		selectedMapName = getMapName(selectedMap);
 	};
 
 	$: coordinates = coordinates.length > 0 ? coordinates : DEFAULT_MAP_COORDINATES;
 	$: coordsAsPoints = coordinates
-		.reduce((acc, coord, index) => `${acc}${index % 2 === 0 ? `${coord},` : `${coord} `}`, '')
+		.reduce((acc, coord, i) => `${acc}${i % 2 === 0 ? `${coord},` : `${coord} `}`, '')
 		.slice(0, -1);
 
 	const copyCoordsToClipboard = async () => {
@@ -111,6 +115,21 @@
 		style.setProperty('--zoom', nextZoomLevel);
 	};
 
+	const dispatchNewCoords = () => dispatch('coords', { coordinates, selectedMap: selectedMapName });
+
+	const changeLocalMap = (newSelectedMap: string) => {
+		selectedMap = newSelectedMap;
+		selectedMapName = getMapName(selectedMap);
+	}
+
+	const showCoordinatesOnMap = (selected: string, map: string) => {
+		const isMapSelected = selected === map;
+		const isNoMapYet = map === null;
+		const isBaseSelected = selectedMapName === 'base' && coordMap === 'base';
+
+		return isMapSelected || isNoMapYet || isBaseSelected
+	}
+
 	const getDetails = (index: number) => {
 		const isAbscissa = index % 2 === 0;
 		const pointNbr = Math.floor((index / 4) * 2) + 1;
@@ -136,13 +155,24 @@
 		on:wheel={changeZoom}
 	>
 		<image href="/maps/{selectedMap}.png"></image>
-		<polygon id="victory-road" points={coordsAsPoints}></polygon>
+		{#if showCoordinatesOnMap(selectedMap, coordMap)}
+			<polygon id="victory-road" points={coordsAsPoints}></polygon>
+		{/if}
 	</svg>
 	{#if maps.length > 1}
 		<aside class="maps-list">
 			<ul>
 				{#each maps as map, i (map)}
-					<li><button on:click={() => (selectedMap = map)}>{getMapName(map)}</button></li>
+					{@const localMapName = getMapName(map)}
+					<li>
+						<button
+							class:selected={map === selectedMap}
+							class:map-with-coords={localMapName === coordMap}
+							on:click={() => changeLocalMap(map)}
+						>
+							{localMapName}
+						</button>
+					</li>
 				{/each}
 			</ul>
 		</aside>
@@ -184,9 +214,7 @@
 		</div>
 		<button bind:this={copyButton} on:click={copyCoordsToClipboard}>Copy coords</button>
 		<button bind:this={pasteButton} on:click={pasteCoordsFromClipboard}>Paste coords</button>
-		<button on:click={() => dispatch('coords', coordinates)}
-			>{$saveStatus.status} coordinates</button
-		>
+		<button on:click={() => dispatchNewCoords()}>{$saveStatus.status} coordinates</button>
 	</div>
 </section>
 
@@ -283,6 +311,14 @@
 		}
 	}
 
+	.selected {
+		background-color: var(--second-color);
+	}
+
+	.map-with-coords {
+		background-color: var(--accent-color);
+	}
+
 	image {
 		width: 100%;
 		image-rendering: pixelated;
@@ -294,12 +330,6 @@
 		fill: hsl(0, 75%, 65%);
 		opacity: 1;
 		cursor: pointer;
-		animation: blink 1s cubic-bezier(1, 0, 0, 1) infinite;
-	}
-
-	@keyframes blink {
-		50% {
-			opacity: 0;
-		}
+		animation: blink calc(var(--transition-duration) * 5) var(--transition-function) infinite;
 	}
 </style>

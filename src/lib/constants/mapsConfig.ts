@@ -30,22 +30,22 @@ const MAPS_CONFIG: MapConfigurationList = {
     "firered-leafgreen": {
         "viewBoxX": 160,
         "viewBoxY": 136,
-        "step": 2
+        "step": 1
     },
     "firered-leafgreen_sevii-I": {
         "viewBoxX": 160,
         "viewBoxY": 136,
-        "step": 2,
+        "step": 1,
     },
     "firered-leafgreen_sevii-II": {
         "viewBoxX": 160,
         "viewBoxY": 136,
-        "step": 2
+        "step": 1
     },
     "firered-leafgreen_sevii-III": {
         "viewBoxX": 160,
         "viewBoxY": 136,
-        "step": 2
+        "step": 1
     }
 }
 
