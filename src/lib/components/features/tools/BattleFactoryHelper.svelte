@@ -151,13 +151,23 @@
 		margin-bottom: 1rem;
 
 		& > div {
-			display: flex;
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: max-content;
+
 			align-items: center;
 			gap: var(--small-gap);
+
+			@media (max-width: 640px) {
+				& > input {
+					grid-column: 1 / -1;
+				}
+			}
 
 			& > input {
 				background-color: var(--background-second-color);
 			}
+
 			& .selected {
 				color: var(--background-color);
 				background-color: var(--accent-color);

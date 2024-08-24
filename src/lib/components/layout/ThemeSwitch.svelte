@@ -15,6 +15,7 @@
 		} else {
 			$theme = 'moon';
 		}
+
 		$variant = variants[$theme][0].variant;
 
 		if (browser) {
@@ -29,16 +30,14 @@
 			{ match: window.matchMedia(prefersLight).matches, theme: 'sun' }
 		];
 
-		const themePreference = mapColorSchemeToTheme.find((x) => x.match === true)?.theme ?? 'moon';
-		const variantPreference = variants[themePreference];
-
+		const themePreference = mapColorSchemeToTheme.find((x) => x.match === true)?.theme ?? 'moon';		
 		const setThemePreference: Theme =
-			(localStorage.getItem('themePreference') as Theme) ?? themePreference;
-
+		(localStorage.getItem('themePreference') as Theme) ?? themePreference;
+		
+		const variantPreference = variants[setThemePreference];
 		const setVariantPreference: Variant<Theme> =
 			(localStorage.getItem('variantPreference') as Variant<Theme>) ??
-			variantPreference ??
-			'greink';
+			variantPreference[0].variant;
 
 		$theme = setThemePreference;
 		$variant = setVariantPreference;

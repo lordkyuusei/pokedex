@@ -1,3 +1,5 @@
+import { MAP_BASE_NAME } from "./locations";
+
 export const DEFAULT_MAP_COORDINATES = [72, 72, 52, 72, 52, 88, 72, 88];
 
 export const DEFAULT_MAP_CONFIG: MapConfiguration = {
@@ -49,7 +51,7 @@ const MAPS_CONFIG: MapConfigurationList = {
     }
 }
 
-export const getMapName = (map: string) => map.split('_')[1] ?? 'base';
+export const getMapName = (map: string) => map.split('_')[1] ?? MAP_BASE_NAME;
 export const getMapConfig = (map: string) => MAPS_CONFIG[map] ?? DEFAULT_MAP_CONFIG;
 
 export type MapOptions = {

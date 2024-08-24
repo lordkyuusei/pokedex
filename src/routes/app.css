@@ -178,6 +178,10 @@ table tr:nth-child(2n + 1) td {
     background-color: var(--background-color-___);
 }
 
+h1 {
+    margin-block: 0;
+}
+
 em {
     font-weight: bold;
     color: var(--primary-color)

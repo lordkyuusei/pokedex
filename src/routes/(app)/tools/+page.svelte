@@ -63,6 +63,7 @@
 			height: 100%;
 			display: grid;
 			grid-template: auto 1fr / 100%;
+			gap: var(--small-gap);
 			padding: var(--small-gap);
 			border-radius: var(--border-r-50);
 			background-color: var(--background-second-color);
