@@ -121,15 +121,16 @@
 	const changeLocalMap = (newSelectedMap: string) => {
 		selectedMap = newSelectedMap;
 		selectedMapName = getMapName(selectedMap);
-	}
+	};
 
 	const showCoordinatesOnMap = (selected: string | null, map: string | null) => {
+		console.log(selected, map);
 		const isMapSelected = selected === map;
 		const isNoMapYet = map === null;
 		const isBaseSelected = selectedMapName === MAP_BASE_NAME && coordMap === MAP_BASE_NAME;
 
 		return isMapSelected || isNoMapYet || isBaseSelected;
-	}
+	};
 
 	const getDetails = (index: number) => {
 		const isAbscissa = index % 2 === 0;
@@ -331,6 +332,6 @@
 		fill: hsl(0, 75%, 65%);
 		opacity: 1;
 		cursor: pointer;
-		animation: blink calc(var(--transition-duration) * 5) var(--transition-function) infinite;
+		/* animation: blink calc(var(--transition-duration) * 10) var(--transition-function) infinite; */
 	}
 </style>

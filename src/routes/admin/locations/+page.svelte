@@ -14,14 +14,14 @@
 	let selectedArea: LocationArea | null = null;
 
 	$: if (browser) fetchLocations($version);
-	
+
 	const fetchLocations = (version: string) => {
 		fetch(`${DEXAPI_LOCATION}/${version}`).then(async (response) => {
 			const location: Promise<Location> = response.json();
 			gameLocation = location;
 			setLocation((await gameLocation).regions[0].locations[0]);
 		});
-	}
+	};
 
 	const setLocation = (location: LocationNode) => {
 		selectedLocation = location;
@@ -32,7 +32,7 @@
 		selectedArea = location;
 	};
 
-	const saveCoords = async (event: CustomEvent<{ coordinates: number[], selectedMap: string}>) => {
+	const saveCoords = async (event: CustomEvent<{ coordinates: number[]; selectedMap: string }>) => {
 		if (selectedArea) {
 			const { coordinates, selectedMap } = event.detail;
 
@@ -97,7 +97,7 @@
 				</ul>
 				{#if selectedArea}
 					<MapEditor
-						coordMap={selectedLocation.mapName}
+						coordMap={selectedLocation.mapName ?? null}
 						coordinates={selectedArea.coords}
 						on:coords={async (event) => await saveCoords(event)}
 					></MapEditor>
