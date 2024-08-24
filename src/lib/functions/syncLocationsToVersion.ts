@@ -1,6 +1,7 @@
 import type { Location } from "$lib/types/location";
 import { saveStatus } from "$lib/store/save";
 import ENDPOINTS from '$lib/constants/api.json';
+import { MAP_BASE_NAME } from "$lib/constants/locations";
 
 export const syncLocationsToVersion = async (from: string | null, to: string | null) => {
     if (!from || !to) return;
@@ -78,7 +79,7 @@ export const applyDefaultLocationsToVersion = async (from: string | null) => {
         region.locations.forEach(async location => {
             if (location.areas.every(area => area.coords.length === 0)) return;
 
-            location.mapName = 'base';
+            location.mapName = MAP_BASE_NAME;
 
             const result = await fetch(`/api/location/version/${from}/map`, {
                 method: 'POST',

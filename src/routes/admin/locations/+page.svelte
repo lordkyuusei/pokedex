@@ -38,7 +38,6 @@
 
 			selectedArea.coords = coordinates;
 
-			console.log(selectedMap)
 			const result = await fetch(`${DEXAPI_LOCATION}/${$version}`, {
 				method: 'POST',
 				body: JSON.stringify({

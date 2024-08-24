@@ -11,6 +11,7 @@
 		getMapName,
 		type MapConfiguration
 	} from '$lib/constants/mapsConfig';
+	import { MAP_BASE_NAME } from '$lib/constants/locations';
 
 	export let coordMap: string | null = null;
 	export let coordinates: number[] = [];
@@ -122,12 +123,12 @@
 		selectedMapName = getMapName(selectedMap);
 	}
 
-	const showCoordinatesOnMap = (selected: string, map: string) => {
+	const showCoordinatesOnMap = (selected: string | null, map: string | null) => {
 		const isMapSelected = selected === map;
 		const isNoMapYet = map === null;
-		const isBaseSelected = selectedMapName === 'base' && coordMap === 'base';
+		const isBaseSelected = selectedMapName === MAP_BASE_NAME && coordMap === MAP_BASE_NAME;
 
-		return isMapSelected || isNoMapYet || isBaseSelected
+		return isMapSelected || isNoMapYet || isBaseSelected;
 	}
 
 	const getDetails = (index: number) => {
