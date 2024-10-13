@@ -28,9 +28,6 @@
 <svelte:window bind:innerWidth={$deviceWidth} />
 
 <SVGs />
-{#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
-	<UpdateSW />
-{/await}
 {#if $isRendered}
 	{#if $isMobile}
 		<MobileLayout {routes} generationsList={data.generationsList}>

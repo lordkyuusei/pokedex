@@ -50,6 +50,9 @@
 	<main id="dex-main">
 		<header id="main-header">
 			<PrevNextNavigation />
+			{#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
+				<UpdateSW />
+			{/await}
 			<GameSwitch {generationsList} />
 			<Search />
 		</header>
@@ -85,9 +88,9 @@
 
 			@media (max-width: 1024px) {
 				grid-template:
-				'aside-logo' var(--layout-header-size)
-				'aside-links' calc(var(--layout-nav-size) - var(--layout-header-size))
-				'aside-settings' calc(var(--layout-header-size) * 2) / 100%;
+					'aside-logo' var(--layout-header-size)
+					'aside-links' calc(var(--layout-nav-size) - var(--layout-header-size))
+					'aside-settings' calc(var(--layout-header-size) * 2) / 100%;
 			}
 
 			& > #navigation-logo {
@@ -110,19 +113,19 @@
 					list-style-type: none;
 					padding-inline-start: 0;
 					overflow-x: hidden;
-	
+
 					& > li {
 						width: 100%;
 						display: grid;
 						align-items: center;
 						transition: all var(--transition-duration) cubic-bezier(0.075, 0.82, 0.165, 1);
-	
+
 						&.selected {
 							font-weight: bold;
 							backdrop-filter: brightness(1.4);
 							-webkit-backdrop-filter: brightness(1.4);
 						}
-	
+
 						& > a {
 							text-align: center;
 							text-transform: uppercase;
@@ -133,7 +136,6 @@
 					}
 				}
 			}
-			
 
 			& > #navigation-settings {
 				display: grid;
@@ -164,7 +166,7 @@
 
 			& > #main-header {
 				display: grid;
-				grid-template: 100% / 1fr auto auto;
+				grid-template: 100% / 1fr auto auto auto;
 				justify-content: space-between;
 				gap: var(--small-gap);
 				align-items: center;

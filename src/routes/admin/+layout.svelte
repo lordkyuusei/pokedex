@@ -25,9 +25,6 @@
 
 {#if dev}
 	<SVGs />
-	{#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
-		<UpdateSW />
-	{/await}
 	<DesktopLayout
 		{routes}
 		routeId={$page.route.id}
