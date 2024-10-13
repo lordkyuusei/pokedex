@@ -362,6 +362,6 @@
 		fill: hsl(0, 75%, 65%);
 		opacity: 1;
 		cursor: pointer;
-		animation: blink calc(var(--transition-duration) * 5) var(--transition-function) infinite;
+		animation: blink calc(var(--transition-duration) * 10) var(--transition-function) infinite;
 	}
 </style>

@@ -4,8 +4,9 @@
 
 	export let event: string = 'event';
 	export let icon: string;
+	export let defaultState: boolean = false;
 
-	let checked: boolean = false;
+	let checked: boolean = defaultState;
 	const dispatch = createEventDispatcher();
 
 	const setEvent = () => {

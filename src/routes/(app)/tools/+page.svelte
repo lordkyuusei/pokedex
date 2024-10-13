@@ -55,6 +55,9 @@
 </section>
 
 <style>
+	h1 {
+		margin-block: 0;
+	}
 	section#pokedex-tools {
 		height: 100%;
 		padding: var(--small-gap);

@@ -104,7 +104,7 @@
 				</ul>
 				{#if selectedArea}
 					<MapEditor
-						coordMap={selectedLocation.mapName}
+						coordMap={selectedLocation.mapName ?? null}
 						coordinates={selectedArea.coords}
 						on:coords={async (event) => await saveCoords(event)}
 					></MapEditor>

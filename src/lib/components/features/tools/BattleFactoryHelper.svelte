@@ -7,7 +7,7 @@
 	let searchInput: string = '';
 	let movesFilter: string[] = [];
 	let itemFilter: string | null = null;
-	let isLvl100Mode: boolean;
+	let isLvl100Mode: boolean = true;
 	let showFilters: boolean;
 
 	$: matchingResult = onSearchChange(searchInput, movesFilter, itemFilter);
@@ -86,6 +86,7 @@
 			<Switch
 				event="isLvl100Mode"
 				icon="pokedex"
+				defaultState={isLvl100Mode}
 				on:isLvl100Mode={(e) => (isLvl100Mode = e.detail.isLvl100Mode)}
 			/>
 			<label for="showFilters">Filtres</label>
@@ -154,13 +155,19 @@
 			display: grid;
 			grid-auto-flow: column;
 			grid-auto-columns: max-content;
-
 			align-items: center;
 			gap: var(--small-gap);
 
 			@media (max-width: 640px) {
+				grid-template-rows: 1fr auto;
+				grid-auto-columns: auto;
+
 				& > input {
-					grid-column: 1 / -1;
+					grid-column: 4 span;
+				}
+
+				& > :not(input) {
+					grid-row: 2;
 				}
 			}
 
