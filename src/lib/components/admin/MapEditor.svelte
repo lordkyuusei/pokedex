@@ -1,20 +1,20 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	import { version } from '$lib/store/generation';
-	import { saveStatus } from '$lib/store/save';
-	import { findMatchingMaps } from '$lib/functions/getGamesMaps';
 	import {
 		DEFAULT_MAP_CONFIG,
-		DEFAULT_MAP_COORDINATES,
+		getDefaultCoordinates,
 		getMapConfig,
 		getMapName,
 		type MapConfiguration
 	} from '$lib/constants/mapsConfig';
+	import { saveStatus } from '$lib/store/save';
+	import { version } from '$lib/store/generation';
 	import { MAP_BASE_NAME } from '$lib/constants/locations';
+	import { findMatchingMaps } from '$lib/functions/getGamesMaps';
 
-	export let coordMap: string | null = null;
 	export let coordinates: number[] = [];
+	export let coordMap: string | null = null;
 
 	let maps: string[] = [];
 	let selectedMap: string | null = coordMap;
@@ -24,11 +24,15 @@
 	let copyButton: HTMLButtonElement;
 	let pasteButton: HTMLButtonElement;
 	let forceRectangle: boolean = true;
+	let moveWithKeyboard: boolean = false;
 
 	const dispatch = createEventDispatcher();
 
 	$: if ($version) loadMaps();
-	$: if (selectedMap) selectedMapConfig = getMapConfig(selectedMap);
+	$: if (selectedMap) {
+		const mapName = selectedMapName === MAP_BASE_NAME && maps.length > 1 ? selectedMap : $version;
+		selectedMapConfig = getMapConfig(mapName);
+	}
 
 	const loadMaps = () => {
 		maps = findMatchingMaps($version);
@@ -36,7 +40,7 @@
 		selectedMapName = getMapName(selectedMap);
 	};
 
-	$: coordinates = coordinates.length > 0 ? coordinates : DEFAULT_MAP_COORDINATES;
+	$: coordinates = coordinates.length > 0 ? coordinates : getDefaultCoordinates(selectedMapConfig);
 	$: coordsAsPoints = coordinates
 		.reduce((acc, coord, i) => `${acc}${i % 2 === 0 ? `${coord},` : `${coord} `}`, '')
 		.slice(0, -1);
@@ -121,15 +125,16 @@
 	const changeLocalMap = (newSelectedMap: string) => {
 		selectedMap = newSelectedMap;
 		selectedMapName = getMapName(selectedMap);
-	}
+	};
 
-	const showCoordinatesOnMap = (selected: string | null, map: string | null) => {
+	const showCoordinatesOnMap = (selected: string | null, map: string | null = null) => {
 		const isMapSelected = selected === map;
 		const isNoMapYet = map === null;
 		const isBaseSelected = selectedMapName === MAP_BASE_NAME && coordMap === MAP_BASE_NAME;
 
+		console.log({isMapSelected, isNoMapYet, isBaseSelected, selected, map})
 		return isMapSelected || isNoMapYet || isBaseSelected;
-	}
+	};
 
 	const getDetails = (index: number) => {
 		const isAbscissa = index % 2 === 0;
@@ -146,7 +151,24 @@
 			valuesGridRow
 		};
 	};
+
+	const movePolygonWithKeyboard = (event: KeyboardEvent) => {
+		if (!moveWithKeyboard) return;
+
+		const { key, ctrlKey } = event;
+		const boost = ctrlKey ? 10 : 1;
+
+		coordinates = coordinates.map((value, idx) => [
+				{ c: key === 'ArrowLeft' && idx % 2 === 0, f: value - boost },
+				{ c: key === 'ArrowUp' && idx % 2 !== 0, f: value - boost },
+				{ c: key === 'ArrowRight' && idx % 2 === 0, f: value + boost },
+				{ c: key === 'ArrowDown' && idx % 2 !== 0, f: value + boost },
+			].find(x => x.c)?.f ?? value
+		);
+	}
 </script>
+
+<svelte:window on:keydown={movePolygonWithKeyboard}></svelte:window>
 
 <section class:span-map={selectedMap === 'gold-silver-crystal'}>
 	<svg
@@ -156,8 +178,12 @@
 		on:wheel={changeZoom}
 	>
 		<image href="/maps/{selectedMap}.png"></image>
-		{#if showCoordinatesOnMap(selectedMap, coordMap)}
-			<polygon id="victory-road" points={coordsAsPoints}></polygon>
+		{#if showCoordinatesOnMap(selectedMapName, coordMap)}
+			<polygon
+				id="victory-road"
+				points={coordsAsPoints}
+			>
+			</polygon>
 		{/if}
 	</svg>
 	{#if maps.length > 1}
@@ -207,8 +233,12 @@
 		{/each}
 	</div>
 	<div class="actions-grid">
-		<input type="checkbox" id="forceRectangle" bind:checked={forceRectangle} />
-		<label for="forceRectangle">Force rectangle</label>
+		<div class="grid-toggles">
+			<input type="checkbox" id="forceRectangle" bind:checked={forceRectangle} />
+			<label for="forceRectangle">Force rectangle</label>
+			<input type="checkbox" id="moveWithKeyboard" bind:checked={moveWithKeyboard} />
+			<label for="moveWithKeyboard">Move with ⬆️⬇️⬅️➡️</label>
+		</div>
 		<div class="grid-coords">
 			<button on:click={() => (coordinates = [...coordinates, 100, 100])}>Add a corner</button>
 			<button on:click={() => (coordinates = coordinates.slice(0, -2))}>Remove last corner</button>
@@ -242,7 +272,7 @@
 
 		& > svg {
 			grid-area: 1 / 1 / -1 / 1;
-			--zoom: 3;
+			--zoom: 1;
 			--x: 50%;
 			--y: 50%;
 			transform-origin: var(--x) var(--y);
@@ -304,6 +334,7 @@
 			grid-template-columns: 1fr 1fr;
 			gap: var(--small-gap);
 		}
+
 		& > button {
 			grid-column: span 2;
 			&:last-of-type {

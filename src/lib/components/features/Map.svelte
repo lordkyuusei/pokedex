@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	import { getGamesMaps } from '$lib/functions/getGamesMaps';
-	import { DEFAULT_MAP_OPTIONS, MAPS_CONFIG, type MapOptions } from '$lib/constants/mapsConfig';
+	import { DEFAULT_MAP_OPTIONS, getMapConfig, type MapOptions } from '$lib/constants/mapsConfig';
 	import type { LocationWithCoords } from '$lib/types/location';
 
 	export let pkmnCoordinates: LocationWithCoords[] = [];
@@ -15,8 +15,9 @@
 
 	let dispatch = createEventDispatcher();
 
-	$: mapConfig = MAPS_CONFIG[mapName];
-	$: mapName = MAPS_NAMES.find((map) => map.includes(version)) || version;
+	$: mapName = MAPS_NAMES.find((map) => map.name.includes(version))?.name || version;
+	$: console.log(mapName)
+	$: mapConfig = getMapConfig(mapName);
 	$: coordsAsPoints = pkmnCoordinates.map(({ name, coords }) => ({
 		id: name,
 		points: coords
@@ -57,12 +58,10 @@
 	const setSelectedArea = (id: string) => dispatch('onAreaSelected', id);
 
 	const changeMeasure = () => {
-		if (mapOptions.forceMeasure === 'height') {
-			mapOptions.forceMeasure = 'width';
-		} else {
-			mapOptions.forceMeasure = 'height';
-		}
+		const isHeight = mapOptions.forceMeasure === 'height';
+		mapOptions.forceMeasure = isHeight ? 'width' : 'height';
 	};
+
 	function showHintPanel(event: MouseEvent & { currentTarget: EventTarget & SVGPolygonElement }) {}
 
 	function showHintPanelFocus(event: any) {}

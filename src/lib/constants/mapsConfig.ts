@@ -1,11 +1,20 @@
 import { MAP_BASE_NAME } from "./locations";
 
-export const DEFAULT_MAP_COORDINATES = [72, 72, 52, 72, 52, 88, 72, 88];
-
 export const DEFAULT_MAP_CONFIG: MapConfiguration = {
     "viewBoxX": 160,
     "viewBoxY": 136,
     "step": 2,
+    "size": 8,
+}
+
+export const getDefaultCoordinates = (config: MapConfiguration) => {
+    const { viewBoxX, viewBoxY, size } = config;
+    const xCenter = Math.floor(viewBoxX / 2);
+    const yCenter = Math.floor(viewBoxY / 2);
+
+    const gap = Math.floor(size / 2);
+    const start = [xCenter - gap, yCenter - gap];
+    return [...start, start[0] + size, start[1], start[0] + size, start[1] + size, start[0], start[1] + size];
 }
 
 const MAPS_CONFIG: MapConfigurationList = {
@@ -13,26 +22,37 @@ const MAPS_CONFIG: MapConfigurationList = {
         "viewBoxX": 160,
         "viewBoxY": 136,
         "step": 2,
+        "size": 8,
     },
-    "gold-silver-crystal": {
+    "gold-silver": {
         "viewBoxX": 296,
         "viewBoxY": 112,
-        "step": 2
+        "step": 2,
+        "size": 8,
+    },
+    "crystal": {
+        "viewBoxX": 296,
+        "viewBoxY": 112,
+        "step": 2,
+        "size": 8,
     },
     "ruby-sapphire": {
         "viewBoxX": 240,
         "viewBoxY": 160,
-        "step": 2
+        "step": 2,
+        "size": 8,
     },
     "emerald": {
         "viewBoxX": 240,
         "viewBoxY": 160,
-        "step": 2
+        "step": 2,
+        "size": 8,
     },
     "firered-leafgreen": {
         "viewBoxX": 160,
         "viewBoxY": 136,
-        "step": 1
+        "step": 1,
+        "size": 6,
     },
     "firered-leafgreen_sevii-I": {
         "viewBoxX": 160,
@@ -60,7 +80,7 @@ export type MapOptions = {
 }
 
 export const DEFAULT_MAP_OPTIONS: MapOptions = {
-    blinkEnabled: true,
+    blinkEnabled: false,
     forceMeasure: 'height',
 }
 
@@ -72,4 +92,5 @@ export type MapConfiguration = {
     viewBoxX: number,
     viewBoxY: number,
     step: number,
+    size: number,
 }

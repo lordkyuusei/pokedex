@@ -12,7 +12,7 @@ export const findMatchingMaps = (version: string) => {
     return map.submaps;
 }
 
-const getGamesMaps = (): PokemonMap[] => {
+export const getGamesMaps = (): PokemonMap[] => {
     const mapsPaths = import.meta.glob("/static/maps/*.png");
 
     const maps = Object.keys(mapsPaths).reduce((acc, map) => {

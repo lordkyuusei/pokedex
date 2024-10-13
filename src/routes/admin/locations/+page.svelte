@@ -12,16 +12,17 @@
 	let gameLocation: Promise<Location> | null = null;
 	let selectedLocation: LocationNode | null = null;
 	let selectedArea: LocationArea | null = null;
+	let hideCompleted: boolean = false;
 
 	$: if (browser) fetchLocations($version);
-	
+
 	const fetchLocations = (version: string) => {
 		fetch(`${DEXAPI_LOCATION}/${version}`).then(async (response) => {
 			const location: Promise<Location> = response.json();
 			gameLocation = location;
 			setLocation((await gameLocation).regions[0].locations[0]);
 		});
-	}
+	};
 
 	const setLocation = (location: LocationNode) => {
 		selectedLocation = location;
@@ -32,7 +33,7 @@
 		selectedArea = location;
 	};
 
-	const saveCoords = async (event: CustomEvent<{ coordinates: number[], selectedMap: string}>) => {
+	const saveCoords = async (event: CustomEvent<{ coordinates: number[]; selectedMap: string }>) => {
 		if (selectedArea) {
 			const { coordinates, selectedMap } = event.detail;
 
@@ -67,14 +68,20 @@
 					{#each lieu.regions as region (region.name)}
 						<h1>{region.name}</h1>
 						<ul>
+							<li>
+								<input type="checkbox" id="hideCompleted" bind:checked={hideCompleted} />
+								<label for="hideCompleted">Hide completed</label>
+							</li>
 							{#each region.locations as location (location.id)}
-								<li>
-									<button
-										class:completed={location.areas.every((a) => a.coords.length)}
-										class:selected={selectedLocation?.id === location.id}
-										on:click={() => setLocation(location)}>{location.id}</button
-									>
-								</li>
+								{#if !(hideCompleted && location.areas.every((a) => a.coords.length))}
+									<li>
+										<button
+											class:completed={location.areas.every((a) => a.coords.length)}
+											class:selected={selectedLocation?.id === location.id}
+											on:click={() => setLocation(location)}>{location.id}</button
+										>
+									</li>
+								{/if}
 							{/each}
 						</ul>
 					{/each}
