@@ -12,15 +12,15 @@
 
     --app-width: 100svw;
     --width-unit: calc(var(--app-width) / 12);
-    --app-navigation-width: calc(var(--width-unit) * 1);
-    --app-content-width: calc(var(--app-width) - var(--app-navigation-width));
+    --app-nav-width: calc(var(--width-unit) * 1);
+    --app-content-width: calc(var(--app-width) - var(--app-nav-width));
 
     --app-height: 100svh;
     --layout-header-size: 9svh;
     --layout-settings-size: 11svh;
-    --layout-nav-size: calc(var(--app-height) - calc(var(--layout-header-size) + var(--layout-settings-size)));
-    --layout-content-size: calc(var(--app-height) - var(--layout-header-size));
     --layout-id-size: calc(var(--layout-header-size) - 2svh);
+    --layout-content-size: calc(var(--app-height) - var(--layout-header-size));
+    --layout-nav-size: calc(var(--app-height) - var(--layout-header-size) - var(--layout-settings-size));
 
     --transition-duration: 0.2s;
     --transition-long-duration: 0.5s;
@@ -75,6 +75,47 @@ body {
     padding: 0;
     min-height: var(--app-height);
     overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    body {
+        display: grid;
+        grid-template: 'aside main' var(--app-height) / var(--app-nav-width) var(--app-content-width);
+
+        color: var(--text-color);
+        background-color: var(--background-color);
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --layout-header-size: 5svh;
+        --layout-content-size: calc(var(--app-height) / 2 - var(--layout-header-size))
+    }
+
+    body {
+        display: grid;
+        grid-template: var(--layout-header-size) var(--layout-content-size) var(--layout-content-size) var(--layout-header-size) / 100svw;
+
+        color: var(--text-color);
+        background-color: var(--background-color);
+    }
+
+    body > div > *:nth-child(2) {
+        grid-area: 1 / 1 / 1 / 1;
+    }
+
+    body > div > *:nth-child(3) {
+        grid-area: 2 / 1 / 4 / 1;
+    }
+
+    body > div > *:nth-child(4) {
+        grid-area: 1 / 1 / 5 / 1;
+    }
+
+    body > div > *:nth-child(5) {
+        grid-area: 4 / 1 / 4 / 1;
+    }
 }
 
 @font-face {
@@ -152,6 +193,10 @@ table {
     table-layout: fixed;
 }
 
+table th, table td {
+    padding-block: var(--smaller-gap);
+}
+
 table th {
     font-weight: lighter;
 }
@@ -162,21 +207,23 @@ table td {
 
 table tr:hover td {
     font-weight: bolder;
-    background-color: var(--background-color-_);
+    background-color: var(--background-color);
     cursor: pointer;
 }
 
 table thead tr {
-    background-color: var(--background-color-_);
-}
-
-table tr:nth-child(2n) td {
-    background-color: var(--background-color-__);
+    background-color: var(--background-second-color);
+    padding: var(--small-gap) var(--smaller-gap);
 }
 
 table tr:nth-child(2n + 1) td {
-    background-color: var(--background-color-___);
+    background-color: var(--background-color);
 }
+
+table tr:nth-child(2n) td {
+    background-color: var(--background-second-color);
+}
+
 
 h1 {
     margin-block: 0.5rem;

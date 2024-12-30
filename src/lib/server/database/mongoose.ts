@@ -7,6 +7,7 @@ if (mongoose.connection.readyState === STATES.disconnected) {
     try {
         mongooseDb = await mongoose.connect(env["CONNECTION_STRING"])
     } catch (err) {
+        console.error(err);
         mongooseDb = mongoose;
     }
 } else {

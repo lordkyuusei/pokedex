@@ -3,35 +3,39 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
+	
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import type { LayoutData } from './$types';
-
-	import pokemon from '$lib/store/pokemon';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
-
+	
 	import routes from './routes.json';
+	import pokemon from '$lib/store/pokemon';
 	import { isMobile } from '$lib/store/device';
 	import { generation } from '$lib/store/generation';
 	import { navigatePokemon } from '$lib/functions/navigate';
-	import Cover from '$lib/components/features/pokemon/Cover.svelte';
 	import { computeOpenGraphDescription } from '$lib/functions/openGraph';
-	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
+	import { computePokemonTypes } from '$lib/functions/getPokemonTypes';
+	
+	import Cover from '$lib/components/features/pokemon/Cover.svelte';
 
 	export let data: LayoutData;
 
-	$: pokemon.set(data?.specie);
-	$: varieties =
-		data?.specie?.varieties.map((x) => {
-			const id = Number(x.pokemon.url.split('/').at(-2));
-			const [_, ...form] = x.pokemon.name.split('-');
+	let varieties: { id: number, name: string }[] = [];
+	let types: string[] = [];
 
+	$: if (data && data.specie && data.pokemon) {
+		pokemon.set(data.specie);
+
+		types = computePokemonTypes(data.pokemon, $generation?.id);
+		varieties = data.specie.varieties.map((variety) => {
+			const { pokemon: pkmn } = variety;
+
+			const id = Number(pkmn.url.split('/').at(-2));
+			const [_, ...form] = pkmn.name.split('-');
+		
 			return { id, name: form.length ? form?.join(' ') : 'Default' };
-		}) ?? [];
-
-	$: types = data.pokemon.past_types.length
-		? fetchOldTypes(data.pokemon.past_types, data.pokemon.types, $generation?.id)
-		: fetchNewTypes(data.pokemon.types);
+		});
+	}
 
 	onDestroy(() => {
 		pokemon.set(null);
@@ -43,7 +47,7 @@
 	<meta property="og:title" content="The Dex - Info about {data.pokemon?.name}" />
 	<meta
 		property="og:description"
-		content={computeOpenGraphDescription({ pokemon: data.pokemon, specie: data.specie })}
+		content={computeOpenGraphDescription(data.pokemon, data.specie)}
 	/>
 	<meta
 		property="og:image"
@@ -53,7 +57,7 @@
 
 <section id="pokemon-data" class:default-form={varieties.length === 1} out:fade>
 	{#if $isMobile}
-		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
+		<Cover id={data.pokemon?.id} sprite={data.pokemon?.sprites.front_default} {types} />
 		<nav id="data-navigation">
 			<menu>
 				{#each routes as route}
@@ -111,7 +115,7 @@
 		<slot />
 		<hr />
 		<span id="data-pokemon-id">
-			#{data.pokemon.id}
+			#{data.pokemon?.id}
 		</span>
 	{/if}
 </section>

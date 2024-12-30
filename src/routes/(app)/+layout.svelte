@@ -28,29 +28,17 @@
 <svelte:window bind:innerWidth={$deviceWidth} />
 
 <SVGs />
-{#if $isRendered}
-	{#if $isMobile}
-		<MobileLayout {routes} generationsList={data.generationsList}>
-			<slot />
-		</MobileLayout>
-	{:else}
-		<DesktopLayout
-			{routes}
-			routeId={$page.route.id}
-			isDev={dev}
-			generationsList={data.generationsList}
-		>
-			<slot />
-		</DesktopLayout>
-	{/if}
-{:else}
-	<div></div>
+{#if $isRendered && $isMobile}
+	<MobileLayout {routes} generationsList={data.generationsList}>
+		<slot />
+	</MobileLayout>
+{:else if $isRendered && !($isMobile)}
+	<DesktopLayout
+		{routes}
+		routeId={$page.route.id}
+		isDev={dev}
+		generationsList={data.generationsList}
+	>
+		<slot />
+	</DesktopLayout>
 {/if}
-
-<style>
-	div {
-		height: 100svh;
-		width: 100svw;
-		background-color: var(--background-color);
-	}
-</style>
