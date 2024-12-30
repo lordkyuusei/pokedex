@@ -1,3 +1,4 @@
+import type { LocationWithCoords } from "$lib/types/location";
 import { MAP_BASE_NAME } from "./locations";
 
 export const DEFAULT_MAP_CONFIG: MapConfiguration = {
@@ -6,6 +7,14 @@ export const DEFAULT_MAP_CONFIG: MapConfiguration = {
     "step": 2,
     "size": 8,
 }
+
+export const getDefaultCoordinatesForClient = (config: MapConfiguration): LocationWithCoords[] => [{
+    name: MAP_BASE_NAME,
+    mapName: 'base',
+    i18nName: { fr: 'base', en: 'base' },
+    coords: getDefaultCoordinates(config),
+    conditions: []
+}]
 
 export const getDefaultCoordinates = (config: MapConfiguration) => {
     const { viewBoxX, viewBoxY, size } = config;
@@ -68,6 +77,12 @@ const MAPS_CONFIG: MapConfigurationList = {
         "viewBoxX": 160,
         "viewBoxY": 136,
         "step": 1
+    },
+    "diamond-pearl": {
+        "viewBoxX": 215,
+        "viewBoxY": 167,
+        "step": 1,
+        "size": 6
     }
 }
 
@@ -80,7 +95,7 @@ export type MapOptions = {
 }
 
 export const DEFAULT_MAP_OPTIONS: MapOptions = {
-    blinkEnabled: false,
+    blinkEnabled: true,
     forceMeasure: 'height',
 }
 

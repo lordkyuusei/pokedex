@@ -31,6 +31,7 @@ export type LocationArea = {
 
 export type LocationWithCoords = {
     name: string;
+    mapName: string,
     i18nName: { fr: string, en: string }
     coords: number[];
     conditions: EncounterDetailRef[];

@@ -15,12 +15,14 @@
 
 	export let coordinates: number[] = [];
 	export let coordMap: string | null = null;
+	export let mapI18Names: { fr: string, en: string };
 
 	let maps: string[] = [];
 	let selectedMap: string | null = coordMap;
 	let selectedMapName: string | null = null;
 	let selectedMapConfig: MapConfiguration = DEFAULT_MAP_CONFIG;
 
+	let mapDialog: HTMLDialogElement;
 	let copyButton: HTMLButtonElement;
 	let pasteButton: HTMLButtonElement;
 	let forceRectangle: boolean = true;
@@ -166,9 +168,53 @@
 			].find(x => x.c)?.f ?? value
 		);
 	}
+
+	const showLocationOnMap = async (event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) => {
+		const parser = new DOMParser();
+
+		const page = await fetch(`/api/pokepedia?name=${mapI18Names.fr}`);
+		if (!page.ok) return;
+
+		const pageSource = await page.text();
+		const pageHtml = parser.parseFromString(pageSource, 'text/html');
+		const informationSheetRows: NodeListOf<HTMLTableRowElement> = pageHtml.querySelectorAll('.ficheinfo > tbody > tr');
+		const mapTitle = informationSheetRows.values().find(x => x.textContent && x.textContent.includes("Localisation"));
+		if (!mapTitle) return;
+
+		// <tr>Localisation</tr> => <tr><td><span><a></span></td></tr>
+		const mapWrapper = mapTitle.nextElementSibling?.firstElementChild?.firstElementChild?.firstElementChild;
+		if (!mapWrapper) return;
+
+		const url = new URL((mapWrapper as HTMLAnchorElement).href);
+		
+		const mapPage = await fetch(`/api/pokepedia?name=${url.pathname.substring(1)}`);
+		if (!mapPage.ok) return;
+
+		const mapPageSource = await mapPage.text();
+		const mapPageHtml = parser.parseFromString(mapPageSource, 'text/html');
+		const img: HTMLImageElement | null = mapPageHtml.querySelector('#file.fullImageLink > a > img');
+		if (!img) return;
+
+		const imgUrl = new URL(img.src);
+		img.src = `https://www.pokepedia.fr${imgUrl.pathname}`;
+		mapDialog.appendChild(img);
+		mapDialog.showModal();
+	}
+
+	const hideLocationOnMap = (event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) => {
+		const img = mapDialog.querySelector('img');
+		if (img) {
+			mapDialog.removeChild(img);
+		}
+		mapDialog.close();
+	}
 </script>
 
 <svelte:window on:keydown={movePolygonWithKeyboard}></svelte:window>
+
+<dialog bind:this={mapDialog}>
+	<button class="round" on:click={hideLocationOnMap}>X</button>
+</dialog>
 
 <section class:span-map={selectedMap === 'gold-silver-crystal'}>
 	<svg
@@ -243,6 +289,7 @@
 			<button on:click={() => (coordinates = [...coordinates, 100, 100])}>Add a corner</button>
 			<button on:click={() => (coordinates = coordinates.slice(0, -2))}>Remove last corner</button>
 		</div>
+		<button on:click={showLocationOnMap}>See on map</button>
 		<button bind:this={copyButton} on:click={copyCoordsToClipboard}>Copy coords</button>
 		<button bind:this={pasteButton} on:click={pasteCoordsFromClipboard}>Paste coords</button>
 		<button on:click={() => dispatchNewCoords()}>{$saveStatus.status} coordinates</button>
@@ -250,6 +297,32 @@
 </section>
 
 <style>
+	dialog {
+		position: relative;
+		overflow: initial;
+		z-index: 2;
+		
+		transition: display var(--transition-duration) var(--transition-function);
+		transition-behavior: allow-discrete;
+
+		& > button {
+			position: absolute;
+			top: -1rem;
+			right: -1rem;
+			z-index: 3;
+		}
+
+		& > img {
+			width: 60svw;
+			height: 100%;
+			image-rendering: pixelated;
+		}
+
+		&::backdrop {
+			background: var(--background-blur-second-color);
+		}
+	}
+
 	section {
 		display: grid;
 		grid-template-columns: 1fr 1fr;

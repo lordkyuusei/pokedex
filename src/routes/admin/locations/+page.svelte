@@ -106,6 +106,7 @@
 					<MapEditor
 						coordMap={selectedLocation.mapName ?? null}
 						coordinates={selectedArea.coords}
+						mapI18Names={selectedArea.i18nName}
 						on:coords={async (event) => await saveCoords(event)}
 					></MapEditor>
 				{/if}
@@ -126,15 +127,17 @@
 
 	aside#locations {
 		display: grid;
-		grid-auto-flow: row;
-		grid-auto-columns: 1fr;
+		grid-template: auto 1fr / calc(var(--width-unit) * 1.5);
+		padding-inline: var(--smaller-gap);
 
 		& > ul {
 			height: 100%;
 			display: grid;
 			grid-auto-flow: row;
-			gap: var(--smallest-gap);
-			place-items: center;
+			grid-auto-rows: min-content;
+			gap: var(--smaller-gap);
+			justify-items: center;
+			align-items: start;
 			overflow-y: auto;
 			border-right: 1px solid var(--background-color);
 
