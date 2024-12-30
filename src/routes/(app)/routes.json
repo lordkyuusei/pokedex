@@ -15,11 +15,6 @@
         "name": "menu.abilities"
     },
     {
-        "id": "items",
-        "alt_id": "items",
-        "name": "menu.items"
-    },
-    {
         "id": "locations",
         "alt_id": "locations",
         "name": "menu.locations"

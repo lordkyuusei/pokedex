@@ -10,7 +10,9 @@ const mapKeyToStat: { [x: string]: string } = {
     speed: 'Spe'
 };
 
-export const computeOpenGraphDescription = ({ pokemon, specie }: { pokemon: Pokemon, specie: PokemonSpecie }) => {
+export const computeOpenGraphDescription = (pokemon: Pokemon | null, specie: PokemonSpecie | null) => {
+    if (!pokemon || !specie) return '';
+
     const types = pokemon.types.map(type => type.type.name.toUpperCase()).join('/');
     const stats = pokemon.stats.map(stat => `${mapKeyToStat[stat.stat.name]}: ${stat.base_stat}`).join('/');
     return `${types} Gen ${specie.generation.name} Pokemon\n${stats}`;
