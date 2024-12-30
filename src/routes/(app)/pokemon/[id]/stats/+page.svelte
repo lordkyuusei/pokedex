@@ -11,7 +11,7 @@
 	import { version } from '$lib/store/generation';
 	import { generation } from '$lib/store/generation';
 	import { isMobile } from '$lib/store/device';
-	import { fetchNewTypes, fetchOldTypes } from '$lib/functions/getPokemonTypes';
+	import { computePokemonTypes } from '$lib/functions/getPokemonTypes';
 
 	export let data: PageData;
 
@@ -21,9 +21,7 @@
 		(x) => x.language.name === $lang && versions?.includes(x.version.name)
 	);
 
-	$: types = data.pokemon.past_types.length
-		? fetchOldTypes(data.pokemon.past_types, data.pokemon.types, $generation.id)
-		: fetchNewTypes(data.pokemon.types);
+	$: types = computePokemonTypes(data.pokemon, $generation.id);
 
 	$: genus = data.specie?.genera.find((x) => x.language.name === $lang)?.genus;
 </script>

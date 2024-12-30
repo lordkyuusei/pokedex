@@ -11,7 +11,6 @@ interface LightkemonQueryHelpers {
     bulkById(left: number, right: number): LightkemonQueryFunction
 }
 
-
 const lightkemonSchema = new Schema<Lightkemon, LightkemonLModelType, {}, LightkemonQueryHelpers>({
     id: Number,
     name: String,
