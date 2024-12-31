@@ -59,7 +59,7 @@
 	[id*='button'] {
 		height: 3rem;
 		aspect-ratio: 1;
-		border-radius: 2rem;
+		border-radius: var(--border-r-200);
 		cursor: pointer;
 	}
 
@@ -75,7 +75,7 @@
 
 		background: radial-gradient(
 			circle at 50% 100%,
-			var(--background-color) 50%,
+			hsl(from var(--accent-color) h calc(s/1.5) calc(l /4)) 50%,
 			var(--background-blur-second-color) 100%
 		);
 
@@ -100,40 +100,27 @@
 
 			& > .feature-button {
 				position: relative;
-				box-shadow: inset 0px 0px 0px 2px gold;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				background-color: var(--background-second-color);
+				background-color: var(--background-color);
+				border: calc(var(--smallest-gap) / 2) solid var(--accent-color);
 
 				& > a {
+					position: relative;
+
 					display: flex;
 					justify-content: center;
-					position: relative;
-					height: calc(100% - 2px);
-					aspect-ratio: 1 / 1;
+					height: 100%;
+					aspect-ratio: 1;
 					text-transform: uppercase;
-
-					padding: 0;
 					border-radius: var(--border-r-200);
 
 					&::before {
 						position: absolute;
 						content: attr(data-link);
-						top: -50%;
+						top: calc(-50% - var(--smaller-gap));
 					}
-				}
-				&.button-0 {
-					grid-area: 2 / 1;
-				}
-				&.button-1 {
-					grid-area: 1 / 2;
-				}
-				&.button-3 {
-					grid-area: 2 / 4;
-				}
-				&.button-4 {
-					grid-area: 2 / 5;
 				}
 			}
 		}
@@ -150,10 +137,10 @@
 
 			& > .feature-button {
 				&.button-0 {
-					grid-area: 4 / 1 / 4 / 1;
+					grid-area: 4 / 1 / 6 / 1;
 				}
 				&.button-1 {
-					grid-area: 4 / 5 / 4 / 5;
+					grid-area: 4 / 5 / 6 / 5;
 				}
 				&.button-2 {
 					grid-area: 3 / 3 / 5 / 3;
@@ -172,8 +159,8 @@
 			&::before, &::after {
 				content: '';
 				aspect-ratio: 1;
-				border: 2px solid gold;
-				border-radius: 50%;
+				border: 2px solid var(--accent-color);
+				border-radius: var(--app-width);
 			}
 			
 			&::before {
@@ -188,24 +175,24 @@
 
 			& > .feature-button {
 				&.button-0 {
-					grid-row: 2 / 4;
+					grid-row: 3;
 					grid-column: 5;
 				}
 				&.button-1 {
-					grid-row: 3;
+					grid-row: 3 / 5;
 					grid-column: 3;
 				}
 				&.button-2 {
-					grid-row: 3;
+					grid-row: 3 / 5;
 					grid-column: 7;
 
 				}
 				&.button-3 {
-					grid-row: 4;
+					grid-row: 4 / 6;
 					grid-column: 1 / 3;
 				}
 				&.button-4 {
-					grid-row: 4;
+					grid-row: 4 / 6;
 					grid-column: 8 / -1;
 				}
 			}
@@ -226,69 +213,70 @@
 
 		& > .layout-line {
 			position: relative;
+			height: 0;
 			width: 100%;
-			height: 2px;
 			border: 0;
-			background-color: var(--background-second-color);
+			border-top: 1px solid var(--accent-color);
 			overflow: visible;
 
-			&.toggled {
-				background-color: gold;
+			&.toggled::after {
+				box-shadow: 0px -1px 0px 0px hsl(from var(--accent-color) h s calc(l - 20));
 			}
 
 			&::after {
-				top: 2px;
-				left: 0px;
-				position: absolute;
 				content: '';
-				background-color: var(--background-blur-second-color);
-				height: 10svh;
+				position: absolute;
 				width: 100%;
+				height: var(--layout-header-size);
+				background-color: var(--background-blur-second-color);
+				box-shadow: 0px -1px 0px 0px var(--accent-color);
 			}
 		}
 
 		& > #layout-button {
+			display: grid;
+			grid-template: 1fr / 1fr;
+			place-items: center;
 			position: relative;
+			border: 3px solid var(--background-color);
+			background-color: var(--accent-color);
+
+			padding: 0;
 			z-index: 2;
-			border: 2px solid var(--background-color);
-			background-color: gold;
 
 			&.toggled {
-				border-color: gold;
+				border-color: var(--accent-color);
 				background-color: var(--background-color);
 
 				&::before {
-					background-color: gold;
+					background-color: var(--accent-color);
 				}
 
 				&::after {
-					box-shadow: inset 0px 0px 0px 3px gold;
+					box-shadow: inset 0px 0px 0px 3px var(--accent-color);
 					background-color: var(--background-color);
 				}
 			}
 
 			&::before,
 			&::after {
-				position: absolute;
 				content: '';
+				grid-area: 1 / 1;
 			}
 
 			&::before {
-				height: 5%;
+				height: 3px;
 				width: 100%;
-				top: calc(50% - 2.5%);
-				left: 0;
 				background-color: var(--background-color);
 			}
 
 			&::after {
 				height: 50%;
-				top: calc(50% - 25%);
-				left: calc(50% - 25%);
 				aspect-ratio: 1;
-				border-radius: 3rem;
+				border-radius: var(--border-r-200);
 				box-shadow: inset 0px 0px 0px 3px var(--background-color);
-				background-color: gold;
+				background-color: var(--accent-color);
+				z-index: 2;
 			}
 		}
 	}
