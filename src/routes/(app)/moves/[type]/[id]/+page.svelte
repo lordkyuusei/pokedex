@@ -44,17 +44,21 @@
 </script>
 
 <section id="moves-{$page.params.type}" style:--type-color={getPkmnTypeColor($page.params.type)}>
-	<div id="type-moves">
-		<MoveCd id={moveId} type={moveType} name={moveName} code={moveCode} />
-		<div id="{$page.params.type}-data">
+	<header id="{$page.params.type}-header">
+		<aside id="header-cd">
+			<MoveCd id={moveId} type={moveType} name={moveName} code={moveCode} />
+		</aside>
+		<div id="header-infos">
 			<h1>
 				{moveDesc}
 			</h1>
 			<table id="data-table">
 				<thead>
-					<th>Puissance</th>
-					<th>Précision</th>
-					<th>P.P.</th>
+					<tr>
+						<th>Puissance</th>
+						<th>Précision</th>
+						<th>P.P.</th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr>
@@ -65,124 +69,92 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="{$page.params.type}-pokemon">
-			<h1>Les pokémon suivants peuvent apprendre cette attaque:</h1>
-			<ul>
-				{#each matchingPkmn as { name, url }}
-					{@const pkmnUrl = url.split('/').at(-2) ?? 'espeon'}
-					<li>
-						<a class="squircle" href="/pokemon/{pkmnUrl}/moves">
-							<img src={fetchPokemonSpriteURL(pkmnUrl, 'icons', 'generation-viii')} alt={name} />
-						</a>
-					</li>
-				{/each}
-			</ul>
-		</div>
+	</header>
+	<div id="{$page.params.type}-learners">
+		<h1>Pokémon pouvant l'apprendre : </h1>
+		<ul>
+			{#each matchingPkmn as { name, url }}
+				{@const pkmnUrl = url.split('/').at(-2) ?? 'espeon'}
+				<li>
+					<a class="squircle" href="/pokemon/{pkmnUrl}/moves">
+						<img src={fetchPokemonSpriteURL(pkmnUrl, 'icons', 'generation-viii')} alt={name} />
+					</a>
+				</li>
+			{/each}
+		</ul>
 	</div>
 </section>
 
 <style>
-	section[id^='moves-'] {
-		height: 100%;
-		padding: var(--small-gap);
+	section[id^="moves"] {
+		display: grid;
+		grid-template: 'cover' 1fr 'table' 1fr / 100%;
 
-		& > div#type-moves {
+		height: calc(100% - var(--small-gap) * 2);
+		margin: var(--small-gap) var(--small-gap);
+		box-shadow: var(--box-shadow);
+		border-radius: var(--border-r-50);
+		background-color: var(--background-second-color);
+		overflow-y: auto;
+
+		@media (max-width: 1024px) {
+			margin: 0;
+			border-radius: 0;
+		}
+
+		& > header[id$='-header'] {
 			display: grid;
-			gap: var(--normal-gap);
-			width: 100%;
-			padding: var(--small-gap);
-			border-radius: var(--border-r-50);
-			background-color: var(--background-second-color);
-			box-shadow: var(--box-shadow);
+			grid-template: 'album resume' 1fr / 2fr 5fr;
+			align-items: center;
 
-			& > div[id$='-data'] {
-				display: grid;
-				grid-template:
-					'desc' 1fr
-					'table' 1fr / 100%;
+			@media (max-width: 1024px) {
 				gap: var(--small-gap);
-				align-content: center;
+				padding: var(--smaller-gap);
+				grid-template: 'album' 1fr 'resume' auto / 100%;
+			}
 
-				padding: var(--normal-gap);
-				border-radius: var(--border-r-50);
-				background-color: var(--background-color);
+			& > aside#header-cd {
+				padding: var(--small-gap);
 
-				& > h1 {
-					margin: 0;
-					font-size: 1.5rem;
-				}
-
-				& > table {
-					width: 100%;
-					border-collapse: collapse;
-					table-layout: fixed;
-					text-align: center;
-
-					& > thead > th:not(:first-child, :last-child),
-					& > tbody td:not(:first-child, :last-child) {
-						border-left: 2px solid var(--background-color);
-						border-right: 2px solid var(--background-color);
-					}
+				@media (max-width: 1024px) {
+					grid-template: 100% / auto 1fr;
+					aspect-ratio: inherit;
+					border-radius: var(--border-r-50);
 				}
 			}
 
-			& > div[id$='-pokemon'] {
-				grid-area: table;
-				display: grid;
-				grid-template:
-					'h1' auto
-					'pokemon' 1fr / 100%;
-
+			& > div#header-infos {
+				display: flex;
+				flex-direction: column;
 				height: 100%;
-				overflow-y: auto;
-				row-gap: var(--normal-gap);
+				gap: var(--small-gap);
+				justify-content: flex-end;
+				border-radius: var(--border-r-50);
+				background-color: var(--background-blur-color);
 
 				& > h1 {
-					grid-area: h1;
-					font-size: 1.5rem;
-					margin: 0;
-				}
-
-				& > ul {
-					grid-area: pokemon;
-
-					display: flex;
-					align-items: flex-start;
-					flex-wrap: wrap;
-					gap: var(--small-gap);
-					height: 100%;
-					overflow-y: auto;
-
-					& > li {
-						display: grid;
-						place-items: center;
-					}
+					padding-inline-start: 15%;
+					padding-inline-end: var(--smaller-gap);
+					font-size: x-large;
 				}
 			}
 		}
-	}
 
-	@media (min-width: 1024px) {
-		div#type-moves {
-			height: 100%;
-			grid-template:
-				'cover data' auto
-				'table table' 1fr / 0.5fr 1fr;
-		}
-	}
+		& > div[id$='-learners'] {
+			padding-inline: var(--small-gap);
 
-	@media (max-width: 1024px) {
-		section[id^='moves-'] {
-			overflow-y: auto;
+			& > h1 {
+
+			}
+
+			& > ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--smaller-gap);
+				justify-content: space-between;
+				width: 100%;
+			}
 		}
 
-		div#type-moves {
-			height: auto;
-			overflow-y: auto;
-			grid-template:
-				'cover' auto
-				'data' auto
-				'table' auto / 100%;
-		}
 	}
 </style>

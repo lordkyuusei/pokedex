@@ -4,7 +4,7 @@ export const drawDiscCover = (type: string): string => {
     const [h, s, l] = TYPES.find(t => t.name === type)?.color || [];
 
     const hsl = `hsl(${h}, ${s}%, ${l}%)`;
-    return `radial-gradient(circle, white 5%, ${hsl})`;
+    return `radial-gradient(circle, black 19%, white 20%, ${hsl})`;
 }
 
 export const drawMoveCover = (type: string): string => {

@@ -170,6 +170,11 @@
 			<ellipse ry="9.5" rx="5" cy="18" cx="42" class="main-stroke" />
 			<ellipse ry="9.5" rx="5" cy="18" cx="16" class="main-stroke" />
 		</symbol>
+		<symbol id="icon-player" viewBox="0 0 17.119 19.097">
+			<path
+				d="M1.619,1.943C3.211,0.000,17.100,6.915,17.119,9.443C17.139,12.030,3.095,19.097,1.619,16.943C0.302,15.021,0.000,3.919,1.619,1.943Z"
+			/>
+		</symbol>
 	</defs>
 </svg>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import drawBookBackground, {
+	import {
 		drawBoxShadow,
 		getPkmnTypeTranslation,
 		getPkmnTypeColor,
@@ -11,22 +11,19 @@
 	export let count: number;
 	export let showFooter: boolean = true;
 
-	$: shadow = drawBoxShadow(type);
-	$: color = getPkmnTypeColor(type);
+	let shadow = drawBoxShadow(type);
+	let color = getPkmnTypeColor(type);
 </script>
 
 <div id="album-{type}" class:show-footer={showFooter}>
 	<header id="{type}-cover" style:background={color}>
-		<img style:box-shadow={shadow} src="/icons/{type}.png" alt={type} />
+		<img alt={type} style:box-shadow={shadow} src="/icons/{type}.png" />
 		<span class="code-{type}" style:text-shadow={shadow}>
 			{getPkmnTypeTranslation(type)?.substring(0, 5)}
 		</span>
 		<span class="button-{type}">
-			<svg width="16.604" height="15.743" viewBox="1500.396 1568.225 16.604 15.743">
-				<path
-					style:fill={getPkmnTypeColor(type)}
-					d="M1501.500,1568.565C1503.092,1566.622,1516.981,1573.537,1517.000,1576.065C1517.020,1578.652,1502.976,1585.719,1501.500,1583.565C1500.183,1581.643,1499.881,1570.541,1501.500,1568.565Z"
-				/>
+			<svg style:fill={getPkmnTypeColor(type)}>
+				<use href="#icon-player"></use>
 			</svg>
 		</span>
 	</header>
@@ -41,8 +38,12 @@
 <style>
 	div[id^='album'] {
 		display: grid;
+		align-items: center;
 
-		grid-template: 'header' 100% / 100%;
+		width: 100%;
+		&:not(.show-footer) {
+			grid-template: 'header' 1fr / 100%;
+		}
 
 		&.show-footer {
 			grid-template:
@@ -50,23 +51,18 @@
 				'footer' 1fr / 100%;
 		}
 
-		align-items: center;
-		border: none;
-
 		& > header[id$='cover'] {
 			grid-area: header;
 			position: relative;
+
 			display: grid;
-			grid-template:
-				'icon' 1fr
-				'name' 4fr / 100%;
+			grid-template: 1fr 4fr 1px / 1.5fr 1fr;
 			align-items: center;
 			justify-items: flex-end;
 
-			font-family: 'Pokemon';
 			aspect-ratio: 1 / 1.2;
 
-			padding: var(--smaller-gap);
+			padding: var(--smaller-gap) var(--smaller-gap) 0 var(--smaller-gap);
 			box-shadow: var(--box-shadow);
 			border-radius: var(--border-r-100);
 			transition: all var(--transition-duration) var(--transition-function);
@@ -77,28 +73,34 @@
 			}
 
 			& > img {
-				inline-size: 20%;
+				grid-area: 1 / 2 / 1 / 2;
+				width: 50%;
 				border-radius: var(--border-r-50);
 			}
 
 			& > span[class^='code'] {
+				grid-area: 2 / 1 / 2 / 3;
 				width: 100%;
 				text-align: center;
-				font-size: 2.5rem;
+				font-family: 'Pokemon';
+				font-size: 2.5em;
 				color: var(--text-color);
 				letter-spacing: calc(var(--smallest-gap) / 2);
 			}
+
 			& > span[class^='button'] {
-				position: absolute;
+				grid-area: 3 / 2 / 3 / 2;
 				display: grid;
-				place-content: center;
-				bottom: 0;
-				right: 0;
+				place-items: center;
 				height: 3em;
 				aspect-ratio: 1;
 				border-radius: var(--border-r-100);
+				margin-inline: auto;
 				background-color: hsla(0, 100%, 0%, 50%);
-				transform: translate(-25%, 50%);
+
+				& > svg {
+					height: 50%;
+				}
 			}
 		}
 

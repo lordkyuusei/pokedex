@@ -9,116 +9,96 @@
 	export let type: string;
 	export let name: string;
 	export let code: string;
+
+	let typeColor = getPkmnTypeColor(type);
+	let textShadow = drawBoxShadow(type);
+	let background = drawDiscCover(type);
 </script>
 
-<div id="album-{type}-{name}" style:--type-color={getPkmnTypeColor(type)}>
-	<div id="{name}-cover">
-		<span id="cover-type-id">
-			<img src="/icons/{type}.png" alt={type} />
-			<span>{id.toString().padStart(3, '0')}</span>
-		</span>
-		<h1 id="cover-name">{name}</h1>
-		<abbr id="cover-code" style:text-shadow={drawBoxShadow(type)}>{code}</abbr>
-	</div>
-	<div id="{name}-disc" style:background={drawDiscCover(type)} />
+<div id="album-{type}-{name}" style:--type-color={typeColor} style:--disc-color={background}>
+	<span id="cover-type-id">
+		<img src="/icons/{type}.png" alt={type} />
+		<span>{id.toString().padStart(3, '0')}</span>
+	</span>
+	<h1 id="cover-name">{name}</h1>
+	<abbr id="cover-code" class="pokemon-font" style:text-shadow={textShadow}>{code}</abbr>
 </div>
 
 <style>
-	div[id^='album-'] {
+	div[id^="album"] {
 		display: grid;
-		grid-template: 'cover disc' 1fr / 1fr 0.5fr;
-		align-items: center;
-		width: 100%;
+		grid-template:
+			'band band band band band' 0.5fr
+			'name name name name name' 1fr
+			'code code code code code' 1fr / 1fr 1fr 1fr 1fr 1fr;
 
-		& > div[id$='-cover'] {
-			grid-area: 1 / 1;
+		aspect-ratio: 1;
+		position: relative;
+		padding-block: var(--normal-gap);
+		border-radius: var(--border-r-100);
+		background-color: var(--type-color);
+
+		@media (max-width: 1024px) {
+			width: 70%;
+		}
+
+		& > span#cover-type-id {
+			grid-area: band;
 			display: grid;
-			grid-template:
-				'cover-type-id' 1fr
-				'cover-name' 1fr
-				'cover-code' 1fr / 100%;
+			grid-template: auto / auto 1fr;
+			justify-content: start;
 			align-items: center;
+			gap: var(--small-gap);
 
-			height: 100%;
-			padding-block: var(--small-gap);
-			box-shadow: var(--box-shadow);
-			border-radius: var(--border-r-100);
-			background-color: var(--type-color);
-
-			aspect-ratio: 1;
+			border-top: 1px solid var(--second-color);
+			border-bottom: 1px solid var(--second-color);
+			padding: var(--normal-gap) var(--small-gap);
+			background-color: var(--background-blur-second-color);
 			z-index: 2;
 
-			& > span#cover-type-id {
-				width: 100%;
-				display: flex;
-				gap: var(--small-gap);
-				align-items: center;
-				justify-content: flex-start;
-				padding: var(--small-gap);
-				border-top: 2px solid var(--text-color);
-				border-bottom: 2px solid var(--text-color);
-				background-color: var(--background-second-color);
-
-				& > img {
-					inline-size: 20%;
-					border-radius: var(--border-r-100);
-				}
-
-				& > span {
-					font-size: x-large;
-				}
-			}
-			& > h1#cover-name {
-				margin: 0;
-				font-size: 2rem;
-				text-align: center;
-				text-transform: uppercase;
+			& > img {
+				width: 50%;
 			}
 
-			& > abbr#cover-code {
-				font-family: 'Pokemon';
-				font-size: 3rem;
-				text-align: center;
-				color: var(--text-color);
-				letter-spacing: var(--smallest-gap);
+			& > span {
+				font-size: x-large;
 			}
 		}
 
-		& > [id$='-disc'],
-		& > [id$='-disc']::after {
-			border-radius: 50%;
-			border: 4px solid var(--type-color);
+		& > h1#cover-name {
+			grid-area: name;
+			text-align: center;
+			margin-block: auto;
+			font-size: x-large;
+			z-index: 2;
 		}
 
-		& > [id$='-disc'] {
-			position: relative;
-			grid-area: 1 / 1;
+		& > abbr#cover-code {
+			grid-area: code;
+			text-align: center;
+			font-size: 2.5em;
+			z-index: 2;
+			font-family: 'Pokemon';
+		}
 
-			display: grid;
-			grid-template: 'hole' 25% / 25%;
-			place-content: center;
-			height: calc(100% - var(--small-gap));
+		&::before {
+			content: "";
+			height: 100%;
+			grid-area: 1 / 1 / -1 / -1;
+			background-color: var(--type-color);
+			z-index: 1;
+		}
+
+		&::after {
+			content: "";
+			grid-area: 1 / 4 / 4 / 5;
 			aspect-ratio: 1;
-			box-shadow: var(--box-shadow);
-			transform: translateX(50%);
-
-			&::after {
-				content: '';
-				box-shadow: var(--box-inner-shadow);
-				background-color: var(--background-color);
-			}
-		}
-	}
-
-	@media (max-width: 1024px) {
-		& > div[id$='-album'] {
-			min-width: 50svw;
-		}
-	}
-
-	@media (max-width: 640px) {
-		& > div[id$='-album'] {
-			min-width: 100svw;
+			border-radius: 50%;
+			z-index: 1;
+			height: 100%;
+			background: var(--disc-color);
+			border: 1rem solid var(--background-second-color);
+			z-index: 0;
 		}
 	}
 </style>

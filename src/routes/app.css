@@ -123,6 +123,11 @@ body {
     src: url("/fonts/ThraexSansRegular-v1000.ttf");
 }
 
+.pokemon-font {
+    margin: 0;
+    margin-bottom: -1rem;
+}
+
 *,
 *::before,
 *::after {
@@ -191,39 +196,44 @@ table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-}
 
-table th, table td {
-    padding-block: var(--smaller-gap);
-}
+    & > thead > tr > th, & > tbody > tr > td {
+        text-align: center;
+    }
+    & > thead {
+        & > tr {
+            & > th {
+                padding-block: var(--small-gap);
+                font-weight: lighter;
+                background-color: var(--background-second-color);            
+            }
+        }
+    }
 
-table th {
-    font-weight: lighter;
-}
+    & > tbody {
+        & > tr {
+            & > td {
+                border: none;
+                padding-block: var(--smaller-gap);
+            }
 
-table td {
-    border: none;
-}
+            &:hover > td {
+                cursor: pointer;            
+                font-weight: bolder;
+                color: var(--background-color);
+                background-color: var(--second-color);
+            }
 
-table tr:hover td {
-    font-weight: bolder;
-    background-color: var(--background-color);
-    cursor: pointer;
-}
+            &:nth-child(2n + 1) {
+                background-color: var(--background-color);
+            }
 
-table thead tr {
-    background-color: var(--background-second-color);
-    padding: var(--small-gap) var(--smaller-gap);
+            &:nth-child(2n) {
+                background-color: var(--background-second-color);
+            }
+        }
+    }
 }
-
-table tr:nth-child(2n + 1) td {
-    background-color: var(--background-color);
-}
-
-table tr:nth-child(2n) td {
-    background-color: var(--background-second-color);
-}
-
 
 h1 {
     margin-block: 0.5rem;
