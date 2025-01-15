@@ -11,5 +11,8 @@ export type FactoryPokemon = {
     "ability": string,
     "evs": string,
     "lv100Stats": string,
-    "lv50Stats": string
+    "lv50Stats": string,
+    "meta": {
+        "isStarred": boolean
+    }
 }

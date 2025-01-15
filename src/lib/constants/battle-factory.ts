@@ -13862,4 +13862,4 @@ export const factoryPokemonList: FactoryPokemon[] = [
         "lv100Stats": "322/236/251/314/206/279",
         "lv50Stats": "166/120/127/160/105/142",
     },
-];
+].map(x => ({ ...x, meta: { isStarred: false }}))

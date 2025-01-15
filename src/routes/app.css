@@ -172,6 +172,10 @@ button {
     padding: var(--smaller-gap) var(--small-gap);
 }
 
+button.small {
+    padding: var(--smallest-gap) var(--smaller-gap);
+}
+
 a,
 button {
     backdrop-filter: brightness(1.2);

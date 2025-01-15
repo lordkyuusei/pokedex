@@ -1,146 +1,146 @@
 <script lang="ts">
+	import Switch from '$lib/components/common/Switch.svelte';
 	import type { FactoryPokemon } from '$lib/types/battle-factory';
+	import { createEventDispatcher } from 'svelte';
 
 	export let pokemon: FactoryPokemon;
 	export let isLvl100Mode: boolean = false;
+
+	let dispatch = createEventDispatcher();
 
 	$: stats = pokemon[isLvl100Mode ? 'lv100Stats' : 'lv50Stats'].split('/');
 	$: evs = pokemon['evs'].split('/');
 </script>
 
-<div class="pokemon-info">
-	<div class="figure">
-		<span class="figcaption"
-			>{pokemon.name} ({pokemon['variant']})
-			<div>id {pokemon.id} • Lv. {isLvl100Mode ? '100' : '50'}</div></span
-		>
-	</div>
-	<ul class="info-data">
-		<li>Nature: <span>{pokemon.nature}</span></li>
-		<li>Ability: <span>{pokemon.ability}</span></li>
-		<li>Item: <span>{pokemon.item}</span></li>
-	</ul>
-	<ul class="info-moves">
-		<li>{pokemon['1stMove']}</li>
-		<li>{pokemon['2ndMove']}</li>
-		<li>{pokemon['3rdMove']}</li>
-		<li>{pokemon['4thMove']}</li>
-	</ul>
-	<ul class="info-stats">
-		<li>HP: <span>{stats[0]} / {evs[0]}</span></li>
-		<li>ATK: <span>{stats[1]} / {evs[1]}</span></li>
-		<li>DEF: <span>{stats[2]} / {evs[2]}</span></li>
-		<li>SPA: <span>{stats[3]} / {evs[3]}</span></li>
-		<li>SPD: <span>{stats[4]} / {evs[4]}</span></li>
-		<li>SPE: <span>{stats[5]} / {evs[5]}</span></li>
-	</ul>
-</div>
+<details class="pokemon-card">
+	<summary class="card-title">
+		<span class="name">
+			{pokemon.name} / {pokemon.variant}
+		</span>
+		<span class="nature">
+			{pokemon.nature}
+		</span>
+		<span class="ability">
+			{pokemon.ability}
+		</span>
+		<span class="item">
+			{pokemon.item}
+		</span>
+		<span class="star">
+			<button
+				class="small round"
+				class:star={pokemon.meta.isStarred}
+				on:click={() => dispatch('star', pokemon.id)}>⭐</button
+			>
+		</span>
+		<span class="icon">🔻</span>
+	</summary>
+	<table class="card-moves">
+		<thead>
+			<tr>
+				<th>Capacité 1</th>
+				<th>Capacité 2</th>
+				<th>Capacité 3</th>
+				<th>Capacité 4</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{pokemon['1stMove']}</td>
+				<td>{pokemon['2ndMove']}</td>
+				<td>{pokemon['3rdMove']}</td>
+				<td>{pokemon['4thMove']}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="card-stats">
+		<thead>
+			<tr>
+				<th>PV</th>
+				<th>Attaque</th>
+				<th>Défense</th>
+				<th>Attaque Spé.</th>
+				<th>Défense Spé.</th>
+				<th>Vitesse</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{stats[0]} ({evs[0]})</td>
+				<td>{stats[1]} ({evs[1]})</td>
+				<td>{stats[2]} ({evs[2]})</td>
+				<td>{stats[3]} ({evs[3]})</td>
+				<td>{stats[4]} ({evs[4]})</td>
+				<td>{stats[5]} ({evs[5]})</td>
+			</tr>
+		</tbody>
+	</table>
+</details>
 
 <style>
-	/* Template:PokemonCard */
-	.pokemon-info {
-		display: grid;
-		grid-template:
-			'figure data stats' 2fr
-			'moves moves moves' 1fr / 1fr 3fr 1fr;
-
-		background: var(--background-second-color);
-		gap: var(--smaller-gap);
+	details.pokemon-card {
 		padding: var(--smaller-gap);
-		border-radius: var(--border-r-50);
-		box-shadow: var(--box-shadow);
-	}
+		background-color: var(--background-second-color);
 
-	.pokemon-info > .figure,
-	.pokemon-info > ul {
-		background: var(--background-color);
-		border-radius: var(--border-r-50);
+		&[open] > summary > span:last-child {
+			transform: rotate(180deg);
+			transform-origin: center;
+		}
 
-		padding: var(--smaller-gap);
-	}
+		& > summary {
+			display: grid;
+			grid-template: 'name nature ability item . star icon' 100% / 1fr 1fr 1fr 1fr 5fr auto auto;
+			gap: var(--smaller-gap);
+			align-items: center;
+			background-color: var(--background-color);
+			padding: var(--small-gap);
+			transition: background-color var(--transition-duration) var(--transition-function);
 
-	.pokemon-info .figure {
-		grid-area: figure;
+			@media (max-width: 640px) {
+				grid-template: 'name nature ability item star icon' 100% / 1fr 1fr 1fr 1fr auto auto;
+			}
+			& > * {
+				grid-row: 1;
+			}
 
-		display: grid;
-		place-content: center;
-		margin: 0;
-		padding: 0;
-		text-align: center;
-	}
+			& > span {
+				width: 100%;
 
-	.pokemon-info .figure .figcaption {
-		border-radius: var(--border-r-50);
-		width: auto;
-	}
+				&:last-child {
+					scale: 2;
+					text-align: end;
+					transition: transform var(--transition-duration) var(--transition-function);
+				}
 
-	.pokemon-info .info-data {
-		grid-area: data;
-	}
+				&.name {
+					grid-area: name;
+					text-align: justify;
+				}
+				&.nature {
+					grid-area: nature;
+				}
+				&.ability {
+					grid-area: ability;
+				}
+				&.item {
+					grid-area: item;
+				}
+				&.star {
+					grid-area: star;
 
-	.pokemon-info .info-moves {
-		grid-area: moves;
+					& > button:not(.star) {
+						filter: grayscale(0.8);
+					}
+				}
+				&.icon {
+					grid-area: icon;
+				}
+			}
 
-		display: grid;
-		grid-template: 1fr 1fr / 1fr 1fr;
-		gap: var(--smallest-gap);
-	}
-
-	.pokemon-info .info-moves img {
-		height: 2rem;
-		width: 2rem;
-		border-radius: 2rem;
-	}
-
-	.pokemon-info .info-stats {
-		grid-area: stats;
-	}
-
-	.pokemon-info .info-data,
-	.pokemon-info .info-stats {
-		display: grid;
-	}
-
-	.pokemon-info .info-data li,
-	.pokemon-info .info-moves li,
-	.pokemon-info .info-stats li {
-		display: grid;
-		grid-template-columns: 1fr 5fr;
-		gap: var(--smaller-gap);
-		align-items: center;
-		justify-items: flex-end;
-		text-transform: capitalize;
-		padding-inline-start: 1rem;
-	}
-
-	.pokemon-info .info-data li > span {
-		display: grid;
-		grid-auto-flow: column;
-		text-align: center;
-	}
-
-	.pokemon-info .info-data li:first-child span {
-		padding-inline: 0.25rem;
-	}
-
-	.pokemon-info .info-data li.single span {
-		grid-template-columns: auto;
-		border-radius: 0.25rem;
-	}
-
-	.pokemon-info .info-data li.double span {
-		grid-template-columns: auto auto;
-	}
-
-	.pokemon-info .info-moves li {
-		background: var(--background-second-color);
-		border-radius: var(--border-r-50);
-		justify-items: flex-start;
-		padding: var(--smaller-gap);
-	}
-
-	.pokemon-info li {
-		text-wrap: nowrap !important;
-		margin: 0 !important;
+			&:hover {
+				cursor: pointer;
+				background-color: var(--background-blur-color);
+			}
+		}
 	}
 </style>
