@@ -52,7 +52,6 @@ export const searchEntityByNameOrId = async (name: string): Promise<string> => {
     const pokemonList = await searchPokemonByName(input);
     const abilityList = await searchAbilityByName(input);
     const movesList = await searchMoveByName(input);
-    console.log(movesList)
 
     return JSON.stringify({
         pokemonList,

@@ -32,7 +32,6 @@
 			`/api/pokedex?from=${left}&to=${right}${isRegionalMode ? '&game=' + $version : ''}`
 		);
 		const json = await result.json()
-		console.log(json.length)
 		return json;
 	};
 
