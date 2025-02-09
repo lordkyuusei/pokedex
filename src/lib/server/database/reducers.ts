@@ -10,6 +10,7 @@ import { lightmoves } from "./schemas/lightmoves";
 import { lightabilities } from "./schemas/lightabilities";
 import { lightlocations } from "./schemas/lightlocations";
 import { lightgenerations } from "./schemas/lightgenerations";
+import type { Lightkemon } from "$lib/types/lightkemon";
 
 const parseGenerationsList = (rawGenerationsList: LightGenerationResults): Generation[] => {
     const result: Generation[] = rawGenerationsList.data.pokemon_v2_generation.map(g => ({
@@ -49,15 +50,19 @@ const parseGenerationsList = (rawGenerationsList: LightGenerationResults): Gener
     return result;
 }
 
-const parsePokemonList = (rawPokemonList: LightPokemonResults) =>
+const parsePokemonList = (rawPokemonList: LightPokemonResults): Lightkemon[] =>
     rawPokemonList.data.pokemon_v2_pokemon.map(p => ({
         id: p.id,
         name: p.name,
         types: p.pokemon_v2_pokemontypes.map(t => t.pokemon_v2_type.name),
+        dexes: p.pokemon_v2_pokemonspecy.pokemon_v2_pokemondexnumbers.map(dex => ({
+            number: dex.pokedex_number,
+            games: dex.pokemon_v2_pokedex.pokemon_v2_pokedexversiongroups.map(({ pokemon_v2_versiongroup }) => pokemon_v2_versiongroup.name)
+        })),
         i18n: p.pokemon_v2_pokemonspecy.pokemon_v2_pokemonspeciesnames.reduce((prev, next) => {
             prev[next.pokemon_v2_language.name] = next.name;
             return prev;
-        }, {})
+        }, { fr: '', en: '' })
     }));
 
 const parseMovesList = (rawMovesList: LightMoveResults) =>
@@ -75,7 +80,7 @@ const parseMovesList = (rawMovesList: LightMoveResults) =>
             i18n: m.pokemon_v2_movenames.reduce((prev, next) => {
                 prev[next.pokemon_v2_language.name] = next.name;
                 return prev;
-            }, {})
+            }, { fr: '', en: '' })
         }))
     }));
 
@@ -87,11 +92,11 @@ const parseAbilitiesList = (rawAbilitiesList: LightAbilitiesResults) =>
         i18nName: g.pokemon_v2_abilitynames.reduce((prev, next) => {
             prev[next.pokemon_v2_language.name] = next.name ?? "";
             return prev;
-        }, {}),
+        }, { fr: '', en: '' }),
         i18nFlavor: g.pokemon_v2_abilityflavortexts_aggregate.nodes.reduce((prev, next) => {
             prev[next.pokemon_v2_language.name] = next.flavor_text ?? "";
             return prev;
-        }, {}),
+        }, { fr: '', en: '' }),
     }))
 
 const parseLocationsList = (rawLocationsList: LightLocationsResults) =>
@@ -110,7 +115,7 @@ const parseLocationsList = (rawLocationsList: LightLocationsResults) =>
                     i18nName: a.pokemon_v2_locationareanames.reduce((prev, next) => {
                         prev[next.pokemon_v2_language.name] = next.name ?? "";
                         return prev;
-                    }, {}),
+                    }, { fr: '', en: '' }),
                 }))
             }))
         }))

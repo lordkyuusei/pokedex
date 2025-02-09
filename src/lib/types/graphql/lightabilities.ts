@@ -20,5 +20,5 @@ type LightAbility = {
 
 type LightAbilityNode = {
     flavor_text: string;
-    pokemon_v2_language: { name: string }
+    pokemon_v2_language: { name: 'fr' | 'en' }
 }
