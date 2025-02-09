@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Type from '$lib/components/common/Type.svelte';
+	import Type from '$lib/components/fragments/Type.svelte';
 	import {
 		computeAffinities,
 		computeCoverage,

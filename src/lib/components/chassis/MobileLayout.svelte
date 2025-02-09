@@ -2,10 +2,10 @@
 	import _ from '$lib/store/i18n';
 	import type { Route } from '$lib/types/meta';
 
-	import Search from '../layout/Search.svelte';
-	import GameSwitch from '../layout/GameSwitch.svelte';
-	import LangSwitch from '../layout/LangSwitch.svelte';
-	import ThemeSwitch from '../layout/ThemeSwitch.svelte';
+	import Search from '../lodestones/Search.svelte';
+	import GameSwitch from '../lodestones/GameSwitch.svelte';
+	import LangSwitch from '../lodestones/LangSwitch.svelte';
+	import ThemeSwitch from '../lodestones/ThemeSwitch.svelte';
 
 	export let routes: Route[];
 	export let generationsList: any[];

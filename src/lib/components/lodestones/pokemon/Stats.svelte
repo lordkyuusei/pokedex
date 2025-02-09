@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import Switch from '$lib/components/common/Switch.svelte';
+	import Switch from '$lib/components/fragments/Switch.svelte';
 	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import StatsCalculator from './StatsCalculator.svelte';
 	import StatBlock from './StatBlock.svelte';

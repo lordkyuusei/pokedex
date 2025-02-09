@@ -4,10 +4,10 @@
 
 	import { lang } from '$lib/store/lang';
 
-	import Book from '$lib/components/common/Book.svelte';
+	import Book from '$lib/components/fragments/Book.svelte';
 	import useDismiss from '$lib/functions/useDismiss';
-	import type { Lightkemon } from '$lib/types/lightkemon';
 	import { navigatePokemon } from '$lib/functions/navigate';
+	import type { SearchResult } from '$lib/types/search';
 
 	const DEFAULT_SEARCH_DELAY: number = 300;
 	const DEFAULT_SEARCH_MIN_LENGTH = 3;
@@ -15,16 +15,16 @@
 	let show: boolean = false;
 	let searchText: string;
 	let searchInputRef: HTMLInputElement;
-	let results: Promise<Lightkemon[]>;
+	let results: Promise<SearchResult>;
 	let debounceTimer: NodeJS.Timeout;
 
 	const debounce = async (e: KeyboardEvent) => {
-		if (e.key === 'Escape') {
-			showPane();
-		} else if (e.key === 'Enter') {
-			showPane();
+		if (e.key === 'Escape') return togglePane();
 
-			results.then((pokemonList) => {
+		if (e.key === 'Enter') {
+			togglePane();
+
+			results.then(({ pokemonList }) => {
 				if (!pokemonList) return;
 				const url = getBookUrl(`${pokemonList[0]?.id}`);
 				goto(url);
@@ -34,16 +34,16 @@
 
 			if (searchText.length >= DEFAULT_SEARCH_MIN_LENGTH || !Number.isNaN(parseInt(searchText))) {
 				debounceTimer = setTimeout(async () => {
-					const result: Response = await fetch(`/api/search?input=${searchText}`);
-					results = result.json();
+					const result = await fetch(`/api/search?input=${searchText}`);
+					results = await result.json();
 				}, DEFAULT_SEARCH_DELAY);
 			} else {
-				results = new Promise((res, rej) => res([]));
+				results = new Promise((res, rej) => res({} as SearchResult));
 			}
 		}
 	};
 
-	const showPane = () => {
+	const togglePane = () => {
 		show = !show;
 		searchInputRef.focus();
 	};
@@ -60,7 +60,7 @@
 	};
 </script>
 
-<button id="dex-search" class="search-button" on:click={showPane}>
+<button id="dex-search" class="search-button" on:click={togglePane}>
 	<svg class="search-icon">
 		<use href="#icon-magnifier"></use>
 	</svg>
@@ -83,14 +83,23 @@
 		</search>
 	</header>
 	<output id="pan-results">
-		{#await results then pokemonList}
-			{#if pokemonList}
+		{#await results then searchResult}
+			{#if searchResult}
+				{@const { pokemonList = [], movesList = [], abilityList = [] } = searchResult}
 				{#each pokemonList as pokemon}
-					<a href={getBookUrl(`${pokemon.id}`)} on:click={showPane}>
+					<a href={getBookUrl(`${pokemon.id}`)} on:click={togglePane}>
 						<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} landscape />
 					</a>
-				{:else}
-					<pre>No result</pre>
+				{/each}
+				{#each movesList as move}
+					<a href={`/moves/${move.moveType}/${move.id}`} on:click={togglePane}>
+						<span>{move?.i18n?.fr}</span>
+					</a>
+				{/each}
+				{#each abilityList as ability}
+					<a href={`/abilities/${ability.id}`} on:click={togglePane}>
+						<span>{ability.i18nName.fr}</span>
+					</a>
 				{/each}
 			{/if}
 		{/await}

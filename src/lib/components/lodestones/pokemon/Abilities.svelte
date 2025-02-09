@@ -11,9 +11,9 @@
 	const getAbilityTexts = (ability: PokemonAbility, lang: string) => {
 		const { names, flavor_text_entries: flavors, effect_entries: effects } = ability;
 
-		const name = names.find(name => name.language.name === lang)?.name ?? names[0]?.name;
-		const desc = flavors.find(name => name.language.name === lang)?.flavor_text ?? flavors[0]?.flavor_text;
-		const effect = effects.find(eff => eff.language.name === lang)?.effect ?? effects[0]?.effect;
+		const name = names.find(name => name.language.name === lang)?.name ?? names[1]?.name;
+		const desc = flavors.find(name => name.language.name === lang)?.flavor_text ?? flavors[1]?.flavor_text;
+		const effect = effects.find(eff => eff.language.name === lang)?.effect ?? effects[1]?.effect;
 
 		return { name, desc, effect };
 	}

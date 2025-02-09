@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
-	import Type from '$lib/components/common/Type.svelte';
-	import Switch from '$lib/components/common/Switch.svelte';
+	import Type from '$lib/components/fragments/Type.svelte';
+	import Switch from '$lib/components/fragments/Switch.svelte';
 	import drawBookBackground from '$lib/functions/drawBackgroundFromTypes';
 	import {
 		fetchPokemonShinySpriteURL,
@@ -11,7 +11,7 @@
 
 	import TypesRelationship from './TypesRelationship.svelte';
 	import { isMobile } from '$lib/store/device';
-	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
+	import PrevNextNavigation from '$lib/components/lodestones/PrevNextNavigation.svelte';
 
 	export let id: number = 0;
 	export let sprite: string = '';

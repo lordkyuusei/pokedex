@@ -14,7 +14,7 @@
 		mapPolygonCoordinatesToString
 	} from '$lib/constants/stats';
 	import { generation } from '$lib/store/generation';
-	import Switch from '$lib/components/common/Switch.svelte';
+	import Switch from '$lib/components/fragments/Switch.svelte';
 	import type { StatRef } from '$lib/types/pokeapi/pokemon';
 	import { HPFormula, StatFormula } from '$lib/functions/statFormula';
 

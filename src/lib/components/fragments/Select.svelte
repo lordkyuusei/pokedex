@@ -49,6 +49,7 @@
 			width: 100%;
 			max-height: 25svh;
 			overflow-y: auto;
+			box-shadow: var(--box-shadow);
 			border: 1px solid var(--text-color);
 			z-index: 3;
 

@@ -2,12 +2,12 @@
 	import _ from '$lib/store/i18n';
 	import type { Route } from '$lib/types/meta';
 
-	import GameSwitch from '$lib/components/layout/GameSwitch.svelte';
-	import LangSwitch from '$lib/components/layout/LangSwitch.svelte';
-	import Search from '$lib/components/layout/Search.svelte';
-	import ThemeSwitch from '$lib/components/layout/ThemeSwitch.svelte';
-	import PrevNextNavigation from '$lib/components/layout/PrevNextNavigation.svelte';
-	import ThemeVariantSwitch from '../layout/ThemeVariantSwitch.svelte';
+	import GameSwitch from '$lib/components/lodestones/GameSwitch.svelte';
+	import LangSwitch from '$lib/components/lodestones/LangSwitch.svelte';
+	import Search from '$lib/components/lodestones/Search.svelte';
+	import ThemeSwitch from '$lib/components/lodestones/ThemeSwitch.svelte';
+	import PrevNextNavigation from '$lib/components/lodestones/PrevNextNavigation.svelte';
+	import ThemeVariantSwitch from '../lodestones/ThemeVariantSwitch.svelte';
 
 	export let routes: Route[];
 	export let routeId: string | null = '';
@@ -49,7 +49,7 @@
 <main id="dex-main">
 	<header id="main-header">
 		<PrevNextNavigation />
-		{#await import('$lib/components/layout/UpdateSW.svelte') then { default: UpdateSW }}
+		{#await import('$lib/components/lodestones/UpdateSW.svelte') then { default: UpdateSW }}
 			<UpdateSW />
 		{/await}
 		<GameSwitch {generationsList} />
@@ -74,7 +74,9 @@
 			'aside-links' var(--layout-nav-size)
 			'aside-settings' var(--layout-header-size) / 100%;
 
+		z-index: 1;
 		justify-items: center;
+		box-shadow: var(--box-shadow);
 
 		@media (max-width: 1024px) {
 			grid-template:
@@ -153,15 +155,17 @@
 			'header' var(--layout-header-size)
 			'content' var(--layout-content-size) / 100%;
 
-		& > #main-header {
-			display: grid;
-			grid-template: 100% / 1fr auto auto auto;
-			justify-content: space-between;
-			gap: var(--small-gap);
-			align-items: center;
-			padding-inline-end: var(--small-gap);
-			padding-block: var(--smaller-gap);
-		}
+			& > #main-header {
+				display: grid;
+				grid-template: 100% / 1fr auto auto auto;
+				justify-content: space-between;
+				gap: var(--small-gap);
+				align-items: center;
+				padding-inline-end: var(--small-gap);
+				padding-block: var(--smaller-gap);
+				z-index: 1;
+				box-shadow: var(--box-shadow);
+			}
 
 		& > #main-content {
 			height: 100%;
