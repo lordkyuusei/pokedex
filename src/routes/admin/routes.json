@@ -13,5 +13,10 @@
         "id": "admin/locations",
         "alt_id": "locations",
         "name": "menu.admin.locations"
+    },
+    {
+        "id": "admin/ui-gallery",
+        "alt_id": "ui-gallery",
+        "name": "menu.admin.ui-gallery"
     }
 ]
