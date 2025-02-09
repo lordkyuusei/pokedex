@@ -1,7 +1,7 @@
 export type FactoryPokemon = {
     "id": number,
     "name": string,
-    "variant": string,
+    "variant": number,
     "nature": string,
     "item": string,
     "1stMove": string,
@@ -9,9 +9,9 @@ export type FactoryPokemon = {
     "3rdMove": string,
     "4thMove": string,
     "ability": string,
-    "evs": string,
-    "lv100Stats": string,
-    "lv50Stats": string,
+    "evs": [number, number, number, number, number, number],
+    "lv100Stats": [number, number, number, number, number, number],
+    "lv50Stats": [number, number, number, number, number, number],
     "meta": {
         "isStarred": boolean
     }
