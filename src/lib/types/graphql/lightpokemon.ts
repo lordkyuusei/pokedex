@@ -20,5 +20,17 @@ type LightPokemonTypes = {
 }
 
 type LightPokemonSpecy = {
-    pokemon_v2_pokemonspeciesnames: LightTranslation[]
+    pokemon_v2_pokemonspeciesnames: LightTranslation[],
+    pokemon_v2_pokemondexnumbers: LightDexNumber[],
+}
+
+type LightDexNumber = {
+    pokedex_number: number,
+    pokemon_v2_pokedex: {
+        pokemon_v2_pokedexversiongroups: LightVersionGroup[]
+    }
+}
+
+type LightVersionGroup = {
+    pokemon_v2_versiongroup: { name: string }
 }

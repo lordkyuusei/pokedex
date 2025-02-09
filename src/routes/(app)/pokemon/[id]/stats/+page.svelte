@@ -1,17 +1,17 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import Cover from '$lib/components/features/pokemon/Cover.svelte';
-	import Stats from '$lib/components/features/pokemon/stats/Stats.svelte';
-	import Abilities from '$lib/components/features/pokemon/Abilities.svelte';
-	import Scores from '$lib/components/features/pokemon/scores/Scores.svelte';
+	import Cover from '$lib/components/lodestones/pokemon/Cover.svelte';
+	import Scores from '$lib/components/lodestones/pokemon/Scores.svelte';
+	import Stats from '$lib/components/lodestones/pokemon/Stats.svelte';
+	import Abilities from '$lib/components/lodestones/pokemon/Abilities.svelte';
 
 	import _ from '$lib/store/i18n';
 	import { lang } from '$lib/store/lang';
 	import { version } from '$lib/store/generation';
 	import { generation } from '$lib/store/generation';
-	import type { PastTypesRef, TypeRef } from '$lib/types/pokeapi/pokemon';
-	import { device } from '$lib/store/device';
+	import { isMobile } from '$lib/store/device';
+	import { computePokemonTypes } from '$lib/functions/getPokemonTypes';
 
 	export let data: PageData;
 
@@ -21,57 +21,27 @@
 		(x) => x.language.name === $lang && versions?.includes(x.version.name)
 	);
 
-	$: types = data.pokemon.past_types.length
-		? fetchOldTypes(data.pokemon.past_types, data.pokemon.types, $generation.id)
-		: fetchNewTypes(data.pokemon.types);
-
-	const fetchOldTypes = (past_types: PastTypesRef[], types: TypeRef[], gen: number) => {
-		const relevantTypes = past_types
-			.filter((t) => gen <= Number(t.generation.url.at(-2)))
-			.flatMap((t) => t.types.map((t) => t.type.name));
-
-		return relevantTypes.length ? relevantTypes : fetchNewTypes(types);
-	};
-
-	const fetchNewTypes = (types: TypeRef[]) => types.map((t) => t.type.name);
+	$: types = computePokemonTypes(data.pokemon, $generation.id);
 
 	$: genus = data.specie?.genera.find((x) => x.language.name === $lang)?.genus;
 </script>
 
 <section id="data-stats">
-	<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
-	{#if $device !== 'mobile'}
-		<Stats stats={data.pokemon.stats} />
-		<Scores
-			{genus}
-			height={data.pokemon.height}
-			weight={data.pokemon.weight}
-			rate={data.specie.capture_rate}
-			steps={data.specie.hatch_counter}
-			egg={data.specie.egg_groups.map((egg) => egg.name)}
-			gender={data.specie.gender_rate}
-			description={description?.flavor_text ?? $_('scores.no-desc') + $version}
-		/>
-		<Abilities abilities={data.abilities} />
-	{:else}
-		<div id="stats-group">
-			<hr class="group-separator" />
-			<div id="group-data">
-				<Stats stats={data.pokemon.stats} />
-				<Scores
-					{genus}
-					height={data.pokemon.height}
-					weight={data.pokemon.weight}
-					rate={data.specie.capture_rate}
-					steps={data.specie.hatch_counter}
-					egg={data.specie.egg_groups.map((egg) => egg.name)}
-					gender={data.specie.gender_rate}
-					description={description?.flavor_text ?? $_('scores.no-desc') + $version}
-				/>
-				<Abilities abilities={data.abilities} />
-			</div>
-		</div>
+	{#if !$isMobile}
+		<Cover id={data.pokemon.id} sprite={data.pokemon.sprites.front_default} {types} />
 	{/if}
+	<Stats stats={data.pokemon.stats} />
+	<Scores
+		{genus}
+		height={data.pokemon.height}
+		weight={data.pokemon.weight}
+		rate={data.specie.capture_rate}
+		steps={data.specie.hatch_counter}
+		egg={data.specie.egg_groups.map((egg) => egg.name)}
+		gender={data.specie.gender_rate}
+		description={description?.flavor_text}
+	/>
+	<Abilities abilities={data.abilities} />
 </section>
 
 <style>
@@ -81,11 +51,11 @@
 		grid-template: repeat(8, 1fr) / 1fr 1fr;
 	}
 
-	@media (min-width: 1025px) {
+	@media (min-width: 1024px) {
 		#data-stats {
 			overflow-y: auto;
-			padding: var(--small-gap) var(--normal-gap);
-			gap: var(--normal-gap);
+			padding: var(--small-gap);
+			gap: calc(var(--small-gap) + var(--smaller-gap));
 		}
 
 		:global(#stats-main) {
@@ -117,32 +87,12 @@
 	@media (max-width: 640px) {
 		#data-stats {
 			overflow-x: auto;
-			grid-template: 1fr 1.5fr / 100%;
+			grid-template: 100% / 100% 100% 100%;
+			gap: var(--smaller-gap);
 		}
 
 		:global(#stats-main) {
 			margin-bottom: -1rem;
-		}
-
-		#stats-group {
-			border-radius: var(--border-r-100);
-			border: 1px solid transparent;
-			background-color: var(--background-color);
-			padding-block: 0.5rem;
-		}
-
-		#stats-group > #group-data {
-			display: grid;
-			grid-template-columns: repeat(3, 100%);
-			overflow-x: auto;
-		}
-
-		#stats-group > .group-separator {
-			width: 80%;
-			height: 5px;
-			background-color: var(--text-color);
-			border: 1px solid transparent;
-			border-radius: 1rem;
 		}
 	}
 </style>

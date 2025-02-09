@@ -1,22 +1,27 @@
 [
     {
-        "id": "/pokedex",
-        "alt_id": "/pokemon",
+        "id": "pokedex",
+        "alt_id": "pokemon",
         "name": "menu.pokedex"
     },
     {
-        "id": "/moves",
-        "alt_id": "/moves",
+        "id": "moves",
+        "alt_id": "moves",
         "name": "menu.moves"
     },
     {
-        "id": "/abilities",
-        "alt_id": "/abilities",
+        "id": "abilities",
+        "alt_id": "abilities",
         "name": "menu.abilities"
     },
     {
-        "id": "/items",
-        "alt_id": "/items",
-        "name": "menu.items"
+        "id": "locations",
+        "alt_id": "locations",
+        "name": "menu.locations"
+    },
+    {
+        "id": "tools",
+        "alt_id": "tools",
+        "name": "menu.tools"
     }
 ]

@@ -1,5 +1,7 @@
 {
+    "DEXAPI_LOCATION": "/api/location/version",
     "POKEAPI_GRAPHQL": "https://beta.pokeapi.co/graphql/v1beta",
     "POKEAPI_ENDPOINT": "https://pokeapi.co/api/v2",
-    "SPRITE_URL": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
+    "SPRITE_URL": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon",
+    "ITEMS_SPRITE_URL": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items"
 }

@@ -1,0 +1,1 @@
+export const openLevelPokemonStart: number = 373;

@@ -1,0 +1,1 @@
+export const MAP_BASE_NAME = 'base';

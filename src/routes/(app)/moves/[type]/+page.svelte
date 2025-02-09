@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
-
-	import { lang } from '$lib/store/lang';
-	import { generation } from '$lib/store/generation';
+	import { goto } from '$app/navigation';
 
 	import {
 		drawBoxShadow,
@@ -12,162 +8,205 @@
 		getPkmnTypeLang,
 		getPkmnTypeTranslation
 	} from '$lib/functions/drawBackgroundFromTypes';
+	import { lang } from '$lib/store/lang';
+	import { generation } from '$lib/store/generation';
 
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
-	import { fade } from 'svelte/transition';
 
 	export let data: PageData;
 
-	$: movesListForGen = data.typesMovesList
+	let scrollY: number;
+
+	let movesListForGen: [] = data.typesMovesList
 		.filter((gen) => gen.id <= $generation.id)
 		.flatMap((gen) => gen.moves);
 
-	const averagePower = (moves: any[]) => {
-		const powerfulMoves = moves.filter((x) => x.power !== 0);
-		return (
-			powerfulMoves.reduce((acc, move) => acc + move.power, 0) / powerfulMoves.length
-		).toFixed(1);
-	};
+	let averageMovesPower: string = movesListForGen
+		.filter((move) => move.power !== 0)
+		.reduce((power: number, move: any, i: number, allMoves) => {
+			const cumulativePower = power + move.power;
+			if (i === allMoves.length - 1) {
+				return cumulativePower / allMoves.length;
+			}
+			return cumulativePower;
+		}, 0)
+		.toFixed(0);
 
-	const averageAccuracy = (moves: any[]) => {
-		const accurateMoves = moves.filter((x) => x.accuracy !== 0);
-		return (
-			accurateMoves.reduce((acc, move) => acc + move.accuracy, 0) / accurateMoves.length
-		).toFixed(1);
-	};
+	let averageMovesAccuracy: string = movesListForGen
+		.filter((move) => move.accuracy !== 0)
+		.reduce((accuracy: number, move: any, i: number, allMoves) => {
+			const cumulativeAccuracy = accuracy + move.accuracy;
+			if (i === allMoves.length - 1) {
+				return cumulativeAccuracy / allMoves.length;
+			}
+			return cumulativeAccuracy;
+		}, 0)
+		.toFixed(0);
 
-	const maximumPower = (moves: any[]) => {
-		const allPower = moves.map((m) => m.power);
-		return Math.max(...allPower);
-	};
+	let maximumMovePower: number = Math.max(...movesListForGen.map((move) => move.power));
 </script>
 
-<section id="moves-{data.type}" style:--type-color={getPkmnTypeColor(data.type)}>
-	<section id="{data.type}-cover" out:fade>
+<section
+	id="moves-{data.type}"
+	style:--type-color={getPkmnTypeColor(data.type)}
+	style:background={drawMoveCover(data.type)}
+>
+	<header id="{data.type}-cover">
 		<aside id="cover-album" style:background={drawMoveCover(data.type)}>
 			<img
 				style:box-shadow={drawBoxShadow(data.type)}
 				src="/icons/{data.type}.png"
 				alt={data.type}
 			/>
-			<p style:text-shadow={drawBoxShadow(data.type)}>{getPkmnTypeTranslation(data.type)}</p>
+			<p class="pokemon-font" style:text-shadow={drawBoxShadow(data.type)}>
+				{getPkmnTypeTranslation(data.type)}
+			</p>
 		</aside>
 		<div id="cover-infos">
-			<small>Liste d'attaques</small>
 			<h1>
 				Liste des capacités de type <b>{getPkmnTypeLang(data.type, $lang)}</b>
 			</h1>
 			<small>Génération <b>{$generation.id}</b></small>
 			<p>
-				<b>{movesListForGen.length}</b> capacités • <b>{averagePower(movesListForGen)}</b> de
-				puissance moyenne •
-				<b>{averageAccuracy(movesListForGen)}</b> de précision moyenne
+				<b>{movesListForGen.length}</b> capacités • <b>{averageMovesPower}</b> de puissance moyenne
+				•
+				<b>{averageMovesAccuracy}</b> de précision moyenne
 			</p>
-			<p>Puissance la plus élevée: <b>{maximumPower(movesListForGen)}</b></p>
+			<p>
+				<img src="/icons/{data.type}.png" alt={data.type} /> • Puissance la plus élevée:
+				<b>{maximumMovePower}</b>
+			</p>
 		</div>
-	</section>
-	<section id="{data.type}-table">
-		<table>
-			<thead>
-				<th>#</th>
-				<th>NOM</th>
-				<th>PUISSANCE</th>
-				<th>PP</th>
-				<th>PRECISION</th>
-			</thead>
-			<tbody>
-				{#each movesListForGen as move}
-					<tr on:click={() => goto(`/moves/${move.moveType}/${move.id}`)}>
-						<td>{move.id}</td>
-						<td>{move.i18n[$lang] || `(pas de traduction pour ${move.name})`}</td>
-						<td>{move.power || '---'}</td>
-						<td>{move.pp || '---'}</td>
-						<td>{move.accuracy || '---'}</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</section>
+	</header>
+	<table id="{data.type}-table">
+		<thead>
+			<tr>
+				<th colspan="1">#</th>
+				<th colspan="2">NOM</th>
+				<th colspan="2">PUISSANCE</th>
+				<th colspan="2">PP</th>
+				<th colspan="2">PRECISION</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each movesListForGen as move}
+				<tr on:click={() => goto(`/moves/${move.moveType}/${move.id}`)}>
+					<td colspan="1">{move.id}</td>
+					<td colspan="2">{move.i18n[$lang] || `(pas de traduction pour ${move.name})`}</td>
+					<td colspan="2">{move.power || '---'}</td>
+					<td colspan="2">{move.pp || '---'}</td>
+					<td colspan="2">{move.accuracy || '---'}</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
 </section>
 
 <style>
-	[id^='moves-'] {
+	section[id^='moves-'] {
 		display: grid;
-		grid-template:
-			'cover' 1fr
-			'table' 5fr / 100%;
-		gap: var(--small-gap);
-		padding: 2em;
+		grid-template: 'cover' 1fr 'table' 1fr / 100%;
 
-		height: 100%;
-		width: 100%;
-	}
-
-	[id^='moves-'] > [id$='-cover'] {
-		display: grid;
-		grid-template: 'cover desc' 100% / 1fr 4fr;
-		gap: var(--small-gap);
-		align-items: center;
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-album {
-		display: grid;
-		grid-template: 'header' 1fr 'footer' 1fr / 100%;
-		justify-items: center;
-		align-items: center;
-		gap: var(--normal-gap);
-		padding: 1em;
-		aspect-ratio: 1;
-		border-radius: var(--border-r-100);
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-album img {
-		border-radius: var(--border-r-100);
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-album p {
-		font-family: 'Pokemon';
-		font-size: 5em;
-		margin: 0;
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-infos {
-		display: flex;
-		flex-direction: column;
-		gap: var(--small-gap);
-
-		font-size: 1.25em;
-		padding-block-end: 1em;
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-infos h1,
-	[id^='moves-'] > [id$='-cover'] > #cover-infos p {
-		margin: 0;
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-infos h1 {
-		line-height: 1em;
-		font-size: 2em;
-	}
-
-	[id^='moves-'] > [id$='-cover'] > #cover-infos b {
-		color: var(--primary-color);
-		text-transform: uppercase;
-	}
-
-	[id^='moves-'] > [id$='-table'] {
-		text-align: center;
-		height: 100%;
-		width: 100%;
+		height: calc(100% - var(--small-gap) * 2);
+		margin: var(--small-gap) var(--small-gap);
+		box-shadow: var(--box-shadow);
+		border-radius: var(--border-r-50);
 		overflow-y: auto;
-	}
 
-	[id^='moves-'] > [id$='-table'] table tr:hover > td {
-		background-color: var(--type-color);
-	}
+		@media (max-width: 1024px) {
+			margin: 0;
+			border-radius: 0;
+		}
 
-	[id^='moves-'] > [id$='-table'] table td {
-		height: 3em;
+		& > header[id$='-cover'] {
+			display: grid;
+			grid-template: 'album resume' 1fr / 1fr 4fr;
+			gap: var(--normal-gap);
+			align-items: center;
+			padding: var(--normal-gap);
+			background-color: var(--background-blur-second-color);
+
+			@media (max-width: 1024px) {
+				gap: var(--small-gap);
+				padding: var(--small-gap);
+				grid-template: 'album' auto 'resume' 1fr / 100%;
+			}
+
+			& > aside#cover-album {
+				display: grid;
+				grid-template: 1fr 1fr / 100%;
+				justify-items: center;
+				align-items: center;
+				gap: var(--small-gap);
+				padding: var(--small-gap);
+				aspect-ratio: 1;
+				border-radius: var(--border-r-100);
+
+				@media (max-width: 1024px) {
+					grid-template: 100% / auto 1fr;
+					aspect-ratio: inherit;
+					border-radius: var(--border-r-50);
+				}
+
+				& > img {
+					border-radius: var(--border-r-50);
+				}
+
+				& > p {
+					font-family: 'Pokemon';
+					font-size: 2.5em;
+					letter-spacing: var(--smallest-gap);
+				}
+			}
+
+			& > div#cover-infos {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				gap: var(--small-gap);
+				justify-content: flex-end;
+				font-size: 1.25em;
+				padding: var(--small-gap);
+				border-radius: var(--border-r-50);
+				background-color: var(--background-blur-color);
+
+				& > h1,
+				& > p {
+					margin: 0;
+
+					& > img {
+						border-radius: var(--border-r-50);
+						height: 1rem;
+					}
+				}
+
+				& > h1 {
+					font-size: 2em;
+				}
+
+				& b {
+					color: var(--second-color);
+					text-transform: uppercase;
+				}
+			}
+		}
+
+		& > table[id$='-table'] {
+			text-align: center;
+			height: 100%;
+			width: 100%;
+			padding: var(--small-gap);
+
+			background: linear-gradient(
+				to top,
+				var(--background-second-color) 30%,
+				var(--background-blur-second-color) 120%
+			);
+
+			& > thead {
+				position: sticky;
+				top: 0;
+			}
+		}
 	}
 </style>

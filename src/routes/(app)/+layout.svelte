@@ -3,30 +3,36 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
-	import type { LayoutServerData } from '../$types';
+	import type { LayoutServerData } from './$types';
 
-	import { theme } from '$lib/store/theme';
-	import { deviceWidth, device } from '$lib/store/device';
+	import { theme, variant } from '$lib/store/theme';
+	import { deviceWidth, isMobile, isRendered } from '$lib/store/device';
 
-	import SVGs from '$lib/components/common/SVGs.svelte';
+	import SVGs from '$lib/components/lodestones/SVGs.svelte';
+	import DesktopLayout from '$lib/components/chassis/DesktopLayout.svelte';
+	import MobileLayout from '$lib/components/chassis/MobileLayout.svelte';
+
 	import routes from './routes.json';
-	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
-	import MobileLayout from '$lib/components/interface/MobileLayout.svelte';
+	import '../app.css';
 
 	export let data: LayoutServerData;
 </script>
 
 <svelte:head>
 	<meta name="color-scheme" content={$theme === 'moon' ? 'dark' : 'light'} />
-	{#if $theme}
-		<link rel="stylesheet" href={`/theme/${$theme}.css`} />
+	{#if $theme && $variant}
+		<link rel="stylesheet" href={`/theme/${$theme}-${$variant}.css`} />
 	{/if}
 </svelte:head>
 
 <svelte:window bind:innerWidth={$deviceWidth} />
 
 <SVGs />
-{#if $device !== 'mobile'}
+{#if $isRendered && $isMobile}
+	<MobileLayout {routes} generationsList={data.generationsList}>
+		<slot />
+	</MobileLayout>
+{:else if $isRendered && !($isMobile)}
 	<DesktopLayout
 		{routes}
 		routeId={$page.route.id}
@@ -35,8 +41,4 @@
 	>
 		<slot />
 	</DesktopLayout>
-{:else}
-	<MobileLayout {routes} generationsList={data.generationsList}>
-		<slot />
-	</MobileLayout>
 {/if}

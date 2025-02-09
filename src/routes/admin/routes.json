@@ -1,0 +1,22 @@
+[
+    {
+        "id": "",
+        "alt_id": "",
+        "name": "menu.home"
+    },
+    {
+        "id": "admin/sync",
+        "alt_id": "sync",
+        "name": "menu.admin.sync"
+    },
+    {
+        "id": "admin/locations",
+        "alt_id": "locations",
+        "name": "menu.admin.locations"
+    },
+    {
+        "id": "admin/ui-gallery",
+        "alt_id": "ui-gallery",
+        "name": "menu.admin.ui-gallery"
+    }
+]

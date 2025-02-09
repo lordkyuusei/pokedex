@@ -1,35 +1,65 @@
 <svelte:options immutable />
 
 <script lang="ts">
-	import Switch from '$lib/components/common/Switch.svelte';
-	import { generation, version } from '$lib/store/generation';
+	import type { PageData } from './$types';
+
 	import type { Generation } from '$lib/types/generation';
 	import type { PokemonImagery } from '$lib/types/imagery';
-	import type { SpritesRef } from '$lib/types/pokeapi/pokemon';
+	import { generation, version } from '$lib/store/generation';
+	import type { Pokemon, SpritesRef } from '$lib/types/pokeapi/pokemon';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
-	import type { PageData } from './$types';
+	import Switch from '$lib/components/fragments/Switch.svelte';
+
+	type SpriteTab = 'forms' | 'version' | 'others';
 
 	export let data: PageData;
 
 	let shiny: boolean = false;
+	let tabs: SpriteTab[] = [];
+	let selectedTab: SpriteTab | null;
+	let forms: PokemonImagery[] = [];
+	let versionSpritesRaw: PokemonImagery[];
+	let otherSpritesRaw: PokemonImagery[];
+	let sprites: PokemonImagery[] = [];
 
-	$: forms = data.pokemon.forms.map((x) => {
-		const [, ...form] = x.name.split('-');
-		return {
-			id: `${data.pokemon.id}-${form.join('-')}`,
-			name: x.name
-		};
-	});
+	$: if (data.pokemon) {
+		loadPokemonSprites(data.pokemon);
+		otherSpritesRaw = loadOtherSprites(data.pokemon);
+	}
 
-	$: versionSpritesRaw = mapVersionToSprites(data.pokemon.sprites, $generation, $version);
-	$: otherSpritesRaw = mapOthersToSprites(data.pokemon.sprites);
+	$: if (data.pokemon && $generation && $version) {
+		versionSpritesRaw = loadVersionSprites(data.pokemon, $generation, $version);
+	}
 
 	$: versionSprites = versionSpritesRaw.filter((v) => v.isShiny === shiny);
 	$: otherSprites = otherSpritesRaw.filter((v) => v.isShiny === shiny);
 
-	const toggleShiny = (e: any) => (shiny = e.detail.shiny);
+	$: if (selectedTab && $version) {
+		sprites = getSelectedSprites(selectedTab);
+	}
 
-	const mapVersionToSprites = (sprites: SpritesRef, generation: Generation, version: string) => {
+	const loadPokemonSprites = (pokemon: Pokemon) => {
+		const { id } = pokemon;
+
+		forms = pokemon.forms.map((x) => {
+			const [, ...form] = x.name.split('-');
+			return {
+				name: x.name,
+				game: $version,
+				generation: $generation.id,
+				isFemale: false,
+				isFront: false,
+				isShiny: false,
+				url: fetchPokemonSpriteURL(`${id}-${form.join('-')}`)
+			};
+		});
+
+		tabs = forms.length > 1 ? ['forms', 'version', 'others'] : ['version', 'others'];
+		selectedTab = tabs[0];
+	};
+
+	const loadVersionSprites = (pokemon: Pokemon, generation: Generation, version: string) => {
+		const { sprites } = pokemon;
 		if (!sprites) return [];
 
 		try {
@@ -84,7 +114,8 @@
 		}
 	};
 
-	const mapOthersToSprites = (sprites: SpritesRef) => {
+	const loadOtherSprites = (pokemon: Pokemon) => {
+		const { sprites } = pokemon;
 		if (!sprites) return [];
 
 		let imagery: PokemonImagery[] = [];
@@ -108,108 +139,126 @@
 
 		return imagery.filter((i) => i.url);
 	};
+
+	const toggleShiny = (e: any) => (shiny = e.detail.shiny);
+
+	const getSelectedSprites = (tab: SpriteTab) =>
+		[
+			{ c: tab === 'forms', sprites: forms },
+			{ c: tab === 'version', sprites: versionSprites },
+			{ c: tab === 'others', sprites: otherSprites }
+		].find((collection) => collection.c === true)?.sprites || [];
 </script>
 
 <section id="data-sprites">
-	<section id="sprites">
+	<div id="sprites">
 		<header id="sprites-options">
+			<div>
+				{#each tabs as tab}
+					<button
+						id="tab-{tab}"
+						class:selected={selectedTab === tab}
+						on:click={() => (selectedTab = tab)}>{tab}</button
+					>
+				{/each}
+			</div>
 			<Switch event="shiny" icon="shiny" on:shiny={toggleShiny} />
 		</header>
-		<section id="sprites-pictures">
-			{#if forms.length > 1}
-				<section id="pictures-forms">
-					{#each forms as form}
-						<figure class="picture">
-							<img src={fetchPokemonSpriteURL(form.id)} alt={form.id} />
-							<figcaption>
-								{form.name}
-							</figcaption>
-						</figure>
-					{/each}
-				</section>
-			{/if}
-			<section id="pictures-gallery-version">
-				{#each versionSprites as sprite}
-					<figure class="picture">
-						<img src={sprite.url} alt={sprite.name} />
-						<figcaption>
-							{sprite.name}
-						</figcaption>
-					</figure>
-				{/each}
-			</section>
-			<section id="pictures-gallery-other">
-				{#each otherSprites as sprite}
-					<figure class="picture">
-						<img src={sprite.url} alt={sprite.name} />
-						<figcaption>
-							{sprite.game}
-						</figcaption>
-					</figure>
-				{/each}
-			</section>
-		</section>
-	</section>
+		<div id="sprites-pictures">
+			{#each sprites as sprite}
+				<figure class="picture">
+					<img src={sprite.url} alt="{sprite.name} - {sprite.game}" />
+					<figcaption>
+						{sprite.name}
+					</figcaption>
+				</figure>
+			{/each}
+		</div>
+	</div>
 </section>
 
 <style>
-	#data-sprites {
-		padding: 2em;
-		height: 100%;
-	}
+	section#data-sprites {
+		--sprite-size: clamp(150px, 180px, 200px);
 
-	#data-sprites > #sprites {
+		padding: var(--small-gap);
 		display: grid;
-		grid-template: 'sprites-options' 1fr 'sprites-pictures' 9fr / 100%;
+		grid-template: 100% / 100%;
 
-		height: 100%;
-		width: 100%;
-		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 5px var(--background-secondary);
+		& > div#sprites {
+			position: relative;
+			overflow-y: auto;
+			display: grid;
+			grid-template: 'sprites-options' auto 'sprites-pictures' 1fr / 100%;
+
+			box-shadow: var(--box-shadow);
+			border-radius: var(--border-r-50);
+			background-color: var(--background-second-color);
+
+			& > header#sprites-options {
+				position: sticky;
+				top: 0;
+				display: grid;
+				grid-template: 100% / auto 1fr;
+				align-items: center;
+				justify-items: end;
+
+				padding-inline-end: var(--small-gap);
+				background-color: var(--background-second-color);
+				border-bottom: 1px solid var(--text-color);
+
+				& button:first-child {
+					border-top-left-radius: var(--border-r-50);
+				}
+
+				& button {
+					height: 100%;
+					padding: var(--small-gap) var(--normal-gap);
+
+					&.selected {
+						background-color: var(--text-color);
+						color: var(--background-color);
+					}
+				}
+			}
+
+			& > #sprites-pictures {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(calc(var(--sprite-size) * 1.25), 1fr));
+				place-items: center;
+				gap: var(--small-gap);
+				padding: var(--small-gap);
+				overflow-y: auto;
+
+				& figure.picture {
+					display: grid;
+					grid-template: 1fr 1.5rem / 100%;
+					place-items: center;
+					gap: var(--smallest-gap);
+
+					height: 100%;
+					aspect-ratio: 1 / 1;
+					padding: var(--smallest-gap);
+					border-radius: var(--border-r-100);
+					background-color: var(--background-color);
+
+					& > img {
+						height: var(--sprite-size);
+						aspect-ratio: 1 / 1;
+						image-rendering: pixelated;
+					}
+				}
+			}
+		}
 	}
 
-	#data-sprites > #sprites > #sprites-options {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
+	@media (max-width: 640px) {
+		#data-sprites {
+			padding: 0;
+		}
 
-		padding-inline: 1em;
-		padding-block: 1em;
-		border-bottom: 1px solid var(--background-accent);
-	}
-
-	#data-sprites > #sprites > #sprites-pictures {
-		display: grid;
-		grid-auto-rows: 1fr;
-	}
-
-	#data-sprites > #sprites > #sprites-pictures [id^='pictures'] {
-		display: flex;
-		align-items: center;
-		overflow-x: auto;
-		overflow-y: hidden;
-		scroll-snap-type: x mandatory;
-	}
-
-	#data-sprites > #sprites > #sprites-pictures [id^='pictures'] .picture {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 1em;
-		scroll-snap-align: start;
-		scroll-margin-inline-start: 1em;
-	}
-
-	#data-sprites > #sprites > #sprites-pictures [id^='pictures'] .picture > img {
-		height: 125px;
-		aspect-ratio: 1 / 1;
-		border: 1px solid var(--text-color);
-		border-radius: var(--border-r-100);
-	}
-
-	#data-sprites > #sprites > #sprites-pictures > :is(#pictures-forms, #pictures-gallery-version) {
-		border-bottom: 1px solid var(--background-alt-color);
+		#data-sprites > #sprites {
+			border-radius: 0;
+		}
 	}
 </style>

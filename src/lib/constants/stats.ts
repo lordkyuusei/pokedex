@@ -1,7 +1,17 @@
 export const MAX_STATS_POINTS_PER_STAT = 65535;
 export const MAX_EV_PER_STAT = 255;
+export const MAX_STAT = 255;
 export const MAX_DV_PER_STAT = 15;
 export const MAX_IV_PER_STAT = 31;
+
+export const mapKeyToStat: { [x: string]: { order: number; name: string } } = {
+    hp: { order: 0, name: 'H.P.' },
+    attack: { order: 1, name: 'Attaque' },
+    'special-attack': { order: 2, name: 'Attaque Spé.' },
+    speed: { order: 3, name: 'Vitesse' },
+    'special-defense': { order: 4, name: 'Défense Spé.' },
+    defense: { order: 5, name: 'Défense' }
+};
 
 /** SPECIAL = ATK.SPE + DEF.SPE in gen 1 */
 export const MAX_CUMULATIVE_STATS_POINTS_GEN1 = MAX_STATS_POINTS_PER_STAT * 5;

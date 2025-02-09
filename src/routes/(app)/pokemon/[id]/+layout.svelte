@@ -3,288 +3,289 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import type { LayoutData } from './$types';
 
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
-	import pokemon from '$lib/store/pokemon';
+	import type { LayoutData } from './$types';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
 	import routes from './routes.json';
+	import pokemon from '$lib/store/pokemon';
+	import { isMobile } from '$lib/store/device';
+	import { generation } from '$lib/store/generation';
+	import { navigatePokemon } from '$lib/functions/navigate';
+	import { computeOpenGraphDescription } from '$lib/functions/openGraph';
+	import { computePokemonTypes } from '$lib/functions/getPokemonTypes';
+
+	import Cover from '$lib/components/lodestones/pokemon/Cover.svelte';
 
 	export let data: LayoutData;
 
-	$: pokemon.set(data.specie);
-	$: varieties = data.specie?.varieties.map((x) => {
-		const id = Number(x.pokemon.url.split('/').at(-2));
-		const [_, ...form] = x.pokemon.name.split('-');
+	let varieties: { id: number; name: string }[] = [];
+	let types: string[] = [];
 
-		return { id, name: form.length ? form?.join(' ') : 'Default' };
-	});
+	$: if (data && data.specie && data.pokemon) {
+		pokemon.set(data.specie);
+
+		types = computePokemonTypes(data.pokemon, $generation?.id);
+		varieties = data.specie.varieties.map((variety) => {
+			const { pokemon: pkmn } = variety;
+
+			const id = Number(pkmn.url.split('/').at(-2));
+			const [_, ...form] = pkmn.name.split('-');
+
+			return { id, name: form.length ? form?.join(' ') : 'Default' };
+		});
+	}
 
 	onDestroy(() => {
 		pokemon.set(null);
 	});
 </script>
 
+<svelte:head>
+	<title>The Dex - {data.pokemon?.name}</title>
+	<meta property="og:title" content="The Dex - Info about {data.pokemon?.name}" />
+	<meta
+		property="og:description"
+		content={computeOpenGraphDescription(data.pokemon, data.specie)}
+	/>
+	<meta
+		property="og:image"
+		content={fetchPokemonSpriteURL($page.params.id, 'icons', 'generation-viii')}
+	/>
+</svelte:head>
+
 <section id="pokemon-data" class:default-form={varieties.length === 1} out:fade>
-	{#if varieties.length !== 1}
-		<header id="data-forms" in:fade>
-			<menu id="forms-alternate">
-				{#each varieties as variety (variety.id)}
-					<li>
-						<button
-							type="button"
-							id="data-form-{variety.name}"
-							class:selected={$page.params.id === variety.id.toString()}
-							on:click={() => goto($page.route.id.replace('[id]', variety.id))}
-						>
-							<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
-							{variety.name}
-						</button>
+	{#if $isMobile}
+		<Cover id={data.pokemon?.id} sprite={data.pokemon?.sprites.front_default} {types} />
+		<nav id="data-navigation">
+			<menu>
+				{#each routes as route}
+					<li class:selected={$page.route.id?.endsWith(route.id)}>
+						<a href={`/pokemon/${$page.params.id}${route.id}`}>
+							{#if route.icon.includes('icon')}
+								<svg>
+									<use href="#{route.icon}" />
+								</svg>
+							{:else}
+								<img src={`/${route.icon}`} alt={route.icon} />
+							{/if}
+						</a>
 					</li>
 				{/each}
 			</menu>
-		</header>
+		</nav>
+		<slot />
+	{:else}
+		<!-- Header / Pokemon forms on desktop -->
+		{#if varieties.length !== 1}
+			<aside id="data-forms" in:fade>
+				<menu>
+					{#each varieties as variety (variety.id)}
+						<li class:selected={$page.params.id === variety.id.toString()}>
+							<a
+								title={variety.name}
+								id="data-form-{variety.name}"
+								href={navigatePokemon(variety.id, $page)}
+							>
+								<img src={fetchPokemonSpriteURL(variety.id, 'icons', 'generation-viii')} alt="?" />
+							</a>
+						</li>
+					{/each}
+				</menu>
+			</aside>
+		{/if}
+		<nav id="data-navigation" in:fade>
+			<menu>
+				{#each routes as route}
+					<li class:selected={$page.route.id?.endsWith(route.id)}>
+						<a href={`/pokemon/${$page.params.id}${route.id}`}>
+							{#if route.icon.includes('icon')}
+								<svg>
+									<use href="#{route.icon}" />
+								</svg>
+							{:else}
+								<img src={`/${route.icon}`} alt={route.icon} />
+							{/if}
+						</a>
+					</li>
+				{/each}
+			</menu>
+		</nav>
+		<slot />
+		<hr />
+		<span id="data-pokemon-id">
+			#{data.pokemon?.id}
+		</span>
 	{/if}
-	<slot />
-	<nav id="data-navigation">
-		<menu>
-			{#each routes as route}
-				<li class:selected={$page.route.id?.endsWith(route.id)}>
-					<a href={`/pokemon/${$page.params.id}${route.id}`}>
-						{#if route.icon.includes('icon')}
-							<svg>
-								<use href="#{route.icon}" />
-							</svg>
-						{:else}
-							<img src={`/${route.icon}`} alt={route.icon} />
-						{/if}
-					</a>
-				</li>
-			{/each}
-		</menu>
-	</nav>
-	<hr />
-	<span id="data-pokemon-id">
-		#{data.pokemon.id}
-	</span>
 </section>
 
 <style>
-	:root {
-		--layout-id-size: calc(var(--layout-header-size) - 2svh);
-		--layout-pokemon-with-forms-size: calc(
-			var(--layout-content-size) - var(--layout-header-size) - var(--layout-id-size)
-		);
-		--layout-pokemon-solo-size: calc(var(--layout-content-size) - var(--layout-id-size));
-	}
-
 	#pokemon-data {
-		display: grid;
-		align-items: center;
-	}
+		--data-forms-width: var(--width-unit);
+		--data-nav-width: var(--width-unit);
 
-	@media (min-width: 640px) {
-		#pokemon-data:not(.default-form) {
-			grid-template:
-				'header header' var(--layout-header-size)
-				'main navigation' var(--layout-pokemon-with-forms-size)
-				'line id' var(--layout-id-size) / 90% 10%;
+		display: grid;
+
+		& nav#data-navigation {
+			grid-area: navigation;
+
+			& > menu {
+				justify-items: end;
+			}
 		}
 
-		#pokemon-data.default-form {
-			grid-template:
-				'main navigation' var(--layout-pokemon-solo-size)
-				'line id' var(--layout-id-size) / 90% 10%;
-		}
-	}
+		& aside#data-forms {
+			grid-area: forms;
 
-	:global(#data-stats) {
-		grid-area: main;
-	}
-
-	#data-forms {
-		grid-area: header;
-
-		display: grid;
-		width: calc(100% - 10svw);
-
-		overflow-x: auto;
-		align-items: center;
-		padding: var(--small-gap) var(--normal-gap) 0;
-	}
-
-	#data-forms > #forms-alternate {
-		display: grid;
-		grid-auto-columns: minmax(10%, 1fr);
-		grid-auto-flow: column;
-		list-style: none;
-		color: var(--background-color);
-		background-color: var(--text-color);
-		border-block: 4px solid var(--background-color);
-		border-inline: 2px solid var(--background-color);
-	}
-
-	#data-forms > #forms-alternate li button[id^='data-form-'] {
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-		width: 100%;
-		padding-inline-end: 1.25em;
-		font-size: 1.25rem;
-		letter-spacing: 2px;
-		text-transform: capitalize;
-		border: none;
-	}
-
-	#data-forms > #forms-alternate li:not(:first-child) {
-		border-inline: 2px solid var(--background-color);
-	}
-
-	#data-forms > #forms-alternate li [id^='data-form-'].selected {
-		font-weight: bolder;
-		color: var(--primary-color);
-		background-color: var(--background-color);
-	}
-
-	#data-forms > #forms-alternate li [id^='data-form-'] img {
-		inline-size: 3em;
-		transform: translateY(-0.5em);
-	}
-
-	#data-navigation {
-		grid-area: navigation;
-	}
-
-	#data-navigation menu {
-		display: grid;
-		place-items: end;
-	}
-
-	#data-navigation menu li {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 4em;
-		width: 4em;
-		list-style: none;
-		background-color: var(--text-color);
-		border-radius: var(--border-r-200);
-		transition: transform 0.2s ease-out;
-	}
-
-	#data-navigation menu li a {
-		display: flex;
-		justify-content: center;
-		height: 100%;
-		width: 100%;
-		padding: 0.25em;
-	}
-
-	#data-navigation menu li svg {
-		height: 100%;
-	}
-
-	hr {
-		grid-area: line;
-		height: 0.5em;
-		width: 100%;
-		border: none;
-		background-color: var(--primary-color);
-	}
-
-	#data-pokemon-id {
-		grid-area: id;
-		color: var(--primary-color);
-		font-weight: bolder;
-		text-align: center;
-		font-size: 2em;
-	}
-
-	@media (max-width: 640px) {
-		#data-forms,
-		hr,
-		#data-pokemon-id {
-			display: none;
+			& > menu {
+				justify-items: start;
+			}
 		}
 
-		#pokemon-data {
+		& nav#data-navigation,
+		& aside#data-forms {
 			height: 100%;
-			grid-template: 'navigation' auto 'main' 100% / 100%;
+			overflow-y: auto;
+
+			@media (min-width: 640px) {
+				margin-block: 1rem;
+			}
+
+			& > menu {
+				display: grid;
+				grid-auto-rows: 1fr;
+				grid-template-columns: 100%;
+				gap: var(--normal-gap);
+			}
+
+			& > menu > li {
+				display: flex;
+				place-items: center;
+				height: 4rem;
+				width: 4rem;
+				list-style: none;
+				background-color: var(--background-color);
+				transition: transform var(--transition-duration) var(--transition-function);
+
+				& > a {
+					display: flex;
+					justify-content: center;
+					height: 100%;
+					width: 100%;
+					padding: var(--smallest-gap);
+					border-radius: var(--border-r-50);
+
+					& > svg {
+						height: 100%;
+					}
+				}
+
+				&:not(.selected)::before,
+				&:not(.selected)::after {
+					content: none;
+				}
+			}
 		}
 
-		#data-navigation > menu {
-			color: var(--text-color);
-			background-color: var(--background-accent);
-			grid-template: 1fr / repeat(5, 1fr);
+		/* Mobile */
+		@media (max-width: 640px) {
+			grid-template: 40% 10% 50% / 100%;
+			overflow: hidden;
+
+			& nav#data-navigation {
+				grid-area: unset;
+				& > menu {
+					height: 100%;
+					color: var(--text-color);
+					background-color: var(--background-color-__);
+					grid-template: 1fr / repeat(5, 1fr);
+					place-items: center;
+
+					& > li {
+						background-color: var(--background-color-__);
+						border-radius: 0;
+						cursor: pointer;
+					}
+				}
+			}
 		}
 
-		#data-navigation > menu > li {
-			background-color: var(--background-accent);
-			border-radius: 0;
-			cursor: pointer;
-		}
+		/* Not mobile */
+		@media (min-width: 640px) {
+			&:not(.default-form) {
+				grid-template:
+					'forms main navigation' 85svh
+					'line line id' 5svh / var(--data-forms-width) auto var(--data-nav-width);
+			}
 
-		#data-navigation > menu > li::before,
-		#data-navigation > menu > li::after {
-			content: none;
-		}
+			&.default-form {
+				grid-template:
+					'main navigation' 85svh
+					'line id' 5svh / auto var(--data-nav-width);
+			}
 
-		#data-navigation > menu > li.selected {
-			width: 4rem;
-		}
-	}
+			& > hr {
+				grid-area: line;
+				height: 0.5rem;
+				width: 100%;
+				border: none;
+				border-radius: 0 var(--border-r-50) var(--border-r-50) 0;
+				background-color: var(--second-color);
+			}
 
-	@media (min-width: 640px) {
-		#data-navigation menu {
-			grid-template: repeat(5, 1fr) / 100%;
-			padding-block-end: 100%;
-			gap: var(--normal-gap);
-		}
+			& > span#data-pokemon-id {
+				grid-area: id;
+				color: var(--second-color);
+				font-weight: bolder;
+				text-align: center;
+				font-size: 1.5rem;
+			}
 
-		#data-navigation > menu > li:not(.selected) {
-			margin-inline-end: 1rem;
-		}
+			& > nav#data-navigation menu {
+				& > li:not(.selected) {
+					margin-inline-end: var(--small-gap);
+				}
 
-		#data-navigation > menu > li.selected {
-			width: 8em;
-			transition: all 0.2s ease-out;
-			border-radius: var(--border-r-50) 0 0 var(--border-r-50);
-			position: relative;
-		}
+				& > li.selected {
+					& > a {
+						border-radius: var(--border-r-50) 0 0 var(--border-r-50);
 
-		#data-navigation menu li.selected svg {
-			transform: translateX(-1.5em);
-		}
+						& > svg {
+							transform: translateX(-1.5em);
+						}
+					}
+				}
+			}
+			& > aside#data-forms menu {
+				& > li:not(.selected) {
+					margin-inline-start: 1rem;
+				}
 
-		#data-navigation menu li.selected::before,
-		#data-navigation menu li.selected::after {
-			content: '';
-			position: absolute;
-			background-color: var(--background-alt-color);
-			right: 0;
-			height: 1em;
-			width: 1em;
-		}
+				& > li.selected {
+					& > a {
+						border-radius: 0 var(--border-r-50) var(--border-r-50) 0;
 
-		#data-navigation menu li.selected::before {
-			bottom: 4em;
-			background-image: radial-gradient(
-				farthest-side at 0% 0%,
-				var(--background-alt-color) 100%,
-				var(--text-color)
-			);
-		}
+						& > svg {
+							transform: translateX(-1.5rem);
+						}
+					}
+				}
+			}
 
-		#data-navigation menu li.selected::after {
-			top: 4em;
-			background-image: radial-gradient(
-				farthest-side at 0% 100%,
-				var(--background-alt-color) 100%,
-				var(--text-color)
-			);
+			& > nav#data-navigation menu,
+			& > aside#data-forms menu {
+				& > li.selected {
+					width: 100%;
+					position: relative;
+					background-color: var(--background-color);
+					transition: all var(--transition-duration) var(--transition-function);
+
+					& > a {
+						background-color: var(--background-second-color);
+					}
+				}
+			}
 		}
 	}
 </style>

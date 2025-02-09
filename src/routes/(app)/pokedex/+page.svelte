@@ -1,97 +1,157 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { afterUpdate, onDestroy, onMount } from 'svelte';
 
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 
 	import { lang } from '$lib/store/lang';
-	import type { PageServerData } from './$types';
+	import { version } from '$lib/store/generation';
+	import { deviceWidth } from '$lib/store/device';
 	import { generation } from '$lib/store/generation';
+	import type { Lightkemon } from '$lib/types/lightkemon';
+	import Book from '$lib/components/fragments/Book.svelte';
+	import Switch from '$lib/components/fragments/Switch.svelte';
+	import { DEFAULT_LEFT_BOUNDARY, DEFAULT_RIGHT_BOUNDARY } from '$lib/constants/global';
 
-	import Book from '$lib/components/common/Book.svelte';
-	import { device } from '$lib/store/device';
-
-	export let data: PageServerData;
-
-	let target: Element;
+	let currentTo: number = 0;
+	let ref: HTMLSpanElement;
+	let target: HTMLSpanElement;
 	let observer: IntersectionObserver;
+	let isRegionalMode: boolean = false;
+	let pokemonList: Promise<Lightkemon[]>;
 
-	$: interval = $device === 'desktop' ? 10 : $device === 'tablet' ? 5 : 3;
-
+	$: interval = Math.ceil($deviceWidth / 125);
 	$: leftBoundary = $generation?.boundaries.from;
 	$: rightBoundary = $generation?.boundaries.to;
 
-	$: if (browser) {
-		goto(`/pokedex?from=${leftBoundary}&to=${leftBoundary + 42}`);
-	}
+	$: pokemonList = onGenerationChange(leftBoundary, isRegionalMode);
+
+	const fetchPokemonRange = async (left: number, right: number, isRegionalMode: boolean) => {
+		const result = await fetch(
+			`/api/pokedex?from=${left}&to=${right}${isRegionalMode ? '&game=' + $version : ''}`
+		);
+		const json = await result.json()
+		return json;
+	};
+
+	const onGenerationChange = async (leftBoundary: number, isRegionalMode: boolean) => {
+		if (!browser)
+			return await fetchPokemonRange(DEFAULT_LEFT_BOUNDARY, DEFAULT_RIGHT_BOUNDARY, isRegionalMode);
+
+		return await fetchPokemonRange(leftBoundary, leftBoundary + interval, isRegionalMode);
+	};
 
 	onMount(() => {
-		observer = new IntersectionObserver(async (entries, observers) => {
+		observer = new IntersectionObserver(async (entries, _) => {
 			const { intersectionRatio, target } = entries[0];
 			if (intersectionRatio > 0) {
 				observer.unobserve(target);
-				const currentTo = parseInt($page.url.searchParams.get('to'));
-				if (currentTo < rightBoundary) {
-					const nextTo = Math.min(parseInt(currentTo) + interval, rightBoundary + interval);
-					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
-				} else if (currentTo > rightBoundary) {
-					const nextTo = leftBoundary + 42;
-					await goto(`/pokedex?from=${leftBoundary}&to=${nextTo}`);
+
+				if (leftBoundary >= currentTo) {
+					currentTo = leftBoundary + interval;
+				} else if (currentTo + interval <= rightBoundary) {
+					currentTo = Math.min(currentTo + interval, rightBoundary + interval);
+				} else {
+					currentTo = rightBoundary;
 				}
+
+				pokemonList = await fetchPokemonRange(leftBoundary, currentTo, isRegionalMode);
 			}
 		});
 	});
 
-	afterUpdate(() => {
-		if (data.pokemonList.length) {
-			const { id } = data.pokemonList[data.pokemonList.length - 1];
-			target = document.querySelector(`#book-${id}`);
+	afterUpdate(async () => {
+		if (ref) {
+			target = ref;
 			observer.observe(target);
 		}
 	});
+
+	onDestroy(() => {
+		observer?.disconnect();
+	});
+
+	const switchMode = ({ detail }: { detail: boolean }) => {
+		leftBoundary = detail ? 0 : $generation?.boundaries.from;
+		currentTo = 0;
+		isRegionalMode = detail;
+	};
 </script>
 
-<section id="pokedex">
-	{#each data.pokemonList as pokemon (pokemon._id)}
-		<a href="/pokemon/{pokemon.id}" transition:fly|local>
-			<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
-			<span id="{pokemon.id}-shelf" />
-		</a>
-	{/each}
+<section id="pokedex" class="cover">
+	<header>
+		<Switch icon="pokedex" event="nationalMode" on:nationalMode={switchMode}></Switch>
+	</header>
+	{#await pokemonList then pokemons}
+		<ul>
+			{#each pokemons as pokemon, index (pokemon.id)}
+				<li>
+					{#if index + 1 === pokemons.length}
+						<a href="/pokemon/{pokemon.id}/stats">
+							<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
+							<span bind:this={ref} id="{pokemon.id}-shelf"></span>
+						</a>
+					{:else}
+						<a href="/pokemon/{pokemon.id}/stats">
+							<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} />
+							<span id="{pokemon.id}-shelf" />
+						</a>
+					{/if}
+				</li>
+			{/each}
+		</ul>
+	{/await}
 </section>
 
 <style>
 	#pokedex {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
-		column-gap: 0.5em;
-		row-gap: 2em;
-
-		align-items: flex-end;
-		width: 100%;
-		height: 100%;
-		padding-block: 1em;
-		padding-inline: 4em;
-
-		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
-	}
 
-	[id$='-shelf'] {
-		display: block;
-		width: calc(100% + 0.5em);
-		transform: translateX(-0.25em);
-		height: 1em;
-		background-color: var(--background-accent);
-	}
+		& > header {
+			position: sticky;
+			top: 0;
+			z-index: 2;
 
-	@media (max-width: 640px) {
-		#pokedex {
-			padding-inline: 1em;
+			display: flex;
+			justify-content: end;
+			padding: var(--small-gap);
+			border-bottom: 1px solid var(--text-color);
+			background-color: var(--background-second-color);
+		}
+
+		& > ul {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: start;
+			gap: var(--normal-gap) var(--smaller-gap);
+			padding: var(--normal-gap);
+			
+			@media (max-width: 640px) {
+				padding: var(--small-gap);
+			}
+
+			& > li {
+				margin-top: auto;
+				
+				& > a {
+					perspective: 1000px;
+					
+					&:hover {
+						background: none;
+					}
+					
+					& > [id$='-shelf'] {
+						display: block;
+						height: var(--small-gap);
+						width: calc(100% + var(--smaller-gap) * 2);
+						transform: translateX(calc(var(--smaller-gap) * -1));
+						background-color: var(--text-color);
+						scroll-snap-align: end;
+						scroll-margin-block-end: var(--small-gap);
+					}
+				}
+			}
 		}
 	}
 </style>

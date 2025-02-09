@@ -4,270 +4,256 @@
 	import { fade } from 'svelte/transition';
 
 	import { lang } from '$lib/store/lang';
-	import { version } from '$lib/store/generation';
-	import { extractMoves, filterMoves, searchMoves } from '$lib/functions/extractMoves';
+	import { browser } from '$app/environment';
+	import { generation, version } from '$lib/store/generation';
+	import { extractMovesV2, filterMoves, searchMoves } from '$lib/functions/extractMoves';
 
-	import type { SearchOption, SortOption } from '$lib/types/moves';
 	import type { PageData } from './$types';
+	import type { SearchOption, SortOption } from '$lib/types/moves';
+	import type { MoveLight } from '$lib/types/pokeapi/move';
+	import type { EntityRef, Pokemon } from '$lib/types/pokeapi/pokemon';
 
 	export let data: PageData;
+
+	let versionMoveset: MoveLight[] = [];
+	let displayMoveset: MoveLight[] = [];
+
+	let searchOptions: string[] = [];
+	let movesetProperties: string[] = [];
+	let filteredMoveset: MoveLight[] = [];
 
 	let selectMove: string = '';
 	let searchText: string = '';
 	let searchOption: SearchOption = 'level-up';
 	let sortOption: SortOption = { option: 'level', direction: 'asc' };
 
-	$: fullMoveset = extractMoves(data.pokemon.moves, $version);
-	$: movesetHead = fullMoveset.then((moveset) =>
-		Object.keys(moveset[0] ?? []).filter((x) => !['id', 'description', 'method'].includes(x))
-	);
-	$: searchOptions = fullMoveset.then((moveset) => [...new Set(moveset.map((m) => m.method.name))]);
-	$: filteredMoveset = fullMoveset.then((moveset) => filterMoves(moveset, searchOption));
-	$: moveset = filteredMoveset.then((moves) => searchMoves(moves, searchText, sortOption, $lang));
+	$: if (searchText || searchOption || sortOption) updateMoveTable(versionMoveset);
+	$: if (browser && data.pokemon && $version) updateVersionMoveset(data.pokemon);
+	$: if (browser && versionMoveset.length) handleFullMovesetChange(versionMoveset);
+
+	const updateVersionMoveset = (pokemon: Pokemon) => {
+		const { moves } = pokemon;
+		const movesId = moves.map((_) => _.move.name).join(',');
+
+		fetch(`/api/moves?generation=${$generation.id}&moves=${movesId}`).then(async (res) => {
+			const moveDetails = await res.json();
+			versionMoveset = extractMovesV2(moves, moveDetails, $version);
+		});
+	};
+
+	const updateMoveTable = (moves: MoveLight[]) => {
+		filteredMoveset = filterMoves(moves, searchOption);
+		displayMoveset = searchMoves(filteredMoveset, searchText, sortOption, $lang);
+	};
+
+	const handleFullMovesetChange = (moves: MoveLight[]) => {
+		const notInTableHead = ['id', 'description', 'method'];
+		searchOptions = [...new Set(moves.map((m) => m.method.name))];
+		movesetProperties = Object.keys(moves[0]).filter((prop) => !notInTableHead.includes(prop));
+
+		updateMoveTable(moves);
+	};
 
 	const updateSort = (category: string) => {
+		const { option } = sortOption;
 		sortOption =
-			sortOption.option === category
+			option === category
 				? { ...sortOption, direction: sortOption.direction === 'asc' ? 'desc' : 'asc' }
 				: { option: category, direction: 'asc' };
+
+		updateMoveTable(versionMoveset);
 	};
 
 	const mapPropToTag = {
-		level: (move) => (move === 0 ? 'Départ' : move),
-		name: (move) => move[$lang],
-		type: (move) =>
-			`<img src="/icons/${move.name}.png" alt="${move.name}" title="${move.name}"></img>`,
-		accuracy: (move: string | undefined) => move ?? '---',
-		power: (move: string | undefined) => move ?? '---',
-		pp: (move: string) => move,
-		category: (move: string) => move,
-		damageClass: (move: string) =>
-			`<img src="/icons/${move}.png" alt="${move}" title="${move}"></img>`
-	};
-
-	const mapPropToOutput = {
-		level: (move) => (move === 0 ? 'Départ' : move),
-		name: (move) => move[$lang],
-		type: (move) => move.name,
-		accuracy: (move) => move ?? '---',
-		power: (move) => move ?? '---',
-		pp: (move) => move,
-		category: (move) => move,
-		damageClass: (move) => move
+		level: (level: number) => (level <= 1 ? 'Départ' : level),
+		name: (name: string) => name[$lang],
+		type: (type: EntityRef) => `<img src="/icons/${type.name}.png" alt="${type.name}">`,
+		power: (power: string | undefined) => power ?? '---',
+		accuracy: (accuracy: string | undefined) => accuracy ?? '---',
+		pp: (pp: string) => pp,
+		category: (category: string) => category,
+		damageClass: (move: string) => `<img src="/icons/${move}.png" alt="${move}">`
 	};
 </script>
 
 <section in:fade id="data-moves">
-	<section id="moves">
+	<div id="moves">
 		<header id="moves-options">
 			<div id="options-search-group">
 				<input id="options-search" bind:value={searchText} />
 				<img class="search-icon" src="/dex-search.svg" alt="logo" />
 			</div>
 			<select id="options-select" bind:value={searchOption}>
-				{#await searchOptions then options}
-					{#each options as option}
-						<option value={option}>{option}</option>
-					{/each}
-				{/await}
+				{#each searchOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
 			</select>
 		</header>
-		<footer id="moves-table">
+		<div id="moves-table">
 			<table id="table">
 				<thead id="table-head">
-					{#await movesetHead then categories}
-						<tr>
-							{#each categories as category}
-								<th id="head-{category}" on:click={() => updateSort(category)}>{category}</th>
-							{/each}
-						</tr>
-					{/await}
+					<tr>
+						{#each movesetProperties as category}
+							<th id="head-{category}" on:click={() => updateSort(category)}>{category}</th>
+						{/each}
+						<th id="head-actions"></th>
+					</tr>
 				</thead>
 				<tbody id="table-body">
-					{#await moveset}
-						{#each [0, 1, 2, 3, 4, 5, 6, 7, 8] as _}
-							<tr class="loading"><td colspan="12" /></tr>
-						{/each}
-					{:then moves}
-						{#if moves.length === 0}
-							<tr><td>Pas d'attaques pour {$version}</td></tr>
-						{/if}
-						{#each moves as move (move.id)}
-							<tr on:click={() => (selectMove = move.id)}>
-								{#await movesetHead then categories}
-									{#each categories as category}
-										<td id="move-{move?.id}-{category}">
-											{@html mapPropToTag[category](move[category])}
-										</td>
-									{/each}
-								{/await}
-							</tr>
-							{#if selectMove === move.id}
-								<tr>
-									<td id="move-{move?.id}-description" colspan="5">
-										{move.description[$lang]}
-									</td>
-									<td id="move-{move?.id}-action" colspan="3">
-										<a href="/moves/{move.type.name}/{move.id}">
-											<button> ❓❓❓ </button>
-										</a>
-									</td>
-								</tr>
-							{/if}
-						{/each}
-					{/await}
+					{#if displayMoveset.length === 0}
+						<tr><td colspan="12">Pas d'attaques pour {$version}</td></tr>
+					{/if}
+					{#each displayMoveset as move (move.id)}
+						<tr on:click={() => (selectMove = move.id)}>
+							{#each movesetProperties as category}
+								<td id="move-{move?.id}-{category}">
+									{@html mapPropToTag[category](move[category])}
+								</td>
+							{/each}
+							<td id="move-{move?.id}-link">
+								<a href="/moves/{move.type?.name}/{move.id}"><button>*</button></a>
+							</td>
+						</tr>
+					{/each}
 				</tbody>
 			</table>
-		</footer>
-	</section>
+		</div>
+	</div>
 </section>
 
 <style>
 	#data-moves {
-		padding: 2em;
-		height: 100%;
-		overflow-y: auto;
-	}
-
-	#data-moves > #moves {
-		display: grid;
-		grid-template:
-			'moves-options' 1fr
-			'moves-table' 10fr / 100%;
-
-		height: 100%;
-		width: 100%;
-		border-radius: var(--border-r-200);
-		overflow-y: auto;
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 5px var(--background-secondary);
-	}
-
-	#data-moves > #moves > #moves-options {
-		display: flex;
-		gap: var(--normal-gap);
-		padding: 0.5em 1em;
-		border-bottom: 1px solid var(--background-accent);
-	}
-
-	#data-moves > #moves > #moves-options > #options-search-group {
-		display: grid;
-		grid-template: 1fr / 1fr;
-		align-items: center;
-		justify-items: flex-end;
-	}
-
-	#data-moves > #moves > #moves-options > #options-search-group #options-search {
-		grid-column: 1;
-		grid-row: 1;
-		font-size: 2em;
-		border-radius: var(--border-r-100);
-		border: none;
-		background-color: var(--text-color);
-		color: var(--background-color);
-		padding: 0 1.5em 0 1em;
-		height: 100%;
-	}
-
-	#data-moves > #moves > #moves-options > #options-search-group .search-icon {
-		grid-column: 1;
-		grid-row: 1;
-		margin-right: 1em;
-	}
-
-	#data-moves > #moves > #moves-options > #options-select {
-		cursor: pointer;
-		padding: 1em 1.5em;
-		border: none;
-		text-transform: uppercase;
-		text-align: center;
-		border-radius: var(--border-r-100);
-		border: none;
-	}
-
-	#data-moves > #moves > #moves-options > #options-select:focus {
-		outline: none;
-	}
-
-	#data-moves > #moves > #moves-options > #options-select,
-	#data-moves > #moves > #moves-options > #options-select option {
-		background: var(--text-color);
-		color: var(--background-color);
-	}
-
-	#data-moves > #moves > #moves-table {
+		padding: var(--small-gap);
 		width: 100%;
 		overflow-y: auto;
+
+		& > div#moves {
+			display: grid;
+			grid-template:
+				'moves-options' 1fr
+				'moves-table' 10fr / 100%;
+
+			height: 100%;
+			width: 100%;
+			border-radius: var(--border-r-50);
+			overflow-y: auto;
+			background-color: var(--background-second-color);
+			box-shadow: var(--box-shadow);
+
+			& > header#moves-options {
+				display: flex;
+				justify-content: start;
+				gap: var(--normal-gap);
+				padding: var(--smaller-gap) var(--small-gap);
+
+				& > div#options-search-group {
+					display: grid;
+					grid-template: 1fr / 1fr;
+					align-items: center;
+					justify-items: flex-end;
+
+					& > :is(#options-search, .search-icon) {
+						grid-area: 1/1;
+					}
+
+					& > #options-search {
+						border-radius: var(--border-r-100);
+						background-color: var(--background-color);
+						color: var(--text-color);
+						padding: var(--smaller-gap) var(--normal-gap);
+					}
+
+					& > .search-icon {
+						margin-right: 1em;
+						height: 70%;
+					}
+				}
+
+				& > select#options-select {
+					cursor: pointer;
+					border: none;
+					text-align: center;
+					text-transform: uppercase;
+					border-radius: var(--border-r-50);
+					padding: var(--smaller-gap) var(--small-gap);
+
+					&,
+					& option {
+						background: var(--text-color);
+						color: var(--background-second-color);
+					}
+				}
+			}
+
+			& > #moves-table {
+				width: 100%;
+				overflow-y: auto;
+
+				& > #table {
+					width: 100%;
+					overflow-y: auto;
+					border-collapse: collapse;
+					table-layout: fixed;
+					transition: all var(--transition-duration) var(--transition-function);
+
+					& > #table-head {
+						position: sticky;
+						z-index: 1;
+						top: 0;
+
+						& th {
+							width: 100%;
+							cursor: pointer;
+							border: none;
+							font-weight: bolder;
+							text-transform: capitalize;
+							padding-block: var(--small-gap);
+							color: var(--background-color);
+							background-color: var(--text-color);
+							transition: all var(--transition-duration) var(--transition-function);
+
+							&:hover {
+								background-color: var(--second-color);
+							}
+						}
+					}
+
+					& > #table-body {
+						& > tr:has(td[id^='move-']:not([id$='-description'])) {
+							cursor: pointer;
+						}
+
+						& > tr:has(td[id$='-description']) {
+							border: 1px solid var(--primary-color);
+						}
+
+						& > tr:has(td[id^='move-']:not([id$='-description'])):hover > td {
+							background-color: var(--background-alt-color);
+							transition: all 0.05s var(--transition-function);
+						}
+
+						& td[id^='move-'] {
+							text-align: center;
+							padding: 1em;
+						}
+					}
+				}
+			}
+		}
 	}
 
-	#data-moves > #moves > #moves-table > #table {
-		width: 100%;
-		overflow-y: auto;
-		border-collapse: collapse;
-		table-layout: fixed;
-		transition: all 0.2s ease-in-out;
-	}
-
-	#data-moves > #moves > #moves-table > #table > #table-head th {
-		cursor: pointer;
-		color: var(--primary-color);
-		border: none;
-		border-bottom: 1px solid var(--background-accent);
-		background-color: var(--background-alt-color);
-		padding: 0.5em;
-		font-weight: bolder;
-		text-transform: capitalize;
-		transition: all 0.2s ease-in-out;
-		width: 100%;
-	}
-
-	#data-moves > #moves > #moves-table > #table > #table-head th:hover {
-		border-color: var(--primary-color);
-	}
-
-	#data-moves > #moves > #moves-table > #table > #table-body .loading {
-		height: 4em;
-		animation: loading 1s ease-in-out infinite alternate;
-	}
-
-	#data-moves > #moves > #moves-table > #table > #table-body tr:nth-child(2n) {
-		background-color: var(--background-color);
-	}
-
-	#data-moves > #moves > #moves-table > #table > #table-body tr:nth-child(2n + 1) {
-		background-color: var(--background-accent);
-	}
-
-	#data-moves > #moves > #moves-table > #table td[id^='move-'] {
-		text-align: center;
-		padding: 1em;
-	}
-
-	#data-moves > #moves > #moves-table > #table tr:has(td[id^='move-']:not([id$='-description'])) {
-		cursor: pointer;
-	}
-
-	#data-moves > #moves > #moves-table > #table tr:has(td[id$='-description']) {
-		border: 1px solid var(--primary-color);
-	}
-
-	#data-moves
-		> #moves
-		> #moves-table
-		> #table
-		tr:has(td[id^='move-']:not([id$='-description'])):hover
-		> td {
-		background-color: var(--background-alt-color);
-		transition: all 0.05s ease-in-out;
-	}
-
-	@keyframes loading {
-		0% {
-			filter: contrast(1);
+	@media (max-width: 640px) {
+		#data-moves {
+			padding: 0;
 		}
 
-		100% {
-			filter: contrast(1.5);
+		#data-moves > #moves {
+			border-radius: 0;
+			height: 100%;
+		}
+
+		table :is(td, th):nth-child(n + 5) {
+			display: none;
 		}
 	}
 </style>

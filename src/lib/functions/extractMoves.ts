@@ -1,44 +1,33 @@
-import { browser } from "$app/environment";
+import type { LightMoveDetails } from "$lib/types/lightmove";
 import type { SortOption } from "$lib/types/moves";
-import type { MoveLight, PokemonMove } from "$lib/types/pokeapi/move";
+import type { MoveLight } from "$lib/types/pokeapi/move";
 import type { MoveLearnMethodRef, MoveRef } from "$lib/types/pokeapi/pokemon";
 
-export const extractMoves = async (refs: MoveRef[] = [], version: string): Promise<MoveLight[]> => {
-    if (browser) {
-        const reducedMoves = refs.reduce(async (moves, ref) => {
-            const { move, version_group_details } = ref;
-            const { url } = move;
-            const id = Number(url.split('/').at(-2));
+export const extractMovesV2 = (pkmnMoves: MoveRef[], movesData: LightMoveDetails[], version: string): MoveLight[] => {
+    return pkmnMoves.reduce((movesList, currentMove) => {
+        const { move, version_group_details } = currentMove;
 
-            const details: MoveLearnMethodRef | undefined = version_group_details.find(v => v.version_group.name === version);
-            if (!details) {
-                return await moves;
-            }
+        const details: MoveLearnMethodRef | undefined = version_group_details.find(v => v.version_group.name === version);
+        if (!details) return movesList;
 
-            const { moveDetails }: { moveDetails: PokemonMove } = await fetch(`/api/moves/${id}`).then(async x => await x.json());
-            const lightMove: MoveLight = {
-                id: moveDetails.id,
-                level: details.level_learned_at,
-                name: moveDetails.names
-                    .filter(x => ['fr', 'en'].includes(x.language.name))
-                    .reduce((acc, next) => ({ ...acc, [next.language.name]: next.name }), {}),
-                type: moveDetails.type,
-                method: details.move_learn_method,
-                accuracy: moveDetails.accuracy,
-                power: moveDetails.power,
-                pp: moveDetails.pp,
-                category: moveDetails.meta?.category.name,
-                damageClass: moveDetails.damage_class.name,
-                description: moveDetails.flavor_text_entries
-                    .filter(x => ['fr', 'en'].includes(x.language.name))
-                    .reduce((acc, next) => ({ ...acc, [next.language.name]: next.flavor_text }), {}),
-            };
-            return [...await moves, lightMove];
-        }, [] as any)
+        const matchingMove = movesData.find(data => move.name === data.name);
+        if (!matchingMove) return movesList;
 
-        return await reducedMoves;
-    }
-    return [];
+        const moveData: MoveLight = {
+            id: matchingMove.id.toString(),
+            level: details.level_learned_at,
+            name: matchingMove.i18n,
+            type: { name: matchingMove.moveType, url: '' },
+            method: details.move_learn_method,
+            power: matchingMove.power,
+            accuracy: matchingMove.accuracy,
+            pp: matchingMove.pp,
+            category: matchingMove.damageClass,
+            damageClass: matchingMove.damageClass,
+        };
+
+        return [...movesList, moveData];
+    }, [] as any[]);
 }
 
 export const filterMoves = (moves: MoveLight[], option: string): MoveLight[] =>
@@ -70,6 +59,6 @@ export const sortBy = (a: MoveLight, b: MoveLight, sortByOption: SortOption, lan
 export const searchMoves = (moves: MoveLight[], searchText: string, sortOption: any, lang: string): MoveLight[] =>
     [...moves.filter(m => {
         const moveName = m.name[lang] ?? "???";
-        return moveName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase());
+        return searchText.length ? moveName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) : moveName
     })]
         .sort((a, z) => sortBy(a, z, sortOption, lang));

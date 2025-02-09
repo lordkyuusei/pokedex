@@ -6,7 +6,7 @@ export const ssr = true;
 
 export const load = (async ({ params }) => {
     const { id } = params;
-    const pokemon = await fetchPokemonById(Number(id));
+    const pokemon = await fetchPokemonById(id);
 
     const { name } = pokemon.species;
     const specie = await fetchPokemonSpecieByName(name);

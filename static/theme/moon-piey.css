@@ -1,0 +1,16 @@
+:root {
+    --background-base: hsl(233, 11%, 17%);
+
+    --accent-color: hsl(330, 83%, 69%);
+    --second-color: hsl(48, 3%, 66%);
+    --text-color: hsl(318, 95%, 80%);
+
+    --background-color: var(--background-base);
+    --background-second-color: hsl(from var(--background-base) h s calc(l - 5));
+
+    --background-blur-color: hsl(from var(--background-color) h s l / 0.5);
+    --background-blur-second-color: hsl(from var(--background-second-color) h s calc(l - 5) / 0.5);
+
+    --box-shadow: 0 0 10px 2px var(--background-second-color);
+    --box-inner-shadow: inset 0 0 10px 2px var(--background-second-color);
+}

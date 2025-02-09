@@ -1,0 +1,12 @@
+[
+    {
+        "id": "emerald-battle-frontier",
+        "alt_id": "emerald-battle-frontier",
+        "name": "menu.emerald-battle-frontier"
+    },
+    {
+        "id": "catch-rate-calculator",
+        "alt_id": "catch-rate-calculator",
+        "name": "menu.catch-rate-calculator"
+    }
+]

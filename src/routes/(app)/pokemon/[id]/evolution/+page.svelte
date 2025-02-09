@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Evolution from '$lib/components/features/pokemon/Evolution.svelte';
+	import Evolution from '$lib/components/lodestones/pokemon/Evolution.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -11,7 +11,16 @@
 
 <style>
 	#data-evolution {
-		padding: 2em;
-		height: 100%;
+		padding: var(--small-gap);
+	}
+
+	@media (max-width: 640px) {
+		#data-evolution {
+			padding: 0;
+		}
+
+		#data-evolution > #evolution {
+			border-radius: 0;
+		}
 	}
 </style>

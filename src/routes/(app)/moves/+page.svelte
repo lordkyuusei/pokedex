@@ -2,27 +2,23 @@
 	import { fade } from 'svelte/transition';
 	import { browser } from '$app/environment';
 
-	import _ from '$lib/store/i18n';
+	import t from '$lib/store/i18n';
 	import { generation } from '$lib/store/generation';
-	import Album from '$lib/components/features/moves/Album.svelte';
+	import Album from '$lib/components/lodestones/moves/Album.svelte';
 
-	$: movesList =
-		$generation && browser
-			? fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => await x.json())
-			: [];
+	let movesList: Promise<[string, number]>;
 
-	$: header = $generation
-		? $generation.id === 0
-			? $_('moves.title-all')
-			: $_('moves.title') + ` ${$generation.id}`
-		: '';
+	$: if ($generation && browser) {
+		movesList = fetch(`/api/moves/gen/${$generation.id}`).then(async (x) => x.json());
+	}
+
 </script>
 
 <section id="moves">
-	<h1 class="header-name">
-		{header}
-	</h1>
-	<section id="moves-list">
+	<header class="header-name">
+		{$t('moves.title')} {$generation?.id}
+	</header>
+	<div id="moves-list">
 		{#await movesList then moves}
 			{#each [...moves] as [type, count], i}
 				<a href="/moves/{type}" in:fade={{ delay: 25 * i }} out:fade>
@@ -30,42 +26,49 @@
 				</a>
 			{/each}
 		{/await}
-	</section>
+	</div>
 </section>
 
 <style>
-	#moves {
-		display: flex;
-		flex-direction: column;
-		gap: var(--small-gap);
-		padding-block: 1em;
-		padding-inline: 4em;
-		height: 100%;
-		width: 100%;
-	}
-
-	#moves > #moves-list {
+	section#moves {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
-		row-gap: 2em;
-		column-gap: var(--normal-gap);
-
-		align-items: center;
-		width: 100%;
+		grid-template: auto 1fr / 100%;
 		height: 100%;
+		width: 100%;
+		padding-inline: var(--small-gap);
 
-		overflow-x: scroll;
-	}
+		@media (min-width: 640px) {
+			padding-block: var(--small-gap);
+			padding-inline: var(--large-gap);
+		}
 
-	#moves > .header-name {
-		font-size: 1.8em;
-		text-align: center;
-		background-color: var(--background-accent);
-		text-transform: uppercase;
-		padding: 0.7em 1em;
-		margin: 0;
-		min-width: 5em;
-		letter-spacing: 2px;
-		border-radius: var(--border-r-200);
+		& > .header-name {
+			font-size: x-large;
+			text-align: center;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			margin-bottom: var(--small-gap);
+			padding: var(--smaller-gap) var(--small-gap);
+			border-radius: var(--border-r-50);
+			background-color: var(--background-second-color);
+		}
+
+		& > div#moves-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+			gap: var(--normal-gap);
+			align-items: center;
+
+			overflow-y: auto;
+			overflow-x: hidden;
+
+			& > a {
+				border-radius: var(--border-r-100);
+			}
+
+			@media (max-width: 640px) {
+				grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+			}
+		}
 	}
 </style>

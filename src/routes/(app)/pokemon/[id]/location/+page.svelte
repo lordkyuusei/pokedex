@@ -1,14 +1,69 @@
 <svelte:options immutable />
 
 <script lang="ts">
-	import type { PageData } from './$types';
+	import { browser } from '$app/environment';
 	import { version } from '$lib/store/generation';
+
+	import { DEXAPI_LOCATION } from '$lib/constants/api.json';
 	import type { PokemonLocationArea } from '$lib/types/pokeapi/location-area';
+	import type { Location, LocationWithCoords, SimplifiedLocation } from '$lib/types/location';
+
+	import Map from '$lib/components/lodestones/pokemon/Map.svelte';
+	import MapLocationDetails from '$lib/components/lodestones/pokemon/MapLocationDetails.svelte';
+
+	import type { PageData } from './$types';
+	import MapLocationFallback from '$lib/components/lodestones/pokemon/MapLocationFallback.svelte';
 
 	export let data: PageData;
 
-	$: rawLocations = extractLocations(data.location);
-	$: locations = rawLocations.filter((l) => $version.includes(l.version));
+	let selectedArea: LocationWithCoords | null = null;
+	let locationsPerGame: SimplifiedLocation[] = [];
+	let locationsWithCoords: LocationWithCoords[] = [];
+
+	$: if (browser && $version && data) loadLocations(data.location);
+	$: hasLocationsCoords = locationsWithCoords.every((loc) => loc.coords.length !== 0);
+
+	const loadLocations = (locations: PokemonLocationArea[]) => {
+		if (locations.length === 0) {
+			locationsPerGame = [];
+			locationsWithCoords = [];
+			return;
+		}
+
+		const rawLocations = extractLocations(locations);
+		locationsPerGame = rawLocations.filter((game) => $version.includes(game.version));
+		if (locationsPerGame.length === 0) {
+			locationsWithCoords = [];
+			return;
+		}
+
+		selectedArea = null;
+
+		fetch(`${DEXAPI_LOCATION}/${$version}`).then(async (response) => {
+			const gameLocations: Location = await response.json();
+			const flatLocations = gameLocations.regions.flatMap(({ locations }) =>
+				locations.flatMap(({ areas, mapName }) => areas.map((x) => ({ ...x, mapName })))
+			);
+
+			const mapLocationToCoordinates = locationsPerGame.flatMap(({ locations }) =>
+				locations.map((loc) => {
+					const name = loc.location;
+					const locationCoordinates = flatLocations.find((loc) => loc.name === name);
+					if (!locationCoordinates) return null;
+
+					return {
+						name,
+						mapName: locationCoordinates.mapName,
+						i18nName: locationCoordinates.i18nName,
+						coords: locationCoordinates.coords,
+						conditions: loc.conditions
+					};
+				})
+			);
+
+			locationsWithCoords = mapLocationToCoordinates.filter((loc) => loc !== null);
+		});
+	};
 
 	const extractLocations = (locations: PokemonLocationArea[]) => {
 		const versions = [
@@ -46,68 +101,60 @@
 
 		return locationsPerVersion;
 	};
+
+	const showArea = (e: CustomEvent<string>) => {
+		const area = locationsWithCoords.find((loc) => loc.name === e.detail);
+		if (!area) return;
+
+		selectedArea = area;
+	};
 </script>
 
 <section id="data-location">
-	<section id="location">
-		<section id="location-map">
-			<img src="/maps/{$version}.png" alt={$version} />
-		</section>
-		<section id="location-details">
-			{#if locations.length}
-				{#each locations as locationGroup}
-					<h1>{locationGroup.version}</h1>
-					{#each locationGroup.locations as location}
-						<li>{location.location} - {location.chances}%</li>
-						<ul>
-							{#each location.conditions as condition}
-								<li>
-									{condition.method.name} | {condition.chance}% chances, lvl[{condition.min_level} /
-									{condition.max_level}]
-								</li>
-								{#if condition.condition_values.length}
-									<ul>
-										<li>only if {condition.condition_values.map((val) => val.name)}</li>
-									</ul>
-								{/if}
-							{/each}
-						</ul>
-					{/each}
-				{/each}
-			{:else}
-				<li>no location / (trade/import) only.</li>
+	<div id="locations" class:with-map={hasLocationsCoords}>
+		{#if hasLocationsCoords}
+			<Map coordinates={locationsWithCoords} on:onAreaSelected={showArea}></Map>
+			{#if selectedArea}
+				<MapLocationDetails selectedArea={selectedArea} on:close={() => selectedArea = null} {locationsPerGame}></MapLocationDetails>
 			{/if}
-		</section>
-	</section>
+		{:else if locationsPerGame.length}
+			<MapLocationFallback {locationsPerGame}></MapLocationFallback>
+		{:else}
+			<li>no location / (trade/import/evolve) only.</li>
+		{/if}
+	</div>
 </section>
 
 <style>
 	#data-location {
-		padding: 2em;
-		height: 100%;
-		overflow: auto;
-	}
-
-	#data-location > #location {
-		display: grid;
-		grid-template: 'location-map location-details' 100% / 2fr 1fr;
-
-		height: 100%;
+		padding: var(--small-gap);
 		width: 100%;
-		border-radius: var(--border-r-200);
-		background-color: var(--background-color);
-		box-shadow: 0 0 10px 5px var(--background-secondary);
-		overflow: auto;
+		overflow-y: hidden;
+
+		& > div#locations {
+			display: grid;
+			height: 100%;
+			width: 100%;
+			border-radius: var(--border-r-50);
+			background-color: var(--background-second-color);
+			box-shadow: var(--box-shadow);
+
+			&.with-map {
+				--margin: var(--small-gap);
+
+				grid-template: 100% / 1fr 0.75fr;
+				position: relative;
+
+				& > *:first-child {
+					grid-area: 1 / 1 / 1 / span 2;
+				}
+			}
+		}
 	}
 
-	#data-location > #location > #location-map {
-		height: 100%;
-		width: 100%;
-		overflow: auto;
-	}
-
-	#data-location > #location > #location-map img {
-		height: 100%;
-		image-rendering: pixelated;
+	@media (max-width: 640px) {
+		#data-location {
+			padding: 0;
+		}
 	}
 </style>
