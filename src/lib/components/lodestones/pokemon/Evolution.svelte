@@ -10,11 +10,11 @@
 	import { navigatePokemon } from '$lib/functions/navigate';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 
-	import Trigger from './evolution/Trigger.svelte';
-	import OneWay from './evolution/OneWay.svelte';
-	import TwoWays from './evolution/TwoWays.svelte';
-	import ThreeWays from './evolution/ThreeWays.svelte';
-	import EeveeWays from './evolution/EeveeWays.svelte';
+	import Trigger from './Trigger.svelte';
+	import OneWay from './OneWay.svelte';
+	import TwoWays from './TwoWays.svelte';
+	import ThreeWays from './ThreeWays.svelte';
+	import EeveeWays from './EeveeWays.svelte';
 
 	export let evolution: PokemonEvolution;
 

@@ -47,23 +47,33 @@ https://dex.lkyuusei.fr
 
 ## Screenshots
 ### Pokedex
-![](./static/screenshots/dex-pokedex.jpeg)
-![](./static/screenshots/dex-search.jpeg)
+#### List by generation
+![](./static/screenshots/dex-pokedex.png)
+#### Search
+![](./static/screenshots/dex-search.png)
 
 ### Pokemon
-![](./static/screenshots/dex-stats.jpeg)
-![](./static/screenshots/dex-stats-en.jpeg)
-![](./static/screenshots/dex-stats-strat.jpeg)
-![](./static/screenshots/dex-weaknesses.jpeg)
-![](./static/screenshots/dex-moves.jpeg)
-![](./static/screenshots/dex-locations.jpeg)
-![](./static/screenshots/dex-sprites.jpeg)
-![](./static/screenshots/dex-evolution.jpeg)
+#### Informations FR / EN
+![](./static/screenshots/dex-stats.png)
+![](./static/screenshots/dex-stats-en.png)
+#### Weaknesses/Resistances/EVs...
+![](./static/screenshots/dex-stats-pro.png)
+#### Moves
+![](./static/screenshots/dex-moves.png)
+#### Locations
+![](./static/screenshots/dex-locations.png)
+#### Sprites
+![](./static/screenshots/dex-sprites.png)
+#### Evolution
+![](./static/screenshots/dex-evolution.png)
 
 ### Moves
-![](./static/screenshots/dex-move-types-list.jpeg)
-![](./static/screenshots/dex-moves-list.jpeg)
-![](./static/screenshots/dex-move-detail.jpeg)
+#### List by type
+![](./static/screenshots/dex-move-types-list.png)
+#### List of moves in that type
+![](./static/screenshots/dex-move-list-by-type.png)
+#### Move detail
+![](./static/screenshots/dex-move-detail.png)
 
 ### Abilities
-![](./static/screenshots/abilities.jpeg)
+![](./static/screenshots/dex-abilities.png)

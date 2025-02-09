@@ -163,7 +163,7 @@
 				align-items: center;
 				padding-inline-end: var(--small-gap);
 				padding-block: var(--smaller-gap);
-				z-index: 1;
+				z-index: 3;
 				box-shadow: var(--box-shadow);
 			}
 
