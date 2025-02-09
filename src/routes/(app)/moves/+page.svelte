@@ -4,7 +4,7 @@
 
 	import t from '$lib/store/i18n';
 	import { generation } from '$lib/store/generation';
-	import Album from '$lib/components/features/moves/Album.svelte';
+	import Album from '$lib/components/lodestones/moves/Album.svelte';
 
 	let movesList: Promise<[string, number]>;
 

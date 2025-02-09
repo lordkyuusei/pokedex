@@ -44,6 +44,7 @@
     "menu.tools": "Tools",
     "menu.admin.locations": "XY Places",
     "menu.admin.sync": "Synchro DB",
+    "menu.admin.ui-gallery": "UI Gallery",
     "moves.title": "List of moves until generation",
     "scores.no-desc": "(No Pokédex entry available for chosen game & Pokémon.)",
     "scores.weight": "Weight",

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import Cover from '$lib/components/features/pokemon/Cover.svelte';
-	import Stats from '$lib/components/features/pokemon/stats/Stats.svelte';
-	import Abilities from '$lib/components/features/pokemon/Abilities.svelte';
-	import Scores from '$lib/components/features/pokemon/scores/Scores.svelte';
+	import Cover from '$lib/components/lodestones/pokemon/Cover.svelte';
+	import Scores from '$lib/components/lodestones/pokemon/Scores.svelte';
+	import Stats from '$lib/components/lodestones/pokemon/Stats.svelte';
+	import Abilities from '$lib/components/lodestones/pokemon/Abilities.svelte';
 
 	import _ from '$lib/store/i18n';
 	import { lang } from '$lib/store/lang';

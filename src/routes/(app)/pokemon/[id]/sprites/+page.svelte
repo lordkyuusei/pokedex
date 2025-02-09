@@ -8,7 +8,7 @@
 	import { generation, version } from '$lib/store/generation';
 	import type { Pokemon, SpritesRef } from '$lib/types/pokeapi/pokemon';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
-	import Switch from '$lib/components/common/Switch.svelte';
+	import Switch from '$lib/components/fragments/Switch.svelte';
 
 	type SpriteTab = 'forms' | 'version' | 'others';
 

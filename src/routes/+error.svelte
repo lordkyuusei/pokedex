@@ -3,8 +3,8 @@
 	import { dev } from '$app/environment';
 
 	import { isMobile } from '$lib/store/device';
-	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
-	import MobileLayout from '$lib/components/interface/MobileLayout.svelte';
+	import DesktopLayout from '$lib/components/chassis/DesktopLayout.svelte';
+	import MobileLayout from '$lib/components/chassis/MobileLayout.svelte';
 
 	import routes from './(app)/routes.json';
 </script>

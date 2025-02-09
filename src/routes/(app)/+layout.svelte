@@ -8,9 +8,9 @@
 	import { theme, variant } from '$lib/store/theme';
 	import { deviceWidth, isMobile, isRendered } from '$lib/store/device';
 
-	import SVGs from '$lib/components/common/SVGs.svelte';
-	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
-	import MobileLayout from '$lib/components/interface/MobileLayout.svelte';
+	import SVGs from '$lib/components/lodestones/SVGs.svelte';
+	import DesktopLayout from '$lib/components/chassis/DesktopLayout.svelte';
+	import MobileLayout from '$lib/components/chassis/MobileLayout.svelte';
 
 	import routes from './routes.json';
 	import '../app.css';

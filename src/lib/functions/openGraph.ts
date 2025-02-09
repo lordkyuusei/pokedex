@@ -11,7 +11,7 @@ const mapKeyToStat: { [x: string]: string } = {
 };
 
 export const computeOpenGraphDescription = (pokemon: Pokemon | null, specie: PokemonSpecie | null) => {
-    if (!pokemon || !specie) return '';
+    if (!pokemon && !specie) return '';
 
     const types = pokemon.types.map(type => type.type.name.toUpperCase()).join('/');
     const stats = pokemon.stats.map(stat => `${mapKeyToStat[stat.stat.name]}: ${stat.base_stat}`).join('/');

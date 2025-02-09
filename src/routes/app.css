@@ -138,11 +138,16 @@ input,
 button,
 textarea,
 select {
+    cursor: pointer;
     font: inherit;
     color: var(--text-color);
     border: 1px solid var(--text-color);
     padding: var(--smaller-gap) var(--small-gap);
     background-color: var(--background-second-color);
+}
+
+select {
+    border-radius: var(--border-r-50);
 }
 
 a {
@@ -152,7 +157,6 @@ a {
 
 a,
 button {
-    cursor: pointer;
     transition: all var(--transition-duration) var(--transition-function);
 }
 
@@ -236,6 +240,25 @@ table {
                 background-color: var(--background-second-color);
             }
         }
+    }
+}
+
+.cover {
+    --full-size: calc(100% - var(--small-gap) * 2);
+    width: var(--full-size);
+    height: var(--full-size);
+    margin: var(--small-gap);
+    border-radius: var(--border-r-50);
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-second-color);
+    overflow-y: scroll;
+
+    @media (max-width: 640px) {
+        --full-size: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding-inline: var(--smaller-gap);
     }
 }
 

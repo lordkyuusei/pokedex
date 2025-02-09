@@ -7,7 +7,7 @@
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
 	import { getPkmnTypeColor, getPkmnTypeTranslation } from '$lib/functions/drawBackgroundFromTypes';
 
-	import MoveCd from '$lib/components/common/MoveCD.svelte';
+	import MoveCd from '$lib/components/fragments/MoveCD.svelte';
 	import type { PokemonMove } from '$lib/types/pokeapi/move';
 	import type { EntityRef } from '$lib/types/pokeapi/pokemon';
 

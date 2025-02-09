@@ -8,11 +8,11 @@
 	import type { PokemonLocationArea } from '$lib/types/pokeapi/location-area';
 	import type { Location, LocationWithCoords, SimplifiedLocation } from '$lib/types/location';
 
-	import Map from '$lib/components/features/Map.svelte';
-	import MapLocationDetails from '$lib/components/features/MapLocationDetails.svelte';
+	import Map from '$lib/components/lodestones/pokemon/Map.svelte';
+	import MapLocationDetails from '$lib/components/lodestones/pokemon/MapLocationDetails.svelte';
 
 	import type { PageData } from './$types';
-	import MapLocationFallback from '$lib/components/features/MapLocationFallback.svelte';
+	import MapLocationFallback from '$lib/components/lodestones/pokemon/MapLocationFallback.svelte';
 
 	export let data: PageData;
 

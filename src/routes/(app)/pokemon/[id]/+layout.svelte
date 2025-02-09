@@ -3,11 +3,11 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
-	
+
 	import { page } from '$app/stores';
 	import type { LayoutData } from './$types';
 	import { fetchPokemonSpriteURL } from '$lib/functions/getPokemonSpritesURL';
-	
+
 	import routes from './routes.json';
 	import pokemon from '$lib/store/pokemon';
 	import { isMobile } from '$lib/store/device';
@@ -15,12 +15,12 @@
 	import { navigatePokemon } from '$lib/functions/navigate';
 	import { computeOpenGraphDescription } from '$lib/functions/openGraph';
 	import { computePokemonTypes } from '$lib/functions/getPokemonTypes';
-	
-	import Cover from '$lib/components/features/pokemon/Cover.svelte';
+
+	import Cover from '$lib/components/lodestones/pokemon/Cover.svelte';
 
 	export let data: LayoutData;
 
-	let varieties: { id: number, name: string }[] = [];
+	let varieties: { id: number; name: string }[] = [];
 	let types: string[] = [];
 
 	$: if (data && data.specie && data.pokemon) {
@@ -32,7 +32,7 @@
 
 			const id = Number(pkmn.url.split('/').at(-2));
 			const [_, ...form] = pkmn.name.split('-');
-		
+
 			return { id, name: form.length ? form?.join(' ') : 'Default' };
 		});
 	}
@@ -43,7 +43,7 @@
 </script>
 
 <svelte:head>
-	<title>The Dex - Info about {data.pokemon?.name}"</title>
+	<title>The Dex - {data.pokemon?.name}</title>
 	<meta property="og:title" content="The Dex - Info about {data.pokemon?.name}" />
 	<meta
 		property="og:description"

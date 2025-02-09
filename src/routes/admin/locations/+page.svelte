@@ -6,8 +6,8 @@
 	import { DEXAPI_LOCATION } from '$lib/constants/api.json';
 	import type { Location, LocationArea, LocationNode } from '$lib/types/location';
 
-	import MapEditor from '$lib/components/admin/MapEditor.svelte';
-	import MapOperations from '$lib/components/admin/MapOperations.svelte';
+	import MapEditor from '$lib/components/lodestones/admin/MapEditor.svelte';
+	import MapOperations from '$lib/components/lodestones/admin/MapOperations.svelte';
 
 	let gameLocation: Promise<Location> | null = null;
 	let selectedLocation: LocationNode | null = null;

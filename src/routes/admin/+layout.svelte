@@ -7,8 +7,8 @@
 
 	import { theme, variant } from '$lib/store/theme';
 
-	import SVGs from '$lib/components/common/SVGs.svelte';
-	import DesktopLayout from '$lib/components/interface/DesktopLayout.svelte';
+	import SVGs from '$lib/components/lodestones/SVGs.svelte';
+	import DesktopLayout from '$lib/components/chassis/DesktopLayout.svelte';
 
 	import routes from './routes.json';
 	import '../app.css';
@@ -36,9 +36,4 @@
 {/if}
 
 <style>
-	div {
-		height: 100svh;
-		width: 100svw;
-		background-color: var(--background-color-____);
-	}
 </style>
