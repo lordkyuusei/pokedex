@@ -3,10 +3,13 @@ import { lightmoves } from "./schemas/lightmoves";
 import { lightabilities } from "./schemas/lightabilities";
 import { lightlocations } from "./schemas/lightlocations";
 import { lightgenerations } from "./schemas/lightgenerations";
+import { lightEmeraldBattleFrontier } from "./schemas/lightemeraldbattlefrontier";
+
 import type { LocationArea, LocationNode } from "$lib/types/location";
 import type { LightMove, LightMoveDetails } from "$lib/types/lightmove";
 import type { Ability } from "$lib/types/abilitiy";
 import type { Lightkemon } from "$lib/types/lightkemon";
+import type { FactoryPokemon, FactoryPokemonRaw } from "$lib/types/battle-factory";
 
 export const getPokemonList = async (from: number, to: number, game: string | null) => {
     if (!game) {
@@ -99,6 +102,45 @@ const searchPokemonByName = async (name: string | number): Promise<Lightkemon[]>
             { "i18n.fr": { $regex: name, $options: 'i' } },
             { "i18n.en": { $regex: name, $options: 'i' } },
         ]).sort("id").exec();
+}
+
+export const getEmeraldBattleFrontierList = async () => {
+    try {
+        const pokemon = await lightEmeraldBattleFrontier.find().exec();
+        const moves = await lightmoves.find({id: { $lte: 3 }}, 'moves -_id').exec();
+
+        return JSON.stringify({ pokemon, moves: moves.flatMap(x => x.moves) });
+    } catch (error) {
+        console.error(error);
+        return "[]";
+    }
+}
+
+export const deleteEmeraldBattleFrontierList = async () => {
+    try {
+        await lightEmeraldBattleFrontier.deleteMany();
+    } catch (error) {
+        return ` { success: false, error: ${error}}`;
+    }
+}
+export const setEmeraldBattleFrontierList = async (factoryPokemonList: FactoryPokemon[]) => {
+    try {
+        const factoryPokemonRaw: FactoryPokemonRaw[] = factoryPokemonList.map(fp => {
+            const { moves, meta, ...rest } = fp;
+
+            return {
+                ...rest,
+                "1stMove": moves[0]?.i18n.en ?? "---",
+                "2ndMove": moves[1]?.i18n.en ?? "---",
+                "3rdMove": moves[2]?.i18n.en ?? "---",
+                "4thMove": moves[3]?.i18n.en ?? "---"
+            }
+        })
+        await lightEmeraldBattleFrontier.insertMany(factoryPokemonRaw);
+        return "{ success: true }";
+    } catch (error) {
+        return `{ success: false, error: ${error}}`;
+    }
 }
 
 export const getGenerationsList = async (from: number = 0, to: number = 10) => {

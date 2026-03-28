@@ -17,9 +17,11 @@
 			<section id="abilities-table">
 				<table>
 					<thead>
-						<th colspan="1">#</th>
-						<th colspan="2">NOM</th>
-						<th colspan="3">DESCRIPTION</th>
+						<tr>
+							<th colspan="1">#</th>
+							<th colspan="2">NOM</th>
+							<th colspan="3">DESCRIPTION</th>
+						</tr>
 					</thead>
 					<tbody>
 						{#each abilities as ability (ability.id)}
@@ -57,7 +59,7 @@
 	}
 
 	[id$='-table'] table tr td:first-child,
-	[id$='-table'] table th:first-child {
+	[id$='-table'] table tr th:first-child {
 		border-left: 0.5em solid transparent;
 	}
 

@@ -1,4 +1,5 @@
 import POKEMON_TYPES from "$lib/constants/pokemon_types";
+import type { PokemonAffinity } from "$lib/types/pokemon-affinity";
 import type { PokemonType } from "$lib/types/pokemonTypes";
 import extractDuplicates from "./extractDuplicatesFromArray";
 
@@ -8,7 +9,7 @@ export const fetchFullTypes = (types: string[]) =>
         return ref ? [...acc, ref] : acc;
     }, [] as PokemonType[]);
 
-export const computeAffinities = (types: PokemonType[]) => {
+export const computeAffinities = (types: PokemonType[]): PokemonAffinity[] => {
     const immunities = types.flatMap((type) =>
         POKEMON_TYPES.filter((t) => type.immunities.includes(t.id))
     );

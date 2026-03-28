@@ -1,6 +1,7 @@
 import { browser } from "$app/environment";
+import type { Action } from "svelte/action";
 
-const useDismiss = (node) => {
+const useDismiss: Action<HTMLElement, undefined, { ondismiss: (e: CustomEvent) => void }> = (node) => {
     const handleDismiss = (event: Event) => {
         if (node && !node.contains(event.target) && !event.defaultPrevented) {
             node.dispatchEvent(new CustomEvent('dismiss', node));

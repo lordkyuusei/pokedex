@@ -2,7 +2,6 @@
 	import t from '$lib/store/i18n';
 	import { generation } from '$lib/store/generation';
 	import routes from "./routes.json";
-
 </script>
 
 <section id="pokedex-tools">
@@ -18,7 +17,7 @@
 		<!-- {#if selectedTool === defaultTool} -->
 			<div id="tools-list">
 				{#each routes as route}
-					<a href="/tools/{route.id}">{$t(`${route.name}`)}</a>
+					<a href="/tools/{route.id}">{route.name}</a>
 				{/each}
 			</div>
 		<!-- {:else} -->

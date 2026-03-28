@@ -12,6 +12,7 @@ interface LightMoveQueryHelpers {
     getMoveById(id: number): LightMoveQueryFunction
     typeCountByGen(id: number): LightMoveQueryFunction
     allTypes(type: string): LightMoveQueryFunction
+    getAllMovesBeforeGen(id: number): LightMoveQueryFunction
 }
 
 const lightmovesSchema = new Schema<LightMove, LightMoveModelType, {}, LightMoveQueryHelpers>({
@@ -40,6 +41,9 @@ const lightmovesSchema = new Schema<LightMove, LightMoveModelType, {}, LightMove
         },
         allTypes(this: LightMoveQueryFunction, type: string) {
             return this.where("moves.moveType").equals(type);
+        },
+        getAllMovesBeforeGen(this: LightMoveQueryFunction, id: number) {
+            return this.where("id").lte(id).select({ "moves": 1, "_id": 0})
         }
     }
 })

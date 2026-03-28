@@ -33,18 +33,21 @@
 >
 	<header id="main-buttons">
 		<Switch
+			customName
 			event="typesTable"
 			icon="pokedex"
 			on:typesTable={(e) => (toggleTypes = e.detail.typesTable)}
 		/>
 		{#if !toggleTypes}
 			<Switch
+				customName
 				event="shinyCover"
 				icon="shiny"
 				on:shinyCover={(e) => (toggleShiny = e.detail.shinyCover)}
 			/>
 		{:else}
 			<Switch
+				customName
 				event="coverage"
 				icon="pokedex"
 				on:coverage={(e) => (toggleCover = e.detail.coverage)}

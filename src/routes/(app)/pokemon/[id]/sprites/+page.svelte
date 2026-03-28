@@ -162,7 +162,7 @@
 					>
 				{/each}
 			</div>
-			<Switch event="shiny" icon="shiny" on:shiny={toggleShiny} />
+			<Switch customName event="shiny" icon="shiny" on:shiny={toggleShiny} />
 		</header>
 		<div id="sprites-pictures">
 			{#each sprites as sprite}

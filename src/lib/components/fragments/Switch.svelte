@@ -5,14 +5,17 @@
 	export let event: string = 'event';
 	export let icon: string;
 	export let defaultState: boolean = false;
+	export let customName: boolean = false;
 
 	let checked: boolean = defaultState;
+	let eventName: string = customName ? event : "toggle";
+
 	const dispatch = createEventDispatcher();
 
 	const setEvent = () => {
 		checked = !checked;
-		dispatch(event, {
-			[event]: checked
+		dispatch(eventName, {
+			[eventName]: checked
 		});
 	};
 	onMount(() => {});
@@ -26,15 +29,16 @@
 		type="checkbox"
 		class="switch"
 		class:checked
+		bind:checked
 		on:click={setEvent}
 	/>
 	<section class="toggle-visual">
-		<span class="toggle-block" class:toggle-check={checked} />
+		<span class="toggle-block" class:toggle-check={checked}></span>
 		<span
 			class="toggle-image"
 			class:image-check={checked}
 			style:background="url('/icons/{icon}.png') no-repeat center/90%"
-		/>
+		></span>
 	</section>
 </label>
 

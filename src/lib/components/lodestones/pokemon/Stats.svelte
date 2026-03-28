@@ -12,7 +12,7 @@
 
 <section in:fade={{ delay: 100 }} id="stats-statistics" class:toggled={toggleStrat}>
 	<div id="statistics-switch">
-		<Switch event="strat" icon="training" on:strat={(e) => (toggleStrat = e.detail.strat)} />
+		<Switch customName event="strat" icon="training" on:strat={(e) => (toggleStrat = e.detail.strat)} />
 	</div>
 	{#if !toggleStrat}
 		<StatBlock {stats} />

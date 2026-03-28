@@ -1,6 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 import webmanifest from './manifest.json';
 
 export default defineConfig({
@@ -16,7 +16,4 @@ export default defineConfig({
 			navigateFallback: '/',
 		},
 	})],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
 });

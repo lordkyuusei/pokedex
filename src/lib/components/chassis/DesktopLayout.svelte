@@ -72,7 +72,7 @@
 		grid-template:
 			'aside-logo' var(--layout-header-size)
 			'aside-links' var(--layout-nav-size)
-			'aside-settings' var(--layout-header-size) / 100%;
+			'aside-settings' var(--layout-settings-size) / 100%;
 
 		z-index: 1;
 		justify-items: center;
@@ -130,16 +130,10 @@
 
 		& > #navigation-settings {
 			display: grid;
-			grid-template: auto 1fr / 1fr auto;
+			grid-template: auto auto auto / 1fr;
 			place-items: center;
 			gap: var(--smaller-gap);
 			padding-inline: var(--smallest-gap);
-
-			@media (min-width: 1024px) {
-				& > *:first-child {
-					grid-area: 1 / 1 / 1 / span 2;
-				}
-			}
 
 			@media (max-width: 1024px) {
 				grid-template: 1fr 1fr 1fr / 100%;

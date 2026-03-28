@@ -17,7 +17,7 @@
 
     --app-height: 100svh;
     --layout-header-size: 9svh;
-    --layout-settings-size: 11svh;
+    --layout-settings-size: 15svh;
     --layout-id-size: calc(var(--layout-header-size) - 2svh);
     --layout-content-size: calc(var(--app-height) - var(--layout-header-size));
     --layout-nav-size: calc(var(--app-height) - var(--layout-header-size) - var(--layout-settings-size));
@@ -101,19 +101,19 @@ body {
         background-color: var(--background-color);
     }
 
-    body > div > *:nth-child(2) {
+    body>div>*:nth-child(2) {
         grid-area: 1 / 1 / 1 / 1;
     }
 
-    body > div > *:nth-child(3) {
+    body>div>*:nth-child(3) {
         grid-area: 2 / 1 / 4 / 1;
     }
 
-    body > div > *:nth-child(4) {
+    body>div>*:nth-child(4) {
         grid-area: 1 / 1 / 5 / 1;
     }
 
-    body > div > *:nth-child(5) {
+    body>div>*:nth-child(5) {
         grid-area: 4 / 1 / 4 / 1;
     }
 }
@@ -144,6 +144,20 @@ select {
     border: 1px solid var(--text-color);
     padding: var(--smaller-gap) var(--small-gap);
     background-color: var(--background-second-color);
+
+    &.selected {
+        color: var(--background-second-color);
+        background-color: var(--text-color);
+    }
+}
+
+fieldset {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--smaller-gap);
+    border-color: currentColor;
 }
 
 select {
@@ -153,6 +167,11 @@ select {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+p {
+    margin: 0;
+    line-height: 1.5;
 }
 
 a,
@@ -192,6 +211,14 @@ button:hover {
     -webkit-backdrop-filter: brightness(1.4);
 }
 
+hr {
+    height: var(--smaller-gap);
+    width: 100%;
+    border: none;
+    border-radius: var(--border-r-50);
+    background-color: var(--second-color);
+}
+
 menu,
 ul,
 li {
@@ -200,33 +227,52 @@ li {
     padding: 0;
 }
 
+[data-title] {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: attr(data-title);
+        top: calc(var(--smaller-gap) * -1.5);
+        left: var(--small-gap);
+
+        color: var(--text-color);
+        border: 1px solid currentColor;
+        background-color: var(--background-second-color);
+        padding: var(--smallest-gap) var(--smaller-gap);
+        border-radius: var(--smallest-gap);
+    }
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
 
-    & > thead > tr > th, & > tbody > tr > td {
+    &>thead>tr>th,
+    &>tbody>tr>td {
         text-align: center;
     }
-    & > thead {
-        & > tr {
-            & > th {
+
+    &>thead {
+        &>tr {
+            &>th {
                 padding-block: var(--small-gap);
                 font-weight: lighter;
-                background-color: var(--background-second-color);            
+                background-color: var(--background-second-color);
             }
         }
     }
 
-    & > tbody {
-        & > tr {
-            & > td {
+    &>tbody {
+        &>tr {
+            &>td {
                 border: none;
                 padding-block: var(--smaller-gap);
             }
 
-            &:hover > td {
-                cursor: pointer;            
+            &:hover>td {
+                cursor: pointer;
                 font-weight: bolder;
                 color: var(--background-color);
                 background-color: var(--second-color);

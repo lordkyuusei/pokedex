@@ -1,5 +1,8 @@
 import { TYPES, type PokemonType } from '$lib/types/pokemonTypes';
 
+export const OLD_PHYSICAL_TYPES: TYPES[] = [TYPES.ACIER, TYPES.COMBAT, TYPES.INSECTE, TYPES.NORMAL, TYPES.POISON, TYPES.ROCHE, TYPES.SOL, TYPES.SPECTRE, TYPES.VOL];
+export const OLD_SPECIAL_TYPES: TYPES[] = [TYPES.DRAGON, TYPES.EAU, TYPES.FEU, TYPES.GLACE, TYPES.PLANTE, TYPES.PSY, TYPES.TÉNĖBRES, TYPES.ÉLECTRIK];
+
 const POKEMON_TYPES: PokemonType[] = [
     {
         id: TYPES.INCONNU,
@@ -389,7 +392,6 @@ const POKEMON_TYPES: PokemonType[] = [
         ],
         resistances: [
             TYPES.INSECTE,
-            TYPES.TÉNĖBRES
         ]
     },
     {

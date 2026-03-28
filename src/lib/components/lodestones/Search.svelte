@@ -12,23 +12,21 @@
 	const DEFAULT_SEARCH_DELAY: number = 300;
 	const DEFAULT_SEARCH_MIN_LENGTH = 3;
 
-	let show: boolean = false;
-	let searchText: string;
+	let show: boolean = $state(false);
+	let searchText: string = $state("");
 	let searchInputRef: HTMLInputElement;
-	let results: Promise<SearchResult>;
+	let results: Promise<SearchResult> | null = $state(null);
 	let debounceTimer: NodeJS.Timeout;
 
 	const debounce = async (e: KeyboardEvent) => {
 		if (e.key === 'Escape') return togglePane();
 
-		if (e.key === 'Enter') {
+		if (e.key === 'Enter' && results) {
 			togglePane();
 
-			results.then(({ pokemonList }) => {
-				if (!pokemonList) return;
-				const url = getBookUrl(`${pokemonList[0]?.id}`);
-				goto(url);
-			});
+            const { pokemonList } = await results;
+            const url = getBookUrl(`${pokemonList[0]?.id}`);
+            goto(url);
 		} else {
 			if (debounceTimer) clearTimeout(debounceTimer);
 
@@ -60,13 +58,13 @@
 	};
 </script>
 
-<button id="dex-search" class="search-button" on:click={togglePane}>
+<button id="dex-search" class="search-button" onclick={togglePane} aria-label="Search">
 	<svg class="search-icon">
 		<use href="#icon-magnifier"></use>
 	</svg>
 </button>
 
-<aside id="dex-pan" class:show use:useDismiss on:dismiss={hidePane}>
+<aside id="dex-pan" class:show use:useDismiss ondismiss={hidePane}>
 	<header id="pan-header">
 		<search id="header-search">
 			<input
@@ -75,7 +73,7 @@
 				class="search-input"
 				bind:this={searchInputRef}
 				bind:value={searchText}
-				on:keyup={debounce}
+				onkeyup={debounce}
 			/>
 			<svg class="search-icon">
 				<use href="#icon-magnifier"></use>
@@ -87,17 +85,17 @@
 			{#if searchResult}
 				{@const { pokemonList = [], movesList = [], abilityList = [] } = searchResult}
 				{#each pokemonList as pokemon}
-					<a href={getBookUrl(`${pokemon.id}`)} on:click={togglePane}>
+					<a href={getBookUrl(`${pokemon.id}`)} onclick={togglePane}>
 						<Book id={pokemon.id} name={pokemon.i18n[$lang]} types={pokemon.types} landscape />
 					</a>
 				{/each}
 				{#each movesList as move}
-					<a href={`/moves/${move.moveType}/${move.id}`} on:click={togglePane}>
+					<a href={`/moves/${move.moveType}/${move.id}`} onclick={togglePane}>
 						<span>{move?.i18n?.fr}</span>
 					</a>
 				{/each}
 				{#each abilityList as ability}
-					<a href={`/abilities/${ability.id}`} on:click={togglePane}>
+					<a href={`/abilities/${ability.id}`} onclick={togglePane}>
 						<span>{ability.i18nName.fr}</span>
 					</a>
 				{/each}

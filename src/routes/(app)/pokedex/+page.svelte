@@ -81,7 +81,7 @@
 
 <section id="pokedex" class="cover">
 	<header>
-		<Switch icon="pokedex" event="nationalMode" on:nationalMode={switchMode}></Switch>
+		<Switch customName icon="pokedex" event="nationalMode" on:nationalMode={switchMode}></Switch>
 	</header>
 	{#await pokemonList then pokemons}
 		<ul>
