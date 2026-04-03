@@ -29,7 +29,7 @@
 	let showHelp: boolean = $state(false);
 	let localData: boolean = $state(false);
 	let isLvl100Mode: boolean = $state(true);
-	let isRentalMode: boolean = $state(true);
+	let showSearchResult: boolean = $state(false);
 	let showCoverageDialog: boolean = $state(false);
 
 	let factoryPokemonList: FactoryPokemon[] = $state([]);
@@ -38,41 +38,43 @@
 	let rentalPokemon = $derived(factoryPokemonList.filter((x) => x.meta.isRental));
 	let teamedPokemon = $derived(factoryPokemonList.filter((x) => x.meta.isTeamed));
 	let opponentPokemon = $derived(factoryPokemonList.filter((x) => x.meta.isOpponent));
-	let selectedTeamedPokemon = $derived(factoryPokemonList.find((x) => x.meta.isTeamSelected));
-	let selectedOpponentPokemon = $derived(factoryPokemonList.find((x) => x.meta.isOpponentSelected));
+	let selectedTeamedPokemon = $derived(teamedPokemon.find((x) => x.meta.isTeamSelected));
+	let selectedOpponentPokemon = $derived(opponentPokemon.find((x) => x.meta.isOpponentSelected));
 	let availablePokemon = $derived(onRoundChange(factoryPokemonList, isLvl100Mode, roundSwapsBattles, rentalPokemon.length, isRentalMode));
 
-    let damageCalculatorUser = $derived(selectedTeamedPokemon);
-    let damageCalculatorTarget = $derived(selectedOpponentPokemon);
+	let isRentalMode: boolean = $derived(teamedPokemon.length !== 3);
+	let teamBuildingPokemonPreview: FactoryPokemon | null = $state(null);
+	let isTeamBuildingMode: boolean = $derived(isRentalMode && rentalPokemon.length === 6);
+
+	let damageCalculatorUser = $derived(selectedTeamedPokemon);
+	let damageCalculatorTarget = $derived(selectedOpponentPokemon);
 	let factoryCoverage = $derived(onTeamChange(availablePokemon, teamedPokemon));
 	let matchingResult = $derived(onSearchChange(availablePokemon, searchInput, teamedPokemon, opponentPokemon));
 
-    const resetOpponentPokemon = () => {
-        opponentPokemon.forEach(pokemon => {
-            const factoryPokemonIndex = factoryPokemonList.findIndex(x => x.id === pokemon.id);
-            factoryPokemonList = factoryPokemonList.with(factoryPokemonIndex, {
-                ...factoryPokemonList[factoryPokemonIndex],
-                meta: { ...factoryPokemonList[factoryPokemonIndex].meta, isOpponent: false, isOpponentSelected: false }
-            })
-        });
-    };
+	const resetOpponentPokemon = () => {
+		opponentPokemon.forEach((pokemon) => {
+			const factoryPokemonIndex = factoryPokemonList.findIndex((x) => x.id === pokemon.id);
+			factoryPokemonList = factoryPokemonList.with(factoryPokemonIndex, {
+				...factoryPokemonList[factoryPokemonIndex],
+				meta: { ...factoryPokemonList[factoryPokemonIndex].meta, isOpponent: false, isOpponentSelected: false }
+			});
+		});
+	};
 
-    const setSelectedPokemon = (id: number | null, selectionMethod: 'isTeamSelected' | 'isOpponentSelected') => {
-        const selectedPokemonIndex = factoryPokemonList.findIndex((x) => x.meta[selectionMethod] === true);
+	const setSelectedPokemon = (id: number | null, selectionMethod: 'isTeamSelected' | 'isOpponentSelected') => {
+		const selectedPokemonIndex = factoryPokemonList.findIndex((x) => x.meta[selectionMethod] === true);
 		if (selectedPokemonIndex !== -1) {
-            const pokemon = factoryPokemonList[selectedPokemonIndex];
+			const pokemon = factoryPokemonList[selectedPokemonIndex];
 			factoryPokemonList = factoryPokemonList.with(selectedPokemonIndex, {
 				...pokemon,
 				meta: { ...pokemon.meta, [selectionMethod]: false }
 			});
 		}
-        
-        const nextSelectedPokemonIndex = factoryPokemonList.findIndex((x) => x.id === id);
+
+		const nextSelectedPokemonIndex = factoryPokemonList.findIndex((x) => x.id === id);
 		if (nextSelectedPokemonIndex === -1) return;
 
-        console.log(id, nextSelectedPokemonIndex, factoryPokemonList[nextSelectedPokemonIndex]);
-
-        const pokemon = factoryPokemonList[nextSelectedPokemonIndex];
+		const pokemon = factoryPokemonList[nextSelectedPokemonIndex];
 		factoryPokemonList = factoryPokemonList.with(nextSelectedPokemonIndex, {
 			...pokemon,
 			meta: { ...pokemon.meta, [selectionMethod]: true }
@@ -84,7 +86,7 @@
 	const setSelectedOpponentPokemon = (id: number | null) => setSelectedPokemon(id, 'isOpponentSelected');
 
 	const doNotSwapPokemon = () => {
-        resetOpponentPokemon();
+		resetOpponentPokemon();
 		setSelectedOpponentPokemon(null);
 		roundSwapsBattles[2] += 1;
 	};
@@ -92,29 +94,29 @@
 	const swapPokemon = () => {
 		if (!selectedOpponentPokemon || !selectedTeamedPokemon) return;
 
-        const selectedTeamedIndex = factoryPokemonList.findIndex(x => x.id === selectedTeamedPokemon.id);
-        const selectedOpponentIndex = factoryPokemonList.findIndex(x => x.id === selectedOpponentPokemon.id);
-        if (selectedTeamedIndex === -1 || selectedOpponentIndex === -1) return;
+		const selectedTeamedIndex = factoryPokemonList.findIndex((x) => x.id === selectedTeamedPokemon.id);
+		const selectedOpponentIndex = factoryPokemonList.findIndex((x) => x.id === selectedOpponentPokemon.id);
+		if (selectedTeamedIndex === -1 || selectedOpponentIndex === -1) return;
 
-        factoryPokemonList = factoryPokemonList.with(selectedTeamedIndex, {
-            ...factoryPokemonList[selectedTeamedIndex],
-            meta: {
-                ...factoryPokemonList[selectedTeamedIndex].meta,
-                isTeamed: false
-            }
-        });
+		factoryPokemonList = factoryPokemonList.with(selectedTeamedIndex, {
+			...factoryPokemonList[selectedTeamedIndex],
+			meta: {
+				...factoryPokemonList[selectedTeamedIndex].meta,
+				isTeamed: false
+			}
+		});
 
-        factoryPokemonList = factoryPokemonList.with(selectedOpponentIndex, {
-            ...factoryPokemonList[selectedOpponentIndex],
-            meta: {
-                ...factoryPokemonList[selectedOpponentIndex].meta,
-                isTeamed: true
-            }
-        });
+		factoryPokemonList = factoryPokemonList.with(selectedOpponentIndex, {
+			...factoryPokemonList[selectedOpponentIndex],
+			meta: {
+				...factoryPokemonList[selectedOpponentIndex].meta,
+				isTeamed: true
+			}
+		});
 
-        resetOpponentPokemon();
-        setSelectedTeamedPokemon(teamedPokemon[0].id);
-        setSelectedOpponentPokemon(null);
+		resetOpponentPokemon();
+		setSelectedTeamedPokemon(teamedPokemon[0].id);
+		setSelectedOpponentPokemon(null);
 		roundSwapsBattles[2] += 1;
 	};
 
@@ -208,7 +210,7 @@
 				meta: { ...pokemon.meta, isOpponent: checked }
 			});
 
-            setSelectedOpponentPokemon(id);
+			setSelectedOpponentPokemon(id);
 		}
 	};
 
@@ -223,10 +225,11 @@
 
 		const { id, move } = e;
 
-        selectedMove = move;
-        if (damageCalculatorUser?.id === id) return;
+		selectedMove = move;
+		if (damageCalculatorUser?.id === id) return;
 
-        damageCalculatorUser = factoryPokemonList.find(t => t.id === id);
+		damageCalculatorUser = factoryPokemonList.find((t) => t.id === id);
+        damageCalculatorTarget = selectedTeamedPokemon.id === damageCalculatorUser?.id ? selectedOpponentPokemon : selectedTeamedPokemon 
 	};
 
 	const handleSearchSubmit = (event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => {
@@ -240,6 +243,23 @@
 
 		matchingResult = [];
 		searchInput = '';
+		showSearchResult = false;
+	};
+
+	const fillRentalTestData = () => {
+		const teamedPokemonIds = [373, 445, 502, 392, 485, 532];
+
+		factoryPokemonList = factoryPokemonList.map((pokemon) => {
+			if (teamedPokemonIds.includes(pokemon.id)) {
+				const teamLength = factoryPokemonList.filter((x) => x.meta.isTeamed).length;
+				return {
+					...assignStatsToPokemon(pokemon, 1, 1, { teamLength }),
+					meta: { ...pokemon.meta, isRental: true }
+				};
+			}
+
+			return pokemon;
+		});
 	};
 
 	const fillTestData = () => {
@@ -266,13 +286,20 @@
 			return pokemon;
 		});
 
-        setSelectedTeamedPokemon(teamedPokemonIds[0]);
-        setSelectedOpponentPokemon(opponentPokemonIds[0]);
+		setSelectedTeamedPokemon(teamedPokemonIds[0]);
+		setSelectedOpponentPokemon(opponentPokemonIds[0]);
 
 		isRentalMode = false;
 	};
 
-    onMount(async () => {
+	const clearState = () => {
+		factoryPokemonList = factoryPokemonList.map((fp) => ({
+			...fp,
+			meta: { isOpponent: false, isOpponentSelected: false, isRental: false, isTeamed: false, isTeamSelected: false }
+		}));
+	};
+
+	onMount(async () => {
 		if (data.battleFrontierData) {
 			const { battleFrontierList } = JSON.parse(data.battleFrontierData);
 
@@ -295,184 +322,184 @@
 			}
 		}
 	});
+
+	$inspect(isRentalMode, isTeamBuildingMode, rentalPokemon.length);
 </script>
 
 <section id="tool-battle-frontier">
-	<header data-title={localData ? 'Local data' : 'Data from Excel Sheet'}>
-		<div class="search">
+	<header data-title={isRentalMode ? 'Rental Mode: select the 6-proposed Pokémon, then choose your 3 Pokémon Team.' : 'Battle Mode'}>
+		<fieldset>
+			<legend>Search a Pokémon, move, battle style...</legend>
 			<input
 				type="search"
 				bind:value={searchInput}
+				oninput={() => (showSearchResult = searchInput.length > 2)}
 				disabled={factoryPokemonList.length === 0}
-				placeholder="name @held-item -move-name $type  #battle-style-number"
+				placeholder="syntax: name @held-item -move-name $type #battle-style-number"
 				onkeypress={handleSearchSubmit}
 			/>
+		</fieldset>
+		<fieldset>
+			<legend>Nb. Rounds & Swaps</legend>
+			<select id="currentRound" bind:value={roundSwapsBattles[0]}>
+				{#each [...new Array(7)] as _, index}
+					<option value={index + 1}>{index + 1}{index === 6 ? '+' : ''}</option>
+				{/each}
+			</select>
+			<select id="currentSwaps" bind:value={roundSwapsBattles[1]}>
+				{#each [...new Array(50)] as _, index}
+					<option value={index + 1}>{index + 1}{index === 49 ? '+' : ''}</option>
+				{/each}
+			</select>
+		</fieldset>
+		<fieldset>
+			<legend>Lvl. 50 / 100</legend>
+			<Switch
+				customName
+				event="isLvl100Mode"
+				icon="pokedex"
+				defaultState={isLvl100Mode}
+				on:isLvl100Mode={(e) => (isLvl100Mode = e.detail.isLvl100Mode)}
+			/>
+		</fieldset>
+		<fieldset>
+			<legend>Show Efficiency / Help</legend>
+			<Switch
+				customName
+				event="showEfficiency"
+				icon="pokedex"
+				defaultState={showCoverageDialog}
+				on:showEfficiency={(e) => {
+					showCoverageDialog = e.detail.showEfficiency;
+					showHelp = false;
+				}}
+			></Switch>
+			<Switch
+				customName
+				event="showHelp"
+				icon="pokedex"
+				defaultState={showHelp}
+				on:showHelp={(e) => {
+					showHelp = e.detail.showHelp;
+					showCoverageDialog = false;
+				}}
+			></Switch>
+		</fieldset>
+		{#if dev}
 			<fieldset>
-				<legend>Nb. Rounds & Swaps</legend>
-				<select id="currentRound" bind:value={roundSwapsBattles[0]}>
-					{#each [...new Array(7)] as _, index}
-						<option value={index + 1}>{index + 1}{index === 6 ? '+' : ''}</option>
-					{/each}
-				</select>
-				<select id="currentSwaps" bind:value={roundSwapsBattles[1]}>
-					{#each [...new Array(50)] as _, index}
-						<option value={index + 1}>{index + 1}{index === 49 ? '+' : ''}</option>
-					{/each}
-				</select>
+				<legend>Fill Test / Clear state</legend>
+				<button id="fill-sheet" onclick={fillTestData}>🎴</button>
+				<button id="rental-sheet" onclick={fillRentalTestData}>🚂</button>
+				<button id="clear-sheet" onclick={clearState}>🧹</button>
 			</fieldset>
-			<fieldset>
-				<legend>Lvl. 50 / 100</legend>
-				<Switch
-					customName
-					event="isLvl100Mode"
-					icon="pokedex"
-					defaultState={isLvl100Mode}
-					on:isLvl100Mode={(e) => (isLvl100Mode = e.detail.isLvl100Mode)}
-				/>
-			</fieldset>
-			<fieldset>
-				<legend>Show Efficiency / Help</legend>
-				<Switch
-					customName
-					event="showEfficiency"
-					icon="pokedex"
-					defaultState={showCoverageDialog}
-					on:showEfficiency={(e) => (showCoverageDialog = e.detail.showEfficiency)}
-				></Switch>
-				<Switch customName event="showHelp" icon="pokedex" defaultState={showHelp} on:showHelp={(e) => (showHelp = e.detail.showHelp)}></Switch>
-			</fieldset>
-			{#if dev}
-				<fieldset>
-					<legend>Fill Test/ Sync DB / Delete DB</legend>
-					<button id="fill-sheet" onclick={fillTestData}>🎴</button>
-				</fieldset>
-			{/if}
-		</div>
+		{/if}
 	</header>
-
-	{#if showCoverageDialog}
-		<BattleFrontierCoverage {factoryCoverage} {teamedPokemon} {updateSearch}></BattleFrontierCoverage>
-	{:else if showHelp}
-		<BattleFrontierHelpScreen></BattleFrontierHelpScreen>
-	{:else if isRentalMode}
-		<output class="rental">
-			<ul class="rental-team">
-				{#each rentalPokemon as pokemon}
-					{#if rentalPokemon.length === 6}
-						<PokemonCard {pokemon} {roundSwapsBattles} {isLvl100Mode} onHire={toggleRentalToTeamedPokemon}></PokemonCard>
+	<hr class="mb-s" />
+	<output class:show-dialog={showSearchResult || showCoverageDialog || showHelp}>
+		{#if showSearchResult}
+			<ul class="search-result">
+				{#if matchingResult.length === 0 && searchInput.length > 3}
+					<li>Pas de résultat.</li>
+				{/if}
+				{#each matchingResult as pokemon}
+					<li class="result-element">
+						<PokemonCard
+							{pokemon}
+							{isLvl100Mode}
+							{roundSwapsBattles}
+							onHire={!isRentalMode ? toggleTeamedPokemon : undefined}
+							onRental={isRentalMode ? toggleRentalPokemon : undefined}
+							onBattle={!isRentalMode ? toggleOpponentPokemon : undefined}
+							onMoveSelection={!isRentalMode ? setSelectedMove : undefined}
+						></PokemonCard>
+					</li>
+				{/each}
+			</ul>
+		{:else if showCoverageDialog}
+			<BattleFrontierCoverage {factoryCoverage} {teamedPokemon} {updateSearch}></BattleFrontierCoverage>
+		{:else if showHelp}
+			<BattleFrontierHelpScreen></BattleFrontierHelpScreen>
+		{/if}
+		{#if isRentalMode}
+			<h1>1. Sélection des Pokémon</h1>
+			<ul class="rental-reminder">
+				{#each Array.from({ length: 6 }) as _, slot}
+					{@const pokemon = rentalPokemon[slot]}
+					{#if pokemon}
+						<li class="reminder-element" class:hired={teamedPokemon.includes(pokemon)}>
+							<button class="wrap" onclick={() => (teamBuildingPokemonPreview = pokemon)}>
+								<img src={fetchPokemonSpriteURL(pokemon.dexId)} alt={pokemon.name} />
+								<span>{pokemon.name}</span>
+							</button>
+						</li>
 					{:else}
-						<PokemonCard {pokemon} {roundSwapsBattles} {isLvl100Mode} onRental={toggleRentalPokemon}></PokemonCard>
+						<li class="reminder-element">
+							<button class="wrap">
+								<img src={fetchPokemonSpriteURL(0)} alt="" />
+								<span> Pokémon n°{slot + 1}</span>
+							</button>
+						</li>
 					{/if}
 				{/each}
 			</ul>
-			<hr />
-			<ul class="search result">
-				{#if matchingResult.length === 0 && searchInput.length > 3}
-					No result. Please make sure the Pokemon you're looking for exists, and is not already picked in one of the teams.
-				{:else if matchingResult.length === 0 && teamedPokemon.length !== 3}
-					Start adding your rental team by searching for them & toggling the left switch button on each result.
-				{:else}
-					{#each matchingResult as pokemon (pokemon.id)}
-						{#if !pokemon.meta.isOpponent && !pokemon.meta.isTeamed}
-							<li>
-								<PokemonCard {pokemon} {roundSwapsBattles} {isLvl100Mode} open={matchingResult.length === 1} onRental={toggleRentalPokemon}
-								></PokemonCard>
-							</li>
-						{/if}
-					{/each}
-				{/if}
-			</ul>
-		</output>
-	{:else}
-		<output>
-			<my-team data-title="M. Team">
-				<ul>
-					{#each teamedPokemon as pokemon}
-						<li>
-							<button class="round" class:selected={selectedTeamedPokemon?.id === pokemon.id} onclick={() => setSelectedTeamedPokemon(pokemon.id)}>
-								<img src={fetchPokemonSpriteURL(pokemon.dexId)} alt={pokemon.name} />
-							</button>
-						</li>
-					{/each}
-					{#each Array.from({ length: 3 - teamedPokemon.length }) as _}
-						<li>
-							<button class="round">
-								<img src={fetchPokemonSpriteURL(0)} alt={'No Pokémon Selected'} />
-							</button>
-						</li>
-					{/each}
-				</ul>
-			</my-team>
-
-			<my-selected-pokemon data-title="Selected team member">
-				{#if selectedTeamedPokemon}
-					<PokemonCard open {roundSwapsBattles} pokemon={selectedTeamedPokemon} {isLvl100Mode} isSelectedMoveUser={selectedTeamedPokemon.id === damageCalculatorUser?.id} onMoveSelection={setSelectedMove}></PokemonCard>
-				{/if}
-			</my-selected-pokemon>
-
-			<their-selected-pokemon data-title="Selected opponent">
-				{#if selectedOpponentPokemon}
-					<PokemonCard open {roundSwapsBattles} pokemon={selectedOpponentPokemon} {isLvl100Mode} isSelectedMoveUser={selectedOpponentPokemon.id === damageCalculatorUser?.id} onMoveSelection={setSelectedMove}></PokemonCard>
-				{/if}
-			</their-selected-pokemon>
-
-			<their-team data-title="O. Team">
-				<ul>
-					{#each opponentPokemon as pokemon}
-						<li>
-							<button
-								class="round"
-								class:selected={selectedOpponentPokemon?.id === pokemon.id}
-								onclick={() => setSelectedOpponentPokemon(pokemon.id)}
-							>
-								<img src={fetchPokemonSpriteURL(pokemon.dexId)} alt={pokemon.name} />
-							</button>
-						</li>
-					{/each}
-					{#each Array.from({ length: 3 - opponentPokemon.length }) as _}
-						<li>
-							<button class="round">
-								<img src={fetchPokemonSpriteURL(0)} alt={'No Pokémon Selected'} />
-							</button>
-						</li>
-					{/each}
-				</ul>
-			</their-team>
-			<div class="actions">
-				<button class="primary round" title="Swap Pokemon" onclick={() => swapPokemon()}>⬅️</button>
-				<button class="primary round" title="Reject Pokemon" onclick={() => doNotSwapPokemon()}>✖️</button>
-			</div>
-			{#if selectedTeamedPokemon && selectedOpponentPokemon && selectedMove}
-				<span>
-					<BattleFrontierDamageCalculator user={damageCalculatorUser} target={damageCalculatorTarget} move={selectedMove} isLvl100Mode
-					></BattleFrontierDamageCalculator>
-				</span>
+			{#if rentalPokemon.length === 0}
+				<p class="mb-s">Utilisez la barre de recherche pour inscrire les 6 Pokémon de la sélection.</p>
+			{:else}
+				<hr class="mb-s" />
 			{/if}
-			<hr />
-			<ul class="search result">
-				{#if matchingResult.length === 0 && searchInput.length > 3}
-					No result. Please make sure the Pokemon you're looking for exists, and is not already picked in one of the teams.
-				{:else if matchingResult.length === 0 && teamedPokemon.length !== 3}
-					Start adding your rental team by searching for them & toggling the left switch button on each result.
-				{:else}
-					{#each matchingResult as pokemon (pokemon.id)}
-						{#if !pokemon.meta.isOpponent && !pokemon.meta.isTeamed}
-							<li>
-								<PokemonCard
-									{pokemon}
-									{roundSwapsBattles}
-									isLvl100Mode
-									open={matchingResult.length === 1}
-									onHire={toggleTeamedPokemon}
-									onBattle={toggleOpponentPokemon}
-								></PokemonCard>
-							</li>
-						{/if}
-					{/each}
+			{#if isTeamBuildingMode && teamBuildingPokemonPreview}
+				<PokemonCard
+					pokemon={teamBuildingPokemonPreview}
+					{isLvl100Mode}
+					{roundSwapsBattles}
+					open={true}
+					onHire={isRentalMode ? toggleTeamedPokemon : undefined}
+				></PokemonCard>
+			{/if}
+		{:else}
+			<battlefield>
+				{@render team(teamedPokemon, setSelectedTeamedPokemon)}
+				{@render preview(selectedTeamedPokemon)}
+				<ul class="actions">
+                    <button class="round" onclick={swapPokemon}>⬅️</button>
+                    <button class="round" onclick={doNotSwapPokemon}>✖️</button>
+                </ul>
+				{@render preview(selectedOpponentPokemon)}
+				{@render team(opponentPokemon, setSelectedOpponentPokemon)}
+				{#if damageCalculatorUser && damageCalculatorTarget && selectedMove}
+					<output class="damage-calculator pb-s pi-s">
+						<BattleFrontierDamageCalculator
+							user={damageCalculatorUser}
+							target={damageCalculatorTarget}
+							move={selectedMove}
+							isLvL100Mode={isLvl100Mode}
+						></BattleFrontierDamageCalculator>
+					</output>
 				{/if}
-			</ul>
-		</output>
-	{/if}
+			</battlefield>
+		{/if}
+	</output>
+
+	{#snippet team(team: FactoryPokemon[], selectionCallback: (id: number | null) => void)}
+		<ul class="factory-team" data-title="Equipe">
+			{#each Array.from({ length: 3 }) as _, slot}
+				{@const pokemon = team[slot]}
+				<li class="team-element">
+					<button class="wrap" onclick={() => selectionCallback(pokemon.id)}>
+						<img src={fetchPokemonSpriteURL(pokemon.dexId)} alt={pokemon.name} />
+					</button>
+				</li>
+			{/each}
+		</ul>
+	{/snippet}
+
+	{#snippet preview(pokemon?: FactoryPokemon)}
+		<pokemon-preview data-title="Aperçu du pokémon">
+			{#if pokemon}
+				<PokemonCard open {pokemon} {isLvl100Mode} {roundSwapsBattles} onMoveSelection={setSelectedMove}></PokemonCard>
+			{/if}
+		</pokemon-preview>
+	{/snippet}
 </section>
 
 <style>
@@ -482,212 +509,163 @@
 		padding: var(--small-gap);
 
 		display: grid;
-		grid-template-rows: auto 1fr;
+		grid-template-rows: auto auto 1fr;
 
 		position: relative;
 
 		& > header {
 			position: sticky;
 			top: 0;
+
 			display: grid;
-			grid-template: 'search search' 1fr / 1fr 1fr;
+			grid-auto-flow: column;
+			grid-template-columns: 1fr repeat(4, auto);
+			align-items: stretch;
 			gap: var(--small-gap);
+
 			padding: var(--small-gap);
 			background: var(--background-second-color);
 			border-radius: var(--smaller-gap) var(--smaller-gap) 0 0;
 			z-index: 2;
 
-			@media (max-width: 640px) {
-				grid-template: 'search search' 1fr / 1fr 1fr;
-			}
-
-			& > div.search {
-				display: grid;
-				grid-auto-flow: column;
-				grid-template-columns: 1fr repeat(4, auto);
-				align-items: end;
-				grid-column: 1 / -1;
-				gap: var(--small-gap);
-
-				@media (max-width: 640px) {
-					grid-template-rows: 1fr auto;
-
-					& > input {
-						grid-area: 1 / 1 / 1 / -1;
-					}
-
-					& > :not(input) {
-						grid-row: 2;
-					}
+			& > fieldset {
+				& > :not(legend) {
+					width: 100%;
 				}
 
-				& > input {
+				& > input[type='search'] {
+					border: none;
+				}
+			}
+
+			@media (max-width: 640px) {
+				grid-template-rows: 1fr auto;
+
+				& > fieldset > input {
 					height: calc(100% - var(--smaller-gap));
 					background-color: var(--background-second-color);
+					grid-area: 1 / 1 / 1 / -1;
+				}
+
+				& > :not(input) {
+					grid-row: 2;
 				}
 			}
 		}
 
 		& > output {
-			display: grid;
-			grid-template:
-				'header header header header header' auto
-				'my-team preview-me actions preview-them their-team' 1fr
-				'dmg-calc dmg-calc dmg-calc dmg-calc dmg-calc' auto
-				'separator separator separator separator separator' auto
-				'search search search search search' 2fr / auto 1fr 0px 1fr auto;
-
-			gap: var(--small-gap);
-			padding: 0 var(--small-gap);
+			padding: var(--small-gap);
+			background: var(--background-second-color);
 			border-radius: 0 0 var(--smaller-gap) var(--smaller-gap);
-			background-color: var(--background-second-color);
-			overflow: hidden;
+			position: relative;
 
-			&.rental {
-				grid-template:
-					'header header header header header' auto
-					'rental rental rental rental rental ' auto
-					'separator separator separator separator separator' auto
-					'search search search search search' 2fr / auto 1fr 0px 1fr auto;
-			}
-			& > my-team {
-				grid-area: my-team;
+			&.show-dialog > ul.search-result {
+				position: absolute;
+				inset: 0;
+				z-index: 3;
+				box-shadow: var(--box-shadow);
+				background-color: var(--background-color);
 			}
 
-			& > their-team {
-				grid-area: their-team;
-			}
-
-			& > my-team,
-			& > their-team {
-				& > ul {
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
+			& > ul {
+				&.rental-reminder {
+					display: grid;
+					grid-template-columns: repeat(6, 1fr);
 					gap: var(--small-gap);
-					height: 100%;
 
-					& > li {
-						& > button {
-							width: var(--large-gap);
-							padding: 0;
+					& > li.reminder-element {
+						display: grid;
+						grid-template-columns: auto 1fr;
+						align-items: center;
+						padding: var(--smaller-gap);
+						border-radius: var(--large-gap);
+						background-color: var(--background-color);
 
-							& > img {
-								inline-size: 100%;
+						&.hired {
+							background-color: var(--second-color);
+
+							& span {
+								color: var(--background-color);
 							}
+						}
+
+						& img {
+							background-color: var(--background-second-color);
+							border-radius: 50%;
+							height: var(--large-gap);
+						}
+
+						& span {
+							text-align: center;
 						}
 					}
 				}
 			}
 
-			& > div.actions {
-				grid-area: actions;
-				display: flex;
-				flex-direction: column;
-				align-self: center;
-				justify-self: center;
-				gap: var(--normal-gap);
-
-				& > button.round {
-					border: 0;
-					width: var(--medium-gap);
-				}
-			}
-
-			& > span {
-				grid-area: dmg-calc;
-				display: flex;
-				width: 100%;
-			}
-
-			& > my-team,
-			& > their-team,
-			& > my-selected-pokemon,
-			& > their-selected-pokemon {
-				padding: var(--small-gap);
-				border-radius: var(--smaller-gap);
-				background-color: var(--background-color);
-			}
-
-			& > my-selected-pokemon,
-			& > their-selected-pokemon {
-				container: pokemon-preview / inline-size;
-			}
-
-			& > my-selected-pokemon {
-				grid-area: preview-me;
-			}
-
-			& > their-selected-pokemon {
-				grid-area: preview-them;
-			}
-
-			& > hr {
-				grid-area: separator;
-			}
-
-			& > ul.rental-team {
-				grid-area: 1 / 1 / 3 / -1;
+			battlefield {
 				display: grid;
-				grid-template: auto auto auto / 1fr 1fr;
-				gap: var(--small-gap);
-			}
-
-			& > ul.search {
-				grid-area: search;
-				overflow-y: auto;
-
-				display: flex;
-				flex-direction: column;
+				grid-template:
+                    'left-team left-preview actions right-preview right-team' 1fr
+                    'dmg-calc dmg-calc dmg-calc dmg-calc dmg-calc' auto / auto 1fr 1px 1fr auto;
 				gap: var(--small-gap);
 
-				& > li {
-					container: pokemon-preview / inline-size;
+				& > ul.factory-team,
+				& > pokemon-preview {
+					padding: var(--small-gap);
+					border-radius: var(--border-r-50);
+					background-color: var(--background-color);
 				}
+
+				& > ul.factory-team {
+                    &:first-of-type {
+                        grid-area: left-team;
+                    }
+
+                    &:last-of-type {
+                        grid-area: right-team
+                    }
+
+                    display: grid;
+					grid-auto-flow: row;
+					gap: var(--small-gap);
+
+					& > li {
+						border-radius: 50%;
+						background-color: var(--background-second-color);
+
+                        & > button > img {
+                            height: var(--large-gap);
+                        }
+					}
+				}
+
+				& > pokemon-preview {
+                    &:first-of-type {
+                        grid-area: left-preview;
+                    }
+
+                    &:last-of-type {
+                        grid-area: right-preview
+                    }
+				}
+
+                & > ul.actions {
+                    grid-area: actions;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    height: 100%;
+                    justify-content: space-evenly;
+                    z-index: 2;
+                }
+
+                & > output.damage-calculator {
+                    grid-area: dmg-calc;
+                    border-radius: var(--border-r-50);
+                    background-color: var(--background-color);
+                    width: 100%;
+                }
 			}
-		}
-	}
-
-	@media (max-width: 640px) {
-		section#tool-battle-frontier {
-			padding: var(--small-gap) 0;
-		}
-
-		section#tool-battle-frontier > header > div {
-			overflow-x: auto;
-		}
-
-		section#tool-battle-frontier > output.rental {
-			grid-template:
-				'header' auto
-				'rental' 1fr
-				'separator' auto
-				'search' 3fr / 1fr;
-		}
-
-		section#tool-battle-frontier > output.rental > ul.rental-team {
-			grid-template-columns: 1fr;
-			grid-auto-flow: row;
-			overflow-y: auto;
-		}
-
-		section#tool-battle-frontier > output:not(.rental) {
-			overflow-x: auto;
-			grid-template:
-				'header header header' auto
-				'my-team . their-team' auto
-				'preview-me actions preview-them' auto
-				'dmg-calc dmg-calc dmg-calc' auto
-				'separator separator separator' auto
-				'search search search' 2fr / 1fr 1px 1fr;
-		}
-
-		section#tool-battle-frontier > output:not(.rental) > my-team > ul {
-			flex-direction: row;
-		}
-
-		section#tool-battle-frontier > output:not(.rental) > their-team > ul {
-			flex-direction: row;
 		}
 	}
 </style>

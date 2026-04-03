@@ -101,19 +101,19 @@ body {
         background-color: var(--background-color);
     }
 
-    body>div>*:nth-child(2) {
+    body > div > *:nth-child(2) {
         grid-area: 1 / 1 / 1 / 1;
     }
 
-    body>div>*:nth-child(3) {
+    body > div > *:nth-child(3) {
         grid-area: 2 / 1 / 4 / 1;
     }
 
-    body>div>*:nth-child(4) {
+    body > div > *:nth-child(4) {
         grid-area: 1 / 1 / 5 / 1;
     }
 
-    body>div>*:nth-child(5) {
+    body > div > *:nth-child(5) {
         grid-area: 4 / 1 / 4 / 1;
     }
 }
@@ -191,12 +191,16 @@ button.round {
     aspect-ratio: 1;
 }
 
-button {
-    padding: var(--smaller-gap) var(--small-gap);
-}
-
 button.small {
     padding: var(--smallest-gap) var(--smaller-gap);
+}
+
+button.wrap {
+    display: contents;
+    padding: 0;
+    border: none;
+    height: 100%;
+    width: 100%;
 }
 
 a,
@@ -249,14 +253,14 @@ table {
     border-collapse: collapse;
     table-layout: fixed;
 
-    &>thead>tr>th,
-    &>tbody>tr>td {
+    & > thead > tr > th,
+    & > tbody > tr > td {
         text-align: center;
     }
 
-    &>thead {
-        &>tr {
-            &>th {
+    & > thead {
+        & > tr {
+            & > th {
                 padding-block: var(--small-gap);
                 font-weight: lighter;
                 background-color: var(--background-second-color);
@@ -264,14 +268,14 @@ table {
         }
     }
 
-    &>tbody {
-        &>tr {
-            &>td {
+    & > tbody {
+        & > tr {
+            & > td {
                 border: none;
                 padding-block: var(--smaller-gap);
             }
 
-            &:hover>td {
+            &:hover > td {
                 cursor: pointer;
                 font-weight: bolder;
                 color: var(--background-color);
@@ -309,7 +313,10 @@ table {
 }
 
 h1 {
-    margin-block: 0.5rem;
+    margin-block: 0 var(--small-gap);
+    text-decoration: underline;
+    text-decoration-thickness: var(--smallest-gap);
+    text-underline-offset: var(--smallest-gap);
 }
 
 em {
@@ -341,4 +348,86 @@ img.img-error {
     50% {
         opacity: 0;
     }
+}
+
+/* utility classes*/
+
+.mb-xxs {
+    margin-block: var(--smallest-gap);
+}
+
+.mb-xs {
+    margin-block: var(--smaller-gap);
+}
+
+.mb-s {
+    margin-block: var(--small-gap);
+}
+
+.mb-m {
+    margin-block: var(--normal-gap);
+}
+
+.mb-l {
+    margin-block: var(--large-gap);
+}
+
+.mi-xxs {
+    margin-inline: var(--smallest-gap);
+}
+
+.mi-xs {
+    margin-inline: var(--smaller-gap);
+}
+
+.mi-s {
+    margin-inline: var(--small-gap);
+}
+
+.mi-m {
+    margin-inline: var(--normal-gap);
+}
+
+.mi-l {
+    margin-inline: var(--large-gap);
+}
+
+.pi-xxs {
+    padding-inline: var(--smallest-gap);
+}
+
+.pi-xs {
+    padding-inline: var(--smaller-gap);
+}
+
+.pi-s {
+    padding-inline: var(--small-gap);
+}
+
+.pi-m {
+    padding-inline: var(--normal-gap);
+}
+
+.pi-l {
+    padding-inline: var(--large-gap);
+}
+
+.pb-xxs {
+    padding-block: var(--smallest-gap);
+}
+
+.pb-xs {
+    padding-block: var(--smaller-gap);
+}
+
+.pb-s {
+    padding-block: var(--small-gap);
+}
+
+.pb-m {
+    padding-block: var(--normal-gap);
+}
+
+.pb-l {
+    padding-block: var(--large-gap);
 }
